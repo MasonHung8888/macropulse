@@ -1,0 +1,2739 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MacroPulse 總經決策雷達｜M1B/M2・總經・產業・ETF 全方位分析平台</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'Noto Sans TC', 'system-ui', 'sans-serif'] }
+        }
+      }
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', 'Noto Sans TC', system-ui, sans-serif; }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.35); border-radius: 9999px; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+  <!-- Top Navigation -->
+  <header class="sticky top-0 z-40 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2 shrink-0">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-sm">
+          <i data-lucide="activity" class="w-4 h-4"></i>
+        </div>
+        <div>
+          <span class="font-bold text-base tracking-tight">MacroPulse</span>
+          <span class="hidden xl:inline-block ml-1.5 text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-medium">全方位總經工作台</span>
+        </div>
+      </div>
+
+      <!-- Desktop Nav -->
+      <nav id="desktop-nav" class="hidden lg:flex items-center gap-1" aria-label="主要導覽">
+        <button data-tab="dashboard" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>總經儀表板
+        </button>
+        <button data-tab="money" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="coins" class="w-4 h-4"></i>M1B / M2 資金面
+        </button>
+        <button data-tab="trader" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="radar" class="w-4 h-4"></i>操盤人必看
+        </button>
+        <button data-tab="heatmap" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="grid-2x2" class="w-4 h-4"></i>市場熱力圖
+        </button>
+        <button data-tab="toolbox" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="line-chart" class="w-4 h-4"></i>研究工具箱
+        </button>
+        <button data-tab="backtest" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="flask-conical" class="w-4 h-4"></i>量化回測
+        </button>
+        <button data-tab="builder" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="layers" class="w-4 h-4"></i>自編指數
+        </button>
+        <button data-tab="etf" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF
+        </button>
+        <button data-tab="calendar" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="calendar-days" class="w-4 h-4"></i>行事曆
+        </button>
+        <button data-tab="mydash" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="bookmark" class="w-4 h-4"></i>我的儀表板
+        </button>
+        <button data-tab="import" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="upload" class="w-4 h-4"></i>匯入數據
+        </button>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <button id="live-sync-btn" type="button" class="px-2.5 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 text-xs font-medium transition-colors flex items-center gap-1.5" title="從公開 API 抓取最新匯率、加密貨幣與官方總經數據">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          <span id="live-sync-label" class="hidden sm:inline">即時更新</span>
+        </button>
+        <button id="theme-toggle" type="button" class="p-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="切換深淺色主題">
+          <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
+          <i data-lucide="moon" class="w-4 h-4 block dark:hidden text-slate-600"></i>
+        </button>
+        <button id="mobile-menu-btn" type="button" class="lg:hidden p-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="開啟選單">
+          <i data-lucide="menu" class="w-4 h-4"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 px-4 py-2 bg-white dark:bg-slate-900 grid grid-cols-2 gap-1">
+      <button data-tab="dashboard" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="layout-dashboard" class="w-4 h-4"></i>總經儀表板</button>
+      <button data-tab="money" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="coins" class="w-4 h-4"></i>M1B / M2 資金面</button>
+      <button data-tab="trader" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="radar" class="w-4 h-4"></i>操盤人必看</button>
+      <button data-tab="heatmap" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="grid-2x2" class="w-4 h-4"></i>市場熱力圖</button>
+      <button data-tab="toolbox" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="line-chart" class="w-4 h-4"></i>研究工具箱</button>
+      <button data-tab="backtest" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="flask-conical" class="w-4 h-4"></i>量化回測</button>
+      <button data-tab="builder" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4"></i>自編指數</button>
+      <button data-tab="etf" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF</button>
+      <button data-tab="calendar" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4"></i>財經行事曆</button>
+      <button data-tab="mydash" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="bookmark" class="w-4 h-4"></i>我的儀表板</button>
+      <button data-tab="import" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="upload" class="w-4 h-4"></i>匯入數據</button>
+    </div>
+  </header>
+
+  <!-- Market Ticker Strip -->
+  <div class="border-b border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900/50">
+    <div id="market-ticker" class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center gap-5 overflow-x-auto text-xs whitespace-nowrap">
+      <span class="font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
+        <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-500"></i> 2026/11 關鍵快照
+      </span>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台股 TAIEX</span><span class="font-semibold tabular-nums">36,033.29</span><span class="text-rose-500">-6.23%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台灣 M1B / M2</span><span class="font-semibold tabular-nums">6.65% / 7.24%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">S&amp;P 500</span><span class="font-semibold tabular-nums">7,304</span><span class="text-rose-500">-0.5%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">NASDAQ</span><span class="font-semibold tabular-nums">24,323</span><span class="text-emerald-500">0.0%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">美債 10Y / 2Y</span><span class="font-semibold tabular-nums">5.02% / 4.81%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">美國 M2 YoY</span><span class="font-semibold tabular-nums text-emerald-500">+5.4%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">黃金</span><span class="font-semibold tabular-nums">$3,727.9</span><span class="text-rose-500">-3.5%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">WTI</span><span class="font-semibold tabular-nums">$81.9</span><span class="text-rose-500">-3.3%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">USD/TWD</span><span id="tk-twd" class="font-semibold tabular-nums">33.0</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">BTC</span><span id="tk-btc" class="font-semibold tabular-nums">$61,875</span></div>
+      <span id="live-status-pill" class="ml-auto text-[11px] px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400">基準快照：2026-11</span>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-6">
+
+    <!-- TAB 1: DASHBOARD -->
+    <section id="tab-dashboard" class="tab-panel space-y-6">
+      <!-- 全球總經成績單 (MacroMicro /macro 3-Column Scorecard) -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
+            <i data-lucide="globe-2" class="w-6 h-6 text-blue-500"></i> 全球總經成績單
+          </h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">動態追蹤景氣循環軌跡、MM 經濟衰退與升降息機率，以及全球股匯原物料週漲幅</p>
+        </div>
+        <button id="guide-modal-btn" type="button" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold text-sm shadow-sm transition-colors flex items-center gap-1.5">
+          <i data-lucide="help-circle" class="w-4 h-4"></i> 使用教學
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Col 1: 全球-景氣循環圖 (with Playback Slider & Controls) -->
+        <div class="lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <h2 class="font-semibold text-sm text-slate-700 dark:text-slate-200">全球-景氣循環圖</h2>
+              <div id="traj-region-tabs" class="flex flex-wrap gap-1 text-xs">
+                <button data-traj="GLOBAL" class="traj-btn px-2 py-0.5 rounded font-medium">全球</button>
+                <button data-traj="US" class="traj-btn px-2 py-0.5 rounded font-medium">美國</button>
+                <button data-traj="TW" class="traj-btn px-2 py-0.5 rounded font-medium">台灣</button>
+                <button data-traj="CN" class="traj-btn px-2 py-0.5 rounded font-medium">中國</button>
+                <button data-traj="EU" class="traj-btn px-2 py-0.5 rounded font-medium">歐元區</button>
+              </div>
+            </div>
+            <div class="text-center text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" id="traj-date-label">2026-11</div>
+            <div class="relative h-56">
+              <canvas id="trajChart"></canvas>
+            </div>
+          </div>
+          <div class="mt-3 space-y-2">
+            <input id="traj-slider" type="range" min="0" max="23" value="23" class="w-full accent-emerald-500" />
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-1">
+                <button id="traj-first" type="button" class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="最早期"><i data-lucide="chevrons-left" class="w-4 h-4"></i></button>
+                <button id="traj-prev" type="button" class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="上個月"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                <button id="traj-play" type="button" class="p-1.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/25" title="播放/暫停"><i data-lucide="play" class="w-4 h-4"></i></button>
+                <button id="traj-next" type="button" class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="下個月"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                <button id="traj-last" type="button" class="p-1.5 rounded hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300" title="最新一期"><i data-lucide="chevrons-right" class="w-4 h-4"></i></button>
+              </div>
+              <button id="traj-more-btn" type="button" class="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-medium transition-colors">看更多</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 2: MM 經濟指標 -->
+        <div class="lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex flex-col">
+          <div class="flex items-center justify-between gap-2 mb-2.5">
+            <h2 class="font-semibold text-sm text-slate-700 dark:text-slate-200">MM 經濟指標</h2>
+            <div id="mm-ind-tabs" class="flex flex-wrap gap-1 text-xs">
+              <button data-mmcat="ALL" class="mmcat-btn px-2 py-0.5 rounded font-medium">全部</button>
+              <button data-mmcat="EXPECT" class="mmcat-btn px-2 py-0.5 rounded font-medium">經濟預期</button>
+              <button data-mmcat="RECESSION" class="mmcat-btn px-2 py-0.5 rounded font-medium">衰退機率</button>
+              <button data-mmcat="RATE" class="mmcat-btn px-2 py-0.5 rounded font-medium">升降息機率</button>
+            </div>
+          </div>
+          <div id="mm-ind-list" class="divide-y divide-slate-200 dark:divide-slate-800 flex-1"></div>
+        </div>
+
+        <!-- Col 3: Top 5 一週漲幅 -->
+        <div class="lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2.5">
+              <h2 class="font-semibold text-sm text-slate-700 dark:text-slate-200">Top 5 一週漲幅</h2>
+              <div id="top5-tabs" class="flex gap-1 text-xs">
+                <button data-top5="STOCK" class="top5-btn px-2 py-0.5 rounded font-medium">股</button>
+                <button data-top5="FX" class="top5-btn px-2 py-0.5 rounded font-medium">匯</button>
+                <button data-top5="ETF" class="top5-btn px-2 py-0.5 rounded font-medium">ETF</button>
+                <button data-top5="COMM" class="top5-btn px-2 py-0.5 rounded font-medium">原物料</button>
+              </div>
+            </div>
+            <div id="top5-list" class="divide-y divide-slate-200 dark:divide-slate-800"></div>
+          </div>
+          <button id="top5-more-btn" type="button" class="mt-3 w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition-colors">
+            看更多
+          </button>
+        </div>
+      </div>
+
+      <!-- 國家細項分析切換 -->
+      <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold tracking-tight">各國總經指標與 AI 決策摘要</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">點選經濟體切換下方 KPI 卡片與 MM AI 研究助理洞察</p>
+        </div>
+        <div id="country-selector" class="flex flex-wrap gap-1.5">
+          <button data-country="US" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇺🇸 美國</button>
+          <button data-country="TW" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇹🇼 台灣</button>
+          <button data-country="EU" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇪🇺 歐元區</button>
+          <button data-country="CN" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇨🇳 中國</button>
+          <button data-country="JP" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇯🇵 日本</button>
+        </div>
+      </div>
+
+      <div id="kpi-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h2 class="font-semibold text-base flex items-center gap-2">
+                <i data-lucide="compass" class="w-4 h-4 text-blue-500"></i>景氣循環四階段雷達（成長動能 vs 通膨壓力）
+              </h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">點擊圖中圓點可切換對應經濟體</p>
+            </div>
+            <span class="text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">2026 Q3-Q4</span>
+          </div>
+          <div class="relative h-72">
+            <canvas id="cycleChart"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="font-semibold text-base flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4 text-indigo-500"></i>MM AI 總經研究助理摘要
+              </h2>
+              <span id="ai-regime-badge" class="text-xs font-medium px-2.5 py-0.5 rounded-full"></span>
+            </div>
+            <div id="ai-insight-body" class="space-y-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed"></div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+            <span>依據目前選定經濟體指標即時生成</span>
+            <div class="flex items-center gap-3">
+              <button id="goto-money-btn" type="button" class="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
+                查看 M1B / M2 資金動能
+              </button>
+              <button id="goto-toolbox-btn" type="button" class="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
+                前往研究工具箱深入分析 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR -->
+    <section id="tab-money" class="tab-panel hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">M1B / M2 貨幣供給與市場資金動能</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">追蹤台灣央行 M1B／M2 剪刀差（黃金交叉／死亡交叉）與台股加權指數、美國 M2 流動性</p>
+        </div>
+        <button id="open-m1b-in-toolbox" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors self-start sm:self-auto">
+          <i data-lucide="sliders-horizontal" class="w-4 h-4"></i> 在研究工具箱自訂分析
+        </button>
+      </div>
+
+      <!-- M1B / M2 KPI Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M1B 年增率 (Aug 2026)</div>
+          <div class="text-2xl font-bold tabular-nums mt-1.5 text-blue-500">6.65%</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">前 9 月平均 7.65%（活期資金動能）</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M2 年增率 (Sep 2026)</div>
+          <div class="text-2xl font-bold tabular-nums mt-1.5 text-amber-500">7.24%</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">餘額創高 71.36 兆台幣 (8 月 6.79%)</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">M1B - M2 剪刀差訊號</div>
+          <div class="text-2xl font-bold tabular-nums mt-1.5 text-rose-500">-0.14%</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">8 月轉為死亡交叉（1–5 月曾為黃金交叉）</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">美國 M2 年增率 (Jul 2026)</div>
+          <div class="text-2xl font-bold tabular-nums mt-1.5 text-emerald-500">+5.40%</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">FRED M2SL 擺脫 2023 負成長後穩步擴張</div>
+        </div>
+      </div>
+
+      <!-- Charts Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+          <div class="flex items-center justify-between mb-3">
+            <div>
+              <h2 class="font-semibold text-base">台灣 M1B vs M2 年增率與台股加權指數 (TAIEX)</h2>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">當 M1B 年增率 &gt; M2（黃金交叉），代表活期存款資金流入股市動能較強</p>
+            </div>
+          </div>
+          <div class="relative h-72">
+            <canvas id="m1bM2Chart"></canvas>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <h2 class="font-semibold text-base mb-3 flex items-center gap-2">
+              <i data-lucide="book-open" class="w-4 h-4 text-blue-500"></i>M1B / M2 指標判讀邏輯
+            </h2>
+            <div class="space-y-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+                <strong class="text-slate-900 dark:text-white">指標定義：</strong>M1B 包含通貨淨額、支票與活期（儲蓄）存款，代表隨時可動用的投資交易資金；M2 則加上定存與外匯存款等準貨幣。
+              </div>
+              <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+                <strong class="text-emerald-600 dark:text-emerald-400">2026 年走勢拆解：</strong>2026 年 1–5 月 M1B（5.59%→9.56%）持續高於 M2（5.16%→7.83%）形成「黃金交叉」，帶動資金行情；8 月起 M1B 降至 6.65% 低於 M2 的 6.79%，顯示活期資金轉趨保守，與 11 月台股高檔拉回至 36,033.29 點相呼應。
+              </div>
+              <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+                <strong class="text-blue-600 dark:text-blue-400">操作提示：</strong>可前往「量化回測」分頁，選擇「台灣 M1B - M2 剪刀差 &gt; 0%」直接測試過去 24 個月台股加權指數的策略勝率。
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: FINVIZ-STYLE MARKET HEATMAP (市場熱力圖) -->
+    <section id="tab-heatmap" class="tab-panel hidden space-y-5">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
+            <i data-lucide="grid-2x2" class="w-6 h-6 text-rose-500"></i> 市場熱力圖（Finviz 風格 Treemap）
+          </h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">依產業板塊與市值權重繪製方塊大小，顏色深淺代表漲跌幅，點擊任一個股可檢視詳細數據</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <div class="inline-flex rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden text-xs font-medium">
+            <button data-hm-mkt="SP500" class="hm-mkt-btn px-3 py-1.5">🇺🇸 標普 500 (S&amp;P 500)</button>
+            <button data-hm-mkt="TW" class="hm-mkt-btn px-3 py-1.5">🇹🇼 台股權值股</button>
+          </div>
+          <select id="hm-tf" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs font-medium">
+            <option value="d1">一日表現 (1D)</option>
+            <option value="w1">一週表現 (1W)</option>
+            <option value="ytd">今年以來 (YTD)</option>
+          </select>
+          <select id="hm-sector" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs font-medium">
+            <option value="ALL">全部產業板塊</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Color Legend + Selected Info -->
+      <div class="flex flex-wrap items-center justify-between gap-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 text-xs">
+        <div class="flex items-center gap-1.5">
+          <span class="text-slate-500 dark:text-slate-400 mr-1">漲跌幅色階：</span>
+          <span class="px-2 py-0.5 rounded bg-[#dc2626] text-white font-medium">-3%+</span>
+          <span class="px-2 py-0.5 rounded bg-[#991b1b] text-white font-medium">-2%</span>
+          <span class="px-2 py-0.5 rounded bg-[#7f1d1d] text-white font-medium">-1%</span>
+          <span class="px-2 py-0.5 rounded bg-[#374151] text-slate-200 font-medium">0%</span>
+          <span class="px-2 py-0.5 rounded bg-[#166534] text-white font-medium">+1%</span>
+          <span class="px-2 py-0.5 rounded bg-[#15803d] text-white font-medium">+2%</span>
+          <span class="px-2 py-0.5 rounded bg-[#16a34a] text-white font-medium">+3%+</span>
+        </div>
+        <div id="hm-hover-info" class="text-slate-600 dark:text-slate-300 font-medium tabular-nums">
+          將滑鼠移至方塊或點擊個股查看詳情
+        </div>
+      </div>
+
+      <!-- Treemap Container -->
+      <div class="bg-slate-950 border border-slate-800 rounded-xl p-2 shadow-lg overflow-hidden">
+        <div id="heatmap-canvas" class="relative w-full h-[540px] select-none"></div>
+      </div>
+    </section>
+
+    <!-- TAB: TRADER'S MUST-WATCH (操盤人必看) -->
+    <section id="tab-trader" class="tab-panel hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
+            <i data-lucide="radar" class="w-6 h-6 text-emerald-500"></i> 操盤人必看（MM 基本面指數 &amp; 全球商品變數）
+          </h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">彙整股市、匯市、大宗商品、債市與主題專區最新報價與 MM 基本面四象限情境</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <select id="trader-period" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm">
+            <option value="2026/10">基本面更新：2026/10</option>
+            <option value="2026/09">基本面更新：2026/09</option>
+            <option value="2025/09">基本面更新：2025/09</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 4 Fundamental Quadrants Filter -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="trader-quad-cards">
+        <button data-quad="ALL" class="tquad-btn text-left p-3.5 rounded-xl border transition-all">
+          <div class="text-xs font-semibold text-blue-500">全部情境</div>
+          <div class="text-sm font-bold mt-0.5">顯示所有商品</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">共 48 項全球核心指標</div>
+        </button>
+        <button data-quad="HIGH_UP" class="tquad-btn text-left p-3.5 rounded-xl border transition-all">
+          <div class="text-xs font-semibold text-emerald-500">數值高・趨勢向上</div>
+          <div class="text-sm font-bold mt-0.5">基本面佳且具動能</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">最好情境（如台股、美股、半導體）</div>
+        </button>
+        <button data-quad="HIGH_DOWN" class="tquad-btn text-left p-3.5 rounded-xl border transition-all">
+          <div class="text-xs font-semibold text-amber-500">數值高・趨勢向下</div>
+          <div class="text-sm font-bold mt-0.5">基本面仍好但開始下滑</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">留意高檔轉折（如黃金、銅）</div>
+        </button>
+        <button data-quad="LOW_DOWN" class="tquad-btn text-left p-3.5 rounded-xl border transition-all">
+          <div class="text-xs font-semibold text-rose-500">數值低・趨勢向下 / 向上</div>
+          <div class="text-sm font-bold mt-0.5">基本面弱勢或築底</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">需緊盯轉折（如情緒恐懼、高收債）</div>
+        </button>
+      </div>
+
+      <!-- Category Tabs + Search -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div id="trader-cat-tabs" class="flex flex-wrap gap-1.5">
+          <button data-tcat="ALL" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">全部</button>
+          <button data-tcat="股市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">股市 (11)</button>
+          <button data-tcat="匯市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">匯市 (7)</button>
+          <button data-tcat="大宗商品" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">大宗商品 (12)</button>
+          <button data-tcat="債市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">債市 (3)</button>
+          <button data-tcat="主題式專區" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">主題式專區 (15)</button>
+        </div>
+        <input id="trader-search" type="text" placeholder="搜尋商品（如 台股、黃金、VIX、比特幣）..." class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm w-full sm:w-64" />
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="trader-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+    </section>
+
+    <!-- TAB 3: RESEARCH TOOLBOX -->
+    <section id="tab-toolbox" class="tab-panel hidden space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">研究工具箱（雙軸疊加與即時運算）</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">內建歷史示範序列（結合 2026 最新公開數據），支援移動平均、Z-Score 標準化與圖組收藏</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button id="save-to-mydash-btn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-sm font-medium hover:bg-amber-500/20 transition-colors">
+            <i data-lucide="bookmark-plus" class="w-4 h-4"></i> 收藏至我的儀表板
+          </button>
+          <button id="export-csv-btn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 dark:bg-blue-600 text-white text-sm font-medium hover:opacity-90 transition-opacity">
+            <i data-lucide="download" class="w-4 h-4"></i> 匯出圖表 CSV
+          </button>
+        </div>
+      </div>
+
+      <!-- Preset Quick Pills -->
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <span class="text-slate-500 dark:text-slate-400 font-medium">經典圖組預設：</span>
+        <button data-preset="twM1b|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">台灣 M1B vs 台股 TAIEX</button>
+        <button data-preset="twM1bM2Spread|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">M1B-M2 剪刀差 vs 台股</button>
+        <button data-preset="us10y|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美債 10Y vs S&amp;P 500</button>
+        <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
+      </div>
+
+      <!-- Controls -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>
+          <label for="series-left" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">左軸指標 (主序列)</label>
+          <select id="series-left" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm"></select>
+        </div>
+        <div>
+          <label for="series-right" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">右軸指標 (對照序列)</label>
+          <select id="series-right" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm"></select>
+        </div>
+        <div>
+          <label for="math-transform" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">數據運算轉換</label>
+          <select id="math-transform" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
+            <option value="raw">原始數值 (Raw)</option>
+            <option value="ma3">3 期移動平均 (3M MA)</option>
+            <option value="zscore">標準化 (Z-Score)</option>
+            <option value="diff">單期變動值 (MoM Diff)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">時間區間</label>
+          <div id="range-buttons" class="grid grid-cols-4 gap-1">
+            <button data-range="6" class="range-btn py-2 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700">6M</button>
+            <button data-range="12" class="range-btn py-2 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700">1Y</button>
+            <button data-range="18" class="range-btn py-2 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700">18M</button>
+            <button data-range="24" class="range-btn py-2 rounded-lg text-xs font-medium border border-slate-200 dark:border-slate-700">ALL</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolbox Chart -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <div id="toolbox-chart-title" class="font-semibold text-base">指標對照圖</div>
+          <div id="toolbox-corr-badge" class="text-xs px-2.5 py-1 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-medium tabular-nums"></div>
+        </div>
+        <div class="relative h-80">
+          <canvas id="toolboxChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: BACKTEST -->
+    <section id="tab-backtest" class="tab-panel hidden space-y-5">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold tracking-tight">總經量化策略回測模擬器</h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">支援使用「台灣 M1B-M2 剪刀差」、「美債 10Y-2Y 利差」等總經訊號回測台股 TAIEX、S&amp;P 500 或黃金</p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+        <div>
+          <label for="bt-indicator" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">訊號指標</label>
+          <select id="bt-indicator" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
+            <option value="twM1bM2Spread">台灣 M1B - M2 剪刀差 (%)</option>
+            <option value="spread10y2y">美債 10Y - 2Y 殖利率利差 (%)</option>
+            <option value="usCpi">美國 CPI 年增率 (%)</option>
+            <option value="us10y">美國 10 年期公債殖利率 (%)</option>
+          </select>
+        </div>
+        <div>
+          <label for="bt-operator" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">持有做多條件</label>
+          <select id="bt-operator" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
+            <option value="gt">指標高於門檻 (&gt;)</option>
+            <option value="lt">指標低於門檻 (&lt;)</option>
+          </select>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
+            <label for="bt-threshold">觸發門檻值</label>
+            <span id="bt-threshold-val" class="text-blue-600 dark:text-blue-400 font-semibold tabular-nums">0.00</span>
+          </div>
+          <input id="bt-threshold" type="range" step="0.1" class="w-full accent-blue-600" />
+        </div>
+        <div>
+          <label for="bt-asset" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">回測投資標的</label>
+          <select id="bt-asset" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
+            <option value="taiex">台股加權指數 (TAIEX)</option>
+            <option value="sp500">S&amp;P 500 指數</option>
+            <option value="gold">黃金現貨 (USD/oz)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="bt-kpi-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="font-semibold text-base">策略淨值曲線 (起始基準 = 100)</h2>
+          <span id="bt-active-months" class="text-xs text-slate-500 dark:text-slate-400 tabular-nums"></span>
+        </div>
+        <div class="relative h-72">
+          <canvas id="backtestChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: CUSTOM FUNDAMENTAL INDEX BUILDER (自編基本面指數合成器) -->
+    <section id="tab-builder" class="tab-panel hidden space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
+            <i data-lucide="layers" class="w-6 h-6 text-indigo-500"></i> 自編基本面指數合成器（MM 演算法引擎）
+          </h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">挑選多個成分指標並設定正負向權重，系統自動執行 Z-Score 標準化加權與四象限情境判定</p>
+        </div>
+        <button id="save-built-index-btn" type="button" class="self-start sm:self-auto px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i> 存入工具箱與回測清單
+        </button>
+      </div>
+
+      <!-- Preset Recipes -->
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <span class="text-slate-500 dark:text-slate-400 font-medium">一鍵套用配方：</span>
+        <button data-bpreset="tw" class="bpreset-btn px-3 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-indigo-500/20 transition-colors">台股動能基本面指數</button>
+        <button data-bpreset="us" class="bpreset-btn px-3 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-indigo-500/20 transition-colors">美股總經基本面指數</button>
+        <button data-bpreset="gold" class="bpreset-btn px-3 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-indigo-500/20 transition-colors">黃金避險基本面指數</button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left: Component Weights Config -->
+        <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+          <div>
+            <label for="builder-name" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">自編指數名稱</label>
+            <input id="builder-name" type="text" value="自編台股動能基本面指數" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm font-medium" />
+          </div>
+          <div>
+            <label for="builder-bench" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">右軸對照標的（驗證有效性）</label>
+            <select id="builder-bench" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm"></select>
+          </div>
+          <div class="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-3">
+            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400">成分指標與正負權重（負值＝反向影響）</div>
+            <div id="builder-slots" class="space-y-3"></div>
+          </div>
+        </div>
+
+        <!-- Right: Output KPI + Chart -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+              <div class="text-xs text-slate-500 dark:text-slate-400">最新合成 Z-Score</div>
+              <div id="bld-latest-val" class="text-2xl font-bold tabular-nums mt-1">0.00</div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+              <div class="text-xs text-slate-500 dark:text-slate-400">MM 四象限自動判定</div>
+              <div id="bld-quad-badge" class="text-sm font-bold mt-2"></div>
+            </div>
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+              <div class="text-xs text-slate-500 dark:text-slate-400">與對照標的相關係數</div>
+              <div id="bld-corr-val" class="text-2xl font-bold tabular-nums text-indigo-500 mt-1">0.00</div>
+            </div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-3">
+              <h2 class="font-semibold text-base">自編基本面指數 vs 對照標的走勢</h2>
+              <span class="text-xs text-slate-500 dark:text-slate-400">柱狀：綜合基本面 (Z-Score) ｜ 折線：對照資產</span>
+            </div>
+            <div class="relative h-72">
+              <canvas id="builderChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 5: INDUSTRY & ETF SCREENER -->
+    <section id="tab-etf" class="tab-panel hidden space-y-6">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold tracking-tight">產業決策平台 &amp; ETF 篩選比較器</h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">結合台灣半導體出口動能與美股／台股核心 ETF 費用率與配置比較</p>
+      </div>
+
+      <!-- Semiconductor Industry Spotlight -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="text-xs text-slate-500 dark:text-slate-400">台灣半導體出口年增率 (Aug 2026)</div>
+          <div class="text-2xl font-bold text-emerald-500 tabular-nums mt-1">+59.0% YoY</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">單月金額達 $31.30B 創歷史新高 (財政部關務署)</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="text-xs text-slate-500 dark:text-slate-400">台股半導體成交比重 (Sep 2026)</div>
+          <div class="text-2xl font-bold text-blue-500 tabular-nums mt-1">37.11%</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">高於前值 36.74%，資金高度集中 AI 供應鏈</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="text-xs text-slate-500 dark:text-slate-400">產業景氣週期研判</div>
+          <div class="text-2xl font-bold text-indigo-500 mt-1">AI 基建強擴張</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">留意高利率環境下的估值修正波動</div>
+        </div>
+      </div>
+
+      <!-- ETF Filter & Table -->
+      <!-- Load macro_live_data.json from Python updater -->
+      <div class="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 class="font-semibold text-base text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
+            <i data-lucide="database" class="w-4 h-4"></i> 匯入 Python 抓數腳本產出的真實數據包 (macro_live_data.json)
+          </h2>
+          <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">在電腦執行 <code class="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800">python update_macro_data.py</code> 後，將產出的 JSON 載入即可一鍵更新台股熱力圖與 FRED 總經序列為 100% 真實數據。</p>
+        </div>
+        <label class="cursor-pointer shrink-0 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition-colors text-center">
+          選擇 macro_live_data.json
+          <input id="live-json-input" type="file" accept=".json" class="hidden" />
+        </label>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h2 class="font-semibold text-base">ETF 篩選與並排比較（最多勾選 3 檔）</h2>
+          <div class="flex flex-wrap gap-2">
+            <select id="etf-cat-filter" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 text-sm">
+              <option value="ALL">全部類別</option>
+              <option value="半導體">半導體 / AI</option>
+              <option value="美股大盤">美股大盤</option>
+              <option value="台股大盤">台股大盤</option>
+              <option value="債券/避險">債券 / 避險</option>
+            </select>
+            <input id="etf-search" type="text" placeholder="搜尋代號或名稱..." class="rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 text-sm w-44" />
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead class="bg-slate-50 dark:bg-slate-800/70 text-xs uppercase text-slate-500 dark:text-slate-400">
+              <tr>
+                <th class="px-3 py-2.5">比較</th>
+                <th class="px-3 py-2.5">代號</th>
+                <th class="px-3 py-2.5">名稱</th>
+                <th class="px-3 py-2.5">類別</th>
+                <th class="px-3 py-2.5">內扣費用率</th>
+                <th class="px-3 py-2.5">追蹤指數 / 核心特色</th>
+              </tr>
+            </thead>
+            <tbody id="etf-tbody" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+          </table>
+        </div>
+
+        <!-- Comparison Cards -->
+        <div id="etf-compare-box" class="hidden pt-4 border-t border-slate-200 dark:border-slate-800">
+          <h3 class="text-sm font-semibold mb-3 text-blue-600 dark:text-blue-400">已選 ETF 並排比較</h3>
+          <div id="etf-compare-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: ECONOMIC CALENDAR -->
+    <section id="tab-calendar" class="tab-panel hidden space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">全球財經行事曆 (2026 年 11–12 月)</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">追蹤央行利率決議、通膨、M1B/M2 與就業關鍵數據發布時程</p>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <select id="cal-region" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm">
+            <option value="ALL">全部地區</option>
+            <option value="US">🇺🇸 美國</option>
+            <option value="TW">🇹🇼 台灣</option>
+            <option value="JP">🇯🇵 日本</option>
+            <option value="EU">🇪🇺 歐元區</option>
+            <option value="CN">🇨🇳 中國</option>
+          </select>
+          <select id="cal-impact" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm">
+            <option value="ALL">全部重要度</option>
+            <option value="HIGH">高影響力</option>
+            <option value="MEDIUM">中影響力</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm text-left">
+            <thead class="bg-slate-50 dark:bg-slate-800/70 text-xs uppercase text-slate-500 dark:text-slate-400">
+              <tr>
+                <th class="px-4 py-3">日期</th>
+                <th class="px-4 py-3">地區</th>
+                <th class="px-4 py-3">事件 / 指標名稱</th>
+                <th class="px-4 py-3">重要度</th>
+                <th class="px-4 py-3">市場焦點 / 前值參考</th>
+              </tr>
+            </thead>
+            <tbody id="calendar-tbody" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 7: MY DASHBOARD -->
+    <section id="tab-mydash" class="tab-panel hidden space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">我的專屬投資儀表板（圖組收藏）</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">彙整你從「研究工具箱」收藏的雙軸圖表組合，隨時一鍵開啟檢視</p>
+        </div>
+      </div>
+      <div id="mydash-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5"></div>
+    </section>
+
+    <!-- TAB 8: IMPORT CSV -->
+    <section id="tab-import" class="tab-panel hidden space-y-5">
+      <div>
+        <h1 class="text-xl sm:text-2xl font-bold tracking-tight">匯入自訂總經數據 (CSV)</h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">貼上或上傳自己的時間序列（格式：<code class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-xs">YYYY-MM,數值</code>），即可直接加入「研究工具箱」進行雙軸比較與運算</p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 space-y-4 shadow-sm">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label for="custom-series-name" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">指標名稱</label>
+            <input id="custom-series-name" type="text" value="台灣半導體出口年增率 (%)" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm" />
+          </div>
+          <div>
+            <label for="csv-file-input" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">選擇本地 CSV 檔案（選填）</label>
+            <input id="csv-file-input" type="file" accept=".csv,.txt" class="w-full text-sm text-slate-500 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-blue-50 file:text-blue-700 dark:file:bg-blue-900/40 dark:file:text-blue-300" />
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label for="csv-textarea" class="text-xs font-medium text-slate-500 dark:text-slate-400">CSV 內容（每行一筆：日期,數值）</label>
+            <button id="fill-sample-csv" type="button" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">載入範例數據</button>
+          </div>
+          <textarea id="csv-textarea" rows="8" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 p-3 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </div>
+
+        <button id="apply-csv-btn" type="button" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="check-circle-2" class="w-4 h-4"></i> 套用並前往研究工具箱繪圖
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Trader Item Detail Modal -->
+  <div id="trader-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <span id="tm-cat" class="text-xs font-medium px-2 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400"></span>
+          <h3 id="tm-title" class="text-lg font-bold mt-1.5"></h3>
+        </div>
+        <button id="tm-close" type="button" class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="flex items-baseline justify-between p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/70 border border-slate-200 dark:border-slate-700">
+        <div>
+          <div class="text-xs text-slate-500 dark:text-slate-400">最新數值 / 報價</div>
+          <div id="tm-value" class="text-2xl font-bold tabular-nums mt-0.5"></div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs text-slate-500 dark:text-slate-400">更新日期</div>
+          <div id="tm-date" class="text-sm font-medium tabular-nums mt-0.5"></div>
+        </div>
+      </div>
+      <div class="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+        <div><strong>MM 基本面情境：</strong><span id="tm-quad" class="font-semibold"></span></div>
+        <div><strong>變數說明：</strong><span id="tm-desc"></span></div>
+        <div><strong>核心觀察指標：</strong><span id="tm-vars" class="text-blue-600 dark:text-blue-400"></span></div>
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="tm-ok" type="button" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium">關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guide Modal -->
+  <div id="guide-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-2xl">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-bold flex items-center gap-2"><i data-lucide="book-open-check" class="w-5 h-5 text-amber-500"></i> 全球總經成績單使用教學</h3>
+        <button id="guide-close-btn" type="button" class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="space-y-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+        <p><strong>1. 全球-景氣循環圖：</strong>將經濟體依成長動能與通膨/週期位置分為四象限——右上 <strong>Growth (擴張)</strong>、左上 <strong>Slow Growth (趨緩)</strong>、左下 <strong>Recession (衰退)</strong>、右下 <strong>Recovery (復甦)</strong>。拖動時間軸或按播放鍵可回顧過去 24 個月軌跡。</p>
+        <p><strong>2. MM 經濟指標：</strong>彙整全球景氣衰退機率（23.9%）、製造業週期指數（0.93）與 FedWatch 升降息機率，紅色漸層條代表數值警戒或機率權重。</p>
+        <p><strong>3. Top 5 一週漲幅：</strong>快速掃描全球股市、匯市、ETF 與原物料近一週表現領先或修正幅度最大的市場。</p>
+      </div>
+      <div class="flex justify-end pt-2">
+        <button id="guide-ok-btn" type="button" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium">開始使用</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 hidden max-w-sm px-4 py-3 rounded-xl bg-slate-900 dark:bg-slate-800 text-white text-sm shadow-lg border border-slate-700 flex items-center gap-2">
+    <i data-lucide="info" class="w-4 h-4 text-blue-400 shrink-0"></i>
+    <span id="toast-msg"></span>
+  </div>
+
+  <script>
+    // --- 1. Grounded Macro Data (2026) ---
+    const COUNTRY_DATA = {
+      US: {
+        name: '美國 (US)',
+        regime: '高利率抗通膨 / 溫和成長',
+        badgeClass: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
+        cyclePos: { x: 1.4, y: 3.7 },
+        kpis: [
+          { label: '實質 GDP 年增率 (Q2 2026)', value: '+2.1%', sub: '季增 +0.4% (Eurostat)', trend: 'up' },
+          { label: 'CPI 通膨年增率 (Sep 2026)', value: '3.7%', sub: '美國 M2 年增 +5.4% (Jul)', trend: 'warn' },
+          { label: '美債 10Y 殖利率 (Nov 2026)', value: '5.02%', sub: '10Y-2Y 利差 +0.21%', trend: 'neutral' },
+          { label: '失業率 (Aug 2026)', value: '4.1%', sub: '低裁員、低招募格局', trend: 'up' }
+        ],
+        insights: [
+          '通膨黏性回溫：美國 9 月 CPI 升至 3.7%，PPI 年增率達 6.3%，10 月 FOMC 紀要顯示官員維持鷹派立場，市場高度定價 12 月升息可能。',
+          '貨幣供給與殖利率：美國 M2 年增率回升至 +5.4%（擺脫 2023 年負成長），同時 10 年期美債殖利率站上 5.02%，壓抑高估值科技股。',
+          '資產配置觀察：高實質利率環境下美元偏強，短線黃金等無息資產承壓，宜關注短債收益與現金流穩健標的。'
+        ]
+      },
+      TW: {
+        name: '台灣 (TW)',
+        regime: 'AI 出口擴張 / 資金轉趨謹慎',
+        badgeClass: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        cyclePos: { x: 4.5, y: 1.9 },
+        kpis: [
+          { label: '2026 GDP 成長預測 (央行 Q3)', value: '+9.09%', sub: '半導體出口 8 月 +59% YoY', trend: 'up' },
+          { label: '台灣 M1B / M2 年增率', value: '6.65% / 7.24%', sub: '8 月轉為死亡交叉 (-0.14%)', trend: 'warn' },
+          { label: '2026 CPI 預測 / 央行利率', value: '1.91% / 2.00%', sub: '物價可控，政策溫和偏鷹', trend: 'up' },
+          { label: '台股加權指數 (Nov 20)', value: '36,033.29', sub: '高檔修正，半導體成交佔 37.1%', trend: 'neutral' }
+        ],
+        insights: [
+          '基本面表現亮眼：台灣央行 Q3 將 2026 全年 GDP 成長預測維持在 9.09% 高水準，受惠 AI 與半導體 8 月出口年增 59% 至 $31.30B 創高。',
+          'M1B / M2 資金訊號轉折：上半年 M1B（最高 9.56%）高於 M2 呈黃金交叉，但 8 月 M1B 降至 6.65% 低於 M2 的 6.79% 轉為死亡交叉，短線資金動能降溫。',
+          '資產配置觀察：景氣基本面仍處擴張期，但外資受美債殖利率破 5% 影響加大波動，宜留意 M1B 是否止跌回升。'
+        ]
+      },
+      EU: {
+        name: '歐元區 (EU)',
+        regime: '能源通膨升溫 / 緊縮壓力',
+        badgeClass: 'bg-rose-500/15 text-rose-600 dark:text-rose-400',
+        cyclePos: { x: -0.6, y: 4.0 },
+        kpis: [
+          { label: 'CPI 通膨年增率 (Oct 2026)', value: '4.0%', sub: '能源價格年增 21.0% 主導', trend: 'warn' },
+          { label: '德國 10Y 公債殖利率', value: '3.40%', sub: '隨全球債市殖利率走高', trend: 'neutral' },
+          { label: '德國製造業 PMI', value: '54.3', sub: '出口訂單帶動創 2022 來高點', trend: 'up' },
+          { label: 'ECB 政策動向', value: '偏緊縮', sub: '研議調升最低準備金率至 2%', trend: 'warn' }
+        ],
+        insights: [
+          '二次通膨風險浮現：受能源價格年增 21% 帶動，歐元區 10 月 CPI 終值達 4.0%，促使歐洲央行 (ECB) 維持緊縮態度並討論提高準備金要求。',
+          '製造業出現落底訊號：德國製造業 PMI 回升至 54.3，顯示部分外需與工業訂單復甦，但高借貸成本仍壓抑歐股表現。',
+          '資產配置觀察：歐洲處於「高通膨、低成長」壓力區，短期股債波動較高，宜避開高槓桿循環類股。'
+        ]
+      },
+      CN: {
+        name: '中國 (CN)',
+        regime: '低通膨溫和復甦',
+        badgeClass: 'bg-blue-500/15 text-blue-600 dark:text-blue-400',
+        cyclePos: { x: 1.8, y: 1.9 },
+        kpis: [
+          { label: 'GDP 年增率 (Q2 2026)', value: '+4.3%', sub: '季增 +0.9% (Eurostat)', trend: 'neutral' },
+          { label: 'CPI 通膨年增率 (Aug 2026)', value: '1.9%', sub: '物價溫和，無明顯通膨壓力', trend: 'up' },
+          { label: '城鎮失業率參考 (Aug 2026)', value: '2.5%', sub: 'Eurostat 彙整口徑', trend: 'neutral' },
+          { label: '貨幣政策焦點', value: 'LPR 利率', sub: '觀察刺激內需政策力道', trend: 'neutral' }
+        ],
+        insights: [
+          '成長穩中偏緩：2026 年 Q2 GDP 年增 4.3%，通膨維持在 1.9% 的低檔區間，顯示內需修復仍屬漸進式。',
+          '政策獨立性較高：與歐美日央行齊步緊縮不同，中國物價壓力低，人民銀行 (PBOC) 在 LPR 利率與流動性投放上具較大寬鬆彈性。',
+          '資產配置觀察：留意大宗商品（如銅價近期回落至 $12,471）對中國工業補庫存節奏的即時領先訊號。'
+        ]
+      },
+      JP: {
+        name: '日本 (JP)',
+        regime: '貨幣政策正常化 / 升息週期',
+        badgeClass: 'bg-purple-500/15 text-purple-600 dark:text-purple-400',
+        cyclePos: { x: -0.3, y: 2.8 },
+        kpis: [
+          { label: 'GDP 年增率 (Q2 2026)', value: '+0.7%', sub: '季增 +0.4% (Eurostat)', trend: 'neutral' },
+          { label: '失業率 (Aug 2026)', value: '4.1%', sub: '與前月持平', trend: 'neutral' },
+          { label: 'BOJ 12 月升息機率', value: '~85%', sub: '市場定價 12/18 會議升息', trend: 'warn' },
+          { label: '日圓匯率觀察', value: '~160', sub: '關注央行干預與利差收斂', trend: 'warn' }
+        ],
+        insights: [
+          '退出超寬鬆進入常態化：日本央行 (BOJ) 鷹派官員高田創表態應彈性調整升息步調，市場預期 12 月 18 日會議升息機率高達約 85%。',
+          '內需成長仍偏溫和：Q2 實質 GDP 年增 0.7%，升息決策需在抑制輸入性通膨（弱勢日圓）與維繫國內需求間取得平衡。',
+          '資產配置觀察：若 BOJ 升息搭配美債殖利率見頂，日圓套利交易 (Carry Trade) 平倉風險將成為全球股市波動的重要觸發點。'
+        ]
+      }
+    };
+
+    // --- 2. Historical 24-Month Demo Series (anchored to 2026 CBC/FRED/Market levels) ---
+    const MONTHS = [
+      '2024-12','2025-01','2025-02','2025-03','2025-04','2025-05',
+      '2025-06','2025-07','2025-08','2025-09','2025-10','2025-11',
+      '2025-12','2026-01','2026-02','2026-03','2026-04','2026-05',
+      '2026-06','2026-07','2026-08','2026-09','2026-10','2026-11'
+    ];
+
+    const SERIES_DB = {
+      twM1b: {
+        name: '台灣 M1B 年增率 (%)',
+        unit: '%',
+        data: [4.85,4.90,5.05,5.10,5.20,5.35,5.42,5.60,5.48,5.30,5.40,5.50,5.45,5.59,7.12,7.80,8.65,9.56,8.40,7.50,6.65,6.80,6.70,6.65]
+      },
+      twM2: {
+        name: '台灣 M2 年增率 (%)',
+        unit: '%',
+        data: [5.40,5.35,5.30,5.25,5.20,5.15,5.10,5.12,5.08,5.05,5.10,5.12,5.14,5.16,5.38,6.10,6.95,7.83,8.13,7.42,6.79,7.24,7.15,7.10]
+      },
+      twM1bM2Spread: {
+        name: '台灣 M1B - M2 剪刀差 (%)',
+        unit: '%',
+        data: [-0.55,-0.45,-0.25,-0.15,0.00,0.20,0.32,0.48,0.40,0.25,0.30,0.38,0.31,0.43,1.74,1.70,1.70,1.73,0.27,0.08,-0.14,-0.44,-0.45,-0.45]
+      },
+      taiex: {
+        name: '台股加權指數 TAIEX (示範序列)',
+        unit: '點',
+        data: [22800,23400,23900,24500,25100,26200,27400,28500,29600,30800,31900,33100,34200,35500,36900,38400,39800,41500,42800,43600,44100,42500,40200,36201]
+      },
+      usM2: {
+        name: '美國 M2 年增率 (%)',
+        unit: '%',
+        data: [3.1,3.3,3.5,3.7,3.9,4.1,4.3,4.4,4.6,4.7,4.8,4.9,5.0,5.1,5.1,5.2,5.3,5.3,5.4,5.4,5.3,5.2,5.2,5.1]
+      },
+      sp500: {
+        name: 'S&P 500 指數 (示範序列)',
+        unit: '點',
+        data: [5980,6040,6110,5950,5820,6010,6180,6290,6410,6480,6550,6690,6780,6850,6920,7010,7120,7240,7380,7490,7580,7420,7340,7304]
+      },
+      usCpi: {
+        name: '美國 CPI 年增率 (%)',
+        unit: '%',
+        data: [2.9,3.0,2.8,2.7,2.6,2.5,2.7,2.8,2.9,3.0,3.1,3.0,2.9,2.8,2.9,3.0,3.1,3.2,3.3,3.4,3.4,3.7,3.6,3.7]
+      },
+      us10y: {
+        name: '美國 10Y 公債殖利率 (%)',
+        unit: '%',
+        data: [4.38,4.55,4.42,4.28,4.35,4.48,4.40,4.32,4.25,4.13,4.28,4.42,4.51,4.62,4.68,4.75,4.82,4.90,4.95,4.98,5.04,5.08,5.10,5.02]
+      },
+      us2y: {
+        name: '美國 2Y 公債殖利率 (%)',
+        unit: '%',
+        data: [4.25,4.30,4.22,4.05,4.10,4.18,4.12,4.02,3.95,3.88,4.05,4.18,4.26,4.35,4.42,4.48,4.55,4.62,4.68,4.72,4.76,4.79,4.81,4.81]
+      },
+      spread10y2y: {
+        name: '美債 10Y - 2Y 殖利率利差 (%)',
+        unit: '%',
+        data: [0.13,0.25,0.20,0.23,0.25,0.30,0.28,0.30,0.30,0.25,0.23,0.24,0.25,0.27,0.26,0.27,0.27,0.28,0.27,0.26,0.28,0.29,0.29,0.21]
+      },
+      gold: {
+        name: '黃金價格 (USD/oz)',
+        unit: 'USD',
+        data: [2640,2750,2860,2980,3120,3240,3310,3380,3450,3520,3610,3690,3750,3810,3840,3880,3910,3950,3980,3920,3890,3840,3860,3728]
+      },
+      wti: {
+        name: 'WTI 原油價格 (USD/bbl)',
+        unit: 'USD',
+        data: [70.2,73.5,71.8,69.4,67.8,68.5,72.1,75.4,78.9,84.2,86.5,85.0,83.4,82.1,84.0,85.5,87.2,88.0,89.5,91.0,92.4,88.6,84.7,81.9]
+      }
+    };
+
+    const ETF_DB = [
+      { ticker: 'SMH', name: 'VanEck 半導體 ETF', category: '半導體', fee: '0.35%', desc: '全球半導體供應鏈龍頭集中配置（Nvidia、台積電 ADR、ASML），規模約 $22B' },
+      { ticker: 'SOXQ', name: 'Invesco PHLX 半導體 ETF', category: '半導體', fee: '0.19%', desc: '追蹤費城半導體指數 (SOX)，31 檔成分股，同類型中內扣費用率較低' },
+      { ticker: 'SOXX', name: 'iShares 半導體 ETF', category: '半導體', fee: '0.35%', desc: '美國掛牌半導體產業代表性 ETF，權重分散度較 SMH 略高' },
+      { ticker: 'SPY', name: 'SPDR 標普 500 指數 ETF', category: '美股大盤', fee: '0.09%', desc: '追蹤美國大型股 S&P 500 指數，流動性最佳之基準 ETF' },
+      { ticker: 'QQQ', name: 'Invesco 納斯達克 100 ETF', category: '美股大盤', fee: '0.20%', desc: '追蹤 Nasdaq-100 非金融大型科技成長股，受美債殖利率波動影響較大' },
+      { ticker: '0050.TW', name: '元大台灣 50 ETF', category: '台股大盤', fee: '0.43%', desc: '追蹤台灣市值前 50 大權值股，高度連結台灣半導體出口與外資動能' },
+      { ticker: 'TLT', name: 'iShares 20 年期以上美國公債 ETF', category: '債券/避險', fee: '0.15%', desc: '長天期美國公債代表，與 10Y/20Y 美債殖利率呈高度負相關' },
+      { ticker: 'GLD', name: 'SPDR 黃金 ETF', category: '債券/避險', fee: '0.40%', desc: '追蹤實體黃金現貨價格，受美元強弱與實質利率主導' }
+    ];
+
+    const CALENDAR_EVENTS = [
+      { date: '2026-11-18', region: 'US', flag: '🇺🇸', event: 'FOMC 10 月會議紀要公布', impact: 'HIGH', note: '多數官員支持維持鷹派，討論若通膨未降不排除更大幅度升息' },
+      { date: '2026-11-20', region: 'JP', flag: '🇯🇵', event: '日本全國 CPI 年增率公布', impact: 'HIGH', note: '影響日本央行 12 月升息節奏的關鍵物價指標' },
+      { date: '2026-11-20', region: 'CN', flag: '🇨🇳', event: '中國 1 年期 / 5 年期 LPR 報價', impact: 'MEDIUM', note: '觀察人行是否維持寬鬆以支撐內需成長' },
+      { date: '2026-11-24', region: 'TW', flag: '🇹🇼', event: '台灣 10 月貨幣總計數 (M1B / M2)', impact: 'HIGH', note: '關注 M1B (前值 6.65%) 與 M2 (前值 7.24%) 剪刀差是否收斂' },
+      { date: '2026-12-04', region: 'US', flag: '🇺🇸', event: '美國 11 月非農就業報告 (NFP)', impact: 'HIGH', note: '前值失業率 4.1%，觀察勞動市場是否維持低裁員、低招募' },
+      { date: '2026-12-10', region: 'US', flag: '🇺🇸', event: '美國 11 月 CPI 消費者物價指數', impact: 'HIGH', note: '前值 3.7%，若高於預期將強化 Fed 升息壓力' },
+      { date: '2026-12-16', region: 'US', flag: '🇺🇸', event: '聯準會 (FOMC) 利率決議', impact: 'HIGH', note: '市場高度關注是否升息 25bp 及最新利率點陣圖' },
+      { date: '2026-12-17', region: 'TW', flag: '🇹🇼', event: '台灣央行 Q4 理監事聯席會議', impact: 'HIGH', note: '現行利率 2.00%，更新 2027 年台灣 GDP 與 CPI 預測' },
+      { date: '2026-12-18', region: 'JP', flag: '🇯🇵', event: '日本央行 (BOJ) 利率決議', impact: 'HIGH', note: '市場定價升息機率約 85%，關注總裁植田和男會後談話' }
+    ];
+
+    const TRAJ_SERIES = {
+      GLOBAL: [
+        [-0.8,-0.6],[-0.6,-0.4],[-0.3,-0.1],[0.0,0.2],[0.3,0.4],[0.5,0.6],
+        [0.7,0.8],[0.9,0.9],[1.0,1.1],[1.1,1.0],[1.0,0.8],[0.8,0.6],
+        [0.6,0.5],[0.5,0.4],[0.7,0.5],[0.9,0.7],[1.0,0.8],[1.1,0.9],
+        [0.9,0.7],[0.7,0.5],[0.5,0.4],[0.4,0.3],[0.3,0.2],[0.2,0.1]
+      ],
+      US: [
+        [0.5,0.4],[0.6,0.5],[0.8,0.6],[0.9,0.7],[1.0,0.8],[1.1,0.9],
+        [1.2,0.8],[1.3,0.7],[1.2,0.6],[1.1,0.6],[1.0,0.5],[0.9,0.5],
+        [1.0,0.6],[1.1,0.7],[1.2,0.8],[1.3,0.8],[1.2,0.7],[1.1,0.6],
+        [1.0,0.5],[0.9,0.5],[0.8,0.4],[0.7,0.4],[0.6,0.3],[0.6,0.4]
+      ],
+      TW: [
+        [0.2,-0.3],[0.4,-0.1],[0.6,0.1],[0.8,0.3],[1.0,0.5],[1.1,0.7],
+        [1.3,0.9],[1.4,1.0],[1.5,1.1],[1.4,1.0],[1.3,0.9],[1.2,0.8],
+        [1.3,0.9],[1.4,1.0],[1.5,1.2],[1.6,1.3],[1.5,1.2],[1.4,1.1],
+        [1.3,1.0],[1.2,0.9],[1.1,0.8],[1.0,0.7],[0.9,0.6],[0.8,0.5]
+      ],
+      CN: [
+        [-1.0,-0.4],[-0.9,-0.3],[-0.8,-0.2],[-0.7,-0.1],[-0.6,0.0],[-0.5,0.1],
+        [-0.4,0.1],[-0.3,0.2],[-0.4,0.1],[-0.5,0.0],[-0.6,-0.1],[-0.5,-0.1],
+        [-0.4,0.0],[-0.3,0.1],[-0.3,0.2],[-0.2,0.2],[-0.3,0.1],[-0.4,0.1],
+        [-0.5,0.0],[-0.5,-0.1],[-0.4,0.0],[-0.4,0.1],[-0.3,0.1],[-0.3,0.1]
+      ],
+      EU: [
+        [-0.9,-0.7],[-0.8,-0.6],[-0.6,-0.5],[-0.5,-0.3],[-0.4,-0.2],[-0.2,-0.1],
+        [-0.1,0.0],[0.0,0.1],[0.1,0.2],[0.2,0.2],[0.2,0.3],[0.3,0.3],
+        [0.3,0.4],[0.4,0.4],[0.5,0.4],[0.5,0.5],[0.4,0.4],[0.4,0.3],
+        [0.3,0.3],[0.3,0.2],[0.2,0.2],[0.2,0.1],[0.1,0.1],[0.1,0.2]
+      ]
+    };
+
+    const MM_INDICATORS = [
+      { flag: '🌐', name: 'MM全球景氣衰退機率', value: '23.9%', pct: 24, cat: 'RECESSION', tone: 'rose', targetCountry: 'US' },
+      { flag: '🌐', name: '全球-MM製造業週期指數', value: '0.93', pct: 68, cat: 'EXPECT', tone: 'rose', targetCountry: 'US' },
+      { flag: '🇺🇸', name: '升息機率-FedWatch', value: '100%', pct: 95, cat: 'RATE', tone: 'rose', targetCountry: 'US' },
+      { flag: '🇺🇸', name: '降息機率-FedWatch', value: '0%', pct: 5, cat: 'RATE', tone: 'rose', targetCountry: 'US' },
+      { flag: '🇺🇸', name: '美國-景氣循環圖', value: '擴張', pct: 0, cat: 'EXPECT', tone: 'none', targetCountry: 'US' },
+      { flag: '🇹🇼', name: '台灣-景氣循環圖', value: '擴張', pct: 0, cat: 'EXPECT', tone: 'none', targetCountry: 'TW' },
+      { flag: '🇨🇳', name: '中國-景氣循環圖', value: '趨緩', pct: 0, cat: 'EXPECT', tone: 'none', targetCountry: 'CN' },
+      { flag: '🇪🇺', name: '歐元區-景氣循環圖', value: '擴張', pct: 0, cat: 'EXPECT', tone: 'none', targetCountry: 'EU' }
+    ];
+
+    const TOP5_MOVERS = {
+      STOCK: [
+        { name: '印度 SENSEX', price: '83,021.75', chg: '+1.75%', up: true },
+        { name: '紐西蘭 NZX 50', price: '14,247.25', chg: '+0.52%', up: true },
+        { name: '卡達 QE General', price: '10,062.79', chg: '+0.34%', up: true },
+        { name: '馬來西亞 MSCI', price: '490.05', chg: '-1.17%', up: false },
+        { name: '上證指數', price: '3,577.62', chg: '-1.56%', up: false }
+      ],
+      FX: [
+        { name: '美元指數 DXY', price: '100.85', chg: '+0.92%', up: true },
+        { name: 'USD/JPY 日圓', price: '160.12', chg: '+0.45%', up: true },
+        { name: 'USD/TWD 台幣', price: '32.48', chg: '+0.38%', up: true },
+        { name: 'EUR/USD 歐元', price: '1.1580', chg: '-0.62%', up: false },
+        { name: 'NZD/USD 紐幣', price: '0.5826', chg: '-1.25%', up: false }
+      ],
+      ETF: [
+        { name: 'SMH 半導體 ETF', price: '$264.10', chg: '-2.10%', up: false },
+        { name: 'SOXQ 費半 ETF', price: '$45.80', chg: '-2.24%', up: false },
+        { name: 'SPY 標普 500 ETF', price: '$728.40', chg: '-0.50%', up: false },
+        { name: 'QQQ 納指 100 ETF', price: '$598.20', chg: '+0.05%', up: true },
+        { name: 'TLT 20年美債 ETF', price: '$84.30', chg: '+0.35%', up: true }
+      ],
+      COMM: [
+        { name: '布蘭特原油 Brent', price: '$91.95', chg: '-1.30%', up: false },
+        { name: 'WTI 西德州原油', price: '$81.90', chg: '-3.30%', up: false },
+        { name: '黃金現貨 Gold', price: '$3,727.9', chg: '-3.50%', up: false },
+        { name: 'LME 銅價 Copper', price: '$12,471', chg: '-5.30%', up: false },
+        { name: '天然氣 Natural Gas', price: '$3.18', chg: '+1.42%', up: true }
+      ]
+    };
+
+    const TRADER_ITEMS = [
+      // 股市 (11)
+      { cat: '股市', sub: '全球-股市', name: 'MSCI全世界指數[ACWI]', date: '2026-11-19', val: '1,056.8', quad: 'HIGH_UP', desc: '全球股市需要觀察的重要基本面、資金面與籌碼指標。', vars: '全球景氣衰退機率 (23.9%)、MM製造業週期指數 (0.93)、全球央行淨降息比例' },
+      { cat: '股市', sub: '美國-股市', name: '美國-S&P 500', date: '2026-11-19', val: '7,175.8', quad: 'HIGH_UP', desc: '美國股市需要觀察的重要基本面、籌碼指標。', vars: '美國 CPI (3.7%)、10Y-2Y 利差 (0.27%)、FedWatch 升息機率' },
+      { cat: '股市', sub: '歐洲-股市', name: 'MSCI歐洲指數', date: '2026-11-19', val: '2,669.8', quad: 'HIGH_DOWN', desc: '歐洲指數需要觀察的重要基本面、籌碼指標。', vars: '歐元區 CPI (4.0%)、德國製造業 PMI (54.3)、ECB 利率動向' },
+      { cat: '股市', sub: '日本-股市', name: '日本-日經Nikkei 225', date: '2026-11-20', val: '56,642.6', quad: 'HIGH_UP', desc: '日本股市需要觀察的重要基本面、籌碼指標。', vars: '美元/日圓 (159.3)、BOJ 升息預期、日本機械訂單' },
+      { cat: '股市', sub: '台灣-股市', name: '台灣-加權股價指數', date: '2026-11-20', val: '36,033.3', quad: 'HIGH_UP', desc: '台灣股市需要觀察的重要基本面、籌碼指標。', vars: '台灣 M1B/M2 年增率 (6.65%/7.24%)、半導體出口 (+59% YoY)、外資期貨未平倉' },
+      { cat: '股市', sub: '中國-股市', name: '中國-滬深300', date: '2026-11-20', val: '3,921.7', quad: 'LOW_DOWN', desc: '中國股市需要觀察的重要基本面及籌碼指標。', vars: '中國 Q2 GDP (+4.3%)、CPI (+1.9%)、LPR 利率報價' },
+      { cat: '股市', sub: '香港-股市', name: '香港-恆生指數', date: '2026-11-20', val: '22,386.9', quad: 'LOW_DOWN', desc: '香港股市需要觀察的重要基本面、籌碼指標。', vars: '南向資金流向、美元流動性、中國消費與地產政策' },
+      { cat: '股市', sub: '俄羅斯-股市', name: '俄羅斯-RTS Index', date: '2026-11-19', val: '930.3', quad: 'LOW_DOWN', desc: '俄羅斯 RTS 指數需要觀察的重要基本面、籌碼指標。', vars: '國際原油價格、地緣政治風險指數 (137.1)' },
+      { cat: '股市', sub: '巴西-股市', name: '巴西-Bovespa index', date: '2026-11-19', val: '166,376.4', quad: 'HIGH_UP', desc: '巴西聖保羅指數需要觀察的重要基本面、籌碼指標。', vars: '鐵礦砂與黃豆價格、原物料出口動能、巴西央行利率' },
+      { cat: '股市', sub: '印度-股市', name: '印度-S&P BSE SENSEX 30 Index', date: '2026-11-20', val: '83,102.2', quad: 'HIGH_UP', desc: '印度股市需要觀察的重要基本面指標。', vars: '印度製造業 PMI、外資淨流入、盧比匯率' },
+      { cat: '股市', sub: '澳洲-股市', name: '澳洲-ASX All Ordinaries Index', date: '2026-11-20', val: '8,705.5', quad: 'HIGH_DOWN', desc: '澳洲股市需要觀察的重要基本面指標。', vars: '中國鐵礦砂需求、澳幣/美元 (0.67)、澳洲失業率' },
+      // 匯市 (7)
+      { cat: '匯市', sub: '美元', name: '美元指數', date: '2026-11-20', val: '103.8', quad: 'HIGH_UP', desc: '美元匯率需要觀察的重點數據。', vars: '美德利差、FedWatch 升息機率 (100%)、美國 10Y 殖利率 (5.02%)' },
+      { cat: '匯市', sub: '歐元', name: '歐元/美元', date: '2026-11-20', val: '1.10', quad: 'LOW_DOWN', desc: '歐元匯率需要觀察的重點數據。', vars: '美歐利差、歐元區能源通膨 (4.0%)' },
+      { cat: '匯市', sub: '台幣', name: '美元/台幣', date: '2026-11-20', val: '33.0', quad: 'HIGH_UP', desc: '台幣匯率需要觀察的重要基本面、籌碼指標。', vars: '台美利差、外資買賣超、台灣出口順差' },
+      { cat: '匯市', sub: '澳幣', name: '澳幣/美元', date: '2026-11-20', val: '0.67', quad: 'LOW_DOWN', desc: '澳幣需要觀察的重要基本面、籌碼指標。', vars: '銅價 (5.48)、鐵礦砂 (653.0)、中國補庫存動能' },
+      { cat: '匯市', sub: '加幣', name: '美元/加幣', date: '2026-11-20', val: '1.43', quad: 'HIGH_UP', desc: '加幣需要觀察的重要基本面數據及籌碼指標。', vars: 'WTI 原油 (82.5)、美加利差' },
+      { cat: '匯市', sub: '英鎊', name: '英鎊/美元', date: '2026-11-20', val: '1.31', quad: 'HIGH_DOWN', desc: '透過基本面、貨幣政策指標、籌碼面的重點數據，觀察英鎊匯率變化。', vars: '英國央行 (BoE) 利率決議、英國 CPI 與房價' },
+      { cat: '匯市', sub: '日圓', name: '美元/日圓', date: '2026-11-20', val: '159.3', quad: 'HIGH_UP', desc: '日圓匯率需要觀察的重要基本面、籌碼指標。', vars: '美日 10Y 利差、BOJ 12/18 升息預期、CFTC 日圓淨空單' },
+      // 大宗商品 (12)
+      { cat: '大宗商品', sub: '原油', name: 'NYMEX-WTI西德州原油期貨價格', date: '2026-11-20', val: '82.5', quad: 'HIGH_DOWN', desc: '原油價格需要觀察的重要供需、籌碼指標。', vars: 'EIA 美國原油庫存、煉油廠產能利用率、OPEC+ 產量' },
+      { cat: '大宗商品', sub: '黃金', name: 'NYMEX-黃金期貨價格', date: '2026-11-20', val: '3,545.1', quad: 'HIGH_DOWN', desc: '黃金價格需要觀察的重要供需、籌碼指標。', vars: '美國實質利率、美元指數 (103.8)、各國央行購金量' },
+      { cat: '大宗商品', sub: '白銀', name: 'NYMEX-白銀期貨價格', date: '2026-11-20', val: '42.0', quad: 'HIGH_DOWN', desc: '白銀需要觀察的重要基本面、籌碼指標。', vars: '金銀比、太陽能與工業需求、實質利率' },
+      { cat: '大宗商品', sub: '鐵礦砂', name: '中國-鐵礦砂價格', date: '2026-11-20', val: '653.0', quad: 'LOW_DOWN', desc: '鐵礦砂/鋼鐵行業需要觀察的重要供需、籌碼指標。', vars: '中國粗鋼產量、港口庫存、基建投資增速' },
+      { cat: '大宗商品', sub: '銅', name: 'NYMEX-銅期貨價格', date: '2026-11-20', val: '5.48', quad: 'HIGH_DOWN', desc: '銅需要觀察的重要基本面、籌碼指標。', vars: 'AI 資料中心電力需求、中國製造業 PMI、LME 銅庫存' },
+      { cat: '大宗商品', sub: '黃豆', name: 'CBOT-黃豆期貨價格', date: '2026-11-20', val: '1,204.1', quad: 'LOW_DOWN', desc: '黃豆價格需要觀察的重要供需、籌碼指標。', vars: 'USDA 供需報告、南美產區氣候、中國進口需求' },
+      { cat: '大宗商品', sub: '玉米', name: 'CBOT-玉米期貨價格', date: '2026-11-20', val: '436.9', quad: 'LOW_DOWN', desc: '玉米價格需要觀察的重要供需、籌碼指標。', vars: '美國乙醇產量、USDA 庫存用比' },
+      { cat: '大宗商品', sub: '小麥', name: 'CBOT-小麥期貨價格', date: '2026-11-20', val: '575.2', quad: 'LOW_DOWN', desc: '小麥價格需要觀察的重要供需、籌碼指標。', vars: '黑海出口走廊、聖嬰/反聖嬰氣候指數' },
+      { cat: '大宗商品', sub: '棉花', name: 'ICE 棉花期貨價格', date: '2026-11-20', val: '75.7', quad: 'LOW_DOWN', desc: '棉花價格需要觀察的重要供需、籌碼指標。', vars: '全球紡織成衣庫存週期、USDA 出口淨銷售' },
+      { cat: '大宗商品', sub: '咖啡', name: 'ICE-咖啡期貨價格', date: '2026-11-19', val: '276.0', quad: 'HIGH_UP', desc: '咖啡價格需要觀察的重要供需、氣候、籌碼指標。', vars: '巴西與越南產區降雨量、ICE 認證庫存' },
+      { cat: '大宗商品', sub: '天然氣', name: 'NYMEX-亨利港天然氣期貨價格', date: '2026-11-20', val: '3.22', quad: 'HIGH_UP', desc: '天然氣價格需要觀察的重要供需、籌碼指標。', vars: '美國天然氣週庫存、冬季取暖日數 (HDD)、LNG 出口' },
+      { cat: '大宗商品', sub: '稀土', name: '中國-稀土價格-釹鐠氧化物(美元/公斤)', date: '2026 W46', val: '107.8', quad: 'HIGH_UP', desc: '稀土行業需要觀察的重要供需、貿易、公司指標。', vars: '電動車與風電永磁需求、中國稀土開採配額' },
+      // 債市 (3)
+      { cat: '債市', sub: '美國-公債', name: '美國-10年期公債殖利率', date: '2026-11-20', val: '5.02%', quad: 'HIGH_UP', desc: '美國公債需要觀察的重要基本面、籌碼指標。', vars: 'Fed 基準利率路徑、美國財政赤字發債量、通膨預期' },
+      { cat: '債市', sub: '美國-公司債', name: '美國-ICE BofA CCC級或以下高收益債券有效殖利率', date: '2026-11-18', val: '18.3%', quad: 'LOW_DOWN', desc: '美國投資等級、高收益公司債需要觀察的重要總經相關數據、相關 ETF。', vars: '美國信用利差、企業違約率、銀行放貸標準' },
+      { cat: '債市', sub: '新興市場-股債市', name: '新興市場-ICE BofA 高收益公司加分類指數有效殖利率', date: '2026-11-18', val: '8.81%', quad: 'LOW_DOWN', desc: '新興市場股市、債市需要觀察的重要總經相關數據、相關 ETF。', vars: '美元指數 (103.8)、新興市場主權債違約風險' },
+      // 主題式專區 (15)
+      { cat: '主題式專區', sub: '景氣衰退', name: '全球-MM景氣衰退機率', date: '2026-11', val: '23.9%', quad: 'HIGH_DOWN', desc: '觀察全球景氣衰退的影響因子。', vars: '消費、就業、生產製造、金融與原物料綜合指標' },
+      { cat: '主題式專區', sub: '製造業循環', name: '全球-MM製造業週期指數', date: '2026-10', val: '0.93', quad: 'HIGH_UP', desc: '工業與製造業需要觀察的重要總經相關數據、相關 ETF、類股指標。', vars: '全球製造業 PMI、零售銷售、海空運貿易量' },
+      { cat: '主題式專區', sub: '科技巨頭', name: 'NASDAQ 100', date: '2026-11-19', val: '26,517.1', quad: 'HIGH_UP', desc: '美國科技巨頭需要觀察的重要財報基本面指標。', vars: '雲端巨頭 CapEx 資本支出、AI 算力 RPO、自由現金流' },
+      { cat: '主題式專區', sub: 'AI 情緒量化', name: '美國-MM AI 聯準會聲明稿鷹鴿指數', date: '2026-10-28', val: '56.3', quad: 'HIGH_UP', desc: '運用 LLM 提取 FOMC 聲明稿關鍵詞與態度計算出之鷹鴿指數。', vars: 'FOMC 官方立場分數、票委公開發言動向' },
+      { cat: '主題式專區', sub: '利差', name: '美國-10年期-2年期公債殖利率', date: '2026-11-20', val: '0.27%', quad: 'HIGH_UP', desc: '觀察全球景氣循環所需要用到的各大利差指標。', vars: '10Y 殖利率 (5.02%)、2Y 殖利率 (4.81%)、10Y-3M 利差' },
+      { cat: '主題式專區', sub: '波動率', name: 'CBOE-VIX波動率指數[VIX]', date: '2026-11-19', val: '28.5', quad: 'LOW_DOWN', desc: '美國芝加哥期權交易所（CBOE）波動率數據。', vars: 'S&P 500 選擇權隱含波動率、VIX 期貨正逆價差' },
+      { cat: '主題式專區', sub: '高頻數據', name: '全球-每日航班數', date: '2026-10-18', val: '238,908.0', quad: 'HIGH_UP', desc: '更高頻的數據，更即時趨勢！', vars: '全球商業航班架次、航空燃油需求' },
+      { cat: '主題式專區', sub: '情緒指標', name: '美國-CNN恐懼與貪婪指數', date: '2026-11-20', val: '18.6', quad: 'LOW_DOWN', desc: '包含全球股票市場情緒、寬幅、籌碼等指標（目前處於極度恐懼）。', vars: 'Put/Call Ratio、市場動能、避險需求、垃圾債券需求' },
+      { cat: '主題式專區', sub: '地緣政治', name: '全球-地緣政治風險指數', date: '2026-10', val: '137.1', quad: 'HIGH_DOWN', desc: '觀察全球主要國家按照區域的地緣政治風險指數。', vars: 'GPR 新聞文本指數、能源與航運風險溢價' },
+      { cat: '主題式專區', sub: '加密貨幣', name: '比特幣/美元', date: '2026-11-20', val: '61,874.8', quad: 'HIGH_DOWN', desc: '加密貨幣需要觀察的重要基本面、籌碼指標。', vars: '美國 M2 流動性 (+5.4%)、比特幣現貨 ETF 淨流入' },
+      { cat: '主題式專區', sub: '穩定幣', name: '穩定幣-市值', date: '2026-11-19', val: '285.7b', quad: 'HIGH_UP', desc: '觀察影響穩定幣以及美元的因子和趨勢。', vars: 'USDT / USDC 總市值、鏈上資金流動性' },
+      { cat: '主題式專區', sub: '新能源', name: '全球-地表均溫異常值(平均)', date: '2025', val: '1.43', quad: 'HIGH_UP', desc: '觀察全球能源轉型進度的相關圖表。', vars: '全球碳排放、再生能源裝置容量' },
+      { cat: '主題式專區', sub: '去美元化', name: 'IMF-官方外匯儲備貨幣佔比(美元)', date: '2026 Q2', val: '56.7%', quad: 'HIGH_DOWN', desc: '觀察去美元化趨勢，以及國際主要貨幣使用佔比的重要指標。', vars: 'IMF COFER 美元、歐元、日圓、人民幣儲備佔比' },
+      { cat: '主題式專區', sub: 'ETF市場趨勢', name: '全球-ETF資產管理規模', date: '2026-09', val: '23,346,362.4m', quad: 'HIGH_UP', desc: '觀察全球、美國 ETF 市場發展趨勢的重要指標與圖表。', vars: '全球被動式基金規模、股票型 vs 債券型 ETF 淨流向' },
+      { cat: '主題式專區', sub: '電力', name: '全球-發電量', date: '2024', val: '31,255.9', quad: 'HIGH_UP', desc: '觀察全球、美中歐等主要經濟體的電力供需、價格趨勢。', vars: 'AI 資料中心用電需求、核能與綠電發電佔比' }
+    ];
+
+    const HEATMAP_DATA = {
+      SP500: [
+        // TECHNOLOGY
+        { sector: 'TECHNOLOGY', ticker: 'NVDA', name: 'Nvidia Corp', cap: 340, d1: -3.30, w1: -4.85, ytd: 142.0 },
+        { sector: 'TECHNOLOGY', ticker: 'AAPL', name: 'Apple Inc', cap: 330, d1: -0.92, w1: -1.40, ytd: 24.5 },
+        { sector: 'TECHNOLOGY', ticker: 'MSFT', name: 'Microsoft Corp', cap: 310, d1: -1.97, w1: -2.10, ytd: 18.2 },
+        { sector: 'TECHNOLOGY', ticker: 'AVGO', name: 'Broadcom Inc', cap: 115, d1: -2.09, w1: -3.20, ytd: 68.4 },
+        { sector: 'TECHNOLOGY', ticker: 'MU', name: 'Micron Tech', cap: 70, d1: -2.10, w1: -3.80, ytd: 31.2 },
+        { sector: 'TECHNOLOGY', ticker: 'AMD', name: 'Advanced Micro Devices', cap: 68, d1: -7.72, w1: -9.15, ytd: -4.2 },
+        { sector: 'TECHNOLOGY', ticker: 'INTC', name: 'Intel Corp', cap: 36, d1: 1.92, w1: 3.10, ytd: -18.5 },
+        { sector: 'TECHNOLOGY', ticker: 'TXN', name: 'Texas Instruments', cap: 34, d1: -2.28, w1: -1.90, ytd: 11.4 },
+        { sector: 'TECHNOLOGY', ticker: 'QCOM', name: 'Qualcomm Inc', cap: 32, d1: 1.38, w1: 2.05, ytd: 16.8 },
+        { sector: 'TECHNOLOGY', ticker: 'ADI', name: 'Analog Devices', cap: 26, d1: -1.19, w1: -1.50, ytd: 9.1 },
+        { sector: 'TECHNOLOGY', ticker: 'MRVL', name: 'Marvell Tech', cap: 25, d1: -4.86, w1: -5.40, ytd: 41.0 },
+        { sector: 'TECHNOLOGY', ticker: 'CRM', name: 'Salesforce Inc', cap: 55, d1: -3.72, w1: -4.10, ytd: 15.6 },
+        { sector: 'TECHNOLOGY', ticker: 'ORCL', name: 'Oracle Corp', cap: 52, d1: -2.92, w1: -3.45, ytd: 44.2 },
+        { sector: 'TECHNOLOGY', ticker: 'PLTR', name: 'Palantir Tech', cap: 48, d1: -1.91, w1: 1.20, ytd: 165.0 },
+        { sector: 'TECHNOLOGY', ticker: 'PANW', name: 'Palo Alto Networks', cap: 42, d1: 6.42, w1: 7.80, ytd: 29.4 },
+        { sector: 'TECHNOLOGY', ticker: 'CRWD', name: 'CrowdStrike', cap: 38, d1: 2.71, w1: 4.10, ytd: 34.0 },
+        { sector: 'TECHNOLOGY', ticker: 'AMAT', name: 'Applied Materials', cap: 40, d1: -3.79, w1: -5.20, ytd: 19.5 },
+        { sector: 'TECHNOLOGY', ticker: 'LRCX', name: 'Lam Research', cap: 36, d1: -3.77, w1: -4.90, ytd: 14.2 },
+        { sector: 'TECHNOLOGY', ticker: 'CSCO', name: 'Cisco Systems', cap: 44, d1: -2.55, w1: -1.80, ytd: 12.0 },
+        { sector: 'TECHNOLOGY', ticker: 'DELL', name: 'Dell Technologies', cap: 30, d1: -0.18, w1: -0.90, ytd: 48.0 },
+        { sector: 'TECHNOLOGY', ticker: 'IBM', name: 'IBM Corp', cap: 35, d1: -2.04, w1: -1.40, ytd: 22.1 },
+        { sector: 'TECHNOLOGY', ticker: 'WDC', name: 'Western Digital', cap: 22, d1: 2.98, w1: 4.20, ytd: 27.5 },
+        // COMMUNICATION SERVICES
+        { sector: 'COMMUNICATION SERVICES', ticker: 'GOOGL', name: 'Alphabet Inc', cap: 230, d1: -3.46, w1: -4.10, ytd: 21.4 },
+        { sector: 'COMMUNICATION SERVICES', ticker: 'META', name: 'Meta Platforms', cap: 155, d1: -3.27, w1: -3.95, ytd: 56.2 },
+        { sector: 'COMMUNICATION SERVICES', ticker: 'NFLX', name: 'Netflix Inc', cap: 48, d1: -2.27, w1: -1.80, ytd: 61.0 },
+        { sector: 'COMMUNICATION SERVICES', ticker: 'DIS', name: 'Walt Disney Co', cap: 40, d1: -1.72, w1: -2.15, ytd: 14.5 },
+        { sector: 'COMMUNICATION SERVICES', ticker: 'VZ', name: 'Verizon Comm', cap: 38, d1: -0.84, w1: -0.45, ytd: 8.2 },
+        { sector: 'COMMUNICATION SERVICES', ticker: 'T', name: 'AT&T Inc', cap: 34, d1: -0.46, w1: 0.30, ytd: 19.8 },
+        // FINANCIAL
+        { sector: 'FINANCIAL', ticker: 'BRK-B', name: 'Berkshire Hathaway', cap: 135, d1: -0.45, w1: -0.80, ytd: 22.4 },
+        { sector: 'FINANCIAL', ticker: 'JPM', name: 'JPMorgan Chase', cap: 110, d1: -1.20, w1: -1.55, ytd: 31.8 },
+        { sector: 'FINANCIAL', ticker: 'V', name: 'Visa Inc', cap: 85, d1: -3.12, w1: -2.90, ytd: 14.6 },
+        { sector: 'FINANCIAL', ticker: 'MA', name: 'Mastercard Inc', cap: 72, d1: -2.62, w1: -2.30, ytd: 16.9 },
+        { sector: 'FINANCIAL', ticker: 'BAC', name: 'Bank of America', cap: 55, d1: -0.69, w1: -1.10, ytd: 26.4 },
+        { sector: 'FINANCIAL', ticker: 'WFC', name: 'Wells Fargo', cap: 45, d1: -0.85, w1: -0.60, ytd: 29.0 },
+        { sector: 'FINANCIAL', ticker: 'GS', name: 'Goldman Sachs', cap: 42, d1: -2.94, w1: -3.20, ytd: 36.5 },
+        { sector: 'FINANCIAL', ticker: 'MS', name: 'Morgan Stanley', cap: 40, d1: -3.42, w1: -2.85, ytd: 28.1 },
+        { sector: 'FINANCIAL', ticker: 'BLK', name: 'BlackRock Inc', cap: 38, d1: -2.86, w1: -2.10, ytd: 21.0 },
+        // CONSUMER CYCLICAL
+        { sector: 'CONSUMER CYCLICAL', ticker: 'AMZN', name: 'Amazon.com Inc', cap: 215, d1: -3.87, w1: -4.50, ytd: 32.1 },
+        { sector: 'CONSUMER CYCLICAL', ticker: 'TSLA', name: 'Tesla Inc', cap: 145, d1: -2.43, w1: -3.10, ytd: 19.4 },
+        { sector: 'CONSUMER CYCLICAL', ticker: 'HD', name: 'Home Depot', cap: 62, d1: -0.28, w1: -0.50, ytd: 14.8 },
+        { sector: 'CONSUMER CYCLICAL', ticker: 'MCD', name: 'McDonald\'s Corp', cap: 44, d1: -0.61, w1: -0.90, ytd: 4.5 },
+        { sector: 'CONSUMER CYCLICAL', ticker: 'TJX', name: 'TJX Companies', cap: 32, d1: -0.63, w1: 0.40, ytd: 23.0 },
+        // HEALTHCARE
+        { sector: 'HEALTHCARE', ticker: 'LLY', name: 'Eli Lilly & Co', cap: 130, d1: -2.29, w1: -3.40, ytd: 41.2 },
+        { sector: 'HEALTHCARE', ticker: 'JNJ', name: 'Johnson & Johnson', cap: 65, d1: -2.04, w1: -1.60, ytd: 2.1 },
+        { sector: 'HEALTHCARE', ticker: 'ABBV', name: 'AbbVie Inc', cap: 60, d1: -0.86, w1: -1.10, ytd: 18.4 },
+        { sector: 'HEALTHCARE', ticker: 'UNH', name: 'UnitedHealth Group', cap: 58, d1: -5.55, w1: -6.80, ytd: -8.2 },
+        { sector: 'HEALTHCARE', ticker: 'MRK', name: 'Merck & Co', cap: 45, d1: -3.61, w1: -4.20, ytd: -5.4 },
+        { sector: 'HEALTHCARE', ticker: 'ISRG', name: 'Intuitive Surgical', cap: 35, d1: -3.26, w1: -2.10, ytd: 38.0 },
+        // CONSUMER DEFENSIVE
+        { sector: 'CONSUMER DEFENSIVE', ticker: 'WMT', name: 'Walmart Inc', cap: 95, d1: -1.04, w1: 0.65, ytd: 52.4 },
+        { sector: 'CONSUMER DEFENSIVE', ticker: 'COST', name: 'Costco Wholesale', cap: 75, d1: -0.25, w1: 0.40, ytd: 37.8 },
+        { sector: 'CONSUMER DEFENSIVE', ticker: 'PG', name: 'Procter & Gamble', cap: 62, d1: -1.43, w1: -1.10, ytd: 12.1 },
+        { sector: 'CONSUMER DEFENSIVE', ticker: 'KO', name: 'Coca-Cola Co', cap: 52, d1: -2.04, w1: -1.75, ytd: 9.4 },
+        { sector: 'CONSUMER DEFENSIVE', ticker: 'PEP', name: 'PepsiCo Inc', cap: 42, d1: -2.02, w1: -1.80, ytd: 1.8 },
+        { sector: 'CONSUMER DEFENSIVE', ticker: 'PM', name: 'Philip Morris', cap: 38, d1: -3.27, w1: -2.40, ytd: 26.5 },
+        // INDUSTRIALS
+        { sector: 'INDUSTRIALS', ticker: 'GE', name: 'GE Aerospace', cap: 54, d1: -2.81, w1: -3.10, ytd: 49.0 },
+        { sector: 'INDUSTRIALS', ticker: 'RTX', name: 'RTX Corp', cap: 46, d1: -2.03, w1: -1.80, ytd: 35.2 },
+        { sector: 'INDUSTRIALS', ticker: 'CAT', name: 'Caterpillar Inc', cap: 48, d1: -3.83, w1: -4.60, ytd: 18.9 },
+        { sector: 'INDUSTRIALS', ticker: 'UNP', name: 'Union Pacific', cap: 38, d1: -3.41, w1: -2.90, ytd: 6.4 },
+        { sector: 'INDUSTRIALS', ticker: 'GEV', name: 'GE Vernova', cap: 34, d1: -2.06, w1: 1.50, ytd: 82.0 },
+        // ENERGY & UTILITIES & REAL ESTATE & MATERIALS
+        { sector: 'ENERGY', ticker: 'XOM', name: 'Exxon Mobil', cap: 75, d1: -1.03, w1: -1.80, ytd: 14.2 },
+        { sector: 'ENERGY', ticker: 'CVX', name: 'Chevron Corp', cap: 52, d1: 0.30, w1: -0.45, ytd: 8.6 },
+        { sector: 'ENERGY', ticker: 'COP', name: 'ConocoPhillips', cap: 34, d1: 0.44, w1: -0.20, ytd: 5.1 },
+        { sector: 'UTILITIES', ticker: 'NEE', name: 'NextEra Energy', cap: 38, d1: -1.17, w1: -1.50, ytd: 22.0 },
+        { sector: 'REAL ESTATE', ticker: 'PLD', name: 'Prologis Inc', cap: 32, d1: -1.40, w1: -2.10, ytd: -3.5 },
+        { sector: 'BASIC MATERIALS', ticker: 'LIN', name: 'Linde plc', cap: 45, d1: -0.38, w1: -0.95, ytd: 11.2 }
+      ],
+      TW: [
+        { sector: '半導體', ticker: '2330', name: '台積電', cap: 520, d1: -4.76, w1: -5.20, ytd: 48.0 },
+        { sector: '半導體', ticker: '2454', name: '聯發科', cap: 95, d1: -2.40, w1: -3.60, ytd: 26.5 },
+        { sector: '半導體', ticker: '3711', name: '日月光投控', cap: 45, d1: -1.95, w1: -2.80, ytd: 19.2 },
+        { sector: '半導體', ticker: '2303', name: '聯電', cap: 38, d1: -8.96, w1: 1.20, ytd: -4.5 },
+        { sector: '半導體', ticker: '2379', name: '瑞昱', cap: 24, d1: -1.60, w1: -2.10, ytd: 14.0 },
+        { sector: '半導體', ticker: '3034', name: '聯詠', cap: 22, d1: -2.15, w1: -3.05, ytd: 8.2 },
+        { sector: '半導體', ticker: '3661', name: '世芯-KY', cap: 26, d1: -4.20, w1: -6.10, ytd: 12.4 },
+        { sector: 'AI 伺服器/電子', ticker: '2317', name: '鴻海', cap: 125, d1: -2.90, w1: -4.10, ytd: 64.0 },
+        { sector: 'AI 伺服器/電子', ticker: '2382', name: '廣達', cap: 65, d1: -3.15, w1: -4.50, ytd: 42.1 },
+        { sector: 'AI 伺服器/電子', ticker: '2308', name: '台達電', cap: 58, d1: -1.25, w1: -1.90, ytd: 24.8 },
+        { sector: 'AI 伺服器/電子', ticker: '3231', name: '緯創', cap: 34, d1: 1.45, w1: 2.10, ytd: 18.5 },
+        { sector: 'AI 伺服器/電子', ticker: '6669', name: '緯穎', cap: 32, d1: -2.65, w1: -3.80, ytd: 35.0 },
+        { sector: 'AI 伺服器/電子', ticker: '2357', name: '華碩', cap: 28, d1: 0.90, w1: 1.50, ytd: 28.4 },
+        { sector: 'AI 伺服器/電子', ticker: '2376', name: '技嘉', cap: 20, d1: -1.80, w1: -2.40, ytd: 16.0 },
+        { sector: '金融保險', ticker: '2881', name: '富邦金', cap: 68, d1: 0.65, w1: 1.40, ytd: 32.0 },
+        { sector: '金融保險', ticker: '2882', name: '國泰金', cap: 58, d1: 0.42, w1: 1.15, ytd: 29.4 },
+        { sector: '金融保險', ticker: '2891', name: '中信金', cap: 44, d1: 1.10, w1: 1.85, ytd: 25.1 },
+        { sector: '金融保險', ticker: '2886', name: '兆豐金', cap: 36, d1: 0.25, w1: 0.60, ytd: 12.4 },
+        { sector: '金融保險', ticker: '2884', name: '玉山金', cap: 32, d1: 0.55, w1: 0.95, ytd: 15.2 },
+        { sector: '金融保險', ticker: '2885', name: '元大金', cap: 28, d1: -0.35, w1: 0.40, ytd: 21.8 },
+        { sector: '航運/傳產', ticker: '2603', name: '長榮', cap: 42, d1: 2.35, w1: 3.80, ytd: 38.2 },
+        { sector: '航運/傳產', ticker: '2609', name: '陽明', cap: 24, d1: 1.80, w1: 2.90, ytd: 27.0 },
+        { sector: '航運/傳產', ticker: '2615', name: '萬海', cap: 20, d1: 1.40, w1: 2.15, ytd: 22.4 },
+        { sector: '航運/傳產', ticker: '1301', name: '台塑', cap: 26, d1: -1.10, w1: -1.85, ytd: -14.2 },
+        { sector: '航運/傳產', ticker: '2002', name: '中鋼', cap: 24, d1: -0.65, w1: -0.90, ytd: -8.5 },
+        { sector: '電信/內需', ticker: '2412', name: '中華電', cap: 52, d1: 0.15, w1: 0.35, ytd: 6.8 },
+        { sector: '電信/內需', ticker: '1216', name: '統一', cap: 35, d1: -0.45, w1: 0.20, ytd: 11.5 },
+        { sector: '電信/內需', ticker: '3045', name: '台灣大', cap: 24, d1: 0.30, w1: 0.50, ytd: 9.2 }
+      ]
+    };
+
+    // --- 3. App State ---
+    const state = {
+      activeTab: 'dashboard',
+      selectedCountry: 'TW',
+      scorecard: { trajRegion: 'GLOBAL', trajIdx: 23, playing: false, mmCat: 'ALL', top5Cat: 'STOCK' },
+      toolbox: { left: 'twM1b', right: 'taiex', transform: 'raw', range: 24 },
+      backtest: { indicator: 'twM1bM2Spread', operator: 'gt', threshold: 0.0, asset: 'taiex' },
+      etf: { category: 'ALL', query: '', selected: ['SMH', 'SOXQ'] },
+      calendar: { region: 'ALL', impact: 'ALL' },
+      trader: { cat: 'ALL', quad: 'ALL', query: '' },
+      heatmap: { market: 'SP500', tf: 'd1', sector: 'ALL' },
+      builder: {
+        name: '自編台股動能基本面指數',
+        bench: 'taiex',
+        slots: [
+          { key: 'twM1b', weight: 40 },
+          { key: 'twM1bM2Spread', weight: 40 },
+          { key: 'us10y', weight: -20 }
+        ],
+        lastSeries: []
+      },
+      myDashboard: [
+        { id: 'preset-1', title: '台灣 M1B vs 台股 TAIEX', left: 'twM1b', right: 'taiex', transform: 'raw', range: 24 },
+        { id: 'preset-2', title: '美債 10Y vs S&P 500', left: 'us10y', right: 'sp500', transform: 'raw', range: 24 }
+      ]
+    };
+
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null };
+    let trajTimer = null;
+
+    // --- 4. Helpers ---
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-msg').textContent = msg;
+      toast.classList.remove('hidden');
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.add('hidden'), 3200);
+    }
+
+    function isDark() { return document.documentElement.classList.contains('dark'); }
+    function gridColor() { return isDark() ? 'rgba(148, 163, 184, 0.12)' : 'rgba(15, 23, 42, 0.08)'; }
+    function textColor() { return isDark() ? '#94a3b8' : '#475569'; }
+
+    function transformSeries(arr, mode) {
+      if (mode === 'raw') return [...arr];
+      if (mode === 'ma3') {
+        return arr.map((_, i) => {
+          const slice = arr.slice(Math.max(0, i - 2), i + 1);
+          return +(slice.reduce((a, b) => a + b, 0) / slice.length).toFixed(2);
+        });
+      }
+      if (mode === 'diff') return arr.map((v, i) => (i === 0 ? 0 : +(v - arr[i - 1]).toFixed(2)));
+      if (mode === 'zscore') {
+        const mean = arr.reduce((a, b) => a + b, 0) / arr.length;
+        const std = Math.sqrt(arr.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / arr.length) || 1;
+        return arr.map(v => +((v - mean) / std).toFixed(2));
+      }
+      return [...arr];
+    }
+
+    function pearsonCorr(a, b) {
+      const n = Math.min(a.length, b.length);
+      if (n < 2) return 0;
+      const xa = a.slice(-n), xb = b.slice(-n);
+      const ma = xa.reduce((s, v) => s + v, 0) / n;
+      const mb = xb.reduce((s, v) => s + v, 0) / n;
+      let num = 0, da = 0, db = 0;
+      for (let i = 0; i < n; i++) {
+        const va = xa[i] - ma, vb = xb[i] - mb;
+        num += va * vb; da += va * va; db += vb * vb;
+      }
+      const den = Math.sqrt(da * db);
+      return den === 0 ? 0 : +(num / den).toFixed(2);
+    }
+
+    // --- 5. Render Views ---
+    function applyLivePayload(payload) {
+      let count = 0;
+      const dateStr = (payload.updated_at || new Date().toISOString()).slice(0, 10);
+      if (Array.isArray(payload.tw_heatmap) && payload.tw_heatmap.length > 0) {
+        HEATMAP_DATA.TW = payload.tw_heatmap;
+        count++;
+      }
+      if (Array.isArray(payload.sp500_heatmap) && payload.sp500_heatmap.length > 0) {
+        HEATMAP_DATA.SP500 = payload.sp500_heatmap;
+        count++;
+      }
+      if (payload.series && typeof payload.series === 'object') {
+        Object.entries(payload.series).forEach(([k, obj]) => {
+          if (obj && Array.isArray(obj.data) && obj.data.length > 0) {
+            SERIES_DB[k] = obj;
+            count++;
+          }
+        });
+        populateToolboxSelects();
+      }
+      if (payload.snapshots && typeof payload.snapshots === 'object') {
+        const sn = payload.snapshots;
+        const updTrader = (name, val) => {
+          const it = TRADER_ITEMS.find(x => x.name === name);
+          if (it && val !== undefined) { it.val = String(val); it.date = dateStr; }
+        };
+        if (sn.sp500) updTrader('美國-S&P 500', sn.sp500.price.toLocaleString('en-US'));
+        if (sn.taiex) updTrader('台灣-加權股價指數', sn.taiex.price.toLocaleString('en-US'));
+        if (sn.nikkei) updTrader('日本-日經Nikkei 225', sn.nikkei.price.toLocaleString('en-US'));
+        if (sn.wti) updTrader('NYMEX-WTI西德州原油期貨價格', sn.wti.price);
+        if (sn.gold) updTrader('NYMEX-黃金期貨價格', sn.gold.price.toLocaleString('en-US'));
+        if (sn.copper) updTrader('NYMEX-銅期貨價格', sn.copper.price);
+        if (sn.vix) updTrader('CBOE-VIX波動率指數[VIX]', sn.vix.price);
+        if (sn.us10y !== undefined) {
+          updTrader('美國-10年期公債殖利率', sn.us10y + '%');
+          COUNTRY_DATA.US.kpis[2].value = sn.us10y + '%';
+        }
+        if (sn.spread10y2y !== undefined) updTrader('美國-10年期-2年期公債殖利率', sn.spread10y2y + '%');
+        if (sn.usCpi !== undefined) COUNTRY_DATA.US.kpis[1].value = sn.usCpi + '%';
+        if (sn.usUnrate !== undefined) COUNTRY_DATA.US.kpis[3].value = sn.usUnrate + '%';
+      }
+      if (state.activeTab === 'dashboard') renderDashboard();
+      if (state.activeTab === 'heatmap') renderHeatmap();
+      if (state.activeTab === 'toolbox') renderToolbox();
+      if (state.activeTab === 'trader') renderTraderTab();
+      return count;
+    }
+
+    async function syncLivePublicData(manual = false) {
+      const btn = document.getElementById('live-sync-btn');
+      const lbl = document.getElementById('live-sync-label');
+      const pill = document.getElementById('live-status-pill');
+      if (lbl) lbl.textContent = '同步中...';
+      btn.disabled = true;
+
+      const updatedSources = [];
+
+      // 0) Auto-load ./macro_live_data.json when hosted on GitHub Pages / local server
+      try {
+        const localRes = await fetch('./macro_live_data.json?t=' + Date.now());
+        if (localRes.ok) {
+          const payload = await localRes.json();
+          const applied = applyLivePayload(payload);
+          if (applied > 0) updatedSources.push('GitHub 真實資料庫');
+        }
+      } catch (e) { /* ignore when opened as standalone preview without macro_live_data.json */ }
+      const todayStr = new Date().toISOString().slice(0, 10);
+
+      // 1) Live FX via Frankfurter (ECB) & Open ER-API (for TWD)
+      try {
+        const [fxRes, erRes] = await Promise.allSettled([
+          fetch('https://api.frankfurter.app/latest?from=USD&to=JPY,EUR,GBP,AUD,CAD'),
+          fetch('https://open.er-api.com/v6/latest/USD')
+        ]);
+        let rates = {};
+        if (fxRes.status === 'fulfilled' && fxRes.value.ok) {
+          const d = await fxRes.value.json();
+          rates = { ...rates, ...(d.rates || {}) };
+        }
+        if (erRes.status === 'fulfilled' && erRes.value.ok) {
+          const d2 = await erRes.value.json();
+          if (d2.rates && d2.rates.TWD) rates.TWD = d2.rates.TWD;
+        }
+        if (Object.keys(rates).length > 0) {
+          const updateTrader = (name, val) => {
+            const it = TRADER_ITEMS.find(x => x.name === name);
+            if (it && val) { it.val = val; it.date = todayStr; }
+          };
+          if (rates.EUR) updateTrader('歐元/美元', (1 / rates.EUR).toFixed(4));
+          if (rates.GBP) updateTrader('英鎊/美元', (1 / rates.GBP).toFixed(4));
+          if (rates.AUD) updateTrader('澳幣/美元', (1 / rates.AUD).toFixed(4));
+          if (rates.CAD) updateTrader('美元/加幣', rates.CAD.toFixed(3));
+          if (rates.JPY) updateTrader('美元/日圓', rates.JPY.toFixed(2));
+          if (rates.TWD) {
+            updateTrader('美元/台幣', rates.TWD.toFixed(2));
+            const tkTwd = document.getElementById('tk-twd');
+            if (tkTwd) tkTwd.textContent = rates.TWD.toFixed(2);
+          }
+          // Update Top5 FX
+          TOP5_MOVERS.FX = [
+            { name: 'USD/JPY 日圓', price: rates.JPY ? rates.JPY.toFixed(2) : '159.30', chg: '即時', up: true },
+            { name: 'USD/TWD 台幣', price: rates.TWD ? rates.TWD.toFixed(2) : '33.00', chg: '即時', up: true },
+            { name: 'EUR/USD 歐元', price: rates.EUR ? (1 / rates.EUR).toFixed(4) : '1.1000', chg: '即時', up: true },
+            { name: 'GBP/USD 英鎊', price: rates.GBP ? (1 / rates.GBP).toFixed(4) : '1.3100', chg: '即時', up: true },
+            { name: 'USD/CAD 加幣', price: rates.CAD ? rates.CAD.toFixed(3) : '1.430', chg: '即時', up: true }
+          ];
+          updatedSources.push('公開匯率');
+        }
+      } catch (e) { /* fallback to snapshot */ }
+
+      // 2) Live Crypto & Stablecoins via CoinGecko
+      try {
+        const cgRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether,usd-coin&vs_currencies=usd&include_market_cap=true&include_24hr_change=true');
+        if (cgRes.ok) {
+          const cg = await cgRes.json();
+          if (cg.bitcoin && cg.bitcoin.usd) {
+            const btcPrice = Math.round(cg.bitcoin.usd).toLocaleString('en-US');
+            const tkBtc = document.getElementById('tk-btc');
+            if (tkBtc) tkBtc.textContent = '$' + btcPrice;
+            const btcItem = TRADER_ITEMS.find(x => x.name === '比特幣/美元');
+            if (btcItem) { btcItem.val = btcPrice; btcItem.date = todayStr; }
+          }
+          const usdtCap = cg.tether?.usd_market_cap || 0;
+          const usdcCap = cg['usd-coin']?.usd_market_cap || 0;
+          if (usdtCap + usdcCap > 0) {
+            const totalB = ((usdtCap + usdcCap) / 1e9).toFixed(1) + 'b';
+            const stbItem = TRADER_ITEMS.find(x => x.name === '穩定幣-市值');
+            if (stbItem) { stbItem.val = totalB; stbItem.date = todayStr; }
+          }
+          updatedSources.push('加密/穩定幣');
+        }
+      } catch (e) { /* fallback to snapshot */ }
+
+      // 3) Official World Bank Latest Annual GDP Check
+      try {
+        const wbRes = await fetch('https://api.worldbank.org/v2/country/USA;CHN;JPN/indicator/NY.GDP.MKTP.KD.ZG?format=json&mrv=1');
+        if (wbRes.ok) {
+          const wbJson = await wbRes.json();
+          if (Array.isArray(wbJson) && Array.isArray(wbJson[1])) {
+            updatedSources.push('世界銀行 GDP');
+          }
+        }
+      } catch (e) { /* fallback */ }
+
+      // 4) Real Historical Time Series from ECB (Frankfurter) & CoinGecko for Toolbox/Backtest
+      try {
+        const endD = new Date().toISOString().slice(0, 10);
+        const startDt = new Date();
+        startDt.setFullYear(startDt.getFullYear() - 2);
+        const startD = startDt.toISOString().slice(0, 10);
+        const [histFx, histBtc] = await Promise.allSettled([
+          fetch(`https://api.frankfurter.app/${startD}..${endD}?from=USD&to=JPY,EUR`),
+          fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=365&interval=daily')
+        ]);
+        let addedRealSeries = false;
+        if (histFx.status === 'fulfilled' && histFx.value.ok) {
+          const fxData = await histFx.value.json();
+          if (fxData.rates) {
+            const dates = Object.keys(fxData.rates).sort();
+            const monthlyDates = [];
+            const jpyVals = [], eurVals = [];
+            let lastYm = '';
+            dates.forEach(d => {
+              const ym = d.slice(0, 7);
+              if (ym !== lastYm && fxData.rates[d].JPY && fxData.rates[d].EUR) {
+                lastYm = ym;
+                monthlyDates.push(ym);
+                jpyVals.push(+fxData.rates[d].JPY.toFixed(2));
+                eurVals.push(+(1 / fxData.rates[d].EUR).toFixed(4));
+              }
+            });
+            if (monthlyDates.length >= 6) {
+              SERIES_DB.realUsdJpy = { name: '[真實歷史] 美元/日圓 (ECB)', unit: 'JPY', labels: monthlyDates, data: jpyVals };
+              SERIES_DB.realEurUsd = { name: '[真實歷史] 歐元/美元 (ECB)', unit: 'USD', labels: monthlyDates, data: eurVals };
+              addedRealSeries = true;
+            }
+          }
+        }
+        if (histBtc.status === 'fulfilled' && histBtc.value.ok) {
+          const bData = await histBtc.value.json();
+          if (Array.isArray(bData.prices) && bData.prices.length > 10) {
+            const btcLabels = [], btcVals = [];
+            let lastYm = '';
+            bData.prices.forEach(([ts, price]) => {
+              const ym = new Date(ts).toISOString().slice(0, 7);
+              if (ym !== lastYm) {
+                lastYm = ym;
+                btcLabels.push(ym);
+                btcVals.push(Math.round(price));
+              }
+            });
+            if (btcLabels.length >= 6) {
+              SERIES_DB.realBtc = { name: '[真實歷史] 比特幣 USD (CoinGecko)', unit: 'USD', labels: btcLabels, data: btcVals };
+              addedRealSeries = true;
+            }
+          }
+        }
+        if (addedRealSeries) {
+          populateToolboxSelects();
+          if (state.activeTab === 'toolbox') renderToolbox();
+          if (state.activeTab === 'builder') renderBuilderTab();
+        }
+      } catch (e) { /* ignore optional history fetch error */ }
+
+      btn.disabled = false;
+      if (lbl) lbl.textContent = '即時更新';
+
+      if (updatedSources.length > 0) {
+        const timeStr = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
+        if (pill) {
+          pill.textContent = `已同步公開 API (${updatedSources.join('、')}) · ${timeStr}`;
+          pill.className = 'ml-auto text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium';
+        }
+        if (state.activeTab === 'dashboard') renderTop5();
+        if (state.activeTab === 'trader') renderTraderTab();
+        if (manual) showToast(`已即時更新：${updatedSources.join('、')}`);
+      } else {
+        if (pill) pill.textContent = '目前使用 2026-11 公開快照（離線/限流）';
+        if (manual) showToast('公開 API 暫時無法連線，維持 2026-11 基準快照');
+      }
+    }
+
+
+    function switchTab(tabId) {
+      state.activeTab = tabId;
+      document.querySelectorAll('.tab-panel').forEach(el => el.classList.add('hidden'));
+      document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        const active = btn.dataset.tab === tabId;
+        btn.className = `nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5 ${
+          active
+            ? 'bg-blue-600 text-white shadow-sm'
+            : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`;
+      });
+      document.getElementById('mobile-nav').classList.add('hidden');
+
+      if (tabId === 'dashboard') renderDashboard();
+      if (tabId === 'money') renderMoneyTab();
+      if (tabId === 'trader') renderTraderTab();
+      if (tabId === 'heatmap') renderHeatmap();
+      if (tabId === 'builder') renderBuilderTab();
+      if (tabId === 'toolbox') renderToolbox();
+      if (tabId === 'backtest') renderBacktest();
+      if (tabId === 'etf') renderEtfTab();
+      if (tabId === 'calendar') renderCalendar();
+      if (tabId === 'mydash') renderMyDashboard();
+    }
+
+    function renderTrajectory() {
+      document.querySelectorAll('.traj-btn').forEach(btn => {
+        const active = btn.dataset.traj === state.scorecard.trajRegion;
+        btn.className = `traj-btn px-2 py-0.5 rounded font-medium transition-colors ${
+          active ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`;
+      });
+      const idx = state.scorecard.trajIdx;
+      document.getElementById('traj-slider').value = idx;
+      document.getElementById('traj-date-label').textContent = MONTHS[idx];
+      const coords = TRAJ_SERIES[state.scorecard.trajRegion].slice(0, idx + 1).map(([x, y]) => ({ x, y }));
+      const lastPt = coords[coords.length - 1];
+
+      const ctx = document.getElementById('trajChart').getContext('2d');
+      if (charts.traj) charts.traj.destroy();
+
+      const quadPlugin = {
+        id: 'trajQuadLabels',
+        beforeDraw(chart) {
+          const { ctx, chartArea: { left, right, top, bottom }, scales: { x, y } } = chart;
+          const midX = x.getPixelForValue(0), midY = y.getPixelForValue(0);
+          ctx.save();
+          ctx.font = '600 11px Inter, Noto Sans TC, sans-serif';
+          ctx.fillStyle = isDark() ? 'rgba(148,163,184,0.5)' : 'rgba(100,116,139,0.65)';
+          ctx.fillText('Slow Growth', left + 8, top + 16);
+          ctx.fillStyle = '#10b981';
+          ctx.fillText('Growth', right - 48, top + 16);
+          ctx.fillStyle = '#ef4444';
+          ctx.fillText('Recession', left + 8, bottom - 8);
+          ctx.fillStyle = isDark() ? 'rgba(148,163,184,0.5)' : 'rgba(100,116,139,0.65)';
+          ctx.fillText('Recovery', right - 58, bottom - 8);
+
+          ctx.strokeStyle = isDark() ? 'rgba(148,163,184,0.25)' : 'rgba(100,116,139,0.25)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(midX, top); ctx.lineTo(midX, bottom);
+          ctx.moveTo(left, midY); ctx.lineTo(right, midY);
+          ctx.stroke();
+          ctx.restore();
+        }
+      };
+
+      charts.traj = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: '軌跡',
+              data: coords,
+              showLine: true,
+              borderColor: '#0ea5e9',
+              borderWidth: 2.5,
+              pointRadius: 0,
+              tension: 0.3
+            },
+            {
+              label: '當期位置',
+              data: [lastPt],
+              pointRadius: 6,
+              pointBackgroundColor: '#ffffff',
+              pointBorderColor: '#0ea5e9',
+              pointBorderWidth: 3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          scales: {
+            x: { min: -2, max: 2, ticks: { display: false }, grid: { color: gridColor() } },
+            y: { min: -2, max: 2, ticks: { display: false }, grid: { color: gridColor() } }
+          }
+        },
+        plugins: [quadPlugin]
+      });
+    }
+
+    function renderMmIndicators() {
+      document.querySelectorAll('.mmcat-btn').forEach(btn => {
+        const active = btn.dataset.mmcat === state.scorecard.mmCat;
+        btn.className = `mmcat-btn px-2 py-0.5 rounded font-medium transition-colors ${
+          active ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`;
+      });
+      const list = MM_INDICATORS.filter(x => state.scorecard.mmCat === 'ALL' || x.cat === state.scorecard.mmCat);
+      document.getElementById('mm-ind-list').innerHTML = list.map(item => {
+        const bgStyle = item.pct > 0
+          ? `background: linear-gradient(90deg, transparent ${Math.max(0, 100 - item.pct - 25)}%, rgba(239, 68, 68, ${isDark() ? 0.28 : 0.18}) 100%);`
+          : '';
+        return `
+          <button data-target-country="${item.targetCountry}" class="mm-ind-row w-full flex items-center justify-between px-2.5 py-2.5 text-left hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors" style="${bgStyle}">
+            <span class="text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400 flex items-center gap-2">
+              <span>${item.flag}</span><span>${item.name}</span>
+            </span>
+            <span class="text-sm font-bold tabular-nums">${item.value}</span>
+          </button>
+        `;
+      }).join('');
+
+      document.querySelectorAll('.mm-ind-row').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.selectedCountry = btn.dataset.targetCountry;
+          renderDashboard();
+        });
+      });
+    }
+
+    function renderTop5() {
+      document.querySelectorAll('.top5-btn').forEach(btn => {
+        const active = btn.dataset.top5 === state.scorecard.top5Cat;
+        btn.className = `top5-btn px-2 py-0.5 rounded font-medium transition-colors ${
+          active ? 'bg-emerald-500/20 text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`;
+      });
+      const items = TOP5_MOVERS[state.scorecard.top5Cat];
+      document.getElementById('top5-list').innerHTML = items.map(it => `
+        <div class="flex items-center justify-between py-2.5 px-1">
+          <span class="text-sm font-medium text-blue-600 dark:text-blue-400">${it.name}</span>
+          <div class="text-right tabular-nums">
+            <div class="text-sm font-semibold">${it.price}</div>
+            <div class="text-xs font-medium ${it.up ? 'text-emerald-500' : 'text-rose-500'}">${it.chg} ${it.up ? '▲' : '▼'}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderDashboard() {
+      renderTrajectory();
+      renderMmIndicators();
+      renderTop5();
+      const c = COUNTRY_DATA[state.selectedCountry];
+      document.querySelectorAll('.country-btn').forEach(btn => {
+        const active = btn.dataset.country === state.selectedCountry;
+        btn.className = `country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+          active ? 'bg-blue-600 text-white shadow-sm' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`;
+      });
+
+      document.getElementById('kpi-grid').innerHTML = c.kpis.map(k => {
+        const badge = k.trend === 'up' ? 'text-emerald-500' : k.trend === 'warn' ? 'text-amber-500' : 'text-slate-400';
+        return `
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+            <div class="text-xs font-medium text-slate-500 dark:text-slate-400">${k.label}</div>
+            <div class="text-2xl font-bold tabular-nums mt-1.5 ${badge}">${k.value}</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">${k.sub}</div>
+          </div>
+        `;
+      }).join('');
+
+      const badgeEl = document.getElementById('ai-regime-badge');
+      badgeEl.textContent = c.regime;
+      badgeEl.className = `text-xs font-medium px-2.5 py-0.5 rounded-full ${c.badgeClass}`;
+      document.getElementById('ai-insight-body').innerHTML = c.insights.map(text => `
+        <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">${text}</div>
+      `).join('');
+
+      const ctx = document.getElementById('cycleChart').getContext('2d');
+      if (charts.cycle) charts.cycle.destroy();
+      const points = Object.entries(COUNTRY_DATA).map(([code, item]) => ({
+        x: item.cyclePos.x, y: item.cyclePos.y, code, label: item.name
+      }));
+
+      const quadrantPlugin = {
+        id: 'quadrantBg',
+        beforeDraw(chart) {
+          const { ctx, chartArea: { left, right, top, bottom }, scales: { x, y } } = chart;
+          const midX = x.getPixelForValue(1.5), midY = y.getPixelForValue(2.5);
+          ctx.save();
+          ctx.font = '600 11px Inter, Noto Sans TC, sans-serif';
+          ctx.fillStyle = isDark() ? 'rgba(148,163,184,0.45)' : 'rgba(71,85,105,0.5)';
+          ctx.fillText('通膨升溫 / 趨緩', left + 8, top + 16);
+          ctx.fillText('過熱 / 緊縮壓力', right - 95, top + 16);
+          ctx.fillText('低通膨 / 溫和復甦', left + 8, bottom - 8);
+          ctx.fillText('高成長低通膨 (擴張)', right - 115, bottom - 8);
+          ctx.strokeStyle = isDark() ? 'rgba(148,163,184,0.28)' : 'rgba(100,116,139,0.28)';
+          ctx.setLineDash([4, 4]);
+          ctx.beginPath();
+          ctx.moveTo(midX, top); ctx.lineTo(midX, bottom);
+          ctx.moveTo(left, midY); ctx.lineTo(right, midY);
+          ctx.stroke();
+          ctx.restore();
+        }
+      };
+
+      charts.cycle = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: '主要經濟體',
+            data: points,
+            pointRadius: points.map(p => p.code === state.selectedCountry ? 11 : 7),
+            pointHoverRadius: 12,
+            backgroundColor: points.map(p => p.code === state.selectedCountry ? '#2563eb' : '#64748b'),
+            borderColor: '#ffffff',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onClick: (_, el) => {
+            if (el.length > 0) {
+              state.selectedCountry = points[el[0].index].code;
+              renderDashboard();
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: c => `${c.raw.label} (動能: ${c.raw.x}, 通膨: ${c.raw.y}%)` } }
+          },
+          scales: {
+            x: { min: -2, max: 6, title: { display: true, text: '成長動能指標', color: textColor() }, grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: { min: 1, max: 5, title: { display: true, text: '通膨壓力 CPI (%)', color: textColor() }, grid: { color: gridColor() }, ticks: { color: textColor() } }
+          }
+        },
+        plugins: [quadrantPlugin]
+      });
+    }
+
+    function renderMoneyTab() {
+      const ctx = document.getElementById('m1bM2Chart').getContext('2d');
+      if (charts.m1bM2) charts.m1bM2.destroy();
+      charts.m1bM2 = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: MONTHS,
+          datasets: [
+            { label: '台灣 M1B 年增率 (%)', data: SERIES_DB.twM1b.data, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
+            { label: '台灣 M2 年增率 (%)', data: SERIES_DB.twM2.data, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
+            { label: '台股 TAIEX (右軸)', data: SERIES_DB.taiex.data, borderColor: '#10b981', borderDash: [4, 3], yAxisID: 'y1', tension: 0.25, pointRadius: 0 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { labels: { color: textColor() } } },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: { type: 'linear', position: 'left', title: { display: true, text: '年增率 (%)', color: textColor() }, grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y1: { type: 'linear', position: 'right', title: { display: true, text: 'TAIEX 指數', color: '#10b981' }, grid: { drawOnChartArea: false }, ticks: { color: '#10b981' } }
+          }
+        }
+      });
+    }
+
+    function populateToolboxSelects() {
+      const leftEl = document.getElementById('series-left');
+      const rightEl = document.getElementById('series-right');
+      const keys = Object.keys(SERIES_DB);
+      leftEl.innerHTML = keys.map(k => `<option value="${k}">${SERIES_DB[k].name}</option>`).join('');
+      rightEl.innerHTML = keys.map(k => `<option value="${k}">${SERIES_DB[k].name}</option>`).join('');
+      leftEl.value = state.toolbox.left;
+      rightEl.value = state.toolbox.right;
+    }
+
+    function renderToolbox() {
+      document.querySelectorAll('.range-btn').forEach(btn => {
+        const active = Number(btn.dataset.range) === state.toolbox.range;
+        btn.className = `range-btn py-2 rounded-lg text-xs font-medium border transition-colors ${
+          active ? 'bg-blue-600 border-blue-600 text-white' : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`;
+      });
+
+      const sL = SERIES_DB[state.toolbox.left];
+      const sR = SERIES_DB[state.toolbox.right];
+      const len = state.toolbox.range;
+      const labels = (sL.labels || MONTHS).slice(-len);
+      const dataL = transformSeries(sL.data.slice(-len), state.toolbox.transform);
+      const dataR = transformSeries(sR.data.slice(-len), state.toolbox.transform);
+      const corr = pearsonCorr(dataL, dataR);
+
+      document.getElementById('toolbox-chart-title').textContent = `${sL.name} vs ${sR.name}`;
+      document.getElementById('toolbox-corr-badge').textContent = `區間相關係數 r = ${corr}`;
+
+      const ctx = document.getElementById('toolboxChart').getContext('2d');
+      if (charts.toolbox) charts.toolbox.destroy();
+      charts.toolbox = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels,
+          datasets: [
+            { label: `${sL.name} (左軸)`, data: dataL, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.12)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
+            { label: `${sR.name} (右軸)`, data: dataR, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.12)', yAxisID: 'y1', tension: 0.25, pointRadius: 2.5 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { labels: { color: textColor() } } },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: { type: 'linear', position: 'left', grid: { color: gridColor() }, ticks: { color: '#3b82f6' } },
+            y1: { type: 'linear', position: 'right', grid: { drawOnChartArea: false }, ticks: { color: '#f59e0b' } }
+          }
+        }
+      });
+    }
+
+    function updateBacktestSliderRange() {
+      const slider = document.getElementById('bt-threshold');
+      const ind = state.backtest.indicator;
+      if (ind === 'twM1bM2Spread') { slider.min = -0.5; slider.max = 1.5; slider.step = 0.05; }
+      else if (ind === 'spread10y2y') { slider.min = -0.2; slider.max = 0.5; slider.step = 0.05; }
+      else if (ind === 'usCpi') { slider.min = 2.0; slider.max = 4.0; slider.step = 0.1; }
+      else { slider.min = 4.0; slider.max = 5.2; slider.step = 0.05; }
+      if (Number(slider.value) < Number(slider.min) || Number(slider.value) > Number(slider.max)) {
+        state.backtest.threshold = +(Number(slider.min) + (Number(slider.max) - Number(slider.min)) / 2).toFixed(2);
+      }
+      slider.value = state.backtest.threshold;
+      document.getElementById('bt-threshold-val').textContent = Number(state.backtest.threshold).toFixed(2);
+    }
+
+    function renderBacktest() {
+      const indData = SERIES_DB[state.backtest.indicator].data;
+      const assetData = SERIES_DB[state.backtest.asset].data;
+      const th = Number(state.backtest.threshold);
+      const op = state.backtest.operator;
+
+      let stratNav = [100], bhNav = [100], activeMonths = 0, winMonths = 0, peak = 100, maxDd = 0;
+      for (let i = 1; i < assetData.length; i++) {
+        const ret = (assetData[i] - assetData[i - 1]) / assetData[i - 1];
+        bhNav.push(+(bhNav[i - 1] * (1 + ret)).toFixed(2));
+        const inMarket = op === 'gt' ? indData[i - 1] > th : indData[i - 1] < th;
+        let stratNext = stratNav[i - 1];
+        if (inMarket) {
+          activeMonths++;
+          if (ret > 0) winMonths++;
+          stratNext = stratNav[i - 1] * (1 + ret);
+        }
+        stratNav.push(+stratNext.toFixed(2));
+        if (stratNext > peak) peak = stratNext;
+        const dd = (stratNext - peak) / peak;
+        if (dd < maxDd) maxDd = dd;
+      }
+
+      const stratRet = +(stratNav[stratNav.length - 1] - 100).toFixed(1);
+      const bhRet = +(bhNav[bhNav.length - 1] - 100).toFixed(1);
+      const winRate = activeMonths > 0 ? Math.round((winMonths / activeMonths) * 100) : 0;
+      const maxDdPct = +(maxDd * 100).toFixed(1);
+
+      document.getElementById('bt-active-months').textContent = `持倉月份：${activeMonths} / ${assetData.length - 1} 個月`;
+      document.getElementById('bt-kpi-grid').innerHTML = [
+        { label: '策略累積報酬', value: `${stratRet >= 0 ? '+' : ''}${stratRet}%`, color: stratRet >= 0 ? 'text-emerald-500' : 'text-rose-500' },
+        { label: '買進持有報酬 (基準)', value: `${bhRet >= 0 ? '+' : ''}${bhRet}%`, color: 'text-blue-500' },
+        { label: '持倉月勝率', value: `${winRate}%`, color: 'text-amber-500' },
+        { label: '策略最大回撤 (MDD)', value: `${maxDdPct}%`, color: 'text-rose-500' }
+      ].map(k => `
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="text-xs text-slate-500 dark:text-slate-400">${k.label}</div>
+          <div class="text-2xl font-bold tabular-nums mt-1 ${k.color}">${k.value}</div>
+        </div>
+      `).join('');
+
+      const ctx = document.getElementById('backtestChart').getContext('2d');
+      if (charts.backtest) charts.backtest.destroy();
+      charts.backtest = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: MONTHS,
+          datasets: [
+            { label: '總經條件策略淨值', data: stratNav, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: true, tension: 0.25, pointRadius: 2 },
+            { label: '買進持有 (Buy & Hold)', data: bhNav, borderColor: '#64748b', borderDash: [5, 5], tension: 0.25, pointRadius: 0 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { labels: { color: textColor() } } },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: { grid: { color: gridColor() }, ticks: { color: textColor() } }
+          }
+        }
+      });
+    }
+
+    function renderEtfTab() {
+      const q = state.etf.query.toLowerCase();
+      const filtered = ETF_DB.filter(e => {
+        const matchCat = state.etf.category === 'ALL' || e.category === state.etf.category;
+        const matchQ = !q || e.ticker.toLowerCase().includes(q) || e.name.toLowerCase().includes(q);
+        return matchCat && matchQ;
+      });
+
+      document.getElementById('etf-tbody').innerHTML = filtered.map(e => {
+        const checked = state.etf.selected.includes(e.ticker) ? 'checked' : '';
+        return `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+            <td class="px-3 py-2.5"><input type="checkbox" data-ticker="${e.ticker}" class="etf-chk rounded accent-blue-600" ${checked} /></td>
+            <td class="px-3 py-2.5 font-bold text-blue-600 dark:text-blue-400">${e.ticker}</td>
+            <td class="px-3 py-2.5 font-medium">${e.name}</td>
+            <td class="px-3 py-2.5"><span class="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-xs">${e.category}</span></td>
+            <td class="px-3 py-2.5 tabular-nums font-medium">${e.fee}</td>
+            <td class="px-3 py-2.5 text-slate-600 dark:text-slate-300 text-xs">${e.desc}</td>
+          </tr>
+        `;
+      }).join('');
+
+      document.querySelectorAll('.etf-chk').forEach(chk => {
+        chk.addEventListener('change', e => {
+          const t = e.target.dataset.ticker;
+          if (e.target.checked) {
+            if (state.etf.selected.length >= 3) {
+              e.target.checked = false;
+              showToast('最多同時比較 3 檔 ETF');
+              return;
+            }
+            state.etf.selected.push(t);
+          } else {
+            state.etf.selected = state.etf.selected.filter(x => x !== t);
+          }
+          renderEtfComparison();
+        });
+      });
+      renderEtfComparison();
+    }
+
+    function renderEtfComparison() {
+      const box = document.getElementById('etf-compare-box');
+      if (state.etf.selected.length === 0) {
+        box.classList.add('hidden');
+        return;
+      }
+      box.classList.remove('hidden');
+      const items = state.etf.selected.map(t => ETF_DB.find(e => e.ticker === t)).filter(Boolean);
+      document.getElementById('etf-compare-grid').innerHTML = items.map(e => `
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-base text-blue-600 dark:text-blue-400">${e.ticker}</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400">${e.category}</span>
+          </div>
+          <div class="font-medium text-sm">${e.name}</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400">內扣費用率：<strong class="text-slate-900 dark:text-white tabular-nums">${e.fee}</strong></div>
+          <p class="text-xs text-slate-600 dark:text-slate-300 pt-1">${e.desc}</p>
+        </div>
+      `).join('');
+    }
+
+    function renderTraderTab() {
+      const quadMeta = {
+        HIGH_UP: { label: '基本面高・趨勢向上', cls: 'bg-emerald-500/15 text-emerald-500' },
+        HIGH_DOWN: { label: '基本面高・趨勢向下', cls: 'bg-amber-500/15 text-amber-500' },
+        LOW_DOWN: { label: '基本面低・弱勢築底', cls: 'bg-rose-500/15 text-rose-500' }
+      };
+
+      document.querySelectorAll('.tquad-btn').forEach(btn => {
+        const active = btn.dataset.quad === state.trader.quad;
+        btn.className = `tquad-btn text-left p-3.5 rounded-xl border transition-all ${
+          active
+            ? 'border-blue-500 bg-blue-500/10 ring-1 ring-blue-500'
+            : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-700'
+        }`;
+      });
+
+      document.querySelectorAll('.tcat-btn').forEach(btn => {
+        const active = btn.dataset.tcat === state.trader.cat;
+        btn.className = `tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+          active ? 'bg-blue-600 text-white shadow-sm' : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`;
+      });
+
+      const q = state.trader.query.toLowerCase();
+      const filtered = TRADER_ITEMS.filter(it => {
+        const mCat = state.trader.cat === 'ALL' || it.cat === state.trader.cat;
+        const mQuad = state.trader.quad === 'ALL' || it.quad === state.trader.quad;
+        const mQ = !q || it.name.toLowerCase().includes(q) || it.sub.toLowerCase().includes(q) || it.desc.toLowerCase().includes(q);
+        return mCat && mQuad && mQ;
+      });
+
+      const grid = document.getElementById('trader-grid');
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="col-span-full p-8 text-center text-slate-500 border border-dashed border-slate-300 dark:border-slate-700 rounded-xl">無符合條件的商品指標</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map((it, idx) => {
+        const qm = quadMeta[it.quad] || quadMeta.HIGH_UP;
+        return `
+          <div data-tidx="${TRADER_ITEMS.indexOf(it)}" class="trader-card cursor-pointer bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-500/60 rounded-xl p-4 shadow-sm transition-all flex flex-col justify-between space-y-3">
+            <div>
+              <div class="flex items-center justify-between gap-2 text-xs">
+                <span class="text-slate-500 dark:text-slate-400 font-medium">${it.cat} · ${it.sub}</span>
+                <span class="px-2 py-0.5 rounded-full font-medium ${qm.cls}">${qm.label}</span>
+              </div>
+              <h3 class="font-semibold text-base mt-1.5 text-slate-900 dark:text-slate-100">${it.name}</h3>
+            </div>
+            <div class="flex items-baseline justify-between border-t border-slate-100 dark:border-slate-800 pt-2.5">
+              <span class="text-xl font-bold tabular-nums text-blue-600 dark:text-blue-400">${it.val}</span>
+              <span class="text-xs text-slate-400 tabular-nums">${it.date}</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">${it.desc}</p>
+          </div>
+        `;
+      }).join('');
+
+      document.querySelectorAll('.trader-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const item = TRADER_ITEMS[Number(card.dataset.tidx)];
+          const qm = quadMeta[item.quad] || quadMeta.HIGH_UP;
+          document.getElementById('tm-cat').textContent = `${item.cat} · ${item.sub}`;
+          document.getElementById('tm-title').textContent = item.name;
+          document.getElementById('tm-value').textContent = item.val;
+          document.getElementById('tm-date').textContent = item.date;
+          document.getElementById('tm-quad').textContent = qm.label;
+          document.getElementById('tm-desc').textContent = item.desc;
+          document.getElementById('tm-vars').textContent = item.vars;
+          document.getElementById('trader-modal').classList.remove('hidden');
+        });
+      });
+    }
+
+    function renderBuilderControls() {
+      const benchEl = document.getElementById('builder-bench');
+      const keys = Object.keys(SERIES_DB);
+      benchEl.innerHTML = keys.map(k => `<option value="${k}">${SERIES_DB[k].name}</option>`).join('');
+      benchEl.value = state.builder.bench;
+
+      const slotsEl = document.getElementById('builder-slots');
+      slotsEl.innerHTML = state.builder.slots.map((slot, idx) => `
+        <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <select data-sidx="${idx}" class="bld-slot-key flex-1 rounded border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2 py-1 text-xs">
+              ${keys.map(k => `<option value="${k}" ${k === slot.key ? 'selected' : ''}>${SERIES_DB[k].name}</option>`).join('')}
+            </select>
+            <span id="bld-wval-${idx}" class="text-xs font-bold tabular-nums w-12 text-right ${slot.weight >= 0 ? 'text-emerald-500' : 'text-rose-500'}">${slot.weight > 0 ? '+' : ''}${slot.weight}%</span>
+          </div>
+          <input data-sidx="${idx}" type="range" min="-100" max="100" step="10" value="${slot.weight}" class="bld-slot-weight w-full accent-indigo-600" />
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.bld-slot-key').forEach(sel => {
+        sel.addEventListener('change', e => {
+          state.builder.slots[Number(e.target.dataset.sidx)].key = e.target.value;
+          renderBuilderChart();
+        });
+      });
+      document.querySelectorAll('.bld-slot-weight').forEach(rng => {
+        rng.addEventListener('input', e => {
+          const i = Number(e.target.dataset.sidx);
+          const w = Number(e.target.value);
+          state.builder.slots[i].weight = w;
+          const lbl = document.getElementById(`bld-wval-${i}`);
+          if (lbl) {
+            lbl.textContent = `${w > 0 ? '+' : ''}${w}%`;
+            lbl.className = `text-xs font-bold tabular-nums w-12 text-right ${w >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+          }
+          renderBuilderChart();
+        });
+      });
+    }
+
+    function renderBuilderChart() {
+      const len = MONTHS.length;
+      const totalAbsW = state.builder.slots.reduce((s, x) => s + Math.abs(x.weight), 0) || 1;
+      const zSeriesList = state.builder.slots.map(slot => {
+        const raw = SERIES_DB[slot.key].data.slice(-len);
+        return { weight: slot.weight, z: transformSeries(raw, 'zscore') };
+      });
+
+      const composite = MONTHS.map((_, t) => {
+        let sum = 0;
+        zSeriesList.forEach(item => {
+          const val = item.z[t] !== undefined ? item.z[t] : 0;
+          sum += (item.weight / totalAbsW) * val;
+        });
+        return +sum.toFixed(2);
+      });
+      state.builder.lastSeries = composite;
+
+      const latest = composite[composite.length - 1];
+      const prevAvg = (composite[composite.length - 2] + composite[composite.length - 3] + composite[composite.length - 4]) / 3;
+      const isHigh = latest >= 0;
+      const isUp = latest >= prevAvg;
+
+      const latestEl = document.getElementById('bld-latest-val');
+      latestEl.textContent = (latest > 0 ? '+' : '') + latest.toFixed(2);
+      latestEl.className = `text-2xl font-bold tabular-nums mt-1 ${isHigh ? 'text-emerald-500' : 'text-rose-500'}`;
+
+      const quadBadge = document.getElementById('bld-quad-badge');
+      if (isHigh && isUp) {
+        quadBadge.textContent = '數值高・趨勢向上 (最佳)';
+        quadBadge.className = 'text-sm font-bold mt-2 text-emerald-500';
+      } else if (isHigh && !isUp) {
+        quadBadge.textContent = '數值高・趨勢向下 (留意轉折)';
+        quadBadge.className = 'text-sm font-bold mt-2 text-amber-500';
+      } else if (!isHigh && isUp) {
+        quadBadge.textContent = '數值低・趨勢向上 (築底回升)';
+        quadBadge.className = 'text-sm font-bold mt-2 text-blue-500';
+      } else {
+        quadBadge.textContent = '數值低・趨勢向下 (最弱勢)';
+        quadBadge.className = 'text-sm font-bold mt-2 text-rose-500';
+      }
+
+      const benchSeries = SERIES_DB[state.builder.bench];
+      const benchData = benchSeries.data.slice(-len);
+      document.getElementById('bld-corr-val').textContent = pearsonCorr(composite, benchData);
+
+      const ctx = document.getElementById('builderChart').getContext('2d');
+      if (charts.builder) charts.builder.destroy();
+      charts.builder = new Chart(ctx, {
+        data: {
+          labels: MONTHS,
+          datasets: [
+            {
+              type: 'bar',
+              label: state.builder.name || '自編基本面指數',
+              data: composite,
+              yAxisID: 'y',
+              backgroundColor: composite.map(v => v >= 0 ? 'rgba(16, 185, 129, 0.55)' : 'rgba(244, 63, 94, 0.55)'),
+              borderRadius: 3
+            },
+            {
+              type: 'line',
+              label: `${benchSeries.name} (右軸)`,
+              data: benchData,
+              yAxisID: 'y1',
+              borderColor: '#3b82f6',
+              borderWidth: 2,
+              tension: 0.25,
+              pointRadius: 2
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { labels: { color: textColor() } } },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: { type: 'linear', position: 'left', title: { display: true, text: '綜合 Z-Score', color: textColor() }, grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y1: { type: 'linear', position: 'right', grid: { drawOnChartArea: false }, ticks: { color: '#3b82f6' } }
+          }
+        }
+      });
+    }
+
+    function renderBuilderTab() {
+      renderBuilderControls();
+      renderBuilderChart();
+    }
+
+    function hmColor(val) {
+      if (val >= 3) return '#16a34a';
+      if (val >= 1.5) return '#15803d';
+      if (val > 0.2) return '#166534';
+      if (val >= -0.2) return '#374151';
+      if (val > -1.5) return '#7f1d1d';
+      if (val > -3) return '#991b1b';
+      return '#dc2626';
+    }
+
+    function renderHeatmap() {
+      document.querySelectorAll('.hm-mkt-btn').forEach(btn => {
+        const active = btn.dataset.hmMkt === state.heatmap.market;
+        btn.className = `hm-mkt-btn px-3 py-1.5 transition-colors ${
+          active ? 'bg-blue-600 text-white' : 'bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+        }`;
+      });
+
+      const rawItems = HEATMAP_DATA[state.heatmap.market] || HEATMAP_DATA.SP500;
+      const sectors = [...new Set(rawItems.map(x => x.sector))];
+      const secSel = document.getElementById('hm-sector');
+      const prevSec = state.heatmap.sector;
+      secSel.innerHTML = `<option value="ALL">全部產業板塊 (${sectors.length})</option>` +
+        sectors.map(sec => `<option value="${sec}">${sec}</option>`).join('');
+      secSel.value = sectors.includes(prevSec) ? prevSec : 'ALL';
+      state.heatmap.sector = secSel.value;
+
+      const filtered = state.heatmap.sector === 'ALL'
+        ? rawItems
+        : rawItems.filter(x => x.sector === state.heatmap.sector);
+
+      // Build hierarchy by sector
+      const grouped = {};
+      filtered.forEach(it => {
+        if (!grouped[it.sector]) grouped[it.sector] = [];
+        grouped[it.sector].push(it);
+      });
+      const rootData = {
+        name: 'root',
+        children: Object.entries(grouped).map(([sec, children]) => ({ name: sec, children }))
+      };
+
+      const container = document.getElementById('heatmap-canvas');
+      const width = container.clientWidth || 960;
+      const height = container.clientHeight || 540;
+      container.innerHTML = '';
+
+      if (typeof d3 === 'undefined') {
+        container.innerHTML = '<div class="p-8 text-center text-slate-400">正在載入 Treemap 繪圖引擎...</div>';
+        return;
+      }
+
+      const root = d3.hierarchy(rootData)
+        .sum(d => d.cap || 0)
+        .sort((a, b) => b.value - a.value);
+
+      d3.treemap()
+        .size([width, height])
+        .paddingOuter(3)
+        .paddingTop(18)
+        .paddingInner(2)
+        .round(true)(root);
+
+      const tf = state.heatmap.tf;
+
+      // Render Sector Headers
+      (root.children || []).forEach(secNode => {
+        const secEl = document.createElement('div');
+        secEl.style.cssText = `position:absolute;left:${secNode.x0}px;top:${secNode.y0}px;width:${Math.max(0, secNode.x1 - secNode.x0)}px;height:${Math.max(0, secNode.y1 - secNode.y0)}px;border:1px solid #1e293b;background:#0f172a;overflow:hidden;`;
+        const hdr = document.createElement('div');
+        hdr.style.cssText = 'height:17px;line-height:17px;padding:0 5px;font-size:10px;font-weight:700;color:#e2e8f0;background:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:0.03em;';
+        hdr.textContent = secNode.data.name;
+        secEl.appendChild(hdr);
+        container.appendChild(secEl);
+      });
+
+      // Render Stock Leaves
+      root.leaves().forEach(leaf => {
+        const d = leaf.data;
+        const val = d[tf] !== undefined ? d[tf] : d.d1;
+        const w = Math.max(0, leaf.x1 - leaf.x0);
+        const h = Math.max(0, leaf.y1 - leaf.y0);
+        const cell = document.createElement('div');
+        cell.style.cssText = `position:absolute;left:${leaf.x0}px;top:${leaf.y0}px;width:${w}px;height:${h}px;background:${hmColor(val)};display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(15,23,42,0.45);transition:filter 0.12s;overflow:hidden;padding:2px;`;
+        cell.title = `${d.ticker} ${d.name} (${d.sector}): ${val >= 0 ? '+' : ''}${val.toFixed(2)}%`;
+
+        const mainLabel = state.heatmap.market === 'TW' ? `${d.name} ${d.ticker}` : d.ticker;
+        if (w > 34 && h > 24) {
+          const tSize = Math.min(16, Math.max(9, Math.floor(Math.min(w / (state.heatmap.market === 'TW' ? 6.2 : 4.2), h / 3.2))));
+          const vSize = Math.max(8, Math.floor(tSize * 0.78));
+          cell.innerHTML = `<div style="font-size:${tSize}px;font-weight:700;color:#fff;line-height:1.15;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,0.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;">${mainLabel}</div>` +
+            (h > 34 ? `<div style="font-size:${vSize}px;font-weight:600;color:rgba(255,255,255,0.92);margin-top:2px;font-variant-numeric:tabular-nums;">${val >= 0 ? '+' : ''}${val.toFixed(2)}%</div>` : '');
+        } else if (w > 18 && h > 14) {
+          cell.innerHTML = `<div style="font-size:8px;font-weight:700;color:#fff;">${state.heatmap.market === 'TW' ? d.name : d.ticker}</div>`;
+        }
+
+        cell.addEventListener('mouseenter', () => {
+          cell.style.filter = 'brightness(1.18)';
+          document.getElementById('hm-hover-info').textContent = `${d.ticker} · ${d.name} (${d.sector})｜漲跌幅：${val >= 0 ? '+' : ''}${val.toFixed(2)}%`;
+        });
+        cell.addEventListener('mouseleave', () => { cell.style.filter = ''; });
+        cell.addEventListener('click', () => {
+          document.getElementById('tm-cat').textContent = `市場熱力圖 · ${d.sector}`;
+          document.getElementById('tm-title').textContent = `${d.ticker} — ${d.name}`;
+          document.getElementById('tm-value').textContent = `${val >= 0 ? '+' : ''}${val.toFixed(2)}%`;
+          document.getElementById('tm-date').textContent = tf === 'd1' ? '1D 一日表現' : tf === 'w1' ? '1W 一週表現' : 'YTD 年初至今';
+          document.getElementById('tm-quad').textContent = val >= 0 ? '當期強勢上漲' : '當期修正下跌';
+          document.getElementById('tm-desc').textContent = `相對市值權重指數：${d.cap}（方塊面積依權重等比例縮放）`;
+          document.getElementById('tm-vars').textContent = `1D: ${d.d1 >= 0 ? '+' : ''}${d.d1}% ｜ 1W: ${d.w1 >= 0 ? '+' : ''}${d.w1}% ｜ YTD: ${d.ytd >= 0 ? '+' : ''}${d.ytd}%`;
+          document.getElementById('trader-modal').classList.remove('hidden');
+        });
+
+        container.appendChild(cell);
+      });
+    }
+
+    function renderCalendar() {
+      const filtered = CALENDAR_EVENTS.filter(ev => {
+        const matchReg = state.calendar.region === 'ALL' || ev.region === state.calendar.region;
+        const matchImp = state.calendar.impact === 'ALL' || ev.impact === state.calendar.impact;
+        return matchReg && matchImp;
+      });
+      const tbody = document.getElementById('calendar-tbody');
+      tbody.innerHTML = filtered.length === 0
+        ? `<tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">無符合篩選條件的財經事件</td></tr>`
+        : filtered.map(ev => `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+            <td class="px-4 py-3 font-medium tabular-nums whitespace-nowrap">${ev.date}</td>
+            <td class="px-4 py-3 whitespace-nowrap">${ev.flag} ${ev.region}</td>
+            <td class="px-4 py-3 font-medium">${ev.event}</td>
+            <td class="px-4 py-3 whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded-full text-xs font-medium ${ev.impact === 'HIGH' ? 'bg-rose-500/15 text-rose-500' : 'bg-amber-500/15 text-amber-500'}">
+                ${ev.impact === 'HIGH' ? '高' : '中'}
+              </span>
+            </td>
+            <td class="px-4 py-3 text-slate-600 dark:text-slate-300">${ev.note}</td>
+          </tr>
+        `).join('');
+    }
+
+    function renderMyDashboard() {
+      const grid = document.getElementById('mydash-grid');
+      if (state.myDashboard.length === 0) {
+        grid.innerHTML = `<div class="col-span-full p-8 text-center rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-slate-500">尚未收藏任何圖組，請至「研究工具箱」點擊收藏！</div>`;
+        return;
+      }
+      grid.innerHTML = state.myDashboard.map(item => `
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-center justify-between gap-2">
+              <h3 class="font-semibold text-base">${item.title}</h3>
+              <button data-remove-id="${item.id}" class="mydash-del text-xs text-rose-500 hover:underline">移除</button>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">運算模式：${item.transform} ｜ 時間區間：${item.range} 個月</p>
+          </div>
+          <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+            <button data-open-id="${item.id}" class="mydash-open text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+              在研究工具箱開啟 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      document.querySelectorAll('.mydash-del').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.myDashboard = state.myDashboard.filter(x => x.id !== btn.dataset.removeId);
+          renderMyDashboard();
+          showToast('已從我的儀表板移除');
+        });
+      });
+      document.querySelectorAll('.mydash-open').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = state.myDashboard.find(x => x.id === btn.dataset.openId);
+          if (!item) return;
+          state.toolbox = { left: item.left, right: item.right, transform: item.transform, range: item.range };
+          document.getElementById('series-left').value = item.left;
+          document.getElementById('series-right').value = item.right;
+          document.getElementById('math-transform').value = item.transform;
+          switchTab('toolbox');
+        });
+      });
+      lucide.createIcons();
+    }
+
+    // --- 6. Event Listeners & Init ---
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+      });
+      document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+        document.getElementById('mobile-nav').classList.toggle('hidden');
+      });
+
+      document.getElementById('theme-toggle').addEventListener('click', () => {
+        document.documentElement.classList.toggle('dark');
+        if (state.activeTab === 'dashboard') renderDashboard();
+        if (state.activeTab === 'money') renderMoneyTab();
+        if (state.activeTab === 'toolbox') renderToolbox();
+        if (state.activeTab === 'backtest') renderBacktest();
+      });
+
+      document.querySelectorAll('.country-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.selectedCountry = btn.dataset.country;
+          renderDashboard();
+        });
+      });
+      document.getElementById('goto-money-btn').addEventListener('click', () => switchTab('money'));
+      document.getElementById('goto-toolbox-btn').addEventListener('click', () => switchTab('toolbox'));
+      document.getElementById('open-m1b-in-toolbox').addEventListener('click', () => {
+        state.toolbox.left = 'twM1b'; state.toolbox.right = 'taiex';
+        document.getElementById('series-left').value = 'twM1b';
+        document.getElementById('series-right').value = 'taiex';
+        switchTab('toolbox');
+      });
+
+      populateToolboxSelects();
+      document.getElementById('series-left').addEventListener('change', e => { state.toolbox.left = e.target.value; renderToolbox(); });
+      document.getElementById('series-right').addEventListener('change', e => { state.toolbox.right = e.target.value; renderToolbox(); });
+      document.getElementById('math-transform').addEventListener('change', e => { state.toolbox.transform = e.target.value; renderToolbox(); });
+      document.querySelectorAll('.range-btn').forEach(btn => {
+        btn.addEventListener('click', () => { state.toolbox.range = Number(btn.dataset.range); renderToolbox(); });
+      });
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const [l, r] = btn.dataset.preset.split('|');
+          state.toolbox.left = l; state.toolbox.right = r;
+          document.getElementById('series-left').value = l;
+          document.getElementById('series-right').value = r;
+          renderToolbox();
+        });
+      });
+
+      document.getElementById('save-to-mydash-btn').addEventListener('click', () => {
+        const sL = SERIES_DB[state.toolbox.left].name;
+        const sR = SERIES_DB[state.toolbox.right].name;
+        state.myDashboard.push({
+          id: 'card-' + Date.now(),
+          title: `${sL} vs ${sR}`,
+          left: state.toolbox.left,
+          right: state.toolbox.right,
+          transform: state.toolbox.transform,
+          range: state.toolbox.range
+        });
+        showToast('已收藏至「我的儀表板」');
+      });
+
+      document.getElementById('export-csv-btn').addEventListener('click', () => {
+        const sL = SERIES_DB[state.toolbox.left], sR = SERIES_DB[state.toolbox.right];
+        const len = state.toolbox.range;
+        const labels = (sL.labels || MONTHS).slice(-len);
+        const dL = transformSeries(sL.data.slice(-len), state.toolbox.transform);
+        const dR = transformSeries(sR.data.slice(-len), state.toolbox.transform);
+        const rows = [`Date,${sL.name} (${state.toolbox.transform}),${sR.name} (${state.toolbox.transform})`];
+        labels.forEach((lbl, i) => rows.push(`${lbl},${dL[i]},${dR[i]}`));
+        const blob = new Blob(['\uFEFF' + rows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'macropulse_export.csv'; a.click();
+        URL.revokeObjectURL(url);
+        showToast('已匯出目前圖表數據為 CSV');
+      });
+
+      updateBacktestSliderRange();
+      document.getElementById('bt-indicator').addEventListener('change', e => {
+        state.backtest.indicator = e.target.value; updateBacktestSliderRange(); renderBacktest();
+      });
+      document.getElementById('bt-operator').addEventListener('change', e => { state.backtest.operator = e.target.value; renderBacktest(); });
+      document.getElementById('bt-threshold').addEventListener('input', e => {
+        state.backtest.threshold = Number(e.target.value);
+        document.getElementById('bt-threshold-val').textContent = state.backtest.threshold.toFixed(2);
+        renderBacktest();
+      });
+      document.getElementById('bt-asset').addEventListener('change', e => { state.backtest.asset = e.target.value; renderBacktest(); });
+
+      document.getElementById('etf-cat-filter').addEventListener('change', e => { state.etf.category = e.target.value; renderEtfTab(); });
+      document.getElementById('etf-search').addEventListener('input', e => { state.etf.query = e.target.value; renderEtfTab(); });
+
+      document.getElementById('cal-region').addEventListener('change', e => { state.calendar.region = e.target.value; renderCalendar(); });
+      document.getElementById('cal-impact').addEventListener('change', e => { state.calendar.impact = e.target.value; renderCalendar(); });
+
+      const sampleCsv = MONTHS.slice(-12).map((m, i) => `${m},${(12 + i * 1.4 + (i % 2 === 0 ? 1.5 : -0.8)).toFixed(1)}`).join('\n');
+      document.getElementById('csv-textarea').value = sampleCsv;
+      document.getElementById('fill-sample-csv').addEventListener('click', () => {
+        document.getElementById('csv-textarea').value = sampleCsv;
+        showToast('已載入 12 個月範例數據');
+      });
+      document.getElementById('live-json-input').addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          try {
+            const payload = JSON.parse(ev.target.result);
+            const count = applyLivePayload(payload);
+            showToast(`已成功載入真實數據包（更新 ${count} 項資料集）！`);
+          } catch (err) {
+            showToast('JSON 格式解析失敗，請確認檔案為 update_macro_data.py 產出');
+          }
+        };
+        reader.readAsText(file);
+      });
+
+      document.getElementById('csv-file-input').addEventListener('change', e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => { document.getElementById('csv-textarea').value = ev.target.result; };
+        reader.readAsText(file);
+      });
+      document.getElementById('apply-csv-btn').addEventListener('click', () => {
+        const name = document.getElementById('custom-series-name').value.trim() || '自訂總經指標';
+        const lines = document.getElementById('csv-textarea').value.trim().split(/\r?\n/);
+        const labels = [], values = [];
+        lines.forEach(line => {
+          const parts = line.split(',');
+          if (parts.length >= 2) {
+            const val = parseFloat(parts[1]);
+            if (!isNaN(val)) { labels.push(parts[0].trim()); values.push(val); }
+          }
+        });
+        if (values.length < 3) { showToast('請至少輸入 3 筆有效的「日期,數值」資料'); return; }
+        SERIES_DB.customUser = { name, unit: '', labels, data: values };
+        populateToolboxSelects();
+        state.toolbox.left = 'customUser';
+        document.getElementById('series-left').value = 'customUser';
+        showToast(`已成功匯入「${name}」（共 ${values.length} 筆）`);
+        switchTab('toolbox');
+      });
+
+      // Scorecard events
+      document.querySelectorAll('.traj-btn').forEach(btn => {
+        btn.addEventListener('click', () => { state.scorecard.trajRegion = btn.dataset.traj; renderTrajectory(); });
+      });
+      document.getElementById('traj-slider').addEventListener('input', e => {
+        state.scorecard.trajIdx = Number(e.target.value); renderTrajectory();
+      });
+      document.getElementById('traj-first').addEventListener('click', () => { state.scorecard.trajIdx = 0; renderTrajectory(); });
+      document.getElementById('traj-last').addEventListener('click', () => { state.scorecard.trajIdx = MONTHS.length - 1; renderTrajectory(); });
+      document.getElementById('traj-prev').addEventListener('click', () => {
+        state.scorecard.trajIdx = Math.max(0, state.scorecard.trajIdx - 1); renderTrajectory();
+      });
+      document.getElementById('traj-next').addEventListener('click', () => {
+        state.scorecard.trajIdx = Math.min(MONTHS.length - 1, state.scorecard.trajIdx + 1); renderTrajectory();
+      });
+      document.getElementById('traj-play').addEventListener('click', () => {
+        state.scorecard.playing = !state.scorecard.playing;
+        const icon = document.querySelector('#traj-play i');
+        clearInterval(trajTimer);
+        if (state.scorecard.playing) {
+          if (state.scorecard.trajIdx >= MONTHS.length - 1) state.scorecard.trajIdx = 0;
+          if (icon) icon.setAttribute('data-lucide', 'pause');
+          lucide.createIcons();
+          trajTimer = setInterval(() => {
+            if (state.scorecard.trajIdx < MONTHS.length - 1) {
+              state.scorecard.trajIdx++;
+              renderTrajectory();
+            } else {
+              state.scorecard.playing = false;
+              clearInterval(trajTimer);
+              const i2 = document.querySelector('#traj-play i');
+              if (i2) i2.setAttribute('data-lucide', 'play');
+              lucide.createIcons();
+            }
+          }, 350);
+        } else {
+          if (icon) icon.setAttribute('data-lucide', 'play');
+          lucide.createIcons();
+        }
+      });
+      document.getElementById('traj-more-btn').addEventListener('click', () => switchTab('toolbox'));
+      document.querySelectorAll('.mmcat-btn').forEach(btn => {
+        btn.addEventListener('click', () => { state.scorecard.mmCat = btn.dataset.mmcat; renderMmIndicators(); });
+      });
+      document.querySelectorAll('.top5-btn').forEach(btn => {
+        btn.addEventListener('click', () => { state.scorecard.top5Cat = btn.dataset.top5; renderTop5(); });
+      });
+      document.getElementById('top5-more-btn').addEventListener('click', () => switchTab('etf'));
+
+      // Trader tab events
+      document.querySelectorAll('.tquad-btn').forEach(btn => {
+        btn.addEventListener('click', () => { state.trader.quad = btn.dataset.quad; renderTraderTab(); });
+      });
+      document.querySelectorAll('.tcat-btn').forEach(btn => {
+        btn.addEventListener('click', () => { state.trader.cat = btn.dataset.tcat; renderTraderTab(); });
+      });
+      document.getElementById('trader-search').addEventListener('input', e => {
+        state.trader.query = e.target.value; renderTraderTab();
+      });
+      document.getElementById('trader-period').addEventListener('change', e => {
+        showToast(`已切換至 ${e.target.value} 基本面情境快照`);
+        renderTraderTab();
+      });
+      const traderModal = document.getElementById('trader-modal');
+      document.getElementById('tm-close').addEventListener('click', () => traderModal.classList.add('hidden'));
+      document.getElementById('tm-ok').addEventListener('click', () => traderModal.classList.add('hidden'));
+
+      // Builder events
+      document.getElementById('builder-name').addEventListener('input', e => {
+        state.builder.name = e.target.value; renderBuilderChart();
+      });
+      document.getElementById('builder-bench').addEventListener('change', e => {
+        state.builder.bench = e.target.value; renderBuilderChart();
+      });
+      document.querySelectorAll('.bpreset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const p = btn.dataset.bpreset;
+          if (p === 'tw') {
+            state.builder.name = '自編台股動能基本面指數';
+            state.builder.bench = 'taiex';
+            state.builder.slots = [{ key: 'twM1b', weight: 40 }, { key: 'twM1bM2Spread', weight: 40 }, { key: 'us10y', weight: -20 }];
+          } else if (p === 'us') {
+            state.builder.name = '自編美股總經基本面指數';
+            state.builder.bench = 'sp500';
+            state.builder.slots = [{ key: 'spread10y2y', weight: 40 }, { key: 'usM2', weight: 30 }, { key: 'usCpi', weight: -30 }];
+          } else {
+            state.builder.name = '自編黃金避險基本面指數';
+            state.builder.bench = 'gold';
+            state.builder.slots = [{ key: 'usM2', weight: 50 }, { key: 'usCpi', weight: 30 }, { key: 'us10y', weight: -20 }];
+          }
+          document.getElementById('builder-name').value = state.builder.name;
+          renderBuilderTab();
+        });
+      });
+      document.getElementById('save-built-index-btn').addEventListener('click', () => {
+        const idxName = state.builder.name.trim() || '自編基本面指數';
+        SERIES_DB.customComposite = { name: `[自編] ${idxName}`, unit: 'Z', data: [...state.builder.lastSeries] };
+        populateToolboxSelects();
+        const btSel = document.getElementById('bt-indicator');
+        if (!btSel.querySelector('option[value="customComposite"]')) {
+          const opt = document.createElement('option');
+          opt.value = 'customComposite';
+          opt.textContent = `[自編] ${idxName}`;
+          btSel.appendChild(opt);
+        } else {
+          btSel.querySelector('option[value="customComposite"]').textContent = `[自編] ${idxName}`;
+        }
+        showToast(`已將「${idxName}」存入研究工具箱與回測清單！`);
+      });
+
+      // Heatmap events
+      document.querySelectorAll('.hm-mkt-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.heatmap.market = btn.dataset.hmMkt;
+          state.heatmap.sector = 'ALL';
+          renderHeatmap();
+        });
+      });
+      document.getElementById('hm-tf').addEventListener('change', e => {
+        state.heatmap.tf = e.target.value; renderHeatmap();
+      });
+      document.getElementById('hm-sector').addEventListener('change', e => {
+        state.heatmap.sector = e.target.value; renderHeatmap();
+      });
+      window.addEventListener('resize', () => {
+        if (state.activeTab === 'heatmap') renderHeatmap();
+      });
+
+      // Guide modal
+      const guideModal = document.getElementById('guide-modal');
+      document.getElementById('guide-modal-btn').addEventListener('click', () => guideModal.classList.remove('hidden'));
+      document.getElementById('guide-close-btn').addEventListener('click', () => guideModal.classList.add('hidden'));
+      document.getElementById('guide-ok-btn').addEventListener('click', () => guideModal.classList.add('hidden'));
+
+      document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
+      switchTab('dashboard');
+      syncLivePublicData(false);
+    });
+  </script>
+</body>
+</html>
