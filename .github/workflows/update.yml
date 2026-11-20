@@ -5,9 +5,17 @@ on:
     - cron: '0 22 * * 1-5'   # 週一至週五 UTC 22:00 (台灣隔日 06:00 美股收盤後)
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: macro-data-update
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

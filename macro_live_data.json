@@ -1,5 +1,7 @@
 {
-  "updated_at": "2026-11-20T22:51:06",
+  "schema_version": 2,
+  "updated_at": "2026-11-20T22:53:35Z",
+  "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
       "2024-10",
@@ -120,280 +122,336 @@
       "ticker": "2330",
       "name": "台積電",
       "cap": 520,
-      "price": 2100.0,
-      "d1": -3.45,
-      "w1": -3.45,
-      "ytd": -3.45
+      "price": 2000.0,
+      "d1": -4.76,
+      "w1": -14.89,
+      "ytd": 27.31,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "半導體",
       "ticker": "2454",
       "name": "聯發科",
       "cap": 95,
-      "price": 3720.0,
-      "d1": -5.58,
-      "w1": -5.58,
-      "ytd": -5.58
+      "price": 3350.0,
+      "d1": -9.95,
+      "w1": -18.69,
+      "ytd": 133.7,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "半導體",
       "ticker": "3711",
       "name": "日月光投控",
       "cap": 45,
-      "price": 504.0,
-      "d1": -8.03,
-      "w1": -8.03,
-      "ytd": -8.03
+      "price": 457.0,
+      "d1": -9.33,
+      "w1": -23.58,
+      "ytd": 78.75,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "半導體",
       "ticker": "2303",
       "name": "聯電",
       "cap": 38,
-      "price": 88.2,
-      "d1": -5.16,
-      "w1": -5.16,
-      "ytd": -5.16
+      "price": 80.3,
+      "d1": -8.96,
+      "w1": -20.89,
+      "ytd": 67.71,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "半導體",
       "ticker": "2379",
       "name": "瑞昱",
       "cap": 24,
-      "price": 726.0,
-      "d1": -1.09,
-      "w1": -1.09,
-      "ytd": -1.09
+      "price": 668.0,
+      "d1": -7.99,
+      "w1": -11.87,
+      "ytd": 41.89,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "半導體",
       "ticker": "3034",
       "name": "聯詠",
       "cap": 22,
-      "price": 436.5,
-      "d1": -4.69,
-      "w1": -4.69,
-      "ytd": -4.69
+      "price": 416.5,
+      "d1": -4.58,
+      "w1": -12.13,
+      "ytd": 18.52,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "半導體",
       "ticker": "3661",
       "name": "世芯-KY",
       "cap": 26,
-      "price": 3600.0,
-      "d1": -8.86,
-      "w1": -8.86,
-      "ytd": -8.86
+      "price": 3240.0,
+      "d1": -10.0,
+      "w1": -19.4,
+      "ytd": -10.17,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "AI 伺服器/電子",
       "ticker": "2317",
       "name": "鴻海",
       "cap": 125,
-      "price": 220.5,
-      "d1": -0.23,
-      "w1": -0.23,
-      "ytd": -0.23
+      "price": 210.0,
+      "d1": -4.76,
+      "w1": -12.86,
+      "ytd": -6.79,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "AI 伺服器/電子",
       "ticker": "2382",
       "name": "廣達",
       "cap": 65,
-      "price": 262.5,
-      "d1": -0.94,
-      "w1": -0.94,
-      "ytd": -0.94
+      "price": 252.0,
+      "d1": -4.0,
+      "w1": -8.86,
+      "ytd": -5.14,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "AI 伺服器/電子",
       "ticker": "2308",
       "name": "台達電",
       "cap": 58,
-      "price": 1000.0,
-      "d1": -5.66,
-      "w1": -5.66,
-      "ytd": -5.66
+      "price": 900.0,
+      "d1": -10.0,
+      "w1": -27.42,
+      "ytd": -9.07,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "AI 伺服器/電子",
       "ticker": "3231",
       "name": "緯創",
       "cap": 34,
-      "price": 156.0,
-      "d1": -3.7,
-      "w1": -3.7,
-      "ytd": -3.7
+      "price": 147.0,
+      "d1": -5.77,
+      "w1": -14.04,
+      "ytd": -1.68,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "AI 伺服器/電子",
       "ticker": "6669",
       "name": "緯穎",
       "cap": 32,
-      "price": 1410.0,
-      "d1": -4.41,
-      "w1": -4.41,
-      "ytd": -4.41
+      "price": 1325.0,
+      "d1": -6.03,
+      "w1": -18.96,
+      "ytd": -9.23,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "AI 伺服器/電子",
       "ticker": "2357",
       "name": "華碩",
       "cap": 28,
-      "price": 800.0,
-      "d1": -4.88,
-      "w1": -4.88,
-      "ytd": -4.88
+      "price": 756.0,
+      "d1": -5.5,
+      "w1": -14.29,
+      "ytd": 44.91,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "AI 伺服器/電子",
       "ticker": "2376",
       "name": "技嘉",
       "cap": 20,
-      "price": 260.0,
-      "d1": -5.97,
-      "w1": -5.97,
-      "ytd": -5.97
+      "price": 248.0,
+      "d1": -4.62,
+      "w1": -12.68,
+      "ytd": -0.71,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "金融保險",
       "ticker": "2881",
       "name": "富邦金",
       "cap": 68,
-      "price": 148.0,
-      "d1": -0.67,
-      "w1": -0.67,
-      "ytd": -0.67
+      "price": 136.5,
+      "d1": -7.77,
+      "w1": -15.48,
+      "ytd": 47.63,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "金融保險",
       "ticker": "2882",
       "name": "國泰金",
       "cap": 58,
-      "price": 103.5,
-      "d1": -5.91,
-      "w1": -5.91,
-      "ytd": -5.91
+      "price": 96.9,
+      "d1": -6.38,
+      "w1": -15.37,
+      "ytd": 33.46,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "金融保險",
       "ticker": "2891",
       "name": "中信金",
       "cap": 44,
-      "price": 73.1,
-      "d1": -0.41,
-      "w1": -0.41,
-      "ytd": -0.41
+      "price": 68.0,
+      "d1": -6.98,
+      "w1": -13.6,
+      "ytd": 38.82,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "金融保險",
       "ticker": "2886",
       "name": "兆豐金",
       "cap": 36,
-      "price": 53.4,
-      "d1": 1.52,
-      "w1": 1.52,
-      "ytd": 1.52
+      "price": 51.8,
+      "d1": -3.0,
+      "w1": -6.5,
+      "ytd": 33.33,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "金融保險",
       "ticker": "2884",
       "name": "玉山金",
       "cap": 32,
-      "price": 40.35,
-      "d1": -4.27,
-      "w1": -4.27,
-      "ytd": -4.27
+      "price": 39.6,
+      "d1": -1.86,
+      "w1": -18.01,
+      "ytd": 21.05,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "金融保險",
       "ticker": "2885",
       "name": "元大金",
       "cap": 28,
-      "price": 63.2,
-      "d1": -2.62,
-      "w1": -2.62,
-      "ytd": -2.62
+      "price": 59.3,
+      "d1": -6.17,
+      "w1": -18.43,
+      "ytd": 60.12,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "航運/傳產",
       "ticker": "2603",
       "name": "長榮",
       "cap": 42,
-      "price": 247.0,
-      "d1": -4.08,
-      "w1": -4.08,
-      "ytd": -4.08
+      "price": 233.0,
+      "d1": -5.67,
+      "w1": -9.51,
+      "ytd": 30.17,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "航運/傳產",
       "ticker": "2609",
       "name": "陽明",
       "cap": 24,
-      "price": 57.3,
-      "d1": -5.29,
-      "w1": -5.29,
-      "ytd": -5.29
+      "price": 53.0,
+      "d1": -7.5,
+      "w1": -12.11,
+      "ytd": -1.42,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "航運/傳產",
       "ticker": "2615",
       "name": "萬海",
       "cap": 20,
-      "price": 103.5,
-      "d1": -6.76,
-      "w1": -6.76,
-      "ytd": -6.76
+      "price": 95.0,
+      "d1": -8.21,
+      "w1": -11.63,
+      "ytd": 23.83,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "航運/傳產",
       "ticker": "1301",
       "name": "台塑",
       "cap": 26,
-      "price": 60.4,
-      "d1": -6.21,
-      "w1": -6.21,
-      "ytd": -6.21
+      "price": 56.1,
+      "d1": -7.12,
+      "w1": -21.1,
+      "ytd": 47.29,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "航運/傳產",
       "ticker": "2002",
       "name": "中鋼",
       "cap": 24,
-      "price": 17.6,
-      "d1": -1.95,
-      "w1": -1.95,
-      "ytd": -1.95
+      "price": 17.1,
+      "d1": -2.84,
+      "w1": -7.07,
+      "ytd": -8.08,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "電信/內需",
       "ticker": "2412",
       "name": "中華電",
       "cap": 52,
-      "price": 166.0,
-      "d1": 0.91,
-      "w1": 0.91,
-      "ytd": 0.91
+      "price": 162.5,
+      "d1": -2.11,
+      "w1": -1.52,
+      "ytd": 27.87,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "電信/內需",
       "ticker": "1216",
       "name": "統一",
       "cap": 35,
-      "price": 78.7,
-      "d1": -0.13,
-      "w1": -0.13,
-      "ytd": -0.13
+      "price": 75.0,
+      "d1": -4.7,
+      "w1": -4.21,
+      "ytd": 0.76,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     },
     {
       "sector": "電信/內需",
       "ticker": "3045",
       "name": "台灣大",
       "cap": 24,
-      "price": 127.5,
-      "d1": 0.0,
-      "w1": 0.0,
-      "ytd": 0.0
+      "price": 123.0,
+      "d1": -3.53,
+      "w1": -6.11,
+      "ytd": 18.88,
+      "source": "TWSE daily close; Yahoo Finance historical returns",
+      "realtime": false
     }
   ],
   "sp500_heatmap": [
@@ -402,370 +460,370 @@
       "ticker": "NVDA",
       "name": "Nvidia Corp",
       "cap": 340,
-      "price": 140.22,
-      "d1": -3.95,
-      "w1": -13.9,
-      "ytd": -22.19
+      "price": 125.53,
+      "d1": -14.01,
+      "w1": -22.92,
+      "ytd": -33.37
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "AAPL",
       "name": "Apple Inc",
       "cap": 330,
-      "price": 348.68,
-      "d1": -0.15,
-      "w1": -2.13,
-      "ytd": 31.42
+      "price": 342.56,
+      "d1": -1.9,
+      "w1": -3.85,
+      "ytd": 26.84
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "MSFT",
       "name": "Microsoft Corp",
       "cap": 310,
-      "price": 499.58,
-      "d1": 0.26,
-      "w1": -4.46,
-      "ytd": 5.29
+      "price": 484.52,
+      "d1": -2.77,
+      "w1": -7.33,
+      "ytd": 3.3
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "AVGO",
       "name": "Broadcom Inc",
       "cap": 115,
-      "price": 337.64,
-      "d1": -2.6,
-      "w1": -2.7,
-      "ytd": -1.92
+      "price": 304.41,
+      "d1": -12.19,
+      "w1": -12.28,
+      "ytd": -11.95
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "MU",
       "name": "Micron Tech",
       "cap": 70,
-      "price": 644.03,
-      "d1": -6.72,
-      "w1": -17.25,
-      "ytd": 220.19
+      "price": 594.51,
+      "d1": -13.89,
+      "w1": -23.62,
+      "ytd": 88.62
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "AMD",
       "name": "Advanced Micro Devices",
       "cap": 68,
-      "price": 463.27,
-      "d1": -5.3,
-      "w1": -13.26,
-      "ytd": 124.87
+      "price": 424.39,
+      "d1": -13.25,
+      "w1": -20.54,
+      "ytd": 89.91
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "INTC",
       "name": "Intel Corp",
       "cap": 36,
-      "price": 54.69,
-      "d1": -1.85,
-      "w1": -8.33,
-      "ytd": 62.67
+      "price": 51.28,
+      "d1": -7.97,
+      "w1": -14.05,
+      "ytd": 30.22
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "QCOM",
       "name": "Qualcomm Inc",
       "cap": 32,
-      "price": 159.86,
-      "d1": -1.33,
-      "w1": -7.31,
-      "ytd": 2.26
+      "price": 149.94,
+      "d1": -7.45,
+      "w1": -13.06,
+      "ytd": -11.96
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "CRM",
       "name": "Salesforce Inc",
       "cap": 55,
-      "price": 186.82,
-      "d1": 1.91,
-      "w1": -14.24,
-      "ytd": -16.4
+      "price": 180.62,
+      "d1": -1.47,
+      "w1": -17.09,
+      "ytd": -28.29
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "ORCL",
       "name": "Oracle Corp",
       "cap": 52,
-      "price": 107.39,
-      "d1": -2.87,
-      "w1": -14.32,
-      "ytd": -48.35
+      "price": 101.19,
+      "d1": -8.48,
+      "w1": -19.27,
+      "ytd": -47.6
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "PLTR",
       "name": "Palantir Tech",
       "cap": 48,
-      "price": 150.19,
-      "d1": -2.27,
-      "w1": -10.6,
-      "ytd": -3.57
+      "price": 143.49,
+      "d1": -6.63,
+      "w1": -14.58,
+      "ytd": -14.52
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "PANW",
       "name": "Palo Alto Networks",
       "cap": 42,
-      "price": 350.5,
-      "d1": -3.1,
-      "w1": 8.77,
-      "ytd": 89.39
+      "price": 343.32,
+      "d1": -5.09,
+      "w1": 6.54,
+      "ytd": 91.4
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "CRWD",
       "name": "CrowdStrike",
       "cap": 38,
-      "price": 232.16,
-      "d1": -4.64,
-      "w1": 2.45,
-      "ytd": 85.25
+      "price": 229.44,
+      "d1": -5.76,
+      "w1": 1.25,
+      "ytd": 102.34
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "AMAT",
       "name": "Applied Materials",
       "cap": 40,
-      "price": 319.81,
-      "d1": -5.64,
-      "w1": -13.55,
-      "ytd": 45.95
+      "price": 302.63,
+      "d1": -10.71,
+      "w1": -18.2,
+      "ytd": 13.13
     },
     {
       "sector": "COMMUNICATION SERVICES",
       "ticker": "GOOGL",
       "name": "Alphabet Inc",
       "cap": 230,
-      "price": 278.35,
-      "d1": 2.09,
-      "w1": -5.89,
-      "ytd": -3.58
+      "price": 265.29,
+      "d1": -2.7,
+      "w1": -10.31,
+      "ytd": -15.66
     },
     {
       "sector": "COMMUNICATION SERVICES",
       "ticker": "META",
       "name": "Meta Platforms",
       "cap": 155,
-      "price": 578.56,
-      "d1": -2.96,
-      "w1": -9.84,
-      "ytd": -1.46
+      "price": 560.84,
+      "d1": -5.93,
+      "w1": -12.6,
+      "ytd": -13.55
     },
     {
       "sector": "COMMUNICATION SERVICES",
       "ticker": "NFLX",
       "name": "Netflix Inc",
       "cap": 48,
-      "price": 58.88,
-      "d1": 0.71,
-      "w1": -5.27,
-      "ytd": -44.28
+      "price": 56.73,
+      "d1": -2.96,
+      "w1": -8.72,
+      "ytd": -37.65
     },
     {
       "sector": "COMMUNICATION SERVICES",
       "ticker": "DIS",
       "name": "Walt Disney Co",
       "cap": 40,
-      "price": 120.81,
-      "d1": 0.47,
-      "w1": 1.55,
-      "ytd": 19.34
+      "price": 117.98,
+      "d1": -1.89,
+      "w1": -0.83,
+      "ytd": 6.29
     },
     {
       "sector": "FINANCIAL",
       "ticker": "BRK-B",
       "name": "Berkshire Hathaway",
       "cap": 135,
-      "price": 573.01,
-      "d1": 0.17,
-      "w1": -3.36,
-      "ytd": 14.35
+      "price": 570.0,
+      "d1": -0.36,
+      "w1": -3.87,
+      "ytd": 14.72
     },
     {
       "sector": "FINANCIAL",
       "ticker": "JPM",
       "name": "JPMorgan Chase",
       "cap": 110,
-      "price": 318.57,
-      "d1": -0.52,
-      "w1": -7.98,
-      "ytd": 8.82
+      "price": 310.53,
+      "d1": -3.03,
+      "w1": -10.3,
+      "ytd": -2.76
     },
     {
       "sector": "FINANCIAL",
       "ticker": "V",
       "name": "Visa Inc",
       "cap": 85,
-      "price": 405.48,
-      "d1": 0.8,
-      "w1": -4.76,
-      "ytd": 26.22
+      "price": 401.87,
+      "d1": -0.09,
+      "w1": -5.61,
+      "ytd": 16.9
     },
     {
       "sector": "FINANCIAL",
       "ticker": "MA",
       "name": "Mastercard Inc",
       "cap": 72,
-      "price": 632.8,
-      "d1": 1.01,
-      "w1": -4.29,
-      "ytd": 20.65
+      "price": 625.59,
+      "d1": -0.15,
+      "w1": -5.38,
+      "ytd": 11.81
     },
     {
       "sector": "FINANCIAL",
       "ticker": "BAC",
       "name": "Bank of America",
       "cap": 55,
-      "price": 48.31,
-      "d1": -0.55,
-      "w1": -5.32,
-      "ytd": -3.27
+      "price": 47.04,
+      "d1": -3.15,
+      "w1": -7.8,
+      "ytd": -14.58
     },
     {
       "sector": "FINANCIAL",
       "ticker": "GS",
       "name": "Goldman Sachs",
       "cap": 42,
-      "price": 817.85,
-      "d1": -3.5,
-      "w1": -10.77,
-      "ytd": 7.79
+      "price": 790.69,
+      "d1": -6.71,
+      "w1": -13.73,
+      "ytd": -12.26
     },
     {
       "sector": "CONSUMER CYCLICAL",
       "ticker": "AMZN",
       "name": "Amazon.com Inc",
       "cap": 215,
-      "price": 255.55,
-      "d1": -0.71,
-      "w1": -4.17,
-      "ytd": 17.69
+      "price": 246.82,
+      "d1": -4.1,
+      "w1": -7.44,
+      "ytd": 8.97
     },
     {
       "sector": "CONSUMER CYCLICAL",
       "ticker": "TSLA",
       "name": "Tesla Inc",
       "cap": 145,
-      "price": 369.47,
-      "d1": -1.32,
-      "w1": -5.32,
-      "ytd": -6.52
+      "price": 345.82,
+      "d1": -7.64,
+      "w1": -11.38,
+      "ytd": -21.06
     },
     {
       "sector": "CONSUMER CYCLICAL",
       "ticker": "HD",
       "name": "Home Depot",
       "cap": 62,
-      "price": 344.68,
-      "d1": 2.38,
-      "w1": -1.15,
-      "ytd": 6.64
+      "price": 339.04,
+      "d1": 0.7,
+      "w1": -2.77,
+      "ytd": 0.17
     },
     {
       "sector": "HEALTHCARE",
       "ticker": "LLY",
       "name": "Eli Lilly & Co",
       "cap": 130,
-      "price": 1359.59,
-      "d1": 0.63,
-      "w1": -5.81,
-      "ytd": 31.11
+      "price": 1347.11,
+      "d1": -0.3,
+      "w1": -6.68,
+      "ytd": 25.45
     },
     {
       "sector": "HEALTHCARE",
       "ticker": "JNJ",
       "name": "Johnson & Johnson",
       "cap": 65,
-      "price": 270.74,
-      "d1": 1.35,
-      "w1": -5.25,
-      "ytd": 36.33
+      "price": 270.47,
+      "d1": 1.25,
+      "w1": -5.35,
+      "ytd": 32.54
     },
     {
       "sector": "HEALTHCARE",
       "ticker": "UNH",
       "name": "UnitedHealth Group",
       "cap": 58,
-      "price": 340.57,
-      "d1": 3.05,
-      "w1": -16.42,
-      "ytd": 12.23
+      "price": 339.85,
+      "d1": 2.84,
+      "w1": -16.59,
+      "ytd": 3.02
     },
     {
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "WMT",
       "name": "Walmart Inc",
       "cap": 95,
-      "price": 128.89,
-      "d1": 2.26,
-      "w1": 0.62,
-      "ytd": 21.35
+      "price": 127.95,
+      "d1": 1.52,
+      "w1": -0.11,
+      "ytd": 14.19
     },
     {
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "COST",
       "name": "Costco Wholesale",
       "cap": 75,
-      "price": 1106.25,
-      "d1": 1.14,
-      "w1": 0.0,
-      "ytd": 24.57
+      "price": 1102.15,
+      "d1": 0.76,
+      "w1": -0.37,
+      "ytd": 29.74
     },
     {
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "KO",
       "name": "Coca-Cola Co",
       "cap": 52,
-      "price": 97.0,
-      "d1": 0.95,
-      "w1": -2.26,
-      "ytd": 39.85
+      "price": 96.99,
+      "d1": 0.94,
+      "w1": -2.28,
+      "ytd": 43.05
     },
     {
       "sector": "INDUSTRIALS",
       "ticker": "GE",
       "name": "GE Aerospace",
       "cap": 54,
-      "price": 318.55,
-      "d1": -0.1,
-      "w1": -4.0,
-      "ytd": 10.2
+      "price": 309.62,
+      "d1": -2.9,
+      "w1": -6.69,
+      "ytd": -3.06
     },
     {
       "sector": "INDUSTRIALS",
       "ticker": "CAT",
       "name": "Caterpillar Inc",
       "cap": 48,
-      "price": 531.75,
-      "d1": -1.05,
-      "w1": -11.4,
-      "ytd": -1.81
+      "price": 510.45,
+      "d1": -5.01,
+      "w1": -14.95,
+      "ytd": -13.97
     },
     {
       "sector": "ENERGY",
       "ticker": "XOM",
       "name": "Exxon Mobil",
       "cap": 75,
-      "price": 159.43,
-      "d1": 0.31,
-      "w1": -5.95,
-      "ytd": 39.85
+      "price": 159.99,
+      "d1": 0.67,
+      "w1": -5.62,
+      "ytd": 33.9
     },
     {
       "sector": "ENERGY",
       "ticker": "CVX",
       "name": "Chevron Corp",
       "cap": 52,
-      "price": 207.35,
-      "d1": 0.41,
-      "w1": -4.92,
-      "ytd": 42.98
+      "price": 208.37,
+      "d1": 0.91,
+      "w1": -4.45,
+      "ytd": 38.53
     }
   ],
   "snapshots": {
@@ -773,51 +831,84 @@
     "tw_m2": 7.24,
     "tw_spread": -0.04,
     "sp500": {
-      "price": 7146.14,
-      "d1": -5.72
+      "price": 6910.39,
+      "d1": -3.7,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "nasdaq": {
-      "price": 23602.54,
-      "d1": -7.21
+      "price": 22617.73,
+      "d1": -5.28,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "taiex": {
-      "price": 36033.29,
-      "d1": -20.3
+      "price": 38426.89,
+      "d1": -4.4,
+      "as_of": "2026-11-19",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "nikkei": {
-      "price": 56436.65,
-      "d1": -10.83
+      "price": 59444.21,
+      "d1": 0.71,
+      "as_of": "2026-11-19",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "gold": {
-      "price": 3572.5,
-      "d1": -8.37
+      "price": 3539.0,
+      "d1": -3.98,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "wti": {
-      "price": 81.71,
-      "d1": -21.52
+      "price": 83.62,
+      "d1": 0.49,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "copper": {
-      "price": 5.54,
-      "d1": -14.29
+      "price": 5.47,
+      "d1": -2.84,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "vix": {
-      "price": 29.03,
-      "d1": 49.49
+      "price": 35.89,
+      "d1": 26.2,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "us10y_tnx": {
-      "price": 4.98,
-      "d1": 1.08
+      "price": 4.91,
+      "d1": -2.77,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "us30y_tyx": {
-      "price": 5.36,
-      "d1": 0.98
+      "price": 5.3,
+      "d1": -1.81,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
     "us5y_fvx": {
-      "price": 4.78,
-      "d1": 1.25
+      "price": 4.7,
+      "d1": -3.39,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (may be delayed)",
+      "realtime": false
     },
-    "us10y": 4.98,
-    "spread10y2y": 0.2
+    "us10y": 4.91,
+    "spread10y5y": 0.21
   },
   "series": {
     "twM1b": {
@@ -989,7 +1080,7 @@
       ]
     },
     "sp500": {
-      "name": "[真實市場] ^GSPC",
+      "name": "[Yahoo 延遲市場資料] ^GSPC",
       "unit": "點",
       "labels": [
         "2024-12",
@@ -1041,11 +1132,13 @@
         7686.14,
         7651.54,
         7580.07,
-        7146.14
-      ]
+        6910.39
+      ],
+      "source": "Yahoo Finance monthly history",
+      "as_of": "2026-11"
     },
     "taiex": {
-      "name": "[真實市場] ^TWII",
+      "name": "[Yahoo 延遲市場資料] ^TWII",
       "unit": "點",
       "labels": [
         "2024-12",
@@ -1098,10 +1191,12 @@
         47940.13,
         45211.83,
         36033.29
-      ]
+      ],
+      "source": "Yahoo Finance monthly history",
+      "as_of": "2026-11"
     },
     "gold": {
-      "name": "[真實市場] GC=F",
+      "name": "[Yahoo 延遲市場資料] GC=F",
       "unit": "USD",
       "labels": [
         "2025-01",
@@ -1145,11 +1240,13 @@
         4481.5,
         4186.7,
         3898.9,
-        3572.5
-      ]
+        3539.0
+      ],
+      "source": "Yahoo Finance monthly history",
+      "as_of": "2026-11"
     },
     "wti": {
-      "name": "[真實市場] CL=F",
+      "name": "[Yahoo 延遲市場資料] CL=F",
       "unit": "USD",
       "labels": [
         "2025-01",
@@ -1193,11 +1290,13 @@
         85.76,
         90.42,
         104.12,
-        81.71
-      ]
+        83.62
+      ],
+      "source": "Yahoo Finance monthly history",
+      "as_of": "2026-11"
     },
     "us10y_tnx": {
-      "name": "[真實市場] ^TNX",
+      "name": "[Yahoo 延遲市場資料] ^TNX",
       "unit": "%",
       "labels": [
         "2024-12",
@@ -1249,20 +1348,44 @@
         4.76,
         5.29,
         4.93,
-        4.98
-      ]
+        4.91
+      ],
+      "source": "Yahoo Finance monthly history",
+      "as_of": "2026-11"
     }
   },
   "fx": {
-    "AUD": 1.49,
-    "CAD": 1.43,
-    "EUR": 0.90975,
-    "GBP": 0.76038,
-    "JPY": 159.97,
+    "AUD": 1.5002,
+    "CAD": 1.4307,
+    "EUR": 0.90992,
+    "GBP": 0.76192,
+    "JPY": 158.64,
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 61538,
-    "stablecoin_market_cap_b": 243.4
+    "btc_price": 58970,
+    "stablecoin_market_cap_b": 243.1
+  },
+  "sources": {
+    "twse": {
+      "label": "臺灣證券交易所",
+      "status": "ok"
+    },
+    "yahoo": {
+      "label": "Yahoo Finance 延遲日線",
+      "status": "ok",
+      "realtime": false
+    },
+    "cbc": {
+      "label": "中華民國中央銀行",
+      "status": "ok"
+    }
+  },
+  "data_quality": {
+    "status": "valid",
+    "errors": [],
+    "warnings": [
+      "市場價格為來源最新日線，不是券商即時報價"
+    ]
   }
 }

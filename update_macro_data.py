@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-MacroPulse 全方位真實市場與總經數據自動抓取腳本
-100% 官方與真實市場資料源，雲端無人值守全自動執行版本。
+MacroPulse 市場與總經數據自動抓取腳本。
+每次產出前會檢查必要欄位與資料覆蓋率；市場行情為來源最新日線，不是券商即時報價。
 
 資料來源：
   1. 中華民國中央銀行 (CBC) 官方 API: 貨幣總計數 M1B、M2 官方歷史序列、年增率與剪刀差 (EF15M01)
-  2. 臺灣證券交易所 (TWSE) OpenAPI: 台股 28 檔權值股每日收盤與即時漲跌
+  2. 臺灣證券交易所 (TWSE) OpenAPI: 台股 28 檔權值股每日收盤與日漲跌
   3. Yahoo Finance (yfinance): 美股 S&P 500 熱力圖成分股 (1D/1W/YTD)、大盤指數、10Y美債殖利率 (^TNX) 與大宗商品 24 個月序列
-  4. 歐洲央行 (ECB) Frankfurter & Open ER-API: 官方外匯即時中間價 (USD/TWD, JPY, EUR, GBP)
-  5. CoinGecko API: 比特幣現貨價格與 USDT/USDC 穩定幣真實市值
+  4. Frankfurter & Open ER-API: 外匯公開 API 最新值 (USD/TWD, JPY, EUR, GBP)
+  5. CoinGecko API: 比特幣現貨價格與 USDT/USDC 穩定幣市值
 
 產出：macro_live_data.json
 """
@@ -22,7 +22,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUT_FILE = os.path.join(SCRIPT_DIR, "macro_live_data.json")
@@ -107,13 +107,11 @@ def fetch_url(url: str, timeout: int = 15) -> str:
     }
     req = urllib.request.Request(url, headers=headers)
     ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
     with urllib.request.urlopen(req, context=ctx, timeout=timeout) as resp:
         return resp.read().decode("utf-8", errors="replace")
 
 
-# 1. 抓取台灣中央銀行 (CBC) 官方貨幣總計數 (100% 官方真實 API)
+# 1. 抓取台灣中央銀行 (CBC) 官方貨幣總計數
 def fetch_cbc_m1b_m2(months: int = 24):
     print("1/5 抓取台灣中央銀行 (CBC) 官方貨幣總計數 (M1B / M2)...")
     url = "https://cpx.cbc.gov.tw/API/DataAPI/Get?FileName=EF15M01"
@@ -165,10 +163,17 @@ def fetch_cbc_m1b_m2(months: int = 24):
 
 # 2. 抓取 TWSE 臺灣證券交易所台股 28 檔權值股收盤
 def fetch_twse_heatmap() -> list:
-    print("2/5 抓取 TWSE 臺灣證交所台股 28 檔權值股收盤價與即時漲跌...")
+    print("2/5 抓取 TWSE 收盤價，並以歷史日線計算 1W / YTD...")
     raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL", timeout=20)
     rows = json.loads(raw)
     by_code = {r.get("Code", "").strip(): r for r in rows}
+    history = None
+    try:
+        import yfinance as yf
+        symbols = " ".join(f"{code}.TW" for _, code, _, _ in TW_WATCHLIST)
+        history = yf.download(symbols, period="ytd", interval="1d", group_by="ticker", auto_adjust=True, progress=False)
+    except Exception as exc:
+        print(f"  台股歷史日線取得失敗：{exc}")
     result = []
     for sector, code, name, cap in TW_WATCHLIST:
         row = by_code.get(code)
@@ -183,6 +188,18 @@ def fetch_twse_heatmap() -> list:
                     pct = round((chg / prev_p) * 100, 2)
             except (ValueError, ZeroDivisionError):
                 pct = 0.0
+        w1 = ytd = None
+        try:
+            symbol = f"{code}.TW"
+            df = history[symbol] if history is not None and symbol in history else None
+            closes = df["Close"].dropna() if df is not None and not df.empty else []
+            if len(closes) >= 2:
+                latest = float(closes.iloc[-1])
+                prev_1w = float(closes.iloc[-6]) if len(closes) >= 6 else float(closes.iloc[0])
+                w1 = round((latest - prev_1w) / prev_1w * 100, 2)
+                ytd = round((latest - float(closes.iloc[0])) / float(closes.iloc[0]) * 100, 2)
+        except Exception:
+            pass
         result.append({
             "sector": sector,
             "ticker": code,
@@ -190,8 +207,10 @@ def fetch_twse_heatmap() -> list:
             "cap": cap,
             "price": price,
             "d1": pct,
-            "w1": pct,
-            "ytd": pct,
+            "w1": w1,
+            "ytd": ytd,
+            "source": "TWSE daily close; Yahoo Finance historical returns",
+            "realtime": False,
         })
     print(f"  -> 成功抓取 TWSE 台股權值股共 {len(result)} 檔")
     return result
@@ -214,7 +233,7 @@ def fetch_us_market_data():
     all_tickers = [t for _, t, _, _ in SP500_WATCHLIST]
     ticker_str = " ".join(all_tickers)
     try:
-        data = yf.download(ticker_str, period="1y", interval="1d", group_by="ticker", auto_adjust=True, progress=False)
+        data = yf.download(ticker_str, period="ytd", interval="1d", group_by="ticker", auto_adjust=True, progress=False)
         for sector, ticker, name, cap in SP500_WATCHLIST:
             try:
                 df = data[ticker] if ticker in data else None
@@ -244,7 +263,7 @@ def fetch_us_market_data():
     except Exception as e:
         print(f"  美股熱力圖批次抓取略過: {e}")
 
-    # 下載大盤指數、10Y公債殖利率、原物料報價
+    # 大盤快照必須使用日線。舊版誤用 1mo interval，會把月線最後一筆當成即時價。
     indices = {
         "sp500": "^GSPC",
         "nasdaq": "^IXIC",
@@ -259,28 +278,39 @@ def fetch_us_market_data():
         "us5y_fvx": "^FVX",
     }
     try:
-        idx_data = yf.download(" ".join(indices.values()), period="2y", interval="1mo", group_by="ticker", auto_adjust=True, progress=False)
+        daily_data = yf.download(" ".join(indices.values()), period="1mo", interval="1d", group_by="ticker", auto_adjust=True, progress=False)
+        monthly_data = yf.download(" ".join(indices.values()), period="2y", interval="1mo", group_by="ticker", auto_adjust=True, progress=False)
         for key, sym in indices.items():
             try:
-                df = idx_data[sym] if sym in idx_data else None
-                if df is not None and not df.empty and "Close" in df:
-                    closes = df["Close"].dropna()
+                daily_df = daily_data[sym] if sym in daily_data else None
+                if daily_df is not None and not daily_df.empty and "Close" in daily_df:
+                    closes = daily_df["Close"].dropna()
                     if len(closes) >= 2:
                         latest = float(closes.iloc[-1])
                         prev_1d = float(closes.iloc[-2])
                         snapshots[key] = {
                             "price": round(latest, 2),
                             "d1": round((latest - prev_1d) / prev_1d * 100, 2),
+                            "as_of": closes.index[-1].strftime("%Y-%m-%d"),
+                            "source": "Yahoo Finance daily close (may be delayed)",
+                            "realtime": False,
                         }
-                    # 存入 24 個月序列
-                    labels = [d.strftime("%Y-%m") for d in closes.index][-24:]
-                    vals = [round(float(v), 2) for v in closes.values][-24:]
+                monthly_df = monthly_data[sym] if sym in monthly_data else None
+                if monthly_df is not None and not monthly_df.empty and "Close" in monthly_df:
+                    monthly_closes = monthly_df["Close"].dropna()
+                    monthly = {}
+                    for d, value in monthly_closes.items():
+                        monthly[d.strftime("%Y-%m")] = round(float(value), 2)
+                    labels = sorted(monthly)[-24:]
+                    vals = [monthly[label] for label in labels]
                     if key in ["sp500", "taiex", "gold", "wti", "us10y_tnx"]:
                         series[key] = {
-                            "name": f"[真實市場] {sym}",
+                            "name": f"[Yahoo 延遲市場資料] {sym}",
                             "unit": "%" if "tnx" in key else "USD" if key in ["gold", "wti"] else "點",
                             "labels": labels,
                             "data": vals,
+                            "source": "Yahoo Finance monthly history",
+                            "as_of": labels[-1] if labels else None,
                         }
             except Exception:
                 continue
@@ -289,15 +319,15 @@ def fetch_us_market_data():
             snapshots["us10y"] = snapshots["us10y_tnx"]["price"]
             print(f"  -> 美國 10 年期公債殖利率 (^TNX): {snapshots['us10y']}%")
         if "us5y_fvx" in snapshots and "us10y" in snapshots:
-            snapshots["spread10y2y"] = round(snapshots["us10y"] - snapshots["us5y_fvx"]["price"], 2)
-            print(f"  -> 美債 10Y-5Y 利差: {snapshots['spread10y2y']}%")
+            snapshots["spread10y5y"] = round(snapshots["us10y"] - snapshots["us5y_fvx"]["price"], 2)
+            print(f"  -> 美債 10Y-5Y 利差: {snapshots['spread10y5y']}%")
     except Exception as e:
         print(f"  指數與原物料抓取略過: {e}")
 
     return sp500_heatmap, snapshots, series
 
 
-# 4. 即時官方匯率
+# 4. 公開 API 最新匯率
 def fetch_live_fx():
     print("4/5 抓取歐洲央行 (ECB) 官方參考匯率與台幣匯率...")
     rates = {}
@@ -316,11 +346,11 @@ def fetch_live_fx():
     except Exception as e:
         print(f"  Open ER-API 略過: {e}")
 
-    print(f"  -> 即時匯率: USD/TWD={rates.get('TWD', 'N/A')}, USD/JPY={rates.get('JPY', 'N/A')}, EUR={rates.get('EUR', 'N/A')}")
+    print(f"  -> 最新匯率: USD/TWD={rates.get('TWD', 'N/A')}, USD/JPY={rates.get('JPY', 'N/A')}, EUR={rates.get('EUR', 'N/A')}")
     return rates
 
 
-# 5. 即時加密貨幣
+# 5. 公開 API 最新加密貨幣資料
 def fetch_live_crypto():
     print("5/5 抓取 CoinGecko 比特幣現貨價與穩定幣規模...")
     crypto = {}
@@ -346,7 +376,9 @@ def main():
     print("=" * 65)
 
     payload = {
-        "updated_at": datetime.now().isoformat(timespec="seconds"),
+        "schema_version": 2,
+        "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "timezone": "UTC",
         "tw_m1b_m2": {},
         "tw_heatmap": [],
         "sp500_heatmap": [],
@@ -354,6 +386,8 @@ def main():
         "series": {},
         "fx": {},
         "crypto": {},
+        "sources": {},
+        "data_quality": {"status": "checking", "errors": [], "warnings": []},
     }
 
     # 1. 台灣央行 M1B / M2
@@ -405,9 +439,39 @@ def main():
     # 5. 加密貨幣
     payload["crypto"] = fetch_live_crypto()
 
-    # 寫入 macro_live_data.json
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    required_snapshots = {"sp500", "nasdaq", "taiex", "gold", "wti", "vix"}
+    missing_snapshots = sorted(required_snapshots - set(payload["snapshots"]))
+    errors = []
+    if len(payload["tw_heatmap"]) != len(TW_WATCHLIST):
+        errors.append(f"台股熱力圖缺漏：{len(payload['tw_heatmap'])}/{len(TW_WATCHLIST)}")
+    tw_history_count = sum(row.get("w1") is not None and row.get("ytd") is not None for row in payload["tw_heatmap"])
+    if tw_history_count < len(TW_WATCHLIST) - 2:
+        errors.append(f"台股 1W/YTD 歷史資料不足：{tw_history_count}/{len(TW_WATCHLIST)}")
+    if len(payload["sp500_heatmap"]) != len(SP500_WATCHLIST):
+        errors.append(f"美股熱力圖缺漏：{len(payload['sp500_heatmap'])}/{len(SP500_WATCHLIST)}")
+    if missing_snapshots:
+        errors.append("市場快照缺漏：" + ", ".join(missing_snapshots))
+    for key in required_snapshots & set(payload["snapshots"]):
+        if not payload["snapshots"][key].get("as_of"):
+            errors.append(f"{key} 缺少資料日期")
+    payload["sources"] = {
+        "twse": {"label": "臺灣證券交易所", "status": "ok" if payload["tw_heatmap"] else "error"},
+        "yahoo": {"label": "Yahoo Finance 延遲日線", "status": "ok" if not missing_snapshots else "partial", "realtime": False},
+        "cbc": {"label": "中華民國中央銀行", "status": "ok" if payload["tw_m1b_m2"] else "error"},
+    }
+    payload["data_quality"] = {"status": "valid" if not errors else "invalid", "errors": errors, "warnings": ["市場價格為來源最新日線，不是券商即時報價"]}
+    if errors:
+        print("資料驗證失敗，保留上一版 JSON：")
+        for error in errors:
+            print("  - " + error)
+        raise SystemExit(1)
+
+    # 驗證完成後才原子替換，避免部分資料覆蓋上一版正確快照。
+    temp_file = OUTPUT_FILE + ".tmp"
+    with open(temp_file, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    os.replace(temp_file, OUTPUT_FILE)
 
     print("=" * 65)
     print(f"🎉 全部完成！已寫入 {OUTPUT_FILE}")
@@ -415,7 +479,7 @@ def main():
     print(f"  • 台灣央行 M1B/M2 官方序列: {'成功' if payload['tw_m1b_m2'] else '未取得'}")
     print(f"  • 台股權值股熱力圖: {len(payload['tw_heatmap'])} 檔")
     print(f"  • 美股 S&P 500 熱力圖: {len(payload['sp500_heatmap'])} 檔")
-    print(f"  • 即時市場快照指標: {len(payload['snapshots'])} 個")
+    print(f"  • 最新市場日線快照指標: {len(payload['snapshots'])} 個")
     print(f"  • 24個月歷史時間序列: {len(payload['series'])} 組")
     print("=" * 65)
 

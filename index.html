@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MacroPulse 總經決策雷達｜M1B/M2・總經・產業・ETF 全方位分析平台</title>
-  <meta name="description" content="MacroPulse 總經決策雷達 — 整合台灣央行官方 M1B/M2 剪刀差、全球景氣循環、臺證所與美股即時熱力圖，專為台灣投資人打造的無人值守全自動總經工作台。" />
+  <meta name="description" content="MacroPulse 總經決策雷達 — 整合台灣央行官方 M1B/M2 剪刀差、全球景氣循環、臺證所收盤資料與美股延遲日線熱力圖，專為台灣投資人打造的自動更新總經工作台。" />
   <meta property="og:title" content="MacroPulse 總經決策雷達" />
   <meta property="og:description" content="M1B/M2・景氣循環・產業・ETF 全方位分析平台（全自動真實數據串接）" />
   <meta property="og:type" content="website" />
@@ -99,7 +99,7 @@
       <div class="flex items-center gap-2">
         <button id="live-sync-btn" type="button" class="px-2.5 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 text-xs font-medium transition-colors flex items-center gap-1.5" title="從公開 API 抓取最新匯率、加密貨幣與官方總經數據">
           <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-          <span id="live-sync-label" class="hidden sm:inline">即時更新</span>
+          <span id="live-sync-label" class="hidden sm:inline">重新整理</span>
         </button>
         <button id="theme-toggle" type="button" class="p-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="切換深淺色主題">
           <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
@@ -131,18 +131,18 @@
   <div class="border-b border-slate-200 dark:border-slate-800 bg-slate-100/70 dark:bg-slate-900/50">
     <div id="market-ticker" class="max-w-7xl mx-auto px-4 sm:px-6 py-2 flex items-center gap-5 overflow-x-auto text-xs whitespace-nowrap">
       <span class="font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
-        <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-500"></i> 2026/11 關鍵快照
+        <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-500"></i> 最新可用市場日線
       </span>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台股 TAIEX</span><span id="tk-taiex-val" class="font-semibold tabular-nums">36,033.29</span><span id="tk-taiex-chg" class="text-rose-500">-6.23%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台灣 M1B / M2</span><span id="tk-m1b-m2" class="font-semibold tabular-nums">7.20% / 7.24%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">S&amp;P 500</span><span id="tk-sp500-val" class="font-semibold tabular-nums">7,145.34</span><span id="tk-sp500-chg" class="text-rose-500">-0.42%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">NASDAQ</span><span id="tk-nasdaq-val" class="font-semibold tabular-nums">24,323</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">美債 10Y</span><span id="tk-us10y-val" class="font-semibold tabular-nums">4.98%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">黃金</span><span id="tk-gold-val" class="font-semibold tabular-nums">$3,574.2</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">WTI</span><span id="tk-wti-val" class="font-semibold tabular-nums">$81.9</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">USD/TWD</span><span id="tk-twd" class="font-semibold tabular-nums">32.99</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">BTC</span><span id="tk-btc" class="font-semibold tabular-nums">$61,538</span></div>
-      <span id="live-status-pill" class="ml-auto text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium">連線官方資料庫中...</span>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台股 TAIEX</span><span id="tk-taiex-val" class="font-semibold tabular-nums">—</span><span id="tk-taiex-chg" class="text-slate-400">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台灣 M1B / M2</span><span id="tk-m1b-m2" class="font-semibold tabular-nums">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">S&amp;P 500</span><span id="tk-sp500-val" class="font-semibold tabular-nums">—</span><span id="tk-sp500-chg" class="text-slate-400">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">NASDAQ</span><span id="tk-nasdaq-val" class="font-semibold tabular-nums">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">美債 10Y</span><span id="tk-us10y-val" class="font-semibold tabular-nums">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">黃金</span><span id="tk-gold-val" class="font-semibold tabular-nums">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">WTI</span><span id="tk-wti-val" class="font-semibold tabular-nums">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">USD/TWD</span><span id="tk-twd" class="font-semibold tabular-nums">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">BTC</span><span id="tk-btc" class="font-semibold tabular-nums">—</span></div>
+      <span id="live-status-pill" class="ml-auto text-xs px-2 py-0.5 rounded-full bg-slate-500/15 text-slate-500 dark:text-slate-400 font-medium">載入資料中…</span>
     </div>
   </div>
 
@@ -162,6 +162,11 @@
         <button id="guide-modal-btn" type="button" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold text-sm shadow-sm transition-colors flex items-center gap-1.5">
           <i data-lucide="help-circle" class="w-4 h-4"></i> 使用教學
         </button>
+      </div>
+
+      <div id="data-health-card" class="rounded-xl border border-amber-500/30 bg-amber-500/10 px-4 py-3 text-sm text-amber-800 dark:text-amber-200">
+        <div class="font-semibold">資料狀態檢查中</div>
+        <div id="data-health-detail" class="mt-1">市場價格採來源最新日線，並非券商即時報價；載入後會顯示資料日期與來源。</div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
@@ -320,9 +325,9 @@
           <div id="spread-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">資金偏緊 (死亡交叉)</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
-          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">美國 10Y 公債即時殖利率</div>
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">美國 10Y 公債最新日線殖利率</div>
           <div id="us10y-kpi-val" class="text-2xl font-bold tabular-nums mt-1.5 text-emerald-500">4.98%</div>
-          <div id="us10y-kpi-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">CBOE ^TNX 即時市場行情</div>
+          <div id="us10y-kpi-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Yahoo Finance ^TNX 延遲日線</div>
         </div>
       </div>
 
@@ -368,7 +373,7 @@
           <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
             <i data-lucide="grid-2x2" class="w-6 h-6 text-rose-500"></i> 市場熱力圖（Finviz 風格 Treemap）
           </h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">依產業板塊與市值權重繪製方塊大小，顏色深淺代表漲跌幅，點擊任一個股可檢視詳細數據</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">依產業板塊與相對顯示權重繪製方塊大小，顏色深淺代表漲跌幅，點擊任一個股可檢視詳細數據</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <div class="inline-flex rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden text-xs font-medium">
@@ -692,7 +697,7 @@
           <h2 class="font-semibold text-base text-emerald-700 dark:text-emerald-400 flex items-center gap-2">
             <i data-lucide="database" class="w-4 h-4"></i> 匯入 Python 抓數腳本產出的真實數據包 (macro_live_data.json)
           </h2>
-          <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">在電腦執行 <code class="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800">python update_macro_data.py</code> 後，將產出的 JSON 載入即可一鍵更新台股熱力圖與 FRED 總經序列為 100% 真實數據。</p>
+          <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">在電腦執行 <code class="px-1 py-0.5 rounded bg-slate-200 dark:bg-slate-800">python update_macro_data.py</code> 後，可載入經完整性檢查的 JSON，更新央行、TWSE 與延遲市場日線資料。</p>
         </div>
         <label class="cursor-pointer shrink-0 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium transition-colors text-center">
           選擇 macro_live_data.json
@@ -1196,6 +1201,11 @@
       { cat: '主題式專區', sub: 'ETF市場趨勢', name: '全球-ETF資產管理規模', date: '2026-09', val: '23,346,362.4m', quad: 'HIGH_UP', desc: '觀察全球、美國 ETF 市場發展趨勢的重要指標與圖表。', vars: '全球被動式基金規模、股票型 vs 債券型 ETF 淨流向' },
       { cat: '主題式專區', sub: '電力', name: '全球-發電量', date: '2024', val: '31,255.9', quad: 'HIGH_UP', desc: '觀察全球、美中歐等主要經濟體的電力供需、價格趨勢。', vars: 'AI 資料中心用電需求、核能與綠電發電佔比' }
     ];
+    // 內建內容只作版面示範；成功取得公開來源後，個別項目才會改標為「來源更新」。
+    TRADER_ITEMS.forEach(item => {
+      item.dataStatus = 'snapshot';
+      item.source = '內建示範快照（未自動驗證）';
+    });
 
     const HEATMAP_DATA = {
       SP500: [
@@ -1384,6 +1394,15 @@
     function applyLivePayload(payload) {
       let count = 0;
       const dateStr = (payload.updated_at || new Date().toISOString()).slice(0, 10);
+      const quality = payload.data_quality || {};
+      const healthCard = document.getElementById('data-health-card');
+      const healthDetail = document.getElementById('data-health-detail');
+      if (quality.status === 'invalid') {
+        if (healthCard) healthCard.className = 'rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm text-rose-700 dark:text-rose-300';
+        if (healthCard) healthCard.firstElementChild.textContent = '資料驗證失敗，未套用市場價格';
+        if (healthDetail) healthDetail.textContent = (quality.errors || []).join('；') || '資料包不完整';
+        return 0;
+      }
 
       // A. 熱力圖
       if (Array.isArray(payload.tw_heatmap) && payload.tw_heatmap.length > 0) {
@@ -1442,25 +1461,32 @@
       // D. 市場快照更新 (Ticker & Trader Tab)
       if (payload.snapshots && typeof payload.snapshots === 'object') {
         const sn = payload.snapshots;
-        const updTrader = (name, val) => {
+        const updTrader = (name, val, snapshot = null) => {
           const it = TRADER_ITEMS.find(x => x.name === name);
-          if (it && val !== undefined) { it.val = String(val); it.date = dateStr; }
+          if (it && val !== undefined) {
+            it.val = String(val);
+            it.date = snapshot?.as_of || dateStr;
+            it.dataStatus = 'verified';
+            it.source = snapshot?.source || '自動資料包';
+          }
         };
         if (sn.sp500) {
-          updTrader('美國-S&P 500', sn.sp500.price.toLocaleString('en-US'));
+          updTrader('美國-S&P 500', sn.sp500.price.toLocaleString('en-US'), sn.sp500);
           const elV = document.getElementById('tk-sp500-val');
           const elC = document.getElementById('tk-sp500-chg');
           if (elV) elV.textContent = sn.sp500.price.toLocaleString('en-US');
+          if (elV) elV.title = `${sn.sp500.source || 'Yahoo Finance 延遲日線'}｜資料日 ${sn.sp500.as_of || '未標示'}`;
           if (elC) {
             elC.textContent = (sn.sp500.d1 > 0 ? '+' : '') + sn.sp500.d1 + '%';
             elC.className = sn.sp500.d1 >= 0 ? 'text-emerald-500' : 'text-rose-500';
           }
         }
         if (sn.taiex) {
-          updTrader('台灣-加權股價指數', sn.taiex.price.toLocaleString('en-US'));
+          updTrader('台灣-加權股價指數', sn.taiex.price.toLocaleString('en-US'), sn.taiex);
           const elV = document.getElementById('tk-taiex-val');
           const elC = document.getElementById('tk-taiex-chg');
           if (elV) elV.textContent = sn.taiex.price.toLocaleString('en-US');
+          if (elV) elV.title = `${sn.taiex.source || 'Yahoo Finance 延遲日線'}｜資料日 ${sn.taiex.as_of || '未標示'}`;
           if (elC) {
             elC.textContent = (sn.taiex.d1 > 0 ? '+' : '') + sn.taiex.d1 + '%';
             elC.className = sn.taiex.d1 >= 0 ? 'text-emerald-500' : 'text-rose-500';
@@ -1469,22 +1495,23 @@
         if (sn.nasdaq) {
           const elV = document.getElementById('tk-nasdaq-val');
           if (elV) elV.textContent = sn.nasdaq.price.toLocaleString('en-US');
+          if (elV) elV.title = `${sn.nasdaq.source || 'Yahoo Finance 延遲日線'}｜資料日 ${sn.nasdaq.as_of || '未標示'}`;
         }
-        if (sn.nikkei) updTrader('日本-日經Nikkei 225', sn.nikkei.price.toLocaleString('en-US'));
+        if (sn.nikkei) updTrader('日本-日經Nikkei 225', sn.nikkei.price.toLocaleString('en-US'), sn.nikkei);
         if (sn.wti) {
-          updTrader('NYMEX-WTI西德州原油期貨價格', sn.wti.price);
+          updTrader('NYMEX-WTI西德州原油期貨價格', sn.wti.price, sn.wti);
           const elV = document.getElementById('tk-wti-val');
           if (elV) elV.textContent = '$' + sn.wti.price;
         }
         if (sn.gold) {
-          updTrader('NYMEX-黃金期貨價格', sn.gold.price.toLocaleString('en-US'));
+          updTrader('NYMEX-黃金期貨價格', sn.gold.price.toLocaleString('en-US'), sn.gold);
           const elV = document.getElementById('tk-gold-val');
           if (elV) elV.textContent = '$' + sn.gold.price.toLocaleString('en-US');
         }
-        if (sn.copper) updTrader('NYMEX-銅期貨價格', sn.copper.price);
-        if (sn.vix) updTrader('CBOE-VIX波動率指數[VIX]', sn.vix.price);
+        if (sn.copper) updTrader('NYMEX-銅期貨價格', sn.copper.price, sn.copper);
+        if (sn.vix) updTrader('CBOE-VIX波動率指數[VIX]', sn.vix.price, sn.vix);
         if (sn.us10y !== undefined) {
-          updTrader('美國-10年期公債殖利率', sn.us10y + '%');
+          updTrader('美國-10年期公債殖利率', sn.us10y + '%', sn.us10y_tnx);
           if (COUNTRY_DATA.US && COUNTRY_DATA.US.kpis) COUNTRY_DATA.US.kpis[2].value = sn.us10y + '%';
           const elV = document.getElementById('tk-us10y-val');
           if (elV) elV.textContent = sn.us10y + '%';
@@ -1499,20 +1526,27 @@
         const el = document.getElementById('tk-twd');
         if (el) el.textContent = payload.fx.TWD;
         const it = TRADER_ITEMS.find(x => x.name === '美元/台幣');
-        if (it) { it.val = String(payload.fx.TWD); it.date = dateStr; }
+        if (it) { it.val = String(payload.fx.TWD); it.date = dateStr; it.dataStatus = 'verified'; it.source = '公開匯率 API'; }
       }
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
         const it = TRADER_ITEMS.find(x => x.name === '比特幣/美元');
-        if (it) { it.val = payload.crypto.btc_price.toLocaleString('en-US'); it.date = dateStr; }
+        if (it) { it.val = payload.crypto.btc_price.toLocaleString('en-US'); it.date = dateStr; it.dataStatus = 'verified'; it.source = 'CoinGecko'; }
       }
 
       // F. 狀態標記
       const pill = document.getElementById('live-status-pill');
       if (pill) {
-        pill.textContent = `全官方真實資料 · ${dateStr}`;
-        pill.className = 'ml-auto text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium';
+        const marketDate = payload.snapshots?.sp500?.as_of || dateStr;
+        pill.textContent = `延遲日線 · ${marketDate}`;
+        pill.className = 'ml-auto text-xs px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300 font-medium';
+      }
+      if (healthCard) healthCard.className = 'rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-800 dark:text-emerald-200';
+      if (healthCard) healthCard.firstElementChild.textContent = '資料包已通過完整性檢查';
+      if (healthDetail) {
+        const marketDate = payload.snapshots?.sp500?.as_of || '未標示';
+        healthDetail.textContent = `S&P 500／NASDAQ 等市場價格為 Yahoo Finance 最新日線（可能延遲），資料日 ${marketDate}；台股收盤來自 TWSE，M1B／M2 來自中央銀行。此處不是券商即時行情。`;
       }
 
       if (state.activeTab === 'dashboard') renderDashboard();
@@ -1531,6 +1565,7 @@
       btn.disabled = true;
 
       const updatedSources = [];
+      let bundleLoaded = false;
 
       // 0) Auto-load ./macro_live_data.json when hosted on GitHub Pages / local server
       try {
@@ -1538,7 +1573,10 @@
         if (localRes.ok) {
           const payload = await localRes.json();
           const applied = applyLivePayload(payload);
-          if (applied > 0) updatedSources.push('GitHub 真實資料庫');
+          if (applied > 0) {
+            bundleLoaded = true;
+            updatedSources.push('市場資料包');
+          }
         }
       } catch (e) { /* ignore when opened as standalone preview without macro_live_data.json */ }
       const todayStr = new Date().toISOString().slice(0, 10);
@@ -1561,7 +1599,7 @@
         if (Object.keys(rates).length > 0) {
           const updateTrader = (name, val) => {
             const it = TRADER_ITEMS.find(x => x.name === name);
-            if (it && val) { it.val = val; it.date = todayStr; }
+            if (it && val) { it.val = val; it.date = todayStr; it.dataStatus = 'verified'; it.source = '公開匯率 API'; }
           };
           if (rates.EUR) updateTrader('歐元/美元', (1 / rates.EUR).toFixed(4));
           if (rates.GBP) updateTrader('英鎊/美元', (1 / rates.GBP).toFixed(4));
@@ -1575,11 +1613,11 @@
           }
           // Update Top5 FX
           TOP5_MOVERS.FX = [
-            { name: 'USD/JPY 日圓', price: rates.JPY ? rates.JPY.toFixed(2) : '159.30', chg: '即時', up: true },
-            { name: 'USD/TWD 台幣', price: rates.TWD ? rates.TWD.toFixed(2) : '33.00', chg: '即時', up: true },
-            { name: 'EUR/USD 歐元', price: rates.EUR ? (1 / rates.EUR).toFixed(4) : '1.1000', chg: '即時', up: true },
-            { name: 'GBP/USD 英鎊', price: rates.GBP ? (1 / rates.GBP).toFixed(4) : '1.3100', chg: '即時', up: true },
-            { name: 'USD/CAD 加幣', price: rates.CAD ? rates.CAD.toFixed(3) : '1.430', chg: '即時', up: true }
+            { name: 'USD/JPY 日圓', price: rates.JPY ? rates.JPY.toFixed(2) : '—', chg: '最新', up: true },
+            { name: 'USD/TWD 台幣', price: rates.TWD ? rates.TWD.toFixed(2) : '—', chg: '最新', up: true },
+            { name: 'EUR/USD 歐元', price: rates.EUR ? (1 / rates.EUR).toFixed(4) : '—', chg: '最新', up: true },
+            { name: 'GBP/USD 英鎊', price: rates.GBP ? (1 / rates.GBP).toFixed(4) : '—', chg: '最新', up: true },
+            { name: 'USD/CAD 加幣', price: rates.CAD ? rates.CAD.toFixed(3) : '—', chg: '最新', up: true }
           ];
           updatedSources.push('公開匯率');
         }
@@ -1595,14 +1633,14 @@
             const tkBtc = document.getElementById('tk-btc');
             if (tkBtc) tkBtc.textContent = '$' + btcPrice;
             const btcItem = TRADER_ITEMS.find(x => x.name === '比特幣/美元');
-            if (btcItem) { btcItem.val = btcPrice; btcItem.date = todayStr; }
+            if (btcItem) { btcItem.val = btcPrice; btcItem.date = todayStr; btcItem.dataStatus = 'verified'; btcItem.source = 'CoinGecko'; }
           }
           const usdtCap = cg.tether?.usd_market_cap || 0;
           const usdcCap = cg['usd-coin']?.usd_market_cap || 0;
           if (usdtCap + usdcCap > 0) {
             const totalB = ((usdtCap + usdcCap) / 1e9).toFixed(1) + 'b';
             const stbItem = TRADER_ITEMS.find(x => x.name === '穩定幣-市值');
-            if (stbItem) { stbItem.val = totalB; stbItem.date = todayStr; }
+            if (stbItem) { stbItem.val = totalB; stbItem.date = todayStr; stbItem.dataStatus = 'verified'; stbItem.source = 'CoinGecko'; }
           }
           updatedSources.push('加密/穩定幣');
         }
@@ -1680,20 +1718,23 @@
       } catch (e) { /* ignore optional history fetch error */ }
 
       btn.disabled = false;
-      if (lbl) lbl.textContent = '即時更新';
+      if (lbl) lbl.textContent = '重新整理';
 
-      if (updatedSources.length > 0) {
-        const timeStr = new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' });
-        if (pill) {
-          pill.textContent = `已同步公開 API (${updatedSources.join('、')}) · ${timeStr}`;
-          pill.className = 'ml-auto text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium';
-        }
+      if (bundleLoaded) {
         if (state.activeTab === 'dashboard') renderTop5();
         if (state.activeTab === 'trader') renderTraderTab();
-        if (manual) showToast(`已即時更新：${updatedSources.join('、')}`);
+        if (manual) showToast(`已重新載入：${updatedSources.join('、')}。市場價格為延遲日線。`);
       } else {
-        if (pill) pill.textContent = '目前使用 2026-11 公開快照（離線/限流）';
-        if (manual) showToast('公開 API 暫時無法連線，維持 2026-11 基準快照');
+        if (pill) {
+          pill.textContent = '市場資料載入失敗';
+          pill.className = 'ml-auto text-xs px-2 py-0.5 rounded-full bg-red-500/15 text-red-700 dark:text-red-300 font-medium';
+        }
+        const healthCard = document.getElementById('data-health-card');
+        const healthDetail = document.getElementById('data-health-detail');
+        if (healthCard) healthCard.className = 'rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-800 dark:text-red-200';
+        if (healthCard) healthCard.firstElementChild.textContent = '市場資料載入失敗，未顯示舊價格';
+        if (healthDetail) healthDetail.textContent = '請稍後按「重新整理」。在有效資料包成功載入前，大盤價格會維持「—」，避免把過期快照誤認為最新行情。';
+        if (manual) showToast('市場資料包暫時無法載入，未使用舊價格替代');
       }
     }
 
@@ -2217,6 +2258,7 @@
                 <span class="px-2 py-0.5 rounded-full font-medium ${qm.cls}">${qm.label}</span>
               </div>
               <h3 class="font-semibold text-base mt-1.5 text-slate-900 dark:text-slate-100">${it.name}</h3>
+              <span class="inline-flex mt-2 text-[10px] px-2 py-0.5 rounded-full ${it.dataStatus === 'verified' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-amber-500/10 text-amber-700 dark:text-amber-300'}">${it.dataStatus === 'verified' ? '來源更新' : '示範快照'}</span>
             </div>
             <div class="flex items-baseline justify-between border-t border-slate-100 dark:border-slate-800 pt-2.5">
               <span class="text-xl font-bold tabular-nums text-blue-600 dark:text-blue-400">${it.val}</span>
@@ -2234,7 +2276,7 @@
           document.getElementById('tm-cat').textContent = `${item.cat} · ${item.sub}`;
           document.getElementById('tm-title').textContent = item.name;
           document.getElementById('tm-value').textContent = item.val;
-          document.getElementById('tm-date').textContent = item.date;
+          document.getElementById('tm-date').textContent = `${item.date}｜${item.source}`;
           document.getElementById('tm-quad').textContent = qm.label;
           document.getElementById('tm-desc').textContent = item.desc;
           document.getElementById('tm-vars').textContent = item.vars;
@@ -2847,6 +2889,10 @@
       const initialTab = validTabs.includes(hashTab) ? hashTab : 'dashboard';
       switchTab(initialTab);
       syncLivePublicData(false);
+      // 頁面保持開啟時定期檢查 GitHub Pages 是否已有較新的資料包。
+      window.setInterval(() => {
+        if (!document.hidden) syncLivePublicData(false);
+      }, 15 * 60 * 1000);
     });
   </script>
 </body>
