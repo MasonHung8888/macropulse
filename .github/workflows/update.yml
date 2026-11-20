@@ -2,7 +2,7 @@ name: Update Macro & Market Data
 on:
   schedule:
     - cron: '30 6 * * 1-5'   # 週一至週五 UTC 06:30 (台灣 14:30 台股收盤後)
-    - cron: '0 22 * * 1-5'   # 週一至週五 UTC 22:00 (台灣隔日 06:00 美股收盤後)
+    - cron: '30 22 * * 1-5'  # 週一至週五 UTC 22:30 (台灣隔日 06:30，預留美股收盤資料結算時間)
   workflow_dispatch:
 
 permissions:
