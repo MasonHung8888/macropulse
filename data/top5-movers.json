@@ -1,0 +1,30 @@
+{
+  "STOCK": [
+    { "name": "印度 SENSEX", "price": "83,021.75", "chg": "+1.75%", "up": true },
+    { "name": "紐西蘭 NZX 50", "price": "14,247.25", "chg": "+0.52%", "up": true },
+    { "name": "卡達 QE General", "price": "10,062.79", "chg": "+0.34%", "up": true },
+    { "name": "馬來西亞 MSCI", "price": "490.05", "chg": "-1.17%", "up": false },
+    { "name": "上證指數", "price": "3,577.62", "chg": "-1.56%", "up": false }
+  ],
+  "FX": [
+    { "name": "美元指數 DXY", "price": "100.85", "chg": "+0.92%", "up": true },
+    { "name": "USD/JPY 日圓", "price": "160.12", "chg": "+0.45%", "up": true },
+    { "name": "USD/TWD 台幣", "price": "32.48", "chg": "+0.38%", "up": true },
+    { "name": "EUR/USD 歐元", "price": "1.1580", "chg": "-0.62%", "up": false },
+    { "name": "NZD/USD 紐幣", "price": "0.5826", "chg": "-1.25%", "up": false }
+  ],
+  "ETF": [
+    { "name": "SMH 半導體 ETF", "price": "$264.10", "chg": "-2.10%", "up": false },
+    { "name": "SOXQ 費半 ETF", "price": "$45.80", "chg": "-2.24%", "up": false },
+    { "name": "SPY 標普 500 ETF", "price": "$728.40", "chg": "-0.50%", "up": false },
+    { "name": "QQQ 納指 100 ETF", "price": "$598.20", "chg": "+0.05%", "up": true },
+    { "name": "TLT 20年美債 ETF", "price": "$84.30", "chg": "+0.35%", "up": true }
+  ],
+  "COMM": [
+    { "name": "布蘭特原油 Brent", "price": "$91.95", "chg": "-1.30%", "up": false },
+    { "name": "WTI 西德州原油", "price": "$81.90", "chg": "-3.30%", "up": false },
+    { "name": "黃金現貨 Gold", "price": "$3,727.9", "chg": "-3.50%", "up": false },
+    { "name": "LME 銅價 Copper", "price": "$12,471", "chg": "-5.30%", "up": false },
+    { "name": "天然氣 Natural Gas", "price": "$3.18", "chg": "+1.42%", "up": true }
+  ]
+}

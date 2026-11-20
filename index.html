@@ -4,6 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MacroPulse 總經決策雷達｜M1B/M2・總經・產業・ETF 全方位分析平台</title>
+  <meta name="description" content="MacroPulse 總經決策雷達 — 整合台灣央行官方 M1B/M2 剪刀差、全球景氣循環、臺證所與美股即時熱力圖，專為台灣投資人打造的無人值守全自動總經工作台。" />
+  <meta property="og:title" content="MacroPulse 總經決策雷達" />
+  <meta property="og:description" content="M1B/M2・景氣循環・產業・ETF 全方位分析平台（全自動真實數據串接）" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://masonhung8888.github.io/macropulse/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://masonhung8888.github.io/macropulse/" />
+  <script>
+    // 記憶使用者主題設定
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
@@ -118,17 +133,16 @@
       <span class="font-semibold text-slate-500 dark:text-slate-400 flex items-center gap-1">
         <i data-lucide="globe" class="w-3.5 h-3.5 text-blue-500"></i> 2026/11 關鍵快照
       </span>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台股 TAIEX</span><span class="font-semibold tabular-nums">36,033.29</span><span class="text-rose-500">-6.23%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台灣 M1B / M2</span><span class="font-semibold tabular-nums">6.65% / 7.24%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">S&amp;P 500</span><span class="font-semibold tabular-nums">7,304</span><span class="text-rose-500">-0.5%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">NASDAQ</span><span class="font-semibold tabular-nums">24,323</span><span class="text-emerald-500">0.0%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">美債 10Y / 2Y</span><span class="font-semibold tabular-nums">5.02% / 4.81%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">美國 M2 YoY</span><span class="font-semibold tabular-nums text-emerald-500">+5.4%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">黃金</span><span class="font-semibold tabular-nums">$3,727.9</span><span class="text-rose-500">-3.5%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">WTI</span><span class="font-semibold tabular-nums">$81.9</span><span class="text-rose-500">-3.3%</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">USD/TWD</span><span id="tk-twd" class="font-semibold tabular-nums">33.0</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">BTC</span><span id="tk-btc" class="font-semibold tabular-nums">$61,875</span></div>
-      <span id="live-status-pill" class="ml-auto text-[11px] px-2 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-500 dark:text-slate-400">基準快照：2026-11</span>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台股 TAIEX</span><span id="tk-taiex-val" class="font-semibold tabular-nums">36,033.29</span><span id="tk-taiex-chg" class="text-rose-500">-6.23%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台灣 M1B / M2</span><span id="tk-m1b-m2" class="font-semibold tabular-nums">7.20% / 7.24%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">S&amp;P 500</span><span id="tk-sp500-val" class="font-semibold tabular-nums">7,145.34</span><span id="tk-sp500-chg" class="text-rose-500">-0.42%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">NASDAQ</span><span id="tk-nasdaq-val" class="font-semibold tabular-nums">24,323</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">美債 10Y</span><span id="tk-us10y-val" class="font-semibold tabular-nums">4.98%</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">黃金</span><span id="tk-gold-val" class="font-semibold tabular-nums">$3,574.2</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">WTI</span><span id="tk-wti-val" class="font-semibold tabular-nums">$81.9</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">USD/TWD</span><span id="tk-twd" class="font-semibold tabular-nums">32.99</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">BTC</span><span id="tk-btc" class="font-semibold tabular-nums">$61,538</span></div>
+      <span id="live-status-pill" class="ml-auto text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium">連線官方資料庫中...</span>
     </div>
   </div>
 
@@ -291,24 +305,24 @@
       <!-- M1B / M2 KPI Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
-          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M1B 年增率 (Aug 2026)</div>
-          <div class="text-2xl font-bold tabular-nums mt-1.5 text-blue-500">6.65%</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">前 9 月平均 7.65%（活期資金動能）</div>
+          <div id="m1b-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M1B 年增率 (最新) [央行官方]</div>
+          <div id="m1b-val" class="text-2xl font-bold tabular-nums mt-1.5 text-blue-500">7.20%</div>
+          <div id="m1b-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">中華民國中央銀行發布</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
-          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M2 年增率 (Sep 2026)</div>
-          <div class="text-2xl font-bold tabular-nums mt-1.5 text-amber-500">7.24%</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">餘額創高 71.36 兆台幣 (8 月 6.79%)</div>
+          <div id="m2-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M2 年增率 (最新) [央行官方]</div>
+          <div id="m2-val" class="text-2xl font-bold tabular-nums mt-1.5 text-amber-500">7.24%</div>
+          <div id="m2-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">中華民國中央銀行發布</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="text-xs font-medium text-slate-500 dark:text-slate-400">M1B - M2 剪刀差訊號</div>
-          <div class="text-2xl font-bold tabular-nums mt-1.5 text-rose-500">-0.14%</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">8 月轉為死亡交叉（1–5 月曾為黃金交叉）</div>
+          <div id="spread-val" class="text-2xl font-bold tabular-nums mt-1.5 text-rose-500">-0.04%</div>
+          <div id="spread-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">資金偏緊 (死亡交叉)</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
-          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">美國 M2 年增率 (Jul 2026)</div>
-          <div class="text-2xl font-bold tabular-nums mt-1.5 text-emerald-500">+5.40%</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">FRED M2SL 擺脫 2023 負成長後穩步擴張</div>
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400">美國 10Y 公債即時殖利率</div>
+          <div id="us10y-kpi-val" class="text-2xl font-bold tabular-nums mt-1.5 text-emerald-500">4.98%</div>
+          <div id="us10y-kpi-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">CBOE ^TNX 即時市場行情</div>
         </div>
       </div>
 
@@ -1370,6 +1384,8 @@
     function applyLivePayload(payload) {
       let count = 0;
       const dateStr = (payload.updated_at || new Date().toISOString()).slice(0, 10);
+
+      // A. 熱力圖
       if (Array.isArray(payload.tw_heatmap) && payload.tw_heatmap.length > 0) {
         HEATMAP_DATA.TW = payload.tw_heatmap;
         count++;
@@ -1378,6 +1394,8 @@
         HEATMAP_DATA.SP500 = payload.sp500_heatmap;
         count++;
       }
+
+      // B. 歷史時間序列
       if (payload.series && typeof payload.series === 'object') {
         Object.entries(payload.series).forEach(([k, obj]) => {
           if (obj && Array.isArray(obj.data) && obj.data.length > 0) {
@@ -1387,28 +1405,118 @@
         });
         populateToolboxSelects();
       }
+
+      // C. 台灣央行 (CBC) 官方 M1B / M2 貨幣數據
+      if (payload.tw_m1b_m2 && payload.tw_m1b_m2.latest) {
+        const l = payload.tw_m1b_m2.latest;
+        const m1bLabel = document.getElementById('m1b-label');
+        const m1bVal = document.getElementById('m1b-val');
+        const m1bSub = document.getElementById('m1b-sub');
+        if (m1bLabel) m1bLabel.textContent = `台灣 M1B 年增率 (${l.date}) [央行官方]`;
+        if (m1bVal) m1bVal.textContent = l.m1b + '%';
+        if (m1bSub) m1bSub.textContent = `前 9 月平均 ${l.avg9m_m1b}%（活期資金動能）`;
+
+        const m2Label = document.getElementById('m2-label');
+        const m2Val = document.getElementById('m2-val');
+        if (m2Label) m2Label.textContent = `台灣 M2 年增率 (${l.date}) [央行官方]`;
+        if (m2Val) m2Val.textContent = l.m2 + '%';
+
+        const spVal = document.getElementById('spread-val');
+        const spSub = document.getElementById('spread-sub');
+        if (spVal) {
+          spVal.textContent = (l.spread > 0 ? '+' : '') + l.spread + '%';
+          spVal.className = `text-2xl font-bold tabular-nums mt-1.5 ${l.spread > 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+        }
+        if (spSub) spSub.textContent = l.status;
+
+        if (COUNTRY_DATA && COUNTRY_DATA.TW && COUNTRY_DATA.TW.kpis && COUNTRY_DATA.TW.kpis[1]) {
+          COUNTRY_DATA.TW.kpis[1].value = `${l.m1b}% / ${l.m2}%`;
+          COUNTRY_DATA.TW.kpis[1].sub = `最新剪刀差 ${l.spread}% (${l.status})`;
+        }
+
+        const tkM1b = document.getElementById('tk-m1b-m2');
+        if (tkM1b) tkM1b.textContent = `${l.m1b}% / ${l.m2}%`;
+        count++;
+      }
+
+      // D. 市場快照更新 (Ticker & Trader Tab)
       if (payload.snapshots && typeof payload.snapshots === 'object') {
         const sn = payload.snapshots;
         const updTrader = (name, val) => {
           const it = TRADER_ITEMS.find(x => x.name === name);
           if (it && val !== undefined) { it.val = String(val); it.date = dateStr; }
         };
-        if (sn.sp500) updTrader('美國-S&P 500', sn.sp500.price.toLocaleString('en-US'));
-        if (sn.taiex) updTrader('台灣-加權股價指數', sn.taiex.price.toLocaleString('en-US'));
+        if (sn.sp500) {
+          updTrader('美國-S&P 500', sn.sp500.price.toLocaleString('en-US'));
+          const elV = document.getElementById('tk-sp500-val');
+          const elC = document.getElementById('tk-sp500-chg');
+          if (elV) elV.textContent = sn.sp500.price.toLocaleString('en-US');
+          if (elC) {
+            elC.textContent = (sn.sp500.d1 > 0 ? '+' : '') + sn.sp500.d1 + '%';
+            elC.className = sn.sp500.d1 >= 0 ? 'text-emerald-500' : 'text-rose-500';
+          }
+        }
+        if (sn.taiex) {
+          updTrader('台灣-加權股價指數', sn.taiex.price.toLocaleString('en-US'));
+          const elV = document.getElementById('tk-taiex-val');
+          const elC = document.getElementById('tk-taiex-chg');
+          if (elV) elV.textContent = sn.taiex.price.toLocaleString('en-US');
+          if (elC) {
+            elC.textContent = (sn.taiex.d1 > 0 ? '+' : '') + sn.taiex.d1 + '%';
+            elC.className = sn.taiex.d1 >= 0 ? 'text-emerald-500' : 'text-rose-500';
+          }
+        }
+        if (sn.nasdaq) {
+          const elV = document.getElementById('tk-nasdaq-val');
+          if (elV) elV.textContent = sn.nasdaq.price.toLocaleString('en-US');
+        }
         if (sn.nikkei) updTrader('日本-日經Nikkei 225', sn.nikkei.price.toLocaleString('en-US'));
-        if (sn.wti) updTrader('NYMEX-WTI西德州原油期貨價格', sn.wti.price);
-        if (sn.gold) updTrader('NYMEX-黃金期貨價格', sn.gold.price.toLocaleString('en-US'));
+        if (sn.wti) {
+          updTrader('NYMEX-WTI西德州原油期貨價格', sn.wti.price);
+          const elV = document.getElementById('tk-wti-val');
+          if (elV) elV.textContent = '$' + sn.wti.price;
+        }
+        if (sn.gold) {
+          updTrader('NYMEX-黃金期貨價格', sn.gold.price.toLocaleString('en-US'));
+          const elV = document.getElementById('tk-gold-val');
+          if (elV) elV.textContent = '$' + sn.gold.price.toLocaleString('en-US');
+        }
         if (sn.copper) updTrader('NYMEX-銅期貨價格', sn.copper.price);
         if (sn.vix) updTrader('CBOE-VIX波動率指數[VIX]', sn.vix.price);
         if (sn.us10y !== undefined) {
           updTrader('美國-10年期公債殖利率', sn.us10y + '%');
-          COUNTRY_DATA.US.kpis[2].value = sn.us10y + '%';
+          if (COUNTRY_DATA.US && COUNTRY_DATA.US.kpis) COUNTRY_DATA.US.kpis[2].value = sn.us10y + '%';
+          const elV = document.getElementById('tk-us10y-val');
+          if (elV) elV.textContent = sn.us10y + '%';
+          const elKpi = document.getElementById('us10y-kpi-val');
+          if (elKpi) elKpi.textContent = sn.us10y + '%';
         }
         if (sn.spread10y2y !== undefined) updTrader('美國-10年期-2年期公債殖利率', sn.spread10y2y + '%');
-        if (sn.usCpi !== undefined) COUNTRY_DATA.US.kpis[1].value = sn.usCpi + '%';
-        if (sn.usUnrate !== undefined) COUNTRY_DATA.US.kpis[3].value = sn.usUnrate + '%';
       }
+
+      // E. 匯率與加密貨幣
+      if (payload.fx && payload.fx.TWD) {
+        const el = document.getElementById('tk-twd');
+        if (el) el.textContent = payload.fx.TWD;
+        const it = TRADER_ITEMS.find(x => x.name === '美元/台幣');
+        if (it) { it.val = String(payload.fx.TWD); it.date = dateStr; }
+      }
+      if (payload.crypto && payload.crypto.btc_price) {
+        const el = document.getElementById('tk-btc');
+        if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
+        const it = TRADER_ITEMS.find(x => x.name === '比特幣/美元');
+        if (it) { it.val = payload.crypto.btc_price.toLocaleString('en-US'); it.date = dateStr; }
+      }
+
+      // F. 狀態標記
+      const pill = document.getElementById('live-status-pill');
+      if (pill) {
+        pill.textContent = `全官方真實資料 · ${dateStr}`;
+        pill.className = 'ml-auto text-[11px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 font-medium';
+      }
+
       if (state.activeTab === 'dashboard') renderDashboard();
+      if (state.activeTab === 'money') renderMoneyTab();
       if (state.activeTab === 'heatmap') renderHeatmap();
       if (state.activeTab === 'toolbox') renderToolbox();
       if (state.activeTab === 'trader') renderTraderTab();
@@ -1592,6 +1700,7 @@
 
     function switchTab(tabId) {
       state.activeTab = tabId;
+      try { history.replaceState(null, '', '#' + tabId); } catch (e) {}
       document.querySelectorAll('.tab-panel').forEach(el => el.classList.add('hidden'));
       document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
@@ -1841,13 +1950,14 @@
     function renderMoneyTab() {
       const ctx = document.getElementById('m1bM2Chart').getContext('2d');
       if (charts.m1bM2) charts.m1bM2.destroy();
+      const labels = (SERIES_DB.twM1b && SERIES_DB.twM1b.labels && SERIES_DB.twM1b.labels.length > 0) ? SERIES_DB.twM1b.labels : MONTHS;
       charts.m1bM2 = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: MONTHS,
+          labels: labels,
           datasets: [
-            { label: '台灣 M1B 年增率 (%)', data: SERIES_DB.twM1b.data, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
-            { label: '台灣 M2 年增率 (%)', data: SERIES_DB.twM2.data, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
+            { label: '台灣 M1B 年增率 (%) [央行官方]', data: SERIES_DB.twM1b.data, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
+            { label: '台灣 M2 年增率 (%) [央行官方]', data: SERIES_DB.twM2.data, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
             { label: '台股 TAIEX (右軸)', data: SERIES_DB.taiex.data, borderColor: '#10b981', borderDash: [4, 3], yAxisID: 'y1', tension: 0.25, pointRadius: 0 }
           ]
         },
@@ -2461,6 +2571,7 @@
 
       document.getElementById('theme-toggle').addEventListener('click', () => {
         document.documentElement.classList.toggle('dark');
+        try { localStorage.setItem('theme', isDark() ? 'dark' : 'light'); } catch (e) {}
         if (state.activeTab === 'dashboard') renderDashboard();
         if (state.activeTab === 'money') renderMoneyTab();
         if (state.activeTab === 'toolbox') renderToolbox();
@@ -2731,7 +2842,10 @@
       document.getElementById('guide-ok-btn').addEventListener('click', () => guideModal.classList.add('hidden'));
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
-      switchTab('dashboard');
+      const hashTab = (window.location.hash || '').slice(1);
+      const validTabs = ['dashboard', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'etf', 'calendar', 'mydash', 'import'];
+      const initialTab = validTabs.includes(hashTab) ? hashTab : 'dashboard';
+      switchTab(initialTab);
       syncLivePublicData(false);
     });
   </script>

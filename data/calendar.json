@@ -1,0 +1,11 @@
+[
+  { "date": "2026-11-18", "region": "US", "flag": "🇺🇸", "event": "FOMC 10 月會議紀要公布", "impact": "HIGH", "note": "多數官員支持維持鷹派，討論若通膨未降不排除更大幅度升息" },
+  { "date": "2026-11-20", "region": "JP", "flag": "🇯🇵", "event": "日本全國 CPI 年增率公布", "impact": "HIGH", "note": "影響日本央行 12 月升息節奏的關鍵物價指標" },
+  { "date": "2026-11-20", "region": "CN", "flag": "🇨🇳", "event": "中國 1 年期 / 5 年期 LPR 報價", "impact": "MEDIUM", "note": "觀察人行是否維持寬鬆以支撐內需成長" },
+  { "date": "2026-11-24", "region": "TW", "flag": "🇹🇼", "event": "台灣 10 月貨幣總計數 (M1B / M2)", "impact": "HIGH", "note": "關注 M1B (前值 6.65%) 與 M2 (前值 7.24%) 剪刀差是否收斂" },
+  { "date": "2026-12-04", "region": "US", "flag": "🇺🇸", "event": "美國 11 月非農就業報告 (NFP)", "impact": "HIGH", "note": "前值失業率 4.1%，觀察勞動市場是否維持低裁員、低招募" },
+  { "date": "2026-12-10", "region": "US", "flag": "🇺🇸", "event": "美國 11 月 CPI 消費者物價指數", "impact": "HIGH", "note": "前值 3.7%，若高於預期將強化 Fed 升息壓力" },
+  { "date": "2026-12-16", "region": "US", "flag": "🇺🇸", "event": "聯準會 (FOMC) 利率決議", "impact": "HIGH", "note": "市場高度關注是否升息 25bp 及最新利率點陣圖" },
+  { "date": "2026-12-17", "region": "TW", "flag": "🇹🇼", "event": "台灣央行 Q4 理監事聯席會議", "impact": "HIGH", "note": "現行利率 2.00%，更新 2027 年台灣 GDP 與 CPI 預測" },
+  { "date": "2026-12-18", "region": "JP", "flag": "🇯🇵", "event": "日本央行 (BOJ) 利率決議", "impact": "HIGH", "note": "市場定價升息機率約 85%，關注總裁植田和男會後談話" }
+]

@@ -1,0 +1,10 @@
+[
+  { "flag": "🌐", "name": "MM全球景氣衰退機率", "value": "23.9%", "pct": 24, "cat": "RECESSION", "tone": "rose", "targetCountry": "US" },
+  { "flag": "🌐", "name": "全球-MM製造業週期指數", "value": "0.93", "pct": 68, "cat": "EXPECT", "tone": "rose", "targetCountry": "US" },
+  { "flag": "🇺🇸", "name": "升息機率-FedWatch", "value": "100%", "pct": 95, "cat": "RATE", "tone": "rose", "targetCountry": "US" },
+  { "flag": "🇺🇸", "name": "降息機率-FedWatch", "value": "0%", "pct": 5, "cat": "RATE", "tone": "rose", "targetCountry": "US" },
+  { "flag": "🇺🇸", "name": "美國-景氣循環圖", "value": "擴張", "pct": 0, "cat": "EXPECT", "tone": "none", "targetCountry": "US" },
+  { "flag": "🇹🇼", "name": "台灣-景氣循環圖", "value": "擴張", "pct": 0, "cat": "EXPECT", "tone": "none", "targetCountry": "TW" },
+  { "flag": "🇨🇳", "name": "中國-景氣循環圖", "value": "趨緩", "pct": 0, "cat": "EXPECT", "tone": "none", "targetCountry": "CN" },
+  { "flag": "🇪🇺", "name": "歐元區-景氣循環圖", "value": "擴張", "pct": 0, "cat": "EXPECT", "tone": "none", "targetCountry": "EU" }
+]

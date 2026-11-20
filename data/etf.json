@@ -1,0 +1,10 @@
+[
+  { "ticker": "SMH", "name": "VanEck 半導體 ETF", "category": "半導體", "fee": "0.35%", "desc": "全球半導體供應鏈龍頭集中配置（Nvidia、台積電 ADR、ASML），規模約 $22B" },
+  { "ticker": "SOXQ", "name": "Invesco PHLX 半導體 ETF", "category": "半導體", "fee": "0.19%", "desc": "追蹤費城半導體指數 (SOX)，31 檔成分股，同類型中內扣費用率較低" },
+  { "ticker": "SOXX", "name": "iShares 半導體 ETF", "category": "半導體", "fee": "0.35%", "desc": "美國掛牌半導體產業代表性 ETF，權重分散度較 SMH 略高" },
+  { "ticker": "SPY", "name": "SPDR 標普 500 指數 ETF", "category": "美股大盤", "fee": "0.09%", "desc": "追蹤美國大型股 S&P 500 指數，流動性最佳之基準 ETF" },
+  { "ticker": "QQQ", "name": "Invesco 納斯達克 100 ETF", "category": "美股大盤", "fee": "0.20%", "desc": "追蹤 Nasdaq-100 非金融大型科技成長股，受美債殖利率波動影響較大" },
+  { "ticker": "0050.TW", "name": "元大台灣 50 ETF", "category": "台股大盤", "fee": "0.43%", "desc": "追蹤台灣市值前 50 大權值股，高度連結台灣半導體出口與外資動能" },
+  { "ticker": "TLT", "name": "iShares 20 年期以上美國公債 ETF", "category": "債券/避險", "fee": "0.15%", "desc": "長天期美國公債代表，與 10Y/20Y 美債殖利率呈高度負相關" },
+  { "ticker": "GLD", "name": "SPDR 黃金 ETF", "category": "債券/避險", "fee": "0.40%", "desc": "追蹤實體黃金現貨價格，受美元強弱與實質利率主導" }
+]
