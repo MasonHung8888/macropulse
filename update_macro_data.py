@@ -1556,6 +1556,136 @@ def compute_real_rates_and_breakeven() -> dict | None:
         return None
 
 
+def compute_global_central_bank_assets() -> dict | None:
+    """
+    計算全球四大央行 (Fed, ECB, BOJ, PBOC/China) 資產負債表水龍頭總量 (以兆美元 USD Trillions 計)
+    FRED 官方數據來源：
+    - Fed 美聯儲: WALCL (百萬美元, 每週三) -> / 1e6
+    - ECB 歐洲央行: ECBASSETSW (百萬歐元, 每週五) * DEXUSEU (歐元兌美元匯率) -> / 1e6
+    - BOJ 日本央行: JPNASSETS (1億日圓, 每月) / (DEXJPUS * 10000)
+    - China 中國儲備資產: TRESEGCNM052N (百萬美元, 每月) -> / 1e6
+    """
+    print("9.98 計算全球四大央行總資產負債表水龍頭 (G4 Central Bank Liquidity)...")
+    try:
+        import pandas as pd
+        series_ids = ["WALCL", "ECBASSETSW", "JPNASSETS", "DEXUSEU", "DEXJPUS", "TRESEGCNM052N"]
+        obs = fetch_fred_observations(series_ids)
+        for sid in series_ids:
+            if not obs.get(sid):
+                print(f"  缺少 FRED 系列 {sid} 資料")
+                return None
+
+        dfs = {}
+        for sid in series_ids:
+            dfs[sid] = pd.Series({pd.to_datetime(d): v for d, v in obs[sid]}, name=sid)
+
+        df = pd.DataFrame(dfs).sort_index().ffill()
+        df_m = df.resample("ME").last().dropna()
+
+        # 轉換為兆美元 (USD Trillions)
+        df_m["fed_trillions"] = df_m["WALCL"] / 1e6
+        df_m["ecb_trillions"] = (df_m["ECBASSETSW"] * df_m["DEXUSEU"]) / 1e6
+        df_m["boj_trillions"] = df_m["JPNASSETS"] / (df_m["DEXJPUS"] * 10000)
+        df_m["china_trillions"] = df_m["TRESEGCNM052N"] / 1e6
+        df_m["total_trillions"] = (
+            df_m["fed_trillions"] + df_m["ecb_trillions"] + df_m["boj_trillions"] + df_m["china_trillions"]
+        )
+        df_m["yoy_pct"] = (df_m["total_trillions"] / df_m["total_trillions"].shift(12) - 1.0) * 100.0
+
+        if len(df_m) < 24:
+            print("  時間序列期數不足 24 個月")
+            return None
+
+        recent_24 = df_m.tail(24)
+        labels_24m = [d.strftime("%Y-%m") for d in recent_24.index]
+        totals_24m = [round(float(v), 2) for v in recent_24["total_trillions"]]
+        fed_24m = [round(float(v), 2) for v in recent_24["fed_trillions"]]
+        ecb_24m = [round(float(v), 2) for v in recent_24["ecb_trillions"]]
+        boj_24m = [round(float(v), 2) for v in recent_24["boj_trillions"]]
+        china_24m = [round(float(v), 2) for v in recent_24["china_trillions"]]
+        yoy_24m = [round(float(v), 2) for v in recent_24["yoy_pct"]]
+
+        latest_row = df_m.iloc[-1]
+        prev_1m = df_m.iloc[-2] if len(df_m) >= 2 else latest_row
+        prev_1y = df_m.iloc[-13] if len(df_m) >= 13 else latest_row
+
+        total_latest = round(float(latest_row["total_trillions"]), 2)
+        fed_latest = round(float(latest_row["fed_trillions"]), 2)
+        ecb_latest = round(float(latest_row["ecb_trillions"]), 2)
+        boj_latest = round(float(latest_row["boj_trillions"]), 2)
+        china_latest = round(float(latest_row["china_trillions"]), 2)
+        yoy_latest = round(float(latest_row["yoy_pct"]), 2)
+
+        mom_change = round(total_latest - float(prev_1m["total_trillions"]), 2)
+        yoy_change = round(total_latest - float(prev_1y["total_trillions"]), 2)
+
+        if yoy_latest > 5.0:
+            rating = "強力擴表放水"
+            rating_en = "Aggressive Expansion"
+            regime = "expansion_strong"
+            status_color = "#10b981"
+        elif yoy_latest >= 0.0:
+            rating = "溫和擴表擴張"
+            rating_en = "Mild Expansion"
+            regime = "expansion_mild"
+            status_color = "#38bdf8"
+        elif yoy_latest >= -5.0:
+            rating = "有序縮表緊縮"
+            rating_en = "Orderly Balance Sheet Runoff"
+            regime = "tightening_mild"
+            status_color = "#f59e0b"
+        else:
+            rating = "深度流動性緊縮"
+            rating_en = "Severe Liquidity Contraction"
+            regime = "tightening_severe"
+            status_color = "#ef4444"
+
+        summary_desc = (
+            f"全球四大央行（Fed、ECB、BOJ、PBOC）總資產規模約為 {total_latest:.2f} 兆美元，年增率為 {yoy_latest:+.2f}%，"
+            f"處於「{rating}」階段。隨著美歐央行資產負債表常態化進程接近尾聲，全球流動性收縮斜率已明顯趨緩，"
+            f"為全球科技股估值與加密資產（如比特幣）構築了中長線流動性底座。"
+        )
+
+        return {
+            "as_of": labels_24m[-1],
+            "latest": {
+                "total_trillions": total_latest,
+                "fed_trillions": fed_latest,
+                "ecb_trillions": ecb_latest,
+                "boj_trillions": boj_latest,
+                "china_trillions": china_latest,
+                "yoy_pct": yoy_latest,
+                "mom_change": mom_change,
+                "yoy_change": yoy_change,
+                "rating": rating,
+                "rating_en": rating_en,
+                "regime": regime,
+                "status_color": status_color,
+                "summary": summary_desc,
+            },
+            "history_24m": {
+                "labels": labels_24m,
+                "totals": totals_24m,
+                "fed": fed_24m,
+                "ecb": ecb_24m,
+                "boj": boj_24m,
+                "china": china_24m,
+                "yoy_pcts": yoy_24m,
+            },
+            "zones": [
+                {"label": "深度緊縮 (<-5%)", "color": "#ef4444", "desc": "流動性急凍，資產重挫"},
+                {"label": "有序縮表 (-5%~0%)", "color": "#f59e0b", "desc": "縮表尾聲，流動性平穩"},
+                {"label": "溫和擴表 (0%~5%)", "color": "#38bdf8", "desc": "資金淨流入，推升估值"},
+                {"label": "強力放水 (>5%)", "color": "#10b981", "desc": "大水漫灌，資產狂歡"},
+            ],
+            "source": "FRED (Fed WALCL, ECB ECBASSETSW, BOJ JPNASSETS, China TRESEGCNM052N)",
+            "source_url": "https://fred.stlouisfed.org/series/WALCL",
+        }
+    except Exception as e:
+        print(f"  全球四大央行資產負債表計算失敗: {e}")
+        return None
+
+
 def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
@@ -1952,6 +2082,28 @@ def main():
         payload["snapshots"]["nominal_10y"] = tips_data["latest"]["nominal_yield"]
         payload["snapshots"]["real_rate_rating"] = tips_data["latest"]["rating"]
 
+    # 9.98 全球四大央行總資產負債表水龍頭 (Global Central Bank Balance Sheet Tracker)
+    global_cb_data = compute_global_central_bank_assets()
+    if not global_cb_data and "global_central_banks" in existing_payload:
+        global_cb_data = existing_payload["global_central_banks"]
+        print("  -> 使用上一份有效的全球四大央行資產負債表資料")
+
+    if global_cb_data and global_cb_data.get("latest"):
+        payload["global_central_banks"] = global_cb_data
+        payload["series"]["globalCbAssets"] = {
+            "name": "全球四大央行總資產 (兆美元) [FRED G4 Total: Fed+ECB+BOJ+PBOC]",
+            "unit": "兆美元",
+            "labels": global_cb_data["history_24m"]["labels"],
+            "data": global_cb_data["history_24m"]["totals"],
+        }
+        payload["snapshots"]["global_cb_total"] = global_cb_data["latest"]["total_trillions"]
+        payload["snapshots"]["global_cb_fed"] = global_cb_data["latest"]["fed_trillions"]
+        payload["snapshots"]["global_cb_ecb"] = global_cb_data["latest"]["ecb_trillions"]
+        payload["snapshots"]["global_cb_boj"] = global_cb_data["latest"]["boj_trillions"]
+        payload["snapshots"]["global_cb_china"] = global_cb_data["latest"]["china_trillions"]
+        payload["snapshots"]["global_cb_yoy"] = global_cb_data["latest"]["yoy_pct"]
+        payload["snapshots"]["global_cb_rating"] = global_cb_data["latest"]["rating"]
+
     # 10. 跨市場 8x8 資產相關性矩陣
     corr_data = compute_cross_market_correlation()
     if not corr_data and "correlation_matrix" in existing_payload:
@@ -2064,6 +2216,7 @@ def main():
         "fear_and_greed": {"label": "FRED & CBOE / S&P Market Sentiment", "status": "ok" if payload.get("fear_and_greed") else "error"},
         "buffett_indicator": {"label": "FRED (GDP) & Yahoo Finance (^W5000)", "status": "ok" if payload.get("buffett_indicator") else "error"},
         "tips_breakeven": {"label": "FRED 10Y TIPS & Breakeven Inflation", "status": "ok" if payload.get("tips_breakeven") else "error"},
+        "global_central_banks": {"label": "FRED G4 Central Banks (Fed, ECB, BOJ, PBOC)", "status": "ok" if payload.get("global_central_banks") else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
         "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
     }

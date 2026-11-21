@@ -136,6 +136,27 @@ flowchart TD
   - $1.0\% \sim 2.0\%$：緊縮中性（歷史常態區間）
   - $\ge 2.0\%$：限制性緊縮（**科技股估值重力壓制**，無風險實質報酬高達 2% 以上引發資金回流債券）
 
+### 8. 全球四大央行總資產負債表水龍頭（Global Central Bank Balance Sheet Tracker）
+* **FRED 官方數據來源序列**：
+  - `WALCL`：美聯儲 Fed 總資產（Millions of USD，每週三）
+  - `ECBASSETSW`：歐洲央行 ECB 總資產（Millions of EUR，每週五）
+  - `JPNASSETS`：日本央行 BOJ 總資產（100 Million JPY，每月）
+  - `TRESEGCNM052N`：中國外匯與儲備資產（Millions of USD，每月）
+  - `DEXUSEU`：歐元兌美元匯率（USD per EUR）
+  - `DEXJPUS`：美元兌日圓匯率（JPY per USD）
+* **量化換算公式（統一折算為兆美元 Trillions USD）**：
+  $$\text{Fed (兆美元)} = \frac{\text{WALCL}}{10^6}$$
+  $$\text{ECB (兆美元)} = \frac{\text{ECBASSETSW} \times \text{DEXUSEU}}{10^6}$$
+  $$\text{BOJ (兆美元)} = \frac{\text{JPNASSETS}}{\text{DEXJPUS} \times 10^4}$$
+  $$\text{China (兆美元)} = \frac{\text{TRESEGCNM052N}}{10^6}$$
+  $$\text{G4 Total} = \text{Fed} + \text{ECB} + \text{BOJ} + \text{China}$$
+  $$\text{YoY} = \left(\frac{\text{G4 Total}_t}{\text{G4 Total}_{t-12}} - 1\right) \times 100\%$$
+* **全球流動性水龍頭四色週期**：
+  - $\text{YoY} > +5.0\%$：強力擴表放水（綠燈，激進寬鬆大水漫灌，資產暴漲）
+  - $0.0\% \le \text{YoY} \le +5.0\%$：溫和擴表（藍燈，資金淨流入推升估值）
+  - $-5.0\% \le \text{YoY} < 0.0\%$：**有序縮表緊縮**（橙燈，當前縮表收尾常態，流動性收縮放緩）
+  - $\text{YoY} < -5.0\%$：深度流動性緊縮（紅燈，流動性急凍，估值顯著承壓）
+
 ---
 
 ## 🛡️ 資料防錯閘門與保護機制 (Data Quality Gates)

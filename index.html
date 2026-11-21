@@ -963,6 +963,141 @@
           </div>
         </div>
       </div>
+
+      <!-- 8. 全球四大央行總資產負債表水龍頭 (Global Central Bank Balance Sheet Tracker) -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="waves" class="w-5 h-5 text-indigo-500"></i> 全球四大央行總資產負債表水龍頭 (Global Central Bank Balance Sheet Tracker)
+              </h2>
+              <span id="global-cb-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">有序縮表緊縮 (-4.20%)</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              全球宏觀資產最核心的流動性總閘門：整合美聯儲 (Fed)、歐洲央行 (ECB)、日本央行 (BOJ) 與中國儲備資產 (PBOC) 總規模，折算為美元以監測全球法幣水庫水位與風險資產週期
+            </p>
+          </div>
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <span class="text-xs font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">FRED (WALCL, ECBASSETSW, JPNASSETS, TRESEGCNM052N)</span>
+            <a href="https://fred.stlouisfed.org/series/WALCL" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5">
+              FRED 官方序列 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 KPI 數值卡片 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-lg bg-indigo-50/50 dark:bg-indigo-950/20 border border-indigo-200/70 dark:border-indigo-800/50">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">四大央行總資產 (G4 Total Assets)</div>
+            <div id="cb-total-val" class="text-3xl font-extrabold tabular-nums mt-1 text-indigo-600 dark:text-indigo-400">$20.66 兆</div>
+            <div id="cb-total-sub" class="text-[11px] text-amber-600 dark:text-amber-400 mt-0.5 font-medium">年增率 -4.20% (縮表收縮尾聲)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美聯儲 Fed 資產規模 (WALCL)</div>
+            <div id="cb-fed-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">$6.74 兆</div>
+            <div id="cb-fed-sub" class="text-[11px] text-slate-400 mt-0.5">佔比 32.6% · 縮表 (QT) 持續放緩</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">歐洲央行 ECB 資產規模 (折美元)</div>
+            <div id="cb-ecb-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">$6.52 兆</div>
+            <div id="cb-ecb-sub" class="text-[11px] text-slate-400 mt-0.5">5.91 兆歐元 · 歐元匯率 1.103</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">日銀 BOJ ＆ 中國 PBOC (折美元)</div>
+            <div id="cb-asia-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">$7.40 兆</div>
+            <div id="cb-asia-sub" class="text-[11px] text-slate-400 mt-0.5">日本 $3.92兆 (626兆円) + 中國 $3.48兆</div>
+          </div>
+        </div>
+
+        <!-- 儀表條與走勢圖 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <!-- 左側 7 欄: 四色流動性週期尺規與 24 個月走勢圖 -->
+          <div class="lg:col-span-7 space-y-4">
+            <!-- 四色漸層流動性週期量表 -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between text-xs font-semibold">
+                <span class="text-rose-600 dark:text-rose-400">&lt;-5% 深度緊縮</span>
+                <span class="text-amber-500">-5% ~ 0% 有序縮表</span>
+                <span class="text-sky-500">0% ~ 5% 溫和擴表</span>
+                <span class="text-emerald-600 dark:text-emerald-400">&gt;5% 強力放水</span>
+              </div>
+              <div class="relative w-full h-3.5 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-700">
+                <div class="absolute inset-0 bg-gradient-to-r from-rose-600 via-amber-400 via-sky-400 to-emerald-500"></div>
+                <!-- 游標指針 (比例基於 -15% ~ +15% 區間對映) -->
+                <div id="cb-pointer" class="absolute top-0 bottom-0 w-2 bg-white shadow-md border border-slate-400 rounded-sm transform -translate-x-1/2 transition-all duration-500" style="left: 36%;"></div>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-400 pt-0.5">
+                <span>流動性急凍 (資產承壓)</span>
+                <span id="cb-pointer-label" class="font-bold text-amber-600 dark:text-amber-400">當前四大央行 YoY: -4.20% (有序縮表緊縮)</span>
+                <span>大水漫灌 (推升估值)</span>
+              </div>
+            </div>
+
+            <!-- 24 個月歷史走勢圖 -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 24 個月 全球四大央行資產結構與總額 (兆美元)</span>
+                <span class="text-[11px] text-slate-400">深藍：總額 ｜ 藍：Fed ｜ 靛：ECB ｜ 橘：BOJ ｜ 綠：中國</span>
+              </div>
+              <div class="relative h-60">
+                <canvas id="globalCbChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 5 欄: 央行水龍頭對資產配置的傳導解讀 -->
+          <div class="lg:col-span-5 space-y-3 text-xs">
+            <div class="font-bold text-slate-900 dark:text-white flex items-center justify-between pb-1 border-b border-slate-100 dark:border-slate-800">
+              <span>全球流動性水龍頭對各大類資產定價影響</span>
+              <span class="text-[11px] text-slate-400 font-normal">Macro Liquidity Transmission</span>
+            </div>
+            
+            <!-- 央行流動性解讀卡片 -->
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between text-sm font-bold">
+                <span class="text-slate-700 dark:text-slate-200">四大央行總計: <span class="text-indigo-600 dark:text-indigo-400" id="cb-commentary-total">$20.66 兆美元</span></span>
+                <span class="text-xs px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300">YoY -4.20%</span>
+              </div>
+              <p id="cb-commentary" class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
+                全球四大央行（Fed、ECB、BOJ、PBOC）總資產規模約為 20.66 兆美元，年增率為 -4.20%，處於「有序縮表緊縮」階段。隨著美歐央行資產負債表常態化進程接近尾聲，全球流動性收縮斜率已明顯趨緩，為全球科技股估值與加密資產（如比特幣）構築了中長線流動性底座。
+              </p>
+            </div>
+
+            <!-- 四大資產類別受影響敏感度 -->
+            <div class="space-y-1.5">
+              <div class="flex items-start gap-2 p-2 rounded bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/40 dark:border-slate-700/40">
+                <i data-lucide="bitcoin" class="w-4 h-4 text-amber-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <div class="font-semibold text-slate-800 dark:text-slate-200">加密貨幣與比特幣 (BTC) <span class="text-amber-500 font-bold ml-1">極度敏感 (Beta &gt; 1.5)</span></div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">比特幣為純粹的全球法定貨幣流動性晴雨表。當央行縮表放緩並重啟擴表（YoY 由負轉正），加密市場往往率先爆發。</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-2 p-2 rounded bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/40 dark:border-slate-700/40">
+                <i data-lucide="trending-up" class="w-4 h-4 text-blue-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <div class="font-semibold text-slate-800 dark:text-slate-200">美股科技股與那斯達克 (Nasdaq) <span class="text-blue-500 font-bold ml-1">高敏感度</span></div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">央行資產總量為全球高本益比資產的折現分母。縮表斜率放緩有效降低了科技龍頭的本益比壓縮重力。</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-2 p-2 rounded bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/40 dark:border-slate-700/40">
+                <i data-lucide="gem" class="w-4 h-4 text-yellow-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <div class="font-semibold text-slate-800 dark:text-slate-200">黃金與大宗貴金屬 (Gold) <span class="text-yellow-500 font-bold ml-1">抗稀釋儲備</span></div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">當四大央行總資產突破歷史新高，法幣購買力稀釋，黃金受各國央行儲備多樣化與流動性擴張驅動長期走揚。</div>
+                </div>
+              </div>
+              <div class="flex items-start gap-2 p-2 rounded bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200/40 dark:border-slate-700/40">
+                <i data-lucide="landmark" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                <div>
+                  <div class="font-semibold text-slate-800 dark:text-slate-200">外匯與日圓套利交易 (Carry Trade) <span class="text-emerald-500 font-bold ml-1">利差牽動</span></div>
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">日銀 (BOJ) 總資產仍達 626 兆日圓（$3.92兆美元）。日銀縮減購債與升息是全球套利資金平倉的最大變數。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR & NDC INDICATORS -->
@@ -1332,6 +1467,8 @@
         <button data-preset="buffettIndicator|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 transition-colors">巴菲特指標 vs S&amp;P 500</button>
         <button data-preset="tipsRealYield|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 transition-colors">TIPS 實質利率 vs 黃金</button>
         <button data-preset="breakevenInflation|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors">平衡通膨率 vs S&amp;P 500</button>
+        <button data-preset="globalCbAssets|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 transition-colors">全球四大央行資產 vs S&amp;P 500</button>
+        <button data-preset="globalCbAssets|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 transition-colors">全球四大央行資產 vs 黃金</button>
         <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
       </div>
 
@@ -1475,6 +1612,7 @@
             <option value="buffettIndicator">巴菲特指標 (美股市值 / GDP %)</option>
             <option value="tipsRealYield">美國 10Y TIPS 實質利率 (%)</option>
             <option value="breakevenInflation">美國 10Y 平衡通膨率 (%)</option>
+            <option value="globalCbAssets">全球四大央行總資產 (兆美元)</option>
             <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
             <option value="fedFundsRate">美國 聯邦基金有效利率 (%)</option>
             <option value="sahmRule">薩姆規則衰退指標 (%)</option>
@@ -2801,6 +2939,76 @@
       if (comm) comm.textContent = l.desc;
     }
 
+    // --- 3.4 全球四大央行總資產負債表水龍頭預設 ---
+    const GLOBAL_CB_DEFAULT_DATA = {
+      as_of: "2026-11",
+      latest: {
+        total_trillions: 20.66,
+        fed_trillions: 6.74,
+        ecb_trillions: 6.52,
+        boj_trillions: 3.92,
+        china_trillions: 3.48,
+        yoy_pct: -4.20,
+        mom_change: -0.18,
+        yoy_change: -0.90,
+        rating: "有序縮表緊縮",
+        rating_en: "Orderly Balance Sheet Runoff",
+        regime: "tightening_mild",
+        status_color: "#f59e0b",
+        summary: "全球四大央行（Fed、ECB、BOJ、PBOC）總資產規模約為 20.66 兆美元，年增率為 -4.20%，處於「有序縮表緊縮」階段。隨著美歐央行資產負債表常態化進程接近尾聲，全球流動性收縮斜率已明顯趨緩，為全球科技股估值與加密資產（如比特幣）構築了中長線流動性底座。"
+      },
+      history_24m: {
+        labels: ["2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11"],
+        totals: [21.48,21.54,21.59,21.66,22.37,22.23,22.36,21.79,22.04,21.84,21.64,21.56,21.62,21.95,21.85,21.33,21.7,21.58,21.14,21.11,21.12,20.89,20.84,20.66],
+        fed: [6.89,6.82,6.77,6.74,6.71,6.67,6.66,6.64,6.6,6.61,6.59,6.55,6.64,6.59,6.61,6.66,6.7,6.7,6.74,6.74,6.73,6.74,6.75,6.74],
+        ecb: [6.58,6.65,6.57,6.74,7.18,7.12,7.34,7.0,7.12,7.12,7.12,7.13,7.23,7.48,7.36,7.1,7.29,7.2,6.98,6.84,6.87,6.69,6.64,6.52],
+        boj: [4.75,4.81,4.96,4.87,5.13,5.09,4.98,4.79,4.93,4.7,4.52,4.47,4.32,4.42,4.38,4.17,4.23,4.17,3.93,4.05,4.04,3.97,3.98,3.92],
+        china: [3.26,3.27,3.29,3.3,3.35,3.35,3.38,3.36,3.39,3.41,3.41,3.41,3.42,3.47,3.5,3.41,3.48,3.51,3.48,3.48,3.48,3.48,3.48,3.48],
+        yoy_pcts: [-10.51,-8.56,-7.39,-5.59,-0.72,-1.35,0.78,-3.47,-3.64,-4.42,-2.83,-2.03,0.64,1.9,1.22,-1.51,-2.98,-2.92,-5.47,-3.11,-4.18,-4.35,-3.69,-4.2]
+      }
+    };
+
+    function populateGlobalCbDefaultIfEmpty() {
+      const cb = (state.livePayload && state.livePayload.global_central_banks) ? state.livePayload.global_central_banks : GLOBAL_CB_DEFAULT_DATA;
+      if (!cb || !cb.latest) return;
+      const l = cb.latest;
+
+      const totalEl = document.getElementById('cb-total-val');
+      if (totalEl) totalEl.textContent = `$${l.total_trillions.toFixed(2)} 兆`;
+      const totalSub = document.getElementById('cb-total-sub');
+      if (totalSub) {
+        totalSub.textContent = `年增率 ${l.yoy_pct >= 0 ? '+' : ''}${l.yoy_pct.toFixed(2)}% (${l.rating})`;
+        totalSub.className = `text-[11px] mt-0.5 font-medium ${l.yoy_pct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`;
+      }
+      const badgeEl = document.getElementById('global-cb-badge');
+      if (badgeEl) {
+        badgeEl.textContent = `${l.rating} (${l.yoy_pct >= 0 ? '+' : ''}${l.yoy_pct.toFixed(2)}%)`;
+        badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${l.yoy_pct > 5.0 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : l.yoy_pct >= 0 ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400' : l.yoy_pct >= -5.0 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : 'bg-rose-500/15 text-rose-600 dark:text-rose-400'}`;
+      }
+
+      const fedEl = document.getElementById('cb-fed-val');
+      if (fedEl) fedEl.textContent = `$${l.fed_trillions.toFixed(2)} 兆`;
+      const ecbEl = document.getElementById('cb-ecb-val');
+      if (ecbEl) ecbEl.textContent = `$${l.ecb_trillions.toFixed(2)} 兆`;
+      const asiaEl = document.getElementById('cb-asia-val');
+      if (asiaEl) asiaEl.textContent = `$${(l.boj_trillions + l.china_trillions).toFixed(2)} 兆`;
+      const asiaSub = document.getElementById('cb-asia-sub');
+      if (asiaSub) asiaSub.textContent = `日本 $${l.boj_trillions.toFixed(2)}兆 + 中國 $${l.china_trillions.toFixed(2)}兆`;
+
+      const pointer = document.getElementById('cb-pointer');
+      if (pointer) {
+        const pct = Math.min(100, Math.max(0, ((l.yoy_pct - (-15.0)) / (15.0 - (-15.0))) * 100));
+        pointer.style.left = `${pct}%`;
+      }
+      const ptrLabel = document.getElementById('cb-pointer-label');
+      if (ptrLabel) ptrLabel.textContent = `當前四大央行 YoY: ${l.yoy_pct >= 0 ? '+' : ''}${l.yoy_pct.toFixed(2)}% (${l.rating})`;
+
+      const comm = document.getElementById('cb-commentary');
+      if (comm) comm.textContent = l.summary;
+      const commTotal = document.getElementById('cb-commentary-total');
+      if (commTotal) commTotal.textContent = `$${l.total_trillions.toFixed(2)} 兆美元`;
+    }
+
     // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
     const CORRELATION_ASSETS = [
       { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
@@ -2876,7 +3084,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -3749,6 +3957,63 @@
         populateTipsDefaultIfEmpty();
       }
 
+      // Q. 全球四大央行總資產負債表水龍頭 (Global Central Bank Balance Sheet Tracker)
+      if (payload.global_central_banks && payload.global_central_banks.latest) {
+        const cb = payload.global_central_banks;
+        const l = cb.latest;
+
+        const totalEl = document.getElementById('cb-total-val');
+        if (totalEl) totalEl.textContent = `$${l.total_trillions.toFixed(2)} 兆`;
+        const totalSub = document.getElementById('cb-total-sub');
+        if (totalSub) {
+          totalSub.textContent = `年增率 ${l.yoy_pct >= 0 ? '+' : ''}${l.yoy_pct.toFixed(2)}% (${l.rating})`;
+          totalSub.className = `text-[11px] mt-0.5 font-medium ${l.yoy_pct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}`;
+        }
+        const badgeEl = document.getElementById('global-cb-badge');
+        if (badgeEl) {
+          badgeEl.textContent = `${l.rating} (${l.yoy_pct >= 0 ? '+' : ''}${l.yoy_pct.toFixed(2)}%)`;
+          badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${l.yoy_pct > 5.0 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : l.yoy_pct >= 0 ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400' : l.yoy_pct >= -5.0 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : 'bg-rose-500/15 text-rose-600 dark:text-rose-400'}`;
+        }
+
+        const fedEl = document.getElementById('cb-fed-val');
+        if (fedEl) fedEl.textContent = `$${l.fed_trillions.toFixed(2)} 兆`;
+        const ecbEl = document.getElementById('cb-ecb-val');
+        if (ecbEl) ecbEl.textContent = `$${l.ecb_trillions.toFixed(2)} 兆`;
+        const asiaEl = document.getElementById('cb-asia-val');
+        if (asiaEl) asiaEl.textContent = `$${(l.boj_trillions + l.china_trillions).toFixed(2)} 兆`;
+        const asiaSub = document.getElementById('cb-asia-sub');
+        if (asiaSub) asiaSub.textContent = `日本 $${l.boj_trillions.toFixed(2)}兆 + 中國 $${l.china_trillions.toFixed(2)}兆`;
+
+        const pointer = document.getElementById('cb-pointer');
+        if (pointer) {
+          const pct = Math.min(100, Math.max(0, ((l.yoy_pct - (-15.0)) / (15.0 - (-15.0))) * 100));
+          pointer.style.left = `${pct}%`;
+        }
+        const ptrLabel = document.getElementById('cb-pointer-label');
+        if (ptrLabel) ptrLabel.textContent = `當前四大央行 YoY: ${l.yoy_pct >= 0 ? '+' : ''}${l.yoy_pct.toFixed(2)}% (${l.rating})`;
+
+        const comm = document.getElementById('cb-commentary');
+        if (comm) comm.textContent = l.summary;
+        const commTotal = document.getElementById('cb-commentary-total');
+        if (commTotal) commTotal.textContent = `$${l.total_trillions.toFixed(2)} 兆美元`;
+
+        let item = TRADER_ITEMS.find(x => x.name === '全球四大央行總資產');
+        if (!item) {
+          item = { cat: '總經數據', sub: '全球', name: '全球四大央行總資產', quad: 'HIGH_UP', vars: 'Global CB Assets' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `$${l.total_trillions.toFixed(2)}T`;
+        item.date = l.as_of || dateStr;
+        item.desc = `Fed+ECB+BOJ+PBOC 四大央行資產總額。${l.summary}`;
+        item.dataStatus = 'verified';
+        item.source = cb.source || 'FRED';
+        item.sourceUrl = cb.source_url || 'https://fred.stlouisfed.org/series/WALCL';
+
+        count++;
+      } else {
+        populateGlobalCbDefaultIfEmpty();
+      }
+
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
@@ -3777,6 +4042,7 @@
       renderFearGreedChart();
       renderBuffettChart();
       renderTipsBreakevenChart();
+      renderGlobalCbChart();
       renderNdcChart();
       renderExportOrdersChart();
       if (state.activeTab === 'dashboard') renderDashboard();
@@ -4224,6 +4490,7 @@
       renderFearGreedChart();
       renderBuffettChart();
       renderTipsBreakevenChart();
+      renderGlobalCbChart();
     }
 
     function renderMoneyTab() {
@@ -5146,6 +5413,118 @@
       });
     }
 
+    function renderGlobalCbChart() {
+      const canvas = document.getElementById('globalCbChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.globalCb) charts.globalCb.destroy();
+
+      const cb = (state.livePayload && state.livePayload.global_central_banks) ? state.livePayload.global_central_banks : GLOBAL_CB_DEFAULT_DATA;
+      if (!cb || !cb.history_24m) return;
+
+      const labels = cb.history_24m.labels || [];
+      const totals = cb.history_24m.totals || [];
+      const fed = cb.history_24m.fed || [];
+      const ecb = cb.history_24m.ecb || [];
+      const boj = cb.history_24m.boj || [];
+      const china = cb.history_24m.china || [];
+
+      const lineGradient = ctx.createLinearGradient(0, 0, 0, 240);
+      lineGradient.addColorStop(0, 'rgba(99, 102, 241, 0.25)');
+      lineGradient.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
+
+      charts.globalCb = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '全球四大央行總資產 ($兆)',
+              data: totals,
+              borderColor: '#6366f1',
+              backgroundColor: lineGradient,
+              pointBackgroundColor: '#6366f1',
+              pointBorderColor: '#ffffff',
+              pointRadius: 3.5,
+              borderWidth: 2.5,
+              tension: 0.25,
+              fill: true
+            },
+            {
+              label: '美聯儲 Fed ($兆)',
+              data: fed,
+              borderColor: '#3b82f6',
+              backgroundColor: 'transparent',
+              borderDash: [3, 3],
+              pointRadius: 2,
+              borderWidth: 1.5,
+              tension: 0.2,
+              fill: false
+            },
+            {
+              label: '歐洲央行 ECB ($兆)',
+              data: ecb,
+              borderColor: '#8b5cf6',
+              backgroundColor: 'transparent',
+              borderDash: [3, 3],
+              pointRadius: 2,
+              borderWidth: 1.5,
+              tension: 0.2,
+              fill: false
+            },
+            {
+              label: '日本央行 BOJ ($兆)',
+              data: boj,
+              borderColor: '#f59e0b',
+              backgroundColor: 'transparent',
+              borderDash: [3, 3],
+              pointRadius: 2,
+              borderWidth: 1.5,
+              tension: 0.2,
+              fill: false
+            },
+            {
+              label: '中國儲備資產 PBOC ($兆)',
+              data: china,
+              borderColor: '#10b981',
+              backgroundColor: 'transparent',
+              borderDash: [3, 3],
+              pointRadius: 2,
+              borderWidth: 1.5,
+              tension: 0.2,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  const val = Number(c.raw);
+                  return `${c.dataset.label}: $${val.toFixed(2)} 兆美元`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor(), maxTicksLimit: 12 } },
+            y: {
+              grid: { color: gridColor() },
+              ticks: {
+                color: textColor(),
+                callback: function(v) { return `$${v}T`; }
+              }
+            }
+          }
+        }
+      });
+    }
+
     function populateToolboxSelects() {
       const leftEl = document.getElementById('series-left');
       const rightEl = document.getElementById('series-right');
@@ -5413,6 +5792,7 @@
       else if (ind === 'buffettIndicator') { slider.min = 100; slider.max = 240; slider.step = 5; }
       else if (ind === 'tipsRealYield') { slider.min = 0.5; slider.max = 3.5; slider.step = 0.05; }
       else if (ind === 'breakevenInflation') { slider.min = 1.5; slider.max = 3.0; slider.step = 0.05; }
+      else if (ind === 'globalCbAssets') { slider.min = 18.0; slider.max = 24.0; slider.step = 0.1; }
       else if (ind === 'fedNetLiquidity') { slider.min = 5.0; slider.max = 6.5; slider.step = 0.05; }
       else if (ind === 'sahmRule') { slider.min = 0.0; slider.max = 1.0; slider.step = 0.05; }
       else if (ind === 'spread10y2y') { slider.min = -0.2; slider.max = 0.5; slider.step = 0.05; }
