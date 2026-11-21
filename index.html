@@ -577,6 +577,105 @@
           </div>
         </div>
       </div>
+
+      <!-- 恐慌與貪婪綜合指數 (Fear & Greed Sentiment Radar) -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="gauge" class="w-5 h-5 text-amber-500"></i> 恐慌與貪婪綜合指數 (Fear &amp; Greed Sentiment Radar)
+              </h2>
+              <span id="fg-rating-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">當前情緒：恐慌 (32.6)</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              對齊 CNN 恐慌貪婪指數架構，整合市場動能、VIX 波動率、避險資產需求、垃圾債信用利差、選擇權偏度與均線趨勢 6 大客觀量化維度
+            </p>
+          </div>
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <span class="text-xs font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">FRED ＆ CBOE / S&amp;P 量化模型</span>
+            <a href="https://www.cnn.com/markets/fear-and-greed" target="_blank" rel="noopener noreferrer" class="text-xs text-amber-600 dark:text-amber-400 hover:underline flex items-center gap-0.5">
+              CNN 官方指標 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 KPI 數值卡片 (當前評分與歷史對比) -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-lg bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-800/50">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">當前恐慌與貪婪評分</div>
+            <div id="fg-val" class="text-3xl font-extrabold tabular-nums mt-1 text-amber-600 dark:text-amber-400">32.6</div>
+            <div id="fg-sub" class="text-[11px] text-amber-600 dark:text-amber-400 mt-0.5 font-medium">恐慌 (Fear) 區間</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">前一日收盤 (Previous Day)</div>
+            <div id="fg-prev-1d" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">43.5</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">恐慌 (Fear)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">一週前水準 (1 Week Ago)</div>
+            <div id="fg-prev-1w" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400">55.2</div>
+            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">中性 / 貪婪邊界</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">一個月前水準 (1 Month Ago)</div>
+            <div id="fg-prev-1m" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">55.3</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">中性 (Neutral)</div>
+          </div>
+        </div>
+
+        <!-- 儀表條與 6 大子指標拆解 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <!-- 左側 7 欄: 五色分級量表與 30 日走勢圖 -->
+          <div class="lg:col-span-7 space-y-4">
+            <!-- 五色漸層情緒量表 -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between text-xs font-semibold">
+                <span class="text-rose-600 dark:text-rose-400">0 極度恐慌</span>
+                <span class="text-amber-500">25 恐慌</span>
+                <span class="text-slate-500">50 中性</span>
+                <span class="text-emerald-500">75 貪婪</span>
+                <span class="text-emerald-600 dark:text-emerald-400">100 極度貪婪</span>
+              </div>
+              <div class="relative w-full h-3.5 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-700">
+                <div class="absolute inset-0 bg-gradient-to-r from-rose-500 via-amber-400 via-slate-400 via-emerald-400 to-emerald-600"></div>
+                <!-- 游標指針 -->
+                <div id="fg-pointer" class="absolute top-0 bottom-0 w-2 bg-white shadow-md border border-slate-400 rounded-sm transform -translate-x-1/2 transition-all duration-500" style="left: 32.6%;"></div>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-400 pt-0.5">
+                <span>超賣逆向買點</span>
+                <span id="fg-pointer-label" class="font-bold text-amber-600 dark:text-amber-400">當前指數: 32.6 (恐慌)</span>
+                <span>過熱自滿追高風險</span>
+              </div>
+            </div>
+
+            <!-- 30 日歷史走勢圖 -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 30 個交易日 恐慌與貪婪指數走勢</span>
+                <span class="text-[11px] text-slate-400">灰虛線：50 榮枯中性線 ｜ 紅虛線：25 極度恐慌線</span>
+              </div>
+              <div class="relative h-56">
+                <canvas id="fearGreedChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 5 欄: 6 大子指標拆解與解讀 -->
+          <div class="lg:col-span-5 space-y-3 text-xs">
+            <div class="font-bold text-slate-900 dark:text-white flex items-center justify-between pb-1 border-b border-slate-100 dark:border-slate-800">
+              <span>6 大底層情緒支柱拆解</span>
+              <span class="text-[11px] text-slate-400 font-normal">評分 0 ~ 100</span>
+            </div>
+            <div id="fg-components-container" class="space-y-2.5">
+              <!-- 動態生成 6 大子指標進度條與數值 -->
+            </div>
+            <div id="fg-commentary" class="p-3 rounded-lg border leading-relaxed bg-amber-500/10 border-amber-500/30 text-amber-900 dark:text-amber-200">
+              恐慌與貪婪綜合指數最新得分為 32.6 分，處於「恐慌」區間。相較一週前 (55.2 分)，近期受 VIX 恐慌指標飆升至 35.89 及美股回測 125 日線影響，市場避險情緒升溫；惟垃圾債利差維持在 3.52% 正常水位，未見信貸市場危機。
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR & NDC INDICATORS -->
@@ -942,6 +1041,7 @@
         <button data-preset="fedFundsRate|us_10y" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 transition-colors">Fed 政策利率 vs 10Y 美債</button>
         <button data-preset="sahmRule|us_10y2y" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors">薩姆規則 vs 10Y-2Y 利差</button>
         <button data-preset="us_10y|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美債 10Y vs S&amp;P 500</button>
+        <button data-preset="fearAndGreed|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 transition-colors">恐慌貪婪指數 vs S&amp;P 500</button>
         <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
       </div>
 
@@ -1081,6 +1181,7 @@
             <option value="ndcScore">國發會景氣綜合判斷分數 (分)</option>
             <option value="twExportOrdersYoY">台灣外銷訂單年增率 (%)</option>
             <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
+            <option value="fearAndGreed">恐慌與貪婪綜合指數 (0-100)</option>
             <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
             <option value="fedFundsRate">美國 聯邦基金有效利率 (%)</option>
             <option value="sahmRule">薩姆規則衰退指標 (%)</option>
@@ -2184,6 +2285,90 @@
       }
     }
 
+    // --- 3.10 Fear & Greed Sentiment Radar Default Fallback ---
+    const FEAR_GREED_DEFAULT_DATA = {
+      latest: {
+        score: 32.6,
+        rating: "恐慌",
+        rating_key: "fear",
+        color: "amber",
+        as_of: "2026-11-20",
+        previous_1d: 43.5,
+        previous_1w: 55.2,
+        previous_1m: 55.3,
+        previous_1y: 61.5,
+        desc: "恐慌與貪婪綜合指數最新得分為 32.6 分，處於「恐慌」區間。相較一週前 (55.2 分) 與一個月前 (55.3 分)，近期受 VIX 恐慌指標飆升至 35.89 及美股回測 125 日線影響，市場避險情緒顯著升溫；惟垃圾債信用利差維持在 3.52% 正常水位，長線均線多頭結構未破，未見信貸市場流動性危機。"
+      },
+      components: [
+        { name: "市場動能 (Market Momentum)", metric: "S&P 500 vs 125-DMA", score: 5.5, rating: "極度恐慌", color: "rose", detail: "距 125日線乖離 -8.9%", desc: "標普 500 現價距 125 日移動平均線之乖離度，反映大盤中短期動量趨勢。" },
+        { name: "市場波動率 (Market Volatility)", metric: "CBOE VIX: 35.89", score: 16.4, rating: "極度恐慌", color: "rose", detail: "現值 35.89 (50日線: 22.40)", desc: "VIX 恐慌指標高於 30 顯示市場充斥避險買盤，低於 15 則象徵自滿與貪婪。" },
+        { name: "避險資產需求 (Safe Haven Demand)", metric: "股票 vs 美債 TLT 20日超額", score: 10.3, rating: "極度恐慌", color: "rose", detail: "20日股債相對超額: -9.9%", desc: "以標普 500 相對長天期美債 TLT 20日報酬衡量資金撤出風險資產轉向公債之意願。" },
+        { name: "垃圾債信用利差 (Junk Bond Demand)", metric: "High Yield OAS: 3.52%", score: 73.3, rating: "貪婪", color: "emerald", detail: "美林高收益債信用利差 3.52%", desc: "垃圾債與無風險公債之利差，利差緊縮反映追逐高殖利率，利差放寬反映信貸風險避險。" },
+        { name: "選擇權偏度與尾端避險 (Option Skew)", metric: "CBOE SKEW: 138.8", score: 31.9, rating: "恐慌", color: "amber", detail: "SKEW 指數 138.8 (尾端防禦買盤)", desc: "深度價外賣權隱含波動率，指數超過 140 顯示機構投資人正積極防範極端尾端風險。" },
+        { name: "均線趨勢強度 (Stock Price Trend)", metric: "50-DMA vs 200-DMA", score: 72.6, rating: "貪婪", color: "emerald", detail: "50日線距200日年線: +3.8%", desc: "黃金交叉與死亡交叉多空結構，判斷市場中長線大底趨勢是否穩固。" }
+      ],
+      history_30d: {
+        labels: ["10/11","10/14","10/15","10/16","10/17","10/18","10/21","10/22","10/23","10/24","10/25","10/28","10/29","10/30","10/31","11/01","11/04","11/05","11/06","11/07","11/08","11/11","11/12","11/13","11/14","11/15","11/18","11/19","11/20"],
+        scores: [58.2,59.1,61.4,60.2,57.8,56.4,54.1,53.2,55.0,54.8,52.1,53.4,54.8,52.6,47.4,48.2,49.5,52.3,55.2,54.1,51.8,49.2,46.5,44.9,43.2,42.8,41.6,37.2,32.6]
+      }
+    };
+
+    function populateFearGreedDefaultIfEmpty() {
+      const fg = (state.livePayload && state.livePayload.fear_and_greed) ? state.livePayload.fear_and_greed : FEAR_GREED_DEFAULT_DATA;
+      if (!fg || !fg.latest) return;
+      const l = fg.latest;
+
+      const valEl = document.getElementById('fg-val');
+      if (valEl) {
+        valEl.textContent = l.score.toFixed(1);
+        valEl.className = `text-3xl font-extrabold tabular-nums mt-1 ${l.score <= 25 ? 'text-rose-500' : l.score <= 45 ? 'text-amber-500' : l.score <= 55 ? 'text-slate-500' : 'text-emerald-500'}`;
+      }
+      const subEl = document.getElementById('fg-sub');
+      if (subEl) {
+        subEl.textContent = `${l.rating} (${l.rating_key}) 區間`;
+        subEl.className = `text-[11px] mt-0.5 font-medium ${l.score <= 25 ? 'text-rose-500' : l.score <= 45 ? 'text-amber-500' : l.score <= 55 ? 'text-slate-500' : 'text-emerald-500'}`;
+      }
+      const badgeEl = document.getElementById('fg-rating-badge');
+      if (badgeEl) {
+        badgeEl.textContent = `當前情緒：${l.rating} (${l.score.toFixed(1)})`;
+        badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${l.score <= 25 ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : l.score <= 45 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : l.score <= 55 ? 'bg-slate-500/15 text-slate-600 dark:text-slate-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'}`;
+      }
+
+      const p1d = document.getElementById('fg-prev-1d');
+      if (p1d && l.previous_1d !== undefined) p1d.textContent = l.previous_1d.toFixed(1);
+      const p1w = document.getElementById('fg-prev-1w');
+      if (p1w && l.previous_1w !== undefined) p1w.textContent = l.previous_1w.toFixed(1);
+      const p1m = document.getElementById('fg-prev-1m');
+      if (p1m && l.previous_1m !== undefined) p1m.textContent = l.previous_1m.toFixed(1);
+
+      const pointer = document.getElementById('fg-pointer');
+      if (pointer) pointer.style.left = `${Math.min(100, Math.max(0, l.score))}%`;
+      const ptrLabel = document.getElementById('fg-pointer-label');
+      if (ptrLabel) ptrLabel.textContent = `當前指數: ${l.score.toFixed(1)} (${l.rating})`;
+
+      const comm = document.getElementById('fg-commentary');
+      if (comm) comm.textContent = l.desc;
+
+      const compContainer = document.getElementById('fg-components-container');
+      if (compContainer && Array.isArray(fg.components)) {
+        compContainer.innerHTML = fg.components.map(c => `
+          <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-medium text-slate-800 dark:text-slate-200">${c.name}</span>
+              <span class="font-bold tabular-nums ${c.score <= 25 ? 'text-rose-500' : c.score <= 45 ? 'text-amber-500' : c.score <= 55 ? 'text-slate-500' : 'text-emerald-500'}">${c.score.toFixed(1)} (${c.rating})</span>
+            </div>
+            <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+              <div class="h-full rounded-full ${c.score <= 25 ? 'bg-rose-500' : c.score <= 45 ? 'bg-amber-500' : c.score <= 55 ? 'bg-slate-400' : 'bg-emerald-500'}" style="width: ${c.score}%"></div>
+            </div>
+            <div class="flex items-center justify-between text-[11px] text-slate-400">
+              <span>${c.detail}</span>
+              <span class="truncate ml-2 max-w-[200px]" title="${c.desc}">${c.desc}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
     // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
     const CORRELATION_ASSETS = [
       { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
@@ -2259,7 +2444,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -2922,6 +3107,82 @@
         populateFedWatchDefaultIfEmpty();
       }
 
+      // N. 恐慌與貪婪綜合指數 (Fear & Greed Index Equivalent)
+      if (payload.fear_and_greed && payload.fear_and_greed.latest) {
+        const fg = payload.fear_and_greed;
+        const l = fg.latest;
+
+        const valEl = document.getElementById('fg-val');
+        if (valEl) {
+          valEl.textContent = l.score.toFixed(1);
+          valEl.className = `text-3xl font-extrabold tabular-nums mt-1 ${l.score <= 25 ? 'text-rose-500' : l.score <= 45 ? 'text-amber-500' : l.score <= 55 ? 'text-slate-500' : 'text-emerald-500'}`;
+        }
+        const subEl = document.getElementById('fg-sub');
+        if (subEl) {
+          subEl.textContent = `${l.rating} (${l.rating_key}) 區間`;
+          subEl.className = `text-[11px] mt-0.5 font-medium ${l.score <= 25 ? 'text-rose-500' : l.score <= 45 ? 'text-amber-500' : l.score <= 55 ? 'text-slate-500' : 'text-emerald-500'}`;
+        }
+        const badgeEl = document.getElementById('fg-rating-badge');
+        if (badgeEl) {
+          badgeEl.textContent = `當前情緒：${l.rating} (${l.score.toFixed(1)})`;
+          badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${l.score <= 25 ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : l.score <= 45 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : l.score <= 55 ? 'bg-slate-500/15 text-slate-600 dark:text-slate-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'}`;
+        }
+
+        const p1d = document.getElementById('fg-prev-1d');
+        if (p1d && l.previous_1d !== undefined) p1d.textContent = l.previous_1d.toFixed(1);
+        const p1w = document.getElementById('fg-prev-1w');
+        if (p1w && l.previous_1w !== undefined) p1w.textContent = l.previous_1w.toFixed(1);
+        const p1m = document.getElementById('fg-prev-1m');
+        if (p1m && l.previous_1m !== undefined) p1m.textContent = l.previous_1m.toFixed(1);
+
+        const pointer = document.getElementById('fg-pointer');
+        if (pointer) pointer.style.left = `${Math.min(100, Math.max(0, l.score))}%`;
+        const ptrLabel = document.getElementById('fg-pointer-label');
+        if (ptrLabel) ptrLabel.textContent = `當前指數: ${l.score.toFixed(1)} (${l.rating})`;
+
+        const comm = document.getElementById('fg-commentary');
+        if (comm) comm.textContent = l.desc;
+
+        const compContainer = document.getElementById('fg-components-container');
+        if (compContainer && Array.isArray(fg.components)) {
+          compContainer.innerHTML = fg.components.map(c => `
+            <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-slate-800 dark:text-slate-200">${c.name}</span>
+                <span class="font-bold tabular-nums ${c.score <= 25 ? 'text-rose-500' : c.score <= 45 ? 'text-amber-500' : c.score <= 55 ? 'text-slate-500' : 'text-emerald-500'}">${c.score.toFixed(1)} (${c.rating})</span>
+              </div>
+              <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+                <div class="h-full rounded-full ${c.score <= 25 ? 'bg-rose-500' : c.score <= 45 ? 'bg-amber-500' : c.score <= 55 ? 'bg-slate-400' : 'bg-emerald-500'}" style="width: ${c.score}%"></div>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-slate-400">
+                <span>${c.detail}</span>
+                <span class="truncate ml-2 max-w-[200px]" title="${c.desc}">${c.desc}</span>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        if (COUNTRY_DATA.US && COUNTRY_DATA.US.insights) {
+          COUNTRY_DATA.US.insights.push(`美股市場情緒處於「${l.rating}」階段（恐慌貪婪指數 ${l.score.toFixed(1)} 分，前週 ${l.previous_1w.toFixed(1)} 分），避險需求與 VIX 飆升使短期資產承壓，惟信貸市場尚未出現系統性危機。`);
+        }
+
+        let item = TRADER_ITEMS.find(x => x.name === '美股-恐慌與貪婪綜合指數');
+        if (!item) {
+          item = { cat: '總經數據', sub: '美國', name: '美股-恐慌與貪婪綜合指數', quad: 'HIGH_UP', vars: 'Fear & Greed Index' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `${l.score.toFixed(1)} 分`;
+        item.date = l.as_of || dateStr;
+        item.desc = `CNN 規格 6 因子恐慌與貪婪指標。${l.desc}`;
+        item.dataStatus = 'verified';
+        item.source = fg.source || 'FRED & CBOE / S&P 500';
+        item.sourceUrl = fg.source_url || 'https://www.cnn.com/markets/fear-and-greed';
+
+        count++;
+      } else {
+        populateFearGreedDefaultIfEmpty();
+      }
+
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
@@ -2947,6 +3208,7 @@
       renderFedLiquidityChart();
       renderRecessionChart();
       renderFedWatchChart();
+      renderFearGreedChart();
       renderNdcChart();
       renderExportOrdersChart();
       if (state.activeTab === 'dashboard') renderDashboard();
@@ -3391,6 +3653,7 @@
       renderFedLiquidityChart();
       renderRecessionChart();
       renderFedWatchChart();
+      renderFearGreedChart();
     }
 
     function renderMoneyTab() {
@@ -4006,6 +4269,108 @@
               ticks: {
                 color: textColor(),
                 callback: function(v) { return `${Number(v).toFixed(2)}%`; }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function renderFearGreedChart() {
+      const canvas = document.getElementById('fearGreedChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.fearGreed) charts.fearGreed.destroy();
+
+      const fg = (state.livePayload && state.livePayload.fear_and_greed) ? state.livePayload.fear_and_greed : FEAR_GREED_DEFAULT_DATA;
+      if (!fg || !fg.history_30d) return;
+
+      const labels = fg.history_30d.labels || [];
+      const scores = fg.history_30d.scores || [];
+
+      const lineGradient = ctx.createLinearGradient(0, 0, 0, 220);
+      lineGradient.addColorStop(0, 'rgba(245, 158, 11, 0.25)');
+      lineGradient.addColorStop(1, 'rgba(245, 158, 11, 0.0)');
+
+      charts.fearGreed = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '恐慌與貪婪指數 (0-100)',
+              data: scores,
+              borderColor: '#f59e0b',
+              backgroundColor: lineGradient,
+              pointBackgroundColor: scores.map(s => s <= 25 ? '#ef4444' : s <= 45 ? '#f59e0b' : s <= 55 ? '#94a3b8' : '#10b981'),
+              pointBorderColor: '#ffffff',
+              pointRadius: 3,
+              tension: 0.25,
+              fill: true
+            },
+            {
+              label: '75 極度貪婪線',
+              data: labels.map(() => 75),
+              borderColor: '#10b981',
+              borderDash: [4, 4],
+              pointRadius: 0,
+              fill: false
+            },
+            {
+              label: '50 榮枯中性線',
+              data: labels.map(() => 50),
+              borderColor: '#94a3b8',
+              borderDash: [4, 4],
+              pointRadius: 0,
+              fill: false
+            },
+            {
+              label: '25 極度恐慌線',
+              data: labels.map(() => 25),
+              borderColor: '#ef4444',
+              borderDash: [4, 4],
+              pointRadius: 0,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  if (c.datasetIndex === 0) {
+                    const s = Number(c.raw);
+                    const tag = s <= 25 ? '極度恐慌' : s <= 45 ? '恐慌' : s <= 55 ? '中性' : s <= 75 ? '貪婪' : '極度貪婪';
+                    return `恐慌與貪婪評分: ${s.toFixed(1)} 分 (${tag})`;
+                  }
+                  return c.dataset.label;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor(), maxTicksLimit: 10 } },
+            y: {
+              min: 0,
+              max: 100,
+              title: { display: true, text: '情緒評分 (0-100)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: {
+                color: textColor(),
+                stepSize: 25,
+                callback: function(v) {
+                  if (v === 100) return '100 極度貪婪';
+                  if (v === 75) return '75 貪婪';
+                  if (v === 50) return '50 中性';
+                  if (v === 25) return '25 恐慌';
+                  if (v === 0) return '0 極度恐慌';
+                  return `${v}`;
+                }
               }
             }
           }

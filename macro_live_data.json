@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-21T11:00:32Z",
+  "updated_at": "2026-11-21T13:23:21Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -960,7 +960,9 @@
     "fed_target_lower": 3.75,
     "fedwatch_next_cut_prob": 12.0,
     "fedwatch_next_hold_prob": 68.0,
-    "fedwatch_terminal_rate": 4.44
+    "fedwatch_terminal_rate": 4.44,
+    "fear_and_greed": 32.6,
+    "fear_and_greed_rating": "恐慌"
   },
   "series": {
     "twM1b": {
@@ -3030,6 +3032,62 @@
         3.75,
         3.88
       ]
+    },
+    "fearAndGreed": {
+      "name": "恐慌與貪婪綜合指數 (0-100) [量化模型]",
+      "unit": "分",
+      "labels": [
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "data": [
+        63.7,
+        64.3,
+        52.2,
+        45.2,
+        48.4,
+        60.3,
+        65.2,
+        65.6,
+        70.8,
+        72.4,
+        71.2,
+        69.5,
+        66.4,
+        65.1,
+        54.8,
+        46.1,
+        68.3,
+        71.1,
+        63.8,
+        69.9,
+        66.2,
+        67.6,
+        51.2,
+        32.6
+      ]
     }
   },
   "fx": {
@@ -3041,7 +3099,7 @@
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 57878,
+    "btc_price": 59219,
     "stablecoin_market_cap_b": 242.9
   },
   "macro_indicators": {
@@ -3934,6 +3992,10 @@
       "label": "FRED & CME 30-Day Fed Funds Futures",
       "status": "ok"
     },
+    "fear_and_greed": {
+      "label": "FRED & CBOE / S&P Market Sentiment",
+      "status": "ok"
+    },
     "fred": {
       "label": "Federal Reserve Bank of St. Louis (FRED)",
       "status": "ok"
@@ -3945,7 +4007,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-21T11:00:54Z",
+    "validated_at": "2026-11-21T13:23:44Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -4585,7 +4647,7 @@
     "source_url": "https://fred.stlouisfed.org/series/SAHMREALTIME"
   },
   "fedwatch": {
-    "as_of": "2026-11-20",
+    "as_of": "2026-11-21",
     "target_lower": 3.75,
     "target_upper": 4.0,
     "effective_rate": 3.88,
@@ -4712,6 +4774,198 @@
     "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 68.0%，降息機率 12.0%；市場預期終端利率約 4.44%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
     "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
     "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
+  },
+  "fear_and_greed": {
+    "latest": {
+      "score": 32.6,
+      "rating": "恐慌",
+      "rating_key": "fear",
+      "color": "amber",
+      "as_of": "2026-11-19",
+      "previous_1d": 43.5,
+      "previous_1w": 55.2,
+      "previous_1m": 55.3,
+      "previous_1y": 61.5,
+      "desc": "恐慌與貪婪綜合指數最新得分為 32.6 分，處於「恐慌」區間。相較一週前 (55.2 分) 與一個月前 (55.3 分)，近期受 VIX 恐慌指標飆升至 35.89 及美股回測 125 日線影響，市場避險情緒顯著升溫；惟垃圾債信用利差維持在 3.52% 正常水位，長線均線多頭結構未破，未見信貸市場流動性危機。"
+    },
+    "components": [
+      {
+        "name": "市場動能 (Market Momentum)",
+        "metric": "S&P 500 vs 125-DMA",
+        "score": 5.5,
+        "rating": "極度恐慌",
+        "color": "rose",
+        "detail": "距 125日線乖離 -8.9%",
+        "desc": "標普 500 現價距 125 日移動平均線之乖離度，反映大盤中短期動量趨勢。"
+      },
+      {
+        "name": "市場波動率 (Market Volatility)",
+        "metric": "CBOE VIX: 35.89",
+        "score": 16.4,
+        "rating": "極度恐慌",
+        "color": "rose",
+        "detail": "現值 35.89 (50日線: 18.44)",
+        "desc": "VIX 恐慌指標高於 30 顯示市場充斥避險買盤，低於 15 則象徵自滿與貪婪。"
+      },
+      {
+        "name": "避險資產需求 (Safe Haven Demand)",
+        "metric": "股票 vs 美債 TLT 20日超額報酬",
+        "score": 10.3,
+        "rating": "極度恐慌",
+        "color": "rose",
+        "detail": "20日股債相對超額: -9.9%",
+        "desc": "以標普 500 相對長天期美債 TLT 20日報酬衡量資金撤出風險資產轉向公債之意願。"
+      },
+      {
+        "name": "垃圾債信用利差 (Junk Bond Demand)",
+        "metric": "High Yield OAS: 3.52%",
+        "score": 73.3,
+        "rating": "貪婪",
+        "color": "emerald",
+        "detail": "美林高收益債信用利差 3.52%",
+        "desc": "垃圾債與無風險公債之利差，利差緊縮反映追逐高殖利率，利差放寬反映信貸風險避險。"
+      },
+      {
+        "name": "選擇權偏度與尾端避險 (Option Skew)",
+        "metric": "CBOE SKEW: 138.8",
+        "score": 31.9,
+        "rating": "恐慌",
+        "color": "amber",
+        "detail": "SKEW 指數 138.8 (尾端黑天鵝防禦買盤)",
+        "desc": "深度價外賣權隱含波動率，指數超過 140 顯示機構投資人正積極防範極端尾端風險。"
+      },
+      {
+        "name": "均線趨勢強度 (Stock Price Trend)",
+        "metric": "50-DMA vs 200-DMA",
+        "score": 72.6,
+        "rating": "貪婪",
+        "color": "emerald",
+        "detail": "50日線距200日年線: +3.8%",
+        "desc": "黃金交叉與死亡交叉多空結構，判斷市場中長線大底趨勢是否穩固。"
+      }
+    ],
+    "history_30d": {
+      "labels": [
+        "10/12",
+        "10/13",
+        "10/14",
+        "10/15",
+        "10/16",
+        "10/19",
+        "10/20",
+        "10/21",
+        "10/22",
+        "10/23",
+        "10/26",
+        "10/27",
+        "10/28",
+        "10/29",
+        "10/30",
+        "11/02",
+        "11/03",
+        "11/04",
+        "11/05",
+        "11/06",
+        "11/09",
+        "11/10",
+        "11/11",
+        "11/12",
+        "11/13",
+        "11/16",
+        "11/17",
+        "11/18",
+        "11/19",
+        "11/20"
+      ],
+      "scores": [
+        66.5,
+        66.2,
+        63.2,
+        63.0,
+        58.1,
+        59.6,
+        60.2,
+        60.9,
+        55.3,
+        53.9,
+        55.3,
+        56.9,
+        58.2,
+        56.5,
+        51.2,
+        48.1,
+        49.1,
+        53.9,
+        39.7,
+        41.4,
+        49.0,
+        49.7,
+        54.5,
+        54.2,
+        55.2,
+        49.2,
+        46.4,
+        46.8,
+        43.5,
+        32.6
+      ]
+    },
+    "history_24m": {
+      "labels": [
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "scores": [
+        63.7,
+        64.3,
+        52.2,
+        45.2,
+        48.4,
+        60.3,
+        65.2,
+        65.6,
+        70.8,
+        72.4,
+        71.2,
+        69.5,
+        66.4,
+        65.1,
+        54.8,
+        46.1,
+        68.3,
+        71.1,
+        63.8,
+        69.9,
+        66.2,
+        67.6,
+        51.2,
+        32.6
+      ]
+    },
+    "source": "FRED (BAMLH0A0HYM2) & Yahoo Finance (^GSPC, ^VIX, TLT, ^SKEW)",
+    "source_url": "https://www.cnn.com/markets/fear-and-greed"
   },
   "correlation_matrix": {
     "as_of": "2026-11",

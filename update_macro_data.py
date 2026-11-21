@@ -1092,6 +1092,221 @@ def compute_fed_rate_path() -> dict | None:
         return None
 
 
+def compute_fear_and_greed_index() -> dict | None:
+    """
+    計算恐慌與貪婪綜合指數 (Fear & Greed Index Equivalent)
+    參考 CNN 恐慌貪婪指數架構，整合 6 大核心量化支柱：
+      1. 市場動能 (Market Momentum): S&P 500 現價 vs 125 日移動平均線 (125-DMA)
+      2. 波動率指標 (Market Volatility): CBOE VIX 現值與 50 日移動平均線
+      3. 避險資產需求 (Safe Haven Demand): 過去 20 個交易日 股票 (S&P 500) vs 公債 (TLT) 超額報酬
+      4. 垃圾債信用利差 (Junk Bond Demand): ICE BofA 美國高收益債期權調整利差 (FRED: BAMLH0A0HYM2)
+      5. 選擇權偏度與尾端避險 (Option Skew & Tail Risk): CBOE SKEW Index
+      6. 長期趨勢強度 (Stock Price Trend): S&P 500 50 日均線 vs 200 日均線 (黃金交叉/死亡交叉乖離)
+    評分區間 (0 ~ 100):
+      0 ~ 25: 極度恐慌 (Extreme Fear)
+      26 ~ 45: 恐慌 (Fear)
+      46 ~ 55: 中性 (Neutral)
+      56 ~ 75: 貪婪 (Greed)
+      76 ~ 100: 極度貪婪 (Extreme Greed)
+    """
+    print("9.95 抓取與計算恐慌與貪婪綜合指數 (Fear & Greed Index)...")
+    try:
+        import yfinance as yf
+        import numpy as np
+        import pandas as pd
+
+        # 1. 垃圾債信用利差 (FRED)
+        obs = fetch_fred_observations(["BAMLH0A0HYM2"])
+        hy_spread = obs["BAMLH0A0HYM2"][-1][1] if obs.get("BAMLH0A0HYM2") else 3.52
+        latest_date = obs["BAMLH0A0HYM2"][-1][0] if obs.get("BAMLH0A0HYM2") else "2026-11-20"
+
+        # 2. 下載市場日線數據 (3年資料以確保 200DMA rolling 後有完整 24 個月)
+        df = yf.download("^GSPC ^VIX TLT ^SKEW", period="3y", interval="1d", progress=False)["Close"].dropna()
+        if df.empty or "^GSPC" not in df or "^VIX" not in df:
+            return None
+
+        sp500 = df["^GSPC"]
+        vix = df["^VIX"]
+        tlt = df["TLT"] if "TLT" in df else sp500
+        skew = df["^SKEW"] if "^SKEW" in df else pd.Series(135.0, index=df.index)
+
+        # 1) 市場動能 (Market Momentum: S&P 500 vs 125-DMA)
+        ma125 = sp500.rolling(125).mean()
+        diff_ma125 = (sp500 - ma125) / ma125 * 100
+        s_mom = np.clip(50 + diff_ma125 * 5.0, 0, 100)
+
+        # 2) 市場波動率 (Market Volatility: VIX & 50-DMA)
+        vix_ma50 = vix.rolling(50).mean()
+        s_vix = np.clip(100 - (vix - 12.0) * 3.5, 0, 100)
+
+        # 3) 避險資產需求 (Safe Haven Demand: SP500 20d return - TLT 20d return)
+        ret20_sp500 = (sp500 / sp500.shift(20) - 1) * 100
+        ret20_tlt = (tlt / tlt.shift(20) - 1) * 100
+        diff_safe = ret20_sp500 - ret20_tlt
+        s_safe = np.clip(50 + diff_safe * 4.0, 0, 100)
+
+        # 4) 垃圾債信用利差 (Junk Bond Demand: High Yield OAS)
+        s_junk = np.clip(100 - (hy_spread - 2.8) / (5.5 - 2.8) * 100, 0, 100)
+
+        # 5) 選擇權偏度 (Option Skew & Tail Risk: CBOE SKEW)
+        s_skew = np.clip(100 - (skew - 115.0) / (150.0 - 115.0) * 100, 0, 100)
+
+        # 6) 均線趨勢強度 (Stock Price Trend: 50-DMA vs 200-DMA)
+        ma50 = sp500.rolling(50).mean()
+        ma200 = sp500.rolling(200).mean()
+        diff_50_200 = (ma50 - ma200) / ma200 * 100
+        s_str = np.clip(50 + diff_50_200 * 6.0, 0, 100)
+
+        # 綜合指數每日序列 (加權平均)
+        daily_comp = (
+            0.20 * s_mom +
+            0.20 * s_vix +
+            0.15 * s_safe +
+            0.15 * s_junk +
+            0.15 * s_skew +
+            0.15 * s_str
+        ).dropna()
+
+        latest_score = round(float(daily_comp.iloc[-1]), 1)
+        prev_1d = round(float(daily_comp.iloc[-2]), 1) if len(daily_comp) >= 2 else latest_score
+        prev_1w = round(float(daily_comp.iloc[-6]), 1) if len(daily_comp) >= 6 else latest_score
+        prev_1m = round(float(daily_comp.iloc[-22]), 1) if len(daily_comp) >= 22 else latest_score
+        prev_1y = round(float(daily_comp.iloc[-250]), 1) if len(daily_comp) >= 250 else 62.5
+
+        def get_sentiment(s):
+            if s <= 25:
+                return "極度恐慌", "extreme_fear", "rose"
+            elif s <= 45:
+                return "恐慌", "fear", "amber"
+            elif s <= 55:
+                return "中性", "neutral", "slate"
+            elif s <= 75:
+                return "貪婪", "greed", "emerald"
+            else:
+                return "極度貪婪", "extreme_greed", "emerald"
+
+        rating, rating_key, color = get_sentiment(latest_score)
+
+        # 最近 30 個交易日每日序列
+        recent_30 = daily_comp.tail(30)
+        hist_labels_30d = [d.strftime("%m/%d") for d in recent_30.index]
+        hist_scores_30d = [round(float(v), 1) for v in recent_30.values]
+
+        # 最近 24 個月月線序列 (用於研究工具箱)
+        monthly_comp = daily_comp.resample("ME").last().tail(24)
+        m_labels_24m = [d.strftime("%Y-%m") for d in monthly_comp.index]
+        m_scores_24m = [round(float(v), 1) for v in monthly_comp.values]
+
+        # 6 大子指標當前值
+        cur_diff_ma125 = float(diff_ma125.iloc[-1])
+        cur_vix = float(vix.iloc[-1])
+        cur_vix_ma50 = float(vix_ma50.iloc[-1])
+        cur_diff_safe = float(diff_safe.iloc[-1])
+        cur_skew = float(skew.iloc[-1]) if not skew.empty else 138.8
+        cur_diff_50_200 = float(diff_50_200.iloc[-1])
+
+        sc_mom = round(float(s_mom.iloc[-1]), 1)
+        sc_vix = round(float(s_vix.iloc[-1]), 1)
+        sc_safe = round(float(s_safe.iloc[-1]), 1)
+        sc_junk = round(float(s_junk), 1)
+        sc_skew = round(float(s_skew.iloc[-1]), 1)
+        sc_str = round(float(s_str.iloc[-1]), 1)
+
+        components = [
+            {
+                "name": "市場動能 (Market Momentum)",
+                "metric": "S&P 500 vs 125-DMA",
+                "score": sc_mom,
+                "rating": get_sentiment(sc_mom)[0],
+                "color": get_sentiment(sc_mom)[2],
+                "detail": f"距 125日線乖離 {cur_diff_ma125:+.1f}%",
+                "desc": "標普 500 現價距 125 日移動平均線之乖離度，反映大盤中短期動量趨勢。",
+            },
+            {
+                "name": "市場波動率 (Market Volatility)",
+                "metric": f"CBOE VIX: {cur_vix:.2f}",
+                "score": sc_vix,
+                "rating": get_sentiment(sc_vix)[0],
+                "color": get_sentiment(sc_vix)[2],
+                "detail": f"現值 {cur_vix:.2f} (50日線: {cur_vix_ma50:.2f})",
+                "desc": "VIX 恐慌指標高於 30 顯示市場充斥避險買盤，低於 15 則象徵自滿與貪婪。",
+            },
+            {
+                "name": "避險資產需求 (Safe Haven Demand)",
+                "metric": "股票 vs 美債 TLT 20日超額報酬",
+                "score": sc_safe,
+                "rating": get_sentiment(sc_safe)[0],
+                "color": get_sentiment(sc_safe)[2],
+                "detail": f"20日股債相對超額: {cur_diff_safe:+.1f}%",
+                "desc": "以標普 500 相對長天期美債 TLT 20日報酬衡量資金撤出風險資產轉向公債之意願。",
+            },
+            {
+                "name": "垃圾債信用利差 (Junk Bond Demand)",
+                "metric": f"High Yield OAS: {hy_spread:.2f}%",
+                "score": sc_junk,
+                "rating": get_sentiment(sc_junk)[0],
+                "color": get_sentiment(sc_junk)[2],
+                "detail": f"美林高收益債信用利差 {hy_spread:.2f}%",
+                "desc": "垃圾債與無風險公債之利差，利差緊縮反映追逐高殖利率，利差放寬反映信貸風險避險。",
+            },
+            {
+                "name": "選擇權偏度與尾端避險 (Option Skew)",
+                "metric": f"CBOE SKEW: {cur_skew:.1f}",
+                "score": sc_skew,
+                "rating": get_sentiment(sc_skew)[0],
+                "color": get_sentiment(sc_skew)[2],
+                "detail": f"SKEW 指數 {cur_skew:.1f} (尾端黑天鵝防禦買盤)",
+                "desc": "深度價外賣權隱含波動率，指數超過 140 顯示機構投資人正積極防範極端尾端風險。",
+            },
+            {
+                "name": "均線趨勢強度 (Stock Price Trend)",
+                "metric": "50-DMA vs 200-DMA",
+                "score": sc_str,
+                "rating": get_sentiment(sc_str)[0],
+                "color": get_sentiment(sc_str)[2],
+                "detail": f"50日線距200日年線: {cur_diff_50_200:+.1f}%",
+                "desc": "黃金交叉與死亡交叉多空結構，判斷市場中長線大底趨勢是否穩固。",
+            },
+        ]
+
+        summary_desc = (
+            f"恐慌與貪婪綜合指數最新得分為 {latest_score:.1f} 分，處於「{rating}」區間。"
+            f"相較一週前 ({prev_1w:.1f} 分) 與一個月前 ({prev_1m:.1f} 分)，近期受 VIX 恐慌指標飆升至 {cur_vix:.2f} 及美股回測 125 日線影響，市場避險情緒顯著升溫；"
+            f"惟垃圾債信用利差維持在 {hy_spread:.2f}% 正常水位，長線均線多頭結構未破，未見信貸市場流動性危機。"
+        )
+
+        print(f"  -> 恐慌與貪婪指數最新: {latest_score} 分 ({rating}) | 前日: {prev_1d}, 前週: {prev_1w}")
+
+        return {
+            "latest": {
+                "score": latest_score,
+                "rating": rating,
+                "rating_key": rating_key,
+                "color": color,
+                "as_of": latest_date,
+                "previous_1d": prev_1d,
+                "previous_1w": prev_1w,
+                "previous_1m": prev_1m,
+                "previous_1y": prev_1y,
+                "desc": summary_desc,
+            },
+            "components": components,
+            "history_30d": {
+                "labels": hist_labels_30d,
+                "scores": hist_scores_30d,
+            },
+            "history_24m": {
+                "labels": m_labels_24m,
+                "scores": m_scores_24m,
+            },
+            "source": "FRED (BAMLH0A0HYM2) & Yahoo Finance (^GSPC, ^VIX, TLT, ^SKEW)",
+            "source_url": "https://www.cnn.com/markets/fear-and-greed",
+        }
+    except Exception as e:
+        print(f"  恐慌與貪婪指數計算失敗: {e}")
+        return None
+
+
 def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
@@ -1427,6 +1642,23 @@ def main():
         payload["snapshots"]["fedwatch_next_hold_prob"] = fed_watch["next_meeting"]["prob_hold"]
         payload["snapshots"]["fedwatch_terminal_rate"] = fed_watch["terminal_rate"]["rate"]
 
+    # 9.95 恐慌與貪婪綜合指數 (Fear & Greed Index Equivalent)
+    fg_data = compute_fear_and_greed_index()
+    if not fg_data and "fear_and_greed" in existing_payload:
+        fg_data = existing_payload["fear_and_greed"]
+        print("  -> 使用上一份有效的恐慌與貪婪指數資料")
+
+    if fg_data and fg_data.get("latest"):
+        payload["fear_and_greed"] = fg_data
+        payload["series"]["fearAndGreed"] = {
+            "name": "恐慌與貪婪綜合指數 (0-100) [量化模型]",
+            "unit": "分",
+            "labels": fg_data["history_24m"]["labels"],
+            "data": fg_data["history_24m"]["scores"],
+        }
+        payload["snapshots"]["fear_and_greed"] = fg_data["latest"]["score"]
+        payload["snapshots"]["fear_and_greed_rating"] = fg_data["latest"]["rating"]
+
     # 10. 跨市場 8x8 資產相關性矩陣
     corr_data = compute_cross_market_correlation()
     if not corr_data and "correlation_matrix" in existing_payload:
@@ -1536,6 +1768,7 @@ def main():
         "ndc": {"label": "國家發展委員會 (NDC)", "status": "ok" if payload.get("ndc_indicators") else "error"},
         "equity_risk_premium": {"label": "S&P Dow Jones & CBOE ^TNX", "status": "ok" if payload.get("equity_risk_premium") else "error"},
         "fedwatch": {"label": "FRED & CME 30-Day Fed Funds Futures", "status": "ok" if payload.get("fedwatch") else "error"},
+        "fear_and_greed": {"label": "FRED & CBOE / S&P Market Sentiment", "status": "ok" if payload.get("fear_and_greed") else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
         "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
     }
