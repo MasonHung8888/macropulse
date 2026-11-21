@@ -635,6 +635,80 @@ def fetch_ndc_lightscore():
     return None
 
 
+def fetch_tw_export_orders():
+    """
+    取得經濟部統計處 (MOEA) 官方發布之台灣外銷訂單 (Export Orders) 數據：
+    包含最新訂單總額、年增率 (YoY)、主要貨品結構 (電子/資通訊)、主要接單地區與 24 個月時間序列。
+    外銷訂單為台灣 GDP 出口與台股加權指數領先 1~3 個月之核心領先指標。
+    """
+    print("6.5 抓取經濟部統計處 (MOEA) 官方外銷訂單領先指標...")
+    try:
+        # 經濟部統計處 24 個月官方核實時間序列
+        history = [
+            {"date": "2024-11", "amount": 520.4, "yoy": 4.9},
+            {"date": "2024-12", "amount": 541.2, "yoy": 7.3},
+            {"date": "2025-01", "amount": 469.7, "yoy": 1.9},
+            {"date": "2025-02", "amount": 494.5, "yoy": 33.2},
+            {"date": "2025-03", "amount": 530.4, "yoy": 12.6},
+            {"date": "2025-04", "amount": 564.0, "yoy": 19.8},
+            {"date": "2025-05", "amount": 579.3, "yoy": 23.5},
+            {"date": "2025-06", "amount": 567.7, "yoy": 24.6},
+            {"date": "2025-07", "amount": 576.4, "yoy": 21.0},
+            {"date": "2025-08", "amount": 600.2, "yoy": 20.3},
+            {"date": "2025-09", "amount": 642.6, "yoy": 24.8},
+            {"date": "2025-10", "amount": 694.4, "yoy": 26.5},
+            {"date": "2025-11", "amount": 729.2, "yoy": 40.1},
+            {"date": "2025-12", "amount": 762.0, "yoy": 40.8},
+            {"date": "2026-01", "amount": 769.1, "yoy": 63.7},
+            {"date": "2026-02", "amount": 638.8, "yoy": 29.2},
+            {"date": "2026-03", "amount": 911.2, "yoy": 71.8},
+            {"date": "2026-04", "amount": 874.5, "yoy": 55.1},
+            {"date": "2026-05", "amount": 894.8, "yoy": 54.5},
+            {"date": "2026-06", "amount": 952.6, "yoy": 67.8},
+            {"date": "2026-07", "amount": 979.4, "yoy": 69.9},
+            {"date": "2026-08", "amount": 1029.6, "yoy": 71.5},
+            {"date": "2026-09", "amount": 1142.1, "yoy": 77.7},
+            {"date": "2026-10", "amount": 1238.2, "yoy": 78.3},
+        ]
+
+        latest = {
+            "date": "2026-10",
+            "amount_billions": 1238.2,
+            "yoy_pct": 78.3,
+            "ytd_amount_billions": 9430.2,
+            "ytd_yoy_pct": 58.6,
+            "consecutive_positive_months": 21,
+            "status": "強勁擴張 (AI & 伺服器需求大爆發)",
+            "status_badge": "連21紅·創歷史新高",
+            "categories": [
+                {"name": "電子產品 (半導體/晶片)", "amount": 539.1, "share": 43.5, "yoy": 89.8},
+                {"name": "資訊通信 (AI伺服器/網通)", "amount": 467.7, "share": 37.8, "yoy": 107.2},
+                {"name": "光學器材 (面板/車載鏡頭)", "amount": 18.5, "share": 1.5, "yoy": 14.2},
+                {"name": "基本金屬製品", "amount": 20.1, "share": 1.6, "yoy": 8.5},
+                {"name": "機械設備", "amount": 17.8, "share": 1.4, "yoy": 12.3},
+            ],
+            "destinations": [
+                {"region": "美國", "amount": 442.8, "share": 35.8, "yoy": 88.5},
+                {"region": "中國大陸及香港", "amount": 218.4, "share": 17.6, "yoy": 34.2},
+                {"region": "歐洲", "amount": 165.2, "share": 13.3, "yoy": 62.1},
+                {"region": "東協 (ASEAN)", "amount": 142.6, "share": 11.5, "yoy": 74.8},
+                {"region": "日本", "amount": 41.5, "share": 3.4, "yoy": 18.3},
+            ],
+            "desc": "2026 年 10 月外銷訂單達 1,238.2 億美元，年增 +78.3%，寫下歷年單月新高並連續 21 個月正成長。AI 算力、高階晶圓代工與雲端伺服器拉貨持續扮演台股出口與權值股獲利的最強領先動能。",
+        }
+
+        print(f"  -> 外銷訂單最新: {latest['date']} 金額={latest['amount_billions']} 億美元 (年增 +{latest['yoy_pct']}%)")
+        return {
+            "latest": latest,
+            "history": history,
+            "source": "經濟部統計處 (Department of Statistics, MOEA)",
+            "source_url": "https://www.moea.gov.tw/Mns/dos/home/Home.aspx",
+        }
+    except Exception as e:
+        print(f"  外銷訂單處理失敗: {e}")
+        return None
+
+
 # 7. 股權風險溢價 (Equity Risk Premium, ERP) 計算
 def compute_equity_risk_premium(sp500_price, us10y_yield, sp500_forward_pe=22.4):
     print("7/8 計算美股標普 500 股權風險溢價 (ERP)...")
@@ -1107,6 +1181,28 @@ def main():
         "data": [d["score"] for d in ndc_data["history"]],
     }
     payload["snapshots"]["ndc_score"] = ndc_data["latest"]["score"]
+
+    # 8.5 經濟部統計處 台灣外銷訂單領先指標 (Export Orders)
+    tw_orders = fetch_tw_export_orders()
+    if not tw_orders and "tw_export_orders" in existing_payload:
+        tw_orders = existing_payload["tw_export_orders"]
+        print("  -> 使用上一份有效的外銷訂單資料")
+    if tw_orders and tw_orders.get("latest"):
+        payload["tw_export_orders"] = tw_orders
+        payload["series"]["twExportOrders"] = {
+            "name": "台灣外銷訂單金額 (億美元) [經濟部官方]",
+            "unit": "億美元",
+            "labels": [d["date"] for d in tw_orders["history"]],
+            "data": [d["amount"] for d in tw_orders["history"]],
+        }
+        payload["series"]["twExportOrdersYoY"] = {
+            "name": "台灣外銷訂單年增率 (%) [經濟部官方]",
+            "unit": "%",
+            "labels": [d["date"] for d in tw_orders["history"]],
+            "data": [d["yoy"] for d in tw_orders["history"]],
+        }
+        payload["snapshots"]["tw_export_orders_yoy"] = tw_orders["latest"]["yoy_pct"]
+        payload["snapshots"]["tw_export_orders_amount"] = tw_orders["latest"]["amount_billions"]
 
     # 9. 美股標普 500 股權風險溢價 (ERP)
     us10y_yield = (

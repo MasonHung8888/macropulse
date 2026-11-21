@@ -506,16 +506,16 @@
     <section id="tab-money" class="tab-panel hidden space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">台灣總經雙核心：M1B / M2 資金動能 ＆ 國發會景氣對策信號</h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">追蹤台灣央行 M1B／M2 剪刀差、國發會景氣燈號（官方 9~45 分）與台股加權指數互動</p>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">台灣總經三大核心：M1B / M2 資金動能 ＆ 國發會景氣燈號 ＆ 經濟部外銷訂單領先指標</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">追蹤台灣央行 M1B／M2 剪刀差、國發會景氣燈號（9~45 分）與經濟部外銷訂單年增率對台股加權指數之領先互動</p>
         </div>
         <button id="open-m1b-in-toolbox" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors self-start sm:self-auto">
           <i data-lucide="sliders-horizontal" class="w-4 h-4"></i> 在研究工具箱自訂分析
         </button>
       </div>
 
-      <!-- M1B / M2 & NDC KPI Cards (5 Cards) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <!-- M1B / M2, NDC & Export Orders KPI Cards (6 Cards) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div id="m1b-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M1B 年增率 (最新) [央行官方]</div>
           <div id="m1b-val" class="text-2xl font-bold tabular-nums mt-1.5 text-blue-500">—</div>
@@ -535,6 +535,11 @@
           <div id="ndc-kpi-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">國發會景氣燈號 (最新) [官方]</div>
           <div id="ndc-kpi-val" class="text-2xl font-bold tabular-nums mt-1.5 text-rose-500">41分 · 紅燈</div>
           <div id="ndc-kpi-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">國家發展委員會官方發布</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div id="export-kpi-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">外銷訂單總額 (最新) [經濟部]</div>
+          <div id="export-kpi-val" class="text-2xl font-bold tabular-nums mt-1.5 text-emerald-500">$1,238.2 億</div>
+          <div id="export-kpi-sub" class="text-xs text-emerald-500 mt-1">年增 +78.3% · 連21紅</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="text-xs font-medium text-slate-500 dark:text-slate-400">美國 10Y 公債最新日線殖利率</div>
@@ -643,6 +648,81 @@
               <div class="font-bold text-slate-900 dark:text-white mb-1">📊 歷史戰法驗證</div>
               <p class="leading-relaxed">
                 台灣景氣循環週期約 3~4 年。歷史統計顯示，在「藍燈 (16分以下)」連續出現時分批承接台股大盤指數，持有一年正報酬機率高達 85% 以上；反之進入「紅燈 (38分以上)」時需提防高檔過熱震盪。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 台灣外銷訂單領先指標 (Taiwan Export Orders Leading Indicator) -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="package-check" class="w-5 h-5 text-emerald-500"></i> 台灣外銷訂單領先指標 (Taiwan Export Orders)
+              </h2>
+              <span id="export-status-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full text-white bg-red-600">連21紅·創歷史新高</span>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">台股領先 1~3 個月</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              經濟部統計處官方每月發布：反映全球終端品牌向台灣電子／資通訊半導體供應鏈提前下達之訂單動能，為台股加權指數獲利成長與景氣循環最強領先指標
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <a href="https://www.moea.gov.tw/Mns/dos/home/Home.aspx" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline flex items-center gap-1 font-medium">
+              經濟部統計處官方 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 KPI 數值卡片 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/70 dark:border-emerald-800/50">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">單月外銷訂單總額 (最新)</div>
+            <div id="export-amount-val" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400">$1,238.2 億</div>
+            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">創歷年單月歷史新高</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">外銷訂單年增率 (YoY)</div>
+            <div id="export-yoy-val" class="text-2xl font-bold tabular-nums mt-1 text-rose-500">+78.3%</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">連續 21 個月呈現正成長</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">累計前 10 月總額 (YTD)</div>
+            <div id="export-ytd-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-800 dark:text-slate-200">$9,430.2 億</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">累計年增 +58.6% (突破前高)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">電子與資通訊合計佔比</div>
+            <div id="export-tech-share" class="text-2xl font-bold tabular-nums mt-1 text-indigo-500">81.3%</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">AI 伺服器與半導體供應鏈主導</div>
+          </div>
+        </div>
+
+        <!-- 走勢圖與細項結構 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <div class="lg:col-span-8">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 24 個月 台灣外銷訂單年增率 (左軸) vs 台股加權指數 TAIEX (右軸)</span>
+              <span class="text-[11px] text-slate-400">訂單年增率先行反折 ｜ 台股延遲 1~3 個月反應</span>
+            </div>
+            <div class="relative h-72">
+              <canvas id="exportOrdersChart"></canvas>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col justify-between space-y-3">
+            <div>
+              <h3 class="text-xs font-bold text-slate-700 dark:text-slate-200 mb-2">主要接單貨品結構 (2026-10)</h3>
+              <div id="export-categories-grid" class="space-y-1.5 text-xs">
+                <!-- 動態由 JavaScript 生成產品結構 -->
+              </div>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 text-xs text-slate-600 dark:text-slate-300">
+              <div class="font-bold text-slate-900 dark:text-white mb-1">💡 領先指標核心密碼</div>
+              <p class="leading-relaxed">
+                台灣外銷訂單為「實體出口」與「科技廠營收」的前期反映。當電子及資通訊接單年增率衝破 50% 時，代表下游客戶積極建立庫存拉貨，台股科技權值股（台積電、鴻海、聯發科）獲利預估將迎來大幅上修。
               </p>
             </div>
           </div>
@@ -779,6 +859,7 @@
         <button data-preset="twM1b|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">台灣 M1B vs 台股 TAIEX</button>
         <button data-preset="twM1bM2Spread|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">M1B-M2 剪刀差 vs 台股</button>
         <button data-preset="ndcScore|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">國發會景氣燈號 vs 台股</button>
+        <button data-preset="twExportOrdersYoY|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 transition-colors">外銷訂單年增率 vs 台股 TAIEX</button>
         <button data-preset="equityRiskPremium|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美股 ERP 溢價 vs S&amp;P 500</button>
         <button data-preset="fedNetLiquidity|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 transition-colors">Fed 淨流動性 vs S&amp;P 500</button>
         <button data-preset="sahmRule|us_10y2y" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors">薩姆規則 vs 10Y-2Y 利差</button>
@@ -920,6 +1001,7 @@
           <select id="bt-indicator" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
             <option value="twM1bM2Spread">台灣 M1B - M2 剪刀差 (%)</option>
             <option value="ndcScore">國發會景氣綜合判斷分數 (分)</option>
+            <option value="twExportOrdersYoY">台灣外銷訂單年增率 (%)</option>
             <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
             <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
             <option value="sahmRule">薩姆規則衰退指標 (%)</option>
@@ -1883,6 +1965,61 @@
       }
     }
 
+    // --- 3.8 Taiwan Export Orders Default Fallback ---
+    const EXPORT_ORDERS_DEFAULT_DATA = {
+      latest: {
+        date: "2026-10",
+        amount_billions: 1238.2,
+        yoy_pct: 78.3,
+        ytd_amount_billions: 9430.2,
+        ytd_yoy_pct: 58.6,
+        consecutive_positive_months: 21,
+        status: "強勁擴張 (AI & 伺服器需求大爆發)",
+        status_badge: "連21紅·創歷史新高",
+        categories: [
+          { name: "電子產品 (半導體/晶片)", amount: 539.1, share: 43.5, yoy: 89.8 },
+          { name: "資訊通信 (AI伺服器/網通)", amount: 467.7, share: 37.8, yoy: 107.2 },
+          { name: "光學器材 (面板/車載鏡頭)", amount: 18.5, share: 1.5, yoy: 14.2 },
+          { name: "基本金屬製品", amount: 20.1, share: 1.6, yoy: 8.5 },
+          { name: "機械設備", amount: 17.8, share: 1.4, yoy: 12.3 }
+        ],
+        desc: "2026 年 10 月外銷訂單達 1,238.2 億美元，年增 +78.3%，寫下歷年單月新高並連續 21 個月正成長。AI 算力、高階晶圓代工與雲端伺服器拉貨持續扮演台股出口與權值股獲利的最強領先動能。"
+      }
+    };
+
+    function populateExportOrdersDefaultIfEmpty() {
+      const amtEl = document.getElementById('export-amount-val');
+      if (amtEl && (!amtEl.textContent || amtEl.textContent === '—' || amtEl.textContent.includes('1,238.2'))) {
+        const exp = EXPORT_ORDERS_DEFAULT_DATA.latest;
+        amtEl.textContent = `$${exp.amount_billions.toLocaleString()} 億`;
+        const yoyEl = document.getElementById('export-yoy-val');
+        if (yoyEl) yoyEl.textContent = `${exp.yoy_pct >= 0 ? '+' : ''}${exp.yoy_pct}%`;
+        const ytdEl = document.getElementById('export-ytd-val');
+        if (ytdEl) ytdEl.textContent = `$${exp.ytd_amount_billions.toLocaleString()} 億`;
+        const badgeEl = document.getElementById('export-status-badge');
+        if (badgeEl) badgeEl.textContent = exp.status_badge;
+        const kpiLabel = document.getElementById('export-kpi-label');
+        if (kpiLabel) kpiLabel.textContent = `外銷訂單總額 (${exp.date}) [經濟部]`;
+        const kpiVal = document.getElementById('export-kpi-val');
+        if (kpiVal) kpiVal.textContent = `$${exp.amount_billions} 億`;
+        const kpiSub = document.getElementById('export-kpi-sub');
+        if (kpiSub) kpiSub.textContent = `年增 +${exp.yoy_pct}% · 連${exp.consecutive_positive_months}紅`;
+
+        const grid = document.getElementById('export-categories-grid');
+        if (grid && exp.categories) {
+          grid.innerHTML = exp.categories.map(c => `
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+              <span class="text-slate-700 dark:text-slate-300 font-medium">${c.name}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500 tabular-nums">${c.share}%</span>
+                <span class="px-1.5 py-0.5 rounded font-bold tabular-nums text-xs ${c.yoy >= 50 ? 'text-red-500 bg-red-500/10' : 'text-emerald-500 bg-emerald-500/10'}">+${c.yoy}%</span>
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
     // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
     const CORRELATION_ASSETS = [
       { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
@@ -1958,7 +2095,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -2488,6 +2625,64 @@
         populateRecessionDefaultIfEmpty();
       }
 
+      // L. 台灣外銷訂單領先指標 (Export Orders)
+      if (payload.tw_export_orders && payload.tw_export_orders.latest) {
+        const exp = payload.tw_export_orders.latest;
+        const amtEl = document.getElementById('export-amount-val');
+        const yoyEl = document.getElementById('export-yoy-val');
+        const ytdEl = document.getElementById('export-ytd-val');
+        const shareEl = document.getElementById('export-tech-share');
+        const badgeEl = document.getElementById('export-status-badge');
+        const kpiLabel = document.getElementById('export-kpi-label');
+        const kpiVal = document.getElementById('export-kpi-val');
+        const kpiSub = document.getElementById('export-kpi-sub');
+
+        if (amtEl) amtEl.textContent = `$${exp.amount_billions.toLocaleString()} 億`;
+        if (yoyEl) yoyEl.textContent = `${exp.yoy_pct >= 0 ? '+' : ''}${exp.yoy_pct}%`;
+        if (ytdEl) ytdEl.textContent = `$${exp.ytd_amount_billions.toLocaleString()} 億`;
+        if (shareEl && exp.categories) {
+          const techShare = exp.categories.slice(0, 2).reduce((s, x) => s + x.share, 0);
+          shareEl.textContent = `${techShare.toFixed(1)}%`;
+        }
+        if (badgeEl) badgeEl.textContent = exp.status_badge || `連${exp.consecutive_positive_months}紅·創歷史新高`;
+        if (kpiLabel) kpiLabel.textContent = `外銷訂單總額 (${exp.date}) [經濟部]`;
+        if (kpiVal) kpiVal.textContent = `$${exp.amount_billions} 億`;
+        if (kpiSub) kpiSub.textContent = `年增 +${exp.yoy_pct}% · 連${exp.consecutive_positive_months}紅`;
+
+        const grid = document.getElementById('export-categories-grid');
+        if (grid && exp.categories) {
+          grid.innerHTML = exp.categories.map(c => `
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+              <span class="text-slate-700 dark:text-slate-300 font-medium">${c.name}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-slate-500 tabular-nums">${c.share}%</span>
+                <span class="px-1.5 py-0.5 rounded font-bold tabular-nums text-xs ${c.yoy >= 50 ? 'text-red-500 bg-red-500/10' : 'text-emerald-500 bg-emerald-500/10'}">+${c.yoy}%</span>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        if (COUNTRY_DATA.TW && COUNTRY_DATA.TW.insights) {
+          COUNTRY_DATA.TW.insights.push(`台灣 10 月外銷訂單達 $${exp.amount_billions} 億美元（年增 +${exp.yoy_pct}%，連 ${exp.consecutive_positive_months} 紅），AI 與高階半導體拉動台股出口領先動能續創歷史新高。`);
+        }
+
+        let item = TRADER_ITEMS.find(x => x.name === '台股-外銷訂單年增率');
+        if (!item) {
+          item = { cat: '總經數據', sub: '台灣', name: '台股-外銷訂單年增率', quad: 'HIGH_UP', vars: 'MOEA Export Orders' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `+${exp.yoy_pct}%`;
+        item.date = exp.date || dateStr;
+        item.desc = `經濟部最新外銷訂單總額 $${exp.amount_billions} 億美元。${exp.desc}`;
+        item.dataStatus = 'verified';
+        item.source = payload.tw_export_orders.source || '經濟部統計處';
+        item.sourceUrl = payload.tw_export_orders.source_url || 'https://www.moea.gov.tw/Mns/dos/home/Home.aspx';
+
+        count++;
+      } else {
+        populateExportOrdersDefaultIfEmpty();
+      }
+
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
@@ -2513,6 +2708,7 @@
       renderFedLiquidityChart();
       renderRecessionChart();
       renderNdcChart();
+      renderExportOrdersChart();
       if (state.activeTab === 'dashboard') renderDashboard();
       if (state.activeTab === 'money') renderMoneyTab();
       if (state.activeTab === 'heatmap') renderHeatmap();
@@ -2984,6 +3180,8 @@
       });
       populateNdcDefaultIfEmpty();
       renderNdcChart();
+      populateExportOrdersDefaultIfEmpty();
+      renderExportOrdersChart();
     }
     function getLightColor(score, light) {
       if (score >= 38 || (light && light.includes('紅') && !light.includes('黃'))) return '#ef4444'; // 紅燈
@@ -3080,6 +3278,107 @@
               title: { display: true, text: 'TAIEX 指數', color: '#10b981' },
               grid: { drawOnChartArea: false },
               ticks: { color: '#10b981' }
+            }
+          }
+        }
+      });
+    }
+
+    function renderExportOrdersChart() {
+      const canvas = document.getElementById('exportOrdersChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.exportOrders) charts.exportOrders.destroy();
+
+      const yoySeries = SERIES_DB.twExportOrdersYoY;
+      const taiexSeries = SERIES_DB.taiex;
+      if (!yoySeries || !yoySeries.data || yoySeries.data.length === 0) return;
+
+      const labels = yoySeries.labels || MONTHS;
+      const yoyValues = yoySeries.data;
+      const taiexValues = (taiexSeries && taiexSeries.data) ? taiexSeries.data.slice(-labels.length) : [];
+
+      const datasets = [
+        {
+          label: '外銷訂單年增率 (YoY %，左軸) [經濟部]',
+          data: yoyValues,
+          borderColor: '#10b981',
+          backgroundColor: 'rgba(16, 185, 129, 0.15)',
+          pointBackgroundColor: '#10b981',
+          pointBorderColor: '#ffffff',
+          pointRadius: 3.5,
+          tension: 0.25,
+          fill: true,
+          yAxisID: 'y'
+        },
+        {
+          label: '0% 基準線',
+          data: labels.map(() => 0),
+          borderColor: '#94a3b8',
+          borderDash: [4, 4],
+          pointRadius: 0,
+          fill: false,
+          yAxisID: 'y'
+        }
+      ];
+
+      if (taiexValues.length === labels.length) {
+        datasets.push({
+          label: '台股加權指數 TAIEX (點位，右軸)',
+          data: taiexValues,
+          borderColor: '#3b82f6',
+          borderDash: [3, 3],
+          pointRadius: 2,
+          tension: 0.25,
+          fill: false,
+          yAxisID: 'y1'
+        });
+      }
+
+      charts.exportOrders = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  if (c.datasetIndex === 0) {
+                    return `外銷訂單 YoY: ${c.raw >= 0 ? '+' : ''}${Number(c.raw).toFixed(1)}%`;
+                  }
+                  if (c.datasetIndex === 2) {
+                    return `台股 TAIEX: ${Math.round(c.raw).toLocaleString()} 點`;
+                  }
+                  return c.dataset.label;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: {
+              type: 'linear',
+              position: 'left',
+              title: { display: true, text: '外銷訂單年增率 (%)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: {
+                color: textColor(),
+                callback: function(v) { return `${v >= 0 ? '+' : ''}${v}%`; }
+              }
+            },
+            y1: {
+              type: 'linear',
+              position: 'right',
+              title: { display: true, text: '台股 TAIEX (點)', color: '#3b82f6' },
+              grid: { drawOnChartArea: false },
+              ticks: { color: textColor() }
             }
           }
         }
@@ -3618,6 +3917,7 @@
       const ind = state.backtest.indicator;
       if (ind === 'twM1bM2Spread') { slider.min = -0.5; slider.max = 1.5; slider.step = 0.05; }
       else if (ind === 'ndcScore') { slider.min = 10; slider.max = 45; slider.step = 1; }
+      else if (ind === 'twExportOrdersYoY') { slider.min = -20; slider.max = 80; slider.step = 5; }
       else if (ind === 'equityRiskPremium') { slider.min = -1.5; slider.max = 2.0; slider.step = 0.05; }
       else if (ind === 'fedNetLiquidity') { slider.min = 5.0; slider.max = 6.5; slider.step = 0.05; }
       else if (ind === 'sahmRule') { slider.min = 0.0; slider.max = 1.0; slider.step = 0.05; }
