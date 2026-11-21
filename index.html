@@ -4890,7 +4890,7 @@
         if (!d.dist_ma60_pct && metaD.dist_ma60_pct) d.dist_ma60_pct = metaD.dist_ma60_pct;
         if (!d.dist_ma20_pct && metaD.dist_ma20_pct) d.dist_ma20_pct = metaD.dist_ma20_pct;
         if (!d.r5 && metaD.r5) d.r5 = metaD.r5;
-        const h = (metaD && metaD.history && metaD.history.closes && metaD.history.closes.length > 0) ? metaD.history : (baseD.history || histDB[key] || {});
+        const h = (baseD && baseD.history && baseD.history.closes && baseD.history.closes.length > 0) ? baseD.history : ((metaD && metaD.history && metaD.history.closes && metaD.history.closes.length > 0) ? metaD.history : (histDB[key] || {}));
 
         const nameMap = {
           taiex: '台灣加權指數 (TAIEX)',

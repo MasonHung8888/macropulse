@@ -225,6 +225,11 @@ def fetch_stock_and_global_data():
         "vix": "^VIX",
         "us10y": "^TNX",
         "us30y": "^TYX",
+        "tw50": "0050.TW",
+        "semi": "00891.TW",
+        "elec": "0052.TW",
+        "elec_parts": "00935.TW",
+        "tpex": "00733.TW",
         "0050": "0050.TW",
         "00981a": "00981A.TW",
         "tsmc": "2330.TW",
@@ -722,8 +727,77 @@ def main():
     score_change = (model_score["total_score"] - prev_score) if prev_score is not None else 0
     model_score["score_change"] = score_change
     
-    if "taiex" in twse_indices and "taiex" in global_data:
-        twse_indices["taiex"]["history"] = global_data["taiex"].get("history", {})
+    # 完整同步加權指數與各類股指數之均線、漲跌幅、回檔幅與歷史數據
+    for idx_key in ["taiex", "tw50", "semi", "elec", "elec_parts"]:
+        if idx_key in twse_indices and idx_key in global_data:
+            g = global_data[idx_key]
+            twse_indices[idx_key]["ma5"] = g.get("ma5")
+            twse_indices[idx_key]["ma10"] = g.get("ma10")
+            twse_indices[idx_key]["ma20"] = g.get("ma20")
+            twse_indices[idx_key]["ma60"] = g.get("ma60")
+            twse_indices[idx_key]["r5"] = g.get("r5")
+            twse_indices[idx_key]["r10"] = g.get("r10")
+            twse_indices[idx_key]["r20"] = g.get("r20")
+            twse_indices[idx_key]["r60"] = g.get("r60")
+            twse_indices[idx_key]["dd20"] = g.get("dd20")
+            twse_indices[idx_key]["dd60"] = g.get("dd60")
+            twse_indices[idx_key]["dist_ma20_pct"] = g.get("dist_ma20_pct")
+            twse_indices[idx_key]["dist_ma60_pct"] = g.get("dist_ma60_pct")
+            twse_indices[idx_key]["dist_low60"] = g.get("dist_low60")
+            
+            # 若為台股類股指數，調整歷史走勢點數基準與官方收盤點數貼合
+            official_close = twse_indices[idx_key]["close"]
+            raw_hist = g.get("history", {})
+            raw_closes = raw_hist.get("closes", [])
+            if raw_closes and raw_closes[-1] > 0 and idx_key != "taiex":
+                ratio = official_close / raw_closes[-1]
+                scaled_closes = [round(c * ratio, 2) for c in raw_closes]
+                scaled_ma20 = [round(m * ratio, 2) if m is not None else None for m in raw_hist.get("ma20", [])]
+                scaled_ma60 = [round(m * ratio, 2) if m is not None else None for m in raw_hist.get("ma60", [])]
+                twse_indices[idx_key]["history"] = {
+                    "dates": raw_hist.get("dates", []),
+                    "closes": scaled_closes,
+                    "ma20": scaled_ma20,
+                    "ma60": scaled_ma60,
+                    "volumes": raw_hist.get("volumes", [])
+                }
+                global_data[idx_key]["history"] = twse_indices[idx_key]["history"]
+            else:
+                twse_indices[idx_key]["history"] = raw_hist
+
+    # 櫃買指數 TPEx 同步
+    if tpex_data and "tpex" in global_data:
+        g = global_data["tpex"]
+        tpex_data["ma5"] = g.get("ma5")
+        tpex_data["ma10"] = g.get("ma10")
+        tpex_data["ma20"] = g.get("ma20")
+        tpex_data["ma60"] = g.get("ma60")
+        tpex_data["r5"] = g.get("r5")
+        tpex_data["r10"] = g.get("r10")
+        tpex_data["r20"] = g.get("r20")
+        tpex_data["r60"] = g.get("r60")
+        tpex_data["dd20"] = g.get("dd20")
+        tpex_data["dd60"] = g.get("dd60")
+        tpex_data["dist_ma20_pct"] = g.get("dist_ma20_pct")
+        tpex_data["dist_ma60_pct"] = g.get("dist_ma60_pct")
+        tpex_data["dist_low60"] = g.get("dist_low60")
+        
+        official_close = tpex_data.get("close", 263.31)
+        raw_hist = g.get("history", {})
+        raw_closes = raw_hist.get("closes", [])
+        if raw_closes and raw_closes[-1] > 0:
+            ratio = official_close / raw_closes[-1]
+            scaled_closes = [round(c * ratio, 2) for c in raw_closes]
+            scaled_ma20 = [round(m * ratio, 2) if m is not None else None for m in raw_hist.get("ma20", [])]
+            scaled_ma60 = [round(m * ratio, 2) if m is not None else None for m in raw_hist.get("ma60", [])]
+            tpex_data["history"] = {
+                "dates": raw_hist.get("dates", []),
+                "closes": scaled_closes,
+                "ma20": scaled_ma20,
+                "ma60": scaled_ma60,
+                "volumes": raw_hist.get("volumes", [])
+            }
+            global_data["tpex"]["history"] = tpex_data["history"]
         
     # 整合完整 Payload
     payload = {
