@@ -822,6 +822,147 @@
           </div>
         </div>
       </div>
+
+      <!-- 美國實質利率與平衡通膨率計 (US TIPS Real Yield & Breakeven Inflation Meter) -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="percent" class="w-5 h-5 text-cyan-500"></i> 美國實質利率與平衡通膨率計 (US TIPS Real Yield &amp; Breakeven Inflation)
+              </h2>
+              <span id="tips-rating-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400">限制性緊縮 (2.88%)</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              金融資產估值的核心重力（Gravity）：以 10 年期 TIPS 實質利率、名目公債殖利率與平衡通膨率拆解資金實質成本，評估科技股折現壓力與通膨預期定錨
+            </p>
+          </div>
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <span class="text-xs font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">FRED (DFII10, DGS10, T10YIE)</span>
+            <a href="https://fred.stlouisfed.org/series/DFII10" target="_blank" rel="noopener noreferrer" class="text-xs text-cyan-600 dark:text-cyan-400 hover:underline flex items-center gap-0.5">
+              FRED 官方序列 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 KPI 數值卡片 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-lg bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200/70 dark:border-rose-800/50">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">10Y TIPS 實質利率 (Real Yield)</div>
+            <div id="tips-real-val" class="text-3xl font-extrabold tabular-nums mt-1 text-rose-600 dark:text-rose-400">2.88%</div>
+            <div id="tips-real-sub" class="text-[11px] text-rose-600 dark:text-rose-400 mt-0.5 font-medium">限制性緊縮 (估值重力壓制)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">10Y 平衡通膨率 (Breakeven Inflation)</div>
+            <div id="tips-bei-val" class="text-2xl font-bold tabular-nums mt-1 text-amber-600 dark:text-amber-400">2.15%</div>
+            <div id="tips-bei-sub" class="text-[11px] text-slate-400 mt-0.5">緊貼 Fed 2% 目標 (通膨定錨)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">10Y 名目公債殖利率 (Nominal Yield)</div>
+            <div id="tips-nom-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">5.04%</div>
+            <div id="tips-nom-sub" class="text-[11px] text-slate-400 mt-0.5">FRED 官方基準利率 (DGS10)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">一個月前實質利率 (1 Month Ago)</div>
+            <div id="tips-prev-1m-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">2.60%</div>
+            <div id="tips-prev-1m-sub" class="text-[11px] text-rose-600 dark:text-rose-400 mt-0.5">單月實質利率上升 +0.28%</div>
+          </div>
+        </div>
+
+        <!-- 儀表條與走勢圖 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <!-- 左側 7 欄: 四色實質利率尺規與 24 個月雙軸走勢圖 -->
+          <div class="lg:col-span-7 space-y-4">
+            <!-- 四色漸層實質利率量表 -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between text-xs font-semibold">
+                <span class="text-emerald-600 dark:text-emerald-400">&lt;0% 深度負利率</span>
+                <span class="text-sky-500">0% ~ 1.0% 中性寬鬆</span>
+                <span class="text-amber-500">1.0% ~ 2.0% 緊縮中性</span>
+                <span class="text-rose-600 dark:text-rose-400">&gt;2.0% 限制性緊縮</span>
+              </div>
+              <div class="relative w-full h-3.5 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-700">
+                <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 via-sky-400 via-amber-400 to-rose-600"></div>
+                <!-- 游標指針 (比例基於 -1.5% ~ 3.5% 區間對映) -->
+                <div id="tips-pointer" class="absolute top-0 bottom-0 w-2 bg-white shadow-md border border-slate-400 rounded-sm transform -translate-x-1/2 transition-all duration-500" style="left: 87.6%;"></div>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-400 pt-0.5">
+                <span>極度寬鬆 (黃金狂歡)</span>
+                <span id="tips-pointer-label" class="font-bold text-rose-600 dark:text-rose-400">當前 TIPS 實質利率: 2.88% (限制性緊縮)</span>
+                <span>資金緊縮 (估值折現重力)</span>
+              </div>
+            </div>
+
+            <!-- 24 個月歷史走勢圖 -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 24 個月 美國實質利率 vs 平衡通膨率 vs 名目殖利率</span>
+                <span class="text-[11px] text-slate-400">紫線：TIPS 實質利率 ｜ 橘線：平衡通膨率 ｜ 藍虛線：名目利率</span>
+              </div>
+              <div class="relative h-60">
+                <canvas id="tipsBreakevenChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 5 欄: 費雪方程式拆解與資產定價解讀 -->
+          <div class="lg:col-span-5 space-y-3 text-xs">
+            <div class="font-bold text-slate-900 dark:text-white flex items-center justify-between pb-1 border-b border-slate-100 dark:border-slate-800">
+              <span>費雪方程式資產定價拆解 (Fisher Equation)</span>
+              <span class="text-[11px] text-slate-400 font-normal">名目 ≈ 實質 + 通膨預期</span>
+            </div>
+            
+            <!-- 費雪拆解卡片 -->
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between text-sm font-bold">
+                <span class="text-slate-700 dark:text-slate-200">10Y 名目殖利率: <span class="text-blue-600 dark:text-blue-400" id="fisher-nom">5.04%</span></span>
+                <span class="text-xs px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">基準利率</span>
+              </div>
+              <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 pt-1 border-t border-slate-200 dark:border-slate-700">
+                <span>＝</span>
+                <span class="font-semibold text-rose-600 dark:text-rose-400">實質利率 2.88%</span>
+                <span>(佔 57.1%)</span>
+                <span>＋</span>
+                <span class="font-semibold text-amber-600 dark:text-amber-400">通膨預期 2.15%</span>
+                <span>(佔 42.7%)</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
+                當前名目殖利率突破 5% 主要由「極高實質借貸成本」推動，而非「失控的通膨預期」，顯示長端供給壓力與緊縮貨幣政策效應顯著。
+              </p>
+            </div>
+
+            <!-- 四大資產類別受影響敏感度 -->
+            <div class="space-y-1.5">
+              <div class="p-2 rounded bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50 flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-rose-700 dark:text-rose-300">科技成長股 (Tech / S&amp;P 500)</span>
+                  <div class="text-[11px] text-rose-600/80 dark:text-rose-400/80">折現率升高壓制遠期現金流本益比 (PE)</div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-rose-200 dark:bg-rose-900 text-rose-800 dark:text-rose-200">強壓制</span>
+              </div>
+              <div class="p-2 rounded bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-amber-700 dark:text-amber-300">黃金與貴金屬 (Gold / Silver)</span>
+                  <div class="text-[11px] text-amber-600/80 dark:text-amber-400/80">實質持有機會成本高達 2.88%，短線承壓</div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-amber-200 dark:bg-amber-900 text-amber-800 dark:text-amber-200">機會成本高</span>
+              </div>
+              <div class="p-2 rounded bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 flex items-center justify-between">
+                <div>
+                  <span class="font-bold text-emerald-700 dark:text-emerald-300">美國抗通膨債券 (TIPS)</span>
+                  <div class="text-[11px] text-emerald-600/80 dark:text-emerald-400/80">享通膨保值外另收 2.88% 純實質票息</div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">極具吸引力</span>
+              </div>
+            </div>
+
+            <!-- 動態總經解讀 -->
+            <div id="tips-commentary" class="p-3 rounded-lg border leading-relaxed bg-rose-500/10 border-rose-500/30 text-rose-900 dark:text-rose-200">
+              美國 10 年期 TIPS 實質利率最新讀數為 2.88%，處於「限制性緊縮 (估值重力)」區間；10 年期名目公債殖利率為 5.04%，市場隱含 10 年期平衡通膨率 (Breakeven Inflation) 為 2.15%。費雪方程式拆解顯示名目利率主要受高達 2.88% 的實質融資成本驅動，通膨預期緊貼 Fed 2% 長期目標，無風險實質報酬高達 2% 以上，對高本益比成長股形成嚴重折現壓力，資金傾向配置優質債券。
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR & NDC INDICATORS -->
@@ -1189,6 +1330,8 @@
         <button data-preset="us_10y|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美債 10Y vs S&amp;P 500</button>
         <button data-preset="fearAndGreed|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 transition-colors">恐慌貪婪指數 vs S&amp;P 500</button>
         <button data-preset="buffettIndicator|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 transition-colors">巴菲特指標 vs S&amp;P 500</button>
+        <button data-preset="tipsRealYield|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 transition-colors">TIPS 實質利率 vs 黃金</button>
+        <button data-preset="breakevenInflation|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors">平衡通膨率 vs S&amp;P 500</button>
         <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
       </div>
 
@@ -1330,6 +1473,8 @@
             <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
             <option value="fearAndGreed">恐慌與貪婪綜合指數 (0-100)</option>
             <option value="buffettIndicator">巴菲特指標 (美股市值 / GDP %)</option>
+            <option value="tipsRealYield">美國 10Y TIPS 實質利率 (%)</option>
+            <option value="breakevenInflation">美國 10Y 平衡通膨率 (%)</option>
             <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
             <option value="fedFundsRate">美國 聯邦基金有效利率 (%)</option>
             <option value="sahmRule">薩姆規則衰退指標 (%)</option>
@@ -2585,6 +2730,77 @@
       if (comm) comm.textContent = l.desc;
     }
 
+    // --- 3.47 TIPS Real Yield & Breakeven Inflation Default Data & Populator ---
+    const TIPS_BREAKEVEN_DEFAULT_DATA = {
+      latest: {
+        real_yield: 2.88,
+        nominal_yield: 5.04,
+        breakeven_inflation: 2.15,
+        as_of: "2026-11-20",
+        rating: "限制性緊縮 (估值重力)",
+        rating_key: "restrictive",
+        color: "#ef4444",
+        prev_1m_real: 2.60,
+        prev_1y_real: 1.79,
+        desc: "美國 10 年期 TIPS 實質利率最新讀數為 2.88%，處於「限制性緊縮 (估值重力)」區間；10 年期名目公債殖利率為 5.04%，市場隱含 10 年期平衡通膨率 (Breakeven Inflation) 為 2.15%。費雪方程式拆解顯示名目利率主要受高達 2.88% 的實質融資成本驅動，通膨預期緊貼 Fed 2% 長期目標，無風險實質報酬高達 2% 以上，對高本益比成長股形成嚴重折現壓力，資金傾向配置優質債券。"
+      },
+      history_24m: {
+        labels: ["2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11"],
+        real_yields: [1.98,2.05,2.12,1.95,1.88,1.92,2.04,2.15,2.10,2.18,2.25,2.14,2.20,2.28,2.35,2.18,2.45,2.58,2.52,2.47,2.44,2.93,2.60,2.88],
+        nominal_yields: [4.25,4.35,4.40,4.20,4.15,4.18,4.32,4.45,4.40,4.52,4.60,4.48,4.55,4.65,4.72,4.50,4.78,4.92,4.85,4.75,4.75,5.29,4.94,5.04],
+        breakeven_rates: [2.27,2.30,2.28,2.25,2.27,2.26,2.28,2.30,2.30,2.34,2.35,2.34,2.35,2.37,2.37,2.32,2.33,2.34,2.33,2.28,2.31,2.36,2.34,2.15]
+      }
+    };
+
+    function populateTipsDefaultIfEmpty() {
+      const tb = (state.livePayload && state.livePayload.tips_breakeven) ? state.livePayload.tips_breakeven : TIPS_BREAKEVEN_DEFAULT_DATA;
+      if (!tb || !tb.latest) return;
+      const l = tb.latest;
+
+      const realEl = document.getElementById('tips-real-val');
+      if (realEl) {
+        realEl.textContent = `${l.real_yield.toFixed(2)}%`;
+        realEl.className = `text-3xl font-extrabold tabular-nums mt-1 ${l.real_yield >= 2.0 ? 'text-rose-600 dark:text-rose-400' : l.real_yield >= 1.0 ? 'text-amber-500' : l.real_yield >= 0 ? 'text-sky-500' : 'text-emerald-500'}`;
+      }
+      const realSub = document.getElementById('tips-real-sub');
+      if (realSub) {
+        realSub.textContent = `${l.rating} 區間`;
+        realSub.className = `text-[11px] mt-0.5 font-medium ${l.real_yield >= 2.0 ? 'text-rose-600 dark:text-rose-400' : l.real_yield >= 1.0 ? 'text-amber-500' : l.real_yield >= 0 ? 'text-sky-500' : 'text-emerald-500'}`;
+      }
+      const badgeEl = document.getElementById('tips-rating-badge');
+      if (badgeEl) {
+        badgeEl.textContent = `${l.rating} (${l.real_yield.toFixed(2)}%)`;
+        badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${l.real_yield >= 2.0 ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : l.real_yield >= 1.0 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : l.real_yield >= 0 ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'}`;
+      }
+
+      const beiEl = document.getElementById('tips-bei-val');
+      if (beiEl) beiEl.textContent = `${l.breakeven_inflation.toFixed(2)}%`;
+      const nomEl = document.getElementById('tips-nom-val');
+      if (nomEl) nomEl.textContent = `${l.nominal_yield.toFixed(2)}%`;
+      const fisherNom = document.getElementById('fisher-nom');
+      if (fisherNom) fisherNom.textContent = `${l.nominal_yield.toFixed(2)}%`;
+
+      const p1mEl = document.getElementById('tips-prev-1m-val');
+      if (p1mEl && l.prev_1m_real !== undefined) p1mEl.textContent = `${l.prev_1m_real.toFixed(2)}%`;
+      const p1mSub = document.getElementById('tips-prev-1m-sub');
+      if (p1mSub && l.prev_1m_real !== undefined) {
+        const diff = l.real_yield - l.prev_1m_real;
+        p1mSub.textContent = diff >= 0 ? `單月實質利率上升 +${diff.toFixed(2)}%` : `單月實質利率下降 ${diff.toFixed(2)}%`;
+        p1mSub.className = `text-[11px] mt-0.5 ${diff >= 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`;
+      }
+
+      const pointer = document.getElementById('tips-pointer');
+      if (pointer) {
+        const pct = Math.min(100, Math.max(0, ((l.real_yield - (-1.5)) / (3.5 - (-1.5))) * 100));
+        pointer.style.left = `${pct}%`;
+      }
+      const ptrLabel = document.getElementById('tips-pointer-label');
+      if (ptrLabel) ptrLabel.textContent = `當前 TIPS 實質利率: ${l.real_yield.toFixed(2)}% (${l.rating})`;
+
+      const comm = document.getElementById('tips-commentary');
+      if (comm) comm.textContent = l.desc;
+    }
+
     // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
     const CORRELATION_ASSETS = [
       { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
@@ -2660,7 +2876,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -3464,6 +3680,75 @@
         populateBuffettDefaultIfEmpty();
       }
 
+      // P. 美國 10Y TIPS 實質利率與平衡通膨率 (Real Rates & Breakeven Inflation)
+      if (payload.tips_breakeven && payload.tips_breakeven.latest) {
+        const tb = payload.tips_breakeven;
+        const l = tb.latest;
+
+        const realEl = document.getElementById('tips-real-val');
+        if (realEl) {
+          realEl.textContent = `${l.real_yield.toFixed(2)}%`;
+          realEl.className = `text-3xl font-extrabold tabular-nums mt-1 ${l.real_yield >= 2.0 ? 'text-rose-600 dark:text-rose-400' : l.real_yield >= 1.0 ? 'text-amber-500' : l.real_yield >= 0 ? 'text-sky-500' : 'text-emerald-500'}`;
+        }
+        const realSub = document.getElementById('tips-real-sub');
+        if (realSub) {
+          realSub.textContent = `${l.rating} 區間`;
+          realSub.className = `text-[11px] mt-0.5 font-medium ${l.real_yield >= 2.0 ? 'text-rose-600 dark:text-rose-400' : l.real_yield >= 1.0 ? 'text-amber-500' : l.real_yield >= 0 ? 'text-sky-500' : 'text-emerald-500'}`;
+        }
+        const badgeEl = document.getElementById('tips-rating-badge');
+        if (badgeEl) {
+          badgeEl.textContent = `${l.rating} (${l.real_yield.toFixed(2)}%)`;
+          badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${l.real_yield >= 2.0 ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : l.real_yield >= 1.0 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : l.real_yield >= 0 ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'}`;
+        }
+
+        const beiEl = document.getElementById('tips-bei-val');
+        if (beiEl) beiEl.textContent = `${l.breakeven_inflation.toFixed(2)}%`;
+        const nomEl = document.getElementById('tips-nom-val');
+        if (nomEl) nomEl.textContent = `${l.nominal_yield.toFixed(2)}%`;
+        const fisherNom = document.getElementById('fisher-nom');
+        if (fisherNom) fisherNom.textContent = `${l.nominal_yield.toFixed(2)}%`;
+
+        const p1mEl = document.getElementById('tips-prev-1m-val');
+        if (p1mEl && l.prev_1m_real !== undefined) p1mEl.textContent = `${l.prev_1m_real.toFixed(2)}%`;
+        const p1mSub = document.getElementById('tips-prev-1m-sub');
+        if (p1mSub && l.prev_1m_real !== undefined) {
+          const diff = l.real_yield - l.prev_1m_real;
+          p1mSub.textContent = diff >= 0 ? `單月實質利率上升 +${diff.toFixed(2)}%` : `單月實質利率下降 ${diff.toFixed(2)}%`;
+          p1mSub.className = `text-[11px] mt-0.5 ${diff >= 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}`;
+        }
+
+        const pointer = document.getElementById('tips-pointer');
+        if (pointer) {
+          const pct = Math.min(100, Math.max(0, ((l.real_yield - (-1.5)) / (3.5 - (-1.5))) * 100));
+          pointer.style.left = `${pct}%`;
+        }
+        const ptrLabel = document.getElementById('tips-pointer-label');
+        if (ptrLabel) ptrLabel.textContent = `當前 TIPS 實質利率: ${l.real_yield.toFixed(2)}% (${l.rating})`;
+
+        const comm = document.getElementById('tips-commentary');
+        if (comm) comm.textContent = l.desc;
+
+        if (COUNTRY_DATA.US && COUNTRY_DATA.US.insights) {
+          COUNTRY_DATA.US.insights.push(`美國 10 年期 TIPS 實質利率處於「${l.rating}」水準 (${l.real_yield.toFixed(2)}%)，高無風險實質報酬對科技股本益比折現形成重大牽引，平衡通膨率 ${l.breakeven_inflation.toFixed(2)}% 顯示長線通膨預期定錨良好。`);
+        }
+
+        let item = TRADER_ITEMS.find(x => x.name === '美債-10Y實質利率(TIPS)');
+        if (!item) {
+          item = { cat: '總經數據', sub: '美國', name: '美債-10Y實質利率(TIPS)', quad: 'HIGH_UP', vars: 'TIPS Real Yield' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `${l.real_yield.toFixed(2)}%`;
+        item.date = l.as_of || dateStr;
+        item.desc = `10年期抗通膨公債實質殖利率。${l.desc}`;
+        item.dataStatus = 'verified';
+        item.source = tb.source || 'FRED (DFII10)';
+        item.sourceUrl = tb.source_url || 'https://fred.stlouisfed.org/series/DFII10';
+
+        count++;
+      } else {
+        populateTipsDefaultIfEmpty();
+      }
+
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
@@ -3491,6 +3776,7 @@
       renderFedWatchChart();
       renderFearGreedChart();
       renderBuffettChart();
+      renderTipsBreakevenChart();
       renderNdcChart();
       renderExportOrdersChart();
       if (state.activeTab === 'dashboard') renderDashboard();
@@ -3937,6 +4223,7 @@
       renderFedWatchChart();
       renderFearGreedChart();
       renderBuffettChart();
+      renderTipsBreakevenChart();
     }
 
     function renderMoneyTab() {
@@ -4755,6 +5042,110 @@
       });
     }
 
+    function renderTipsBreakevenChart() {
+      const canvas = document.getElementById('tipsBreakevenChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.tipsBreakeven) charts.tipsBreakeven.destroy();
+
+      const tb = (state.livePayload && state.livePayload.tips_breakeven) ? state.livePayload.tips_breakeven : TIPS_BREAKEVEN_DEFAULT_DATA;
+      if (!tb || !tb.history_24m) return;
+
+      const labels = tb.history_24m.labels || [];
+      const reals = tb.history_24m.real_yields || [];
+      const beis = tb.history_24m.breakeven_rates || [];
+      const noms = tb.history_24m.nominal_yields || [];
+
+      const lineGradient = ctx.createLinearGradient(0, 0, 0, 240);
+      lineGradient.addColorStop(0, 'rgba(168, 85, 247, 0.25)');
+      lineGradient.addColorStop(1, 'rgba(168, 85, 247, 0.0)');
+
+      charts.tipsBreakeven = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '10Y TIPS 實質利率 (%)',
+              data: reals,
+              borderColor: '#a855f7',
+              backgroundColor: lineGradient,
+              pointBackgroundColor: reals.map(r => r >= 2.0 ? '#ef4444' : r >= 1.0 ? '#f59e0b' : r >= 0 ? '#38bdf8' : '#10b981'),
+              pointBorderColor: '#ffffff',
+              pointRadius: 3.5,
+              tension: 0.25,
+              fill: true
+            },
+            {
+              label: '10Y 平衡通膨率 (%)',
+              data: beis,
+              borderColor: '#f59e0b',
+              backgroundColor: 'transparent',
+              pointBackgroundColor: '#f59e0b',
+              pointRadius: 2.5,
+              tension: 0.25,
+              fill: false
+            },
+            {
+              label: '10Y 名目公債殖利率 (%)',
+              data: noms,
+              borderColor: '#3b82f6',
+              borderDash: [4, 4],
+              pointRadius: 0,
+              fill: false
+            },
+            {
+              label: '2.0% 限制性緊縮門檻',
+              data: labels.map(() => 2.0),
+              borderColor: '#ef4444',
+              borderDash: [6, 4],
+              pointRadius: 0,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  const val = Number(c.raw);
+                  if (c.datasetIndex === 0) {
+                    const tag = val >= 2.0 ? '限制性緊縮 (估值重力)' : val >= 1.0 ? '緊縮中性' : val >= 0 ? '中性寬鬆' : '深度負利率';
+                    return `10Y TIPS 實質利率: ${val.toFixed(2)}% (${tag})`;
+                  }
+                  if (c.datasetIndex === 1) {
+                    return `10Y 平衡通膨率: ${val.toFixed(2)}% (隱含通膨預期)`;
+                  }
+                  if (c.datasetIndex === 2) {
+                    return `10Y 名目公債殖利率: ${val.toFixed(2)}% (名目折現基準)`;
+                  }
+                  return c.dataset.label;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor(), maxTicksLimit: 12 } },
+            y: {
+              min: 1.0,
+              max: 6.0,
+              title: { display: true, text: '殖利率 / 通膨率 (%)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: {
+                color: textColor(),
+                callback: function(v) { return v.toFixed(1) + '%'; }
+              }
+            }
+          }
+        }
+      });
+    }
+
     function populateToolboxSelects() {
       const leftEl = document.getElementById('series-left');
       const rightEl = document.getElementById('series-right');
@@ -5020,6 +5411,8 @@
       else if (ind === 'equityRiskPremium') { slider.min = -1.5; slider.max = 2.0; slider.step = 0.05; }
       else if (ind === 'fearAndGreed') { slider.min = 10; slider.max = 90; slider.step = 1; }
       else if (ind === 'buffettIndicator') { slider.min = 100; slider.max = 240; slider.step = 5; }
+      else if (ind === 'tipsRealYield') { slider.min = 0.5; slider.max = 3.5; slider.step = 0.05; }
+      else if (ind === 'breakevenInflation') { slider.min = 1.5; slider.max = 3.0; slider.step = 0.05; }
       else if (ind === 'fedNetLiquidity') { slider.min = 5.0; slider.max = 6.5; slider.step = 0.05; }
       else if (ind === 'sahmRule') { slider.min = 0.0; slider.max = 1.0; slider.step = 0.05; }
       else if (ind === 'spread10y2y') { slider.min = -0.2; slider.max = 0.5; slider.step = 0.05; }

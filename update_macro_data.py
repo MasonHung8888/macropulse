@@ -1437,6 +1437,125 @@ def compute_buffett_indicator() -> dict | None:
         return None
 
 
+def compute_real_rates_and_breakeven() -> dict | None:
+    """計算美國 10 年期 TIPS 實質利率、名目公債殖利率與平衡通膨率 (Breakeven Inflation)。
+
+    - DFII10: 10-Year Treasury Inflation-Indexed Security, Constant Maturity (TIPS Real Yield)
+    - DGS10: 10-Year Treasury Constant Maturity Rate (Nominal Yield)
+    - T10YIE: 10-Year Breakeven Inflation Rate
+    - 費雪方程式 (Fisher Equation): Nominal Rate ≈ Real Rate + Expected Inflation
+    - 估值基準：
+      < 0.0%: 深度負實質利率 (熱錢狂歡)
+      0.0% ~ 1.0%: 中性寬鬆 (融資充裕)
+      1.0% ~ 2.0%: 緊縮中性 (歷史常態)
+      >= 2.0%: 限制性緊縮 (估值重力)
+    """
+    try:
+        import pandas as pd
+
+        print("  正在抓取與計算美國 10Y TIPS 實質利率與平衡通膨率...")
+        obs = fetch_fred_observations(["DFII10", "DGS10", "T10YIE"])
+        if not obs.get("DFII10") or not obs.get("DGS10") or not obs.get("T10YIE"):
+            print("  FRED TIPS/Nominal/Breakeven 資料不足")
+            return None
+
+        df_real = pd.DataFrame(obs["DFII10"], columns=["date", "real_yield"]).set_index("date")
+        df_nom = pd.DataFrame(obs["DGS10"], columns=["date", "nominal_yield"]).set_index("date")
+        df_bei = pd.DataFrame(obs["T10YIE"], columns=["date", "breakeven_inflation"]).set_index("date")
+
+        df = df_real.join(df_nom, how="outer").join(df_bei, how="outer").sort_index().ffill().dropna()
+        df.index = pd.to_datetime(df.index)
+
+        # 30-day daily history
+        df_30d = df.tail(30)
+        labels_30d = [d.strftime("%m/%d") for d in df_30d.index]
+        reals_30d = [round(float(v), 2) for v in df_30d["real_yield"]]
+        noms_30d = [round(float(v), 2) for v in df_30d["nominal_yield"]]
+        beis_30d = [round(float(v), 2) for v in df_30d["breakeven_inflation"]]
+
+        # 24-month monthly history (end of month)
+        df_monthly = df.resample("ME").last().dropna().tail(24)
+        labels_24m = [d.strftime("%Y-%m") for d in df_monthly.index]
+        reals_24m = [round(float(v), 2) for v in df_monthly["real_yield"]]
+        noms_24m = [round(float(v), 2) for v in df_monthly["nominal_yield"]]
+        beis_24m = [round(float(v), 2) for v in df_monthly["breakeven_inflation"]]
+
+        latest_date = df.index[-1].strftime("%Y-%m-%d")
+        cur_real = reals_30d[-1]
+        cur_nom = noms_30d[-1]
+        cur_bei = beis_30d[-1]
+        prev_1m_real = reals_24m[-2] if len(reals_24m) >= 2 else cur_real
+        prev_1y_real = reals_24m[-13] if len(reals_24m) >= 13 else reals_24m[0]
+
+        if cur_real < 0.0:
+            rating = "深度負實質利率 (熱錢狂歡)"
+            rating_key = "negative"
+            color = "#10b981"
+            impact_desc = "資金成本實質為負，極度利多黃金、加密貨幣與高估值科技股。"
+        elif cur_real < 1.0:
+            rating = "中性寬鬆 (融資充裕)"
+            rating_key = "accommodative"
+            color = "#38bdf8"
+            impact_desc = "資金成本溫和，利於企業擴張投資與資產價格穩健上揚。"
+        elif cur_real < 2.0:
+            rating = "緊縮中性 (歷史常態)"
+            rating_key = "neutral"
+            color = "#f59e0b"
+            impact_desc = "資金成本回歸合理水位，資產定價注重實質獲利能力。"
+        else:
+            rating = "限制性緊縮 (估值重力)"
+            rating_key = "restrictive"
+            color = "#ef4444"
+            impact_desc = "無風險實質報酬高達 2% 以上，對高本益比成長股形成嚴重折現壓力，資金傾向配置優質債券。"
+
+        summary_desc = (
+            f"美國 10 年期 TIPS 實質利率最新讀數為 {cur_real:.2f}%，處於「{rating}」區間；"
+            f"10 年期名目公債殖利率為 {cur_nom:.2f}%，市場隱含 10 年期平衡通膨率 (Breakeven Inflation) 為 {cur_bei:.2f}%。"
+            f"費雪方程式拆解顯示名目利率主要受高達 {cur_real:.2f}% 的實質融資成本驅動，通膨預期緊貼 Fed 2% 長期目標，"
+            f"{impact_desc}"
+        )
+
+        print(f"  -> TIPS 實質利率最新: {cur_real:.2f}% ({rating}) | 平衡通膨率: {cur_bei:.2f}% | 名目: {cur_nom:.2f}%")
+
+        return {
+            "latest": {
+                "real_yield": cur_real,
+                "nominal_yield": cur_nom,
+                "breakeven_inflation": cur_bei,
+                "as_of": latest_date,
+                "rating": rating,
+                "rating_key": rating_key,
+                "color": color,
+                "prev_1m_real": prev_1m_real,
+                "prev_1y_real": prev_1y_real,
+                "desc": summary_desc,
+            },
+            "history_24m": {
+                "labels": labels_24m,
+                "real_yields": reals_24m,
+                "nominal_yields": noms_24m,
+                "breakeven_rates": beis_24m,
+            },
+            "history_30d": {
+                "labels": labels_30d,
+                "real_yields": reals_30d,
+                "nominal_yields": noms_30d,
+                "breakeven_rates": beis_30d,
+            },
+            "zones": [
+                {"label": "深度負利率 (<0%)", "color": "#10b981", "desc": "流動性氾濫，資產狂歡"},
+                {"label": "中性寬鬆 (0~1%)", "color": "#38bdf8", "desc": "資金環境溫和"},
+                {"label": "緊縮中性 (1~2%)", "color": "#f59e0b", "desc": "歷史常態區間"},
+                {"label": "限制性緊縮 (>2%)", "color": "#ef4444", "desc": "科技估值重力，資金緊縮"},
+            ],
+            "source": "Federal Reserve Bank of St. Louis (FRED: DFII10, DGS10, T10YIE)",
+            "source_url": "https://fred.stlouisfed.org/series/DFII10",
+        }
+    except Exception as e:
+        print(f"  TIPS 實質利率與平衡通膨率計算失敗: {e}")
+        return None
+
+
 def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
@@ -1808,6 +1927,31 @@ def main():
         payload["snapshots"]["us_total_market_cap"] = buffett_data["latest"]["market_cap_trillions"]
         payload["snapshots"]["us_nominal_gdp"] = buffett_data["latest"]["gdp_trillions"]
 
+    # 9.97 美國 10Y TIPS 實質利率與平衡通膨率 (Real Rates & Breakeven Inflation)
+    tips_data = compute_real_rates_and_breakeven()
+    if not tips_data and "tips_breakeven" in existing_payload:
+        tips_data = existing_payload["tips_breakeven"]
+        print("  -> 使用上一份有效的 TIPS 實質利率與平衡通膨率資料")
+
+    if tips_data and tips_data.get("latest"):
+        payload["tips_breakeven"] = tips_data
+        payload["series"]["tipsRealYield"] = {
+            "name": "美國 10年期 TIPS 實質利率 (%) [FRED DFII10]",
+            "unit": "%",
+            "labels": tips_data["history_24m"]["labels"],
+            "data": tips_data["history_24m"]["real_yields"],
+        }
+        payload["series"]["breakevenInflation"] = {
+            "name": "美國 10年期平衡通膨率 (%) [FRED T10YIE]",
+            "unit": "%",
+            "labels": tips_data["history_24m"]["labels"],
+            "data": tips_data["history_24m"]["breakeven_rates"],
+        }
+        payload["snapshots"]["tips_10y_real"] = tips_data["latest"]["real_yield"]
+        payload["snapshots"]["breakeven_10y"] = tips_data["latest"]["breakeven_inflation"]
+        payload["snapshots"]["nominal_10y"] = tips_data["latest"]["nominal_yield"]
+        payload["snapshots"]["real_rate_rating"] = tips_data["latest"]["rating"]
+
     # 10. 跨市場 8x8 資產相關性矩陣
     corr_data = compute_cross_market_correlation()
     if not corr_data and "correlation_matrix" in existing_payload:
@@ -1919,6 +2063,7 @@ def main():
         "fedwatch": {"label": "FRED & CME 30-Day Fed Funds Futures", "status": "ok" if payload.get("fedwatch") else "error"},
         "fear_and_greed": {"label": "FRED & CBOE / S&P Market Sentiment", "status": "ok" if payload.get("fear_and_greed") else "error"},
         "buffett_indicator": {"label": "FRED (GDP) & Yahoo Finance (^W5000)", "status": "ok" if payload.get("buffett_indicator") else "error"},
+        "tips_breakeven": {"label": "FRED 10Y TIPS & Breakeven Inflation", "status": "ok" if payload.get("tips_breakeven") else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
         "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
     }
