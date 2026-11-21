@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-21T00:04:13Z",
+  "updated_at": "2026-11-21T01:20:01Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -460,370 +460,370 @@
       "ticker": "NVDA",
       "name": "Nvidia Corp",
       "cap": 340,
-      "price": 125.53,
-      "d1": -14.01,
-      "w1": -22.92,
-      "ytd": -33.37
+      "price": 145.98,
+      "d1": -3.3,
+      "w1": -12.16,
+      "ytd": -22.52
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "AAPL",
       "name": "Apple Inc",
       "cap": 330,
-      "price": 342.56,
-      "d1": -1.9,
-      "w1": -3.85,
-      "ytd": 26.84
+      "price": 349.21,
+      "d1": -0.92,
+      "w1": -1.6,
+      "ytd": 29.3
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "MSFT",
       "name": "Microsoft Corp",
       "cap": 310,
-      "price": 484.52,
-      "d1": -2.77,
-      "w1": -7.33,
-      "ytd": 3.3
+      "price": 498.3,
+      "d1": -1.78,
+      "w1": -4.54,
+      "ytd": 6.24
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "AVGO",
       "name": "Broadcom Inc",
       "cap": 115,
-      "price": 304.41,
-      "d1": -12.19,
-      "w1": -12.28,
-      "ytd": -11.95
+      "price": 346.65,
+      "d1": -2.09,
+      "w1": -4.86,
+      "ytd": 0.27
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "MU",
       "name": "Micron Tech",
       "cap": 70,
-      "price": 594.51,
-      "d1": -13.89,
-      "w1": -23.62,
-      "ytd": 88.62
+      "price": 690.44,
+      "d1": -2.1,
+      "w1": -13.53,
+      "ytd": 119.06
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "AMD",
       "name": "Advanced Micro Devices",
       "cap": 68,
-      "price": 424.39,
-      "d1": -13.25,
-      "w1": -20.54,
-      "ytd": 89.91
+      "price": 489.19,
+      "d1": -7.72,
+      "w1": -16.42,
+      "ytd": 118.91
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "INTC",
       "name": "Intel Corp",
       "cap": 36,
-      "price": 51.28,
-      "d1": -7.97,
-      "w1": -14.05,
-      "ytd": 30.22
+      "price": 55.72,
+      "d1": 1.92,
+      "w1": -8.95,
+      "ytd": 41.49
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "QCOM",
       "name": "Qualcomm Inc",
       "cap": 32,
-      "price": 149.94,
-      "d1": -7.45,
-      "w1": -13.06,
-      "ytd": -11.96
+      "price": 162.01,
+      "d1": 1.38,
+      "w1": -8.54,
+      "ytd": -4.88
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "CRM",
       "name": "Salesforce Inc",
       "cap": 55,
-      "price": 180.62,
-      "d1": -1.47,
-      "w1": -17.09,
-      "ytd": -28.29
+      "price": 183.31,
+      "d1": -3.72,
+      "w1": -15.75,
+      "ytd": -27.23
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "ORCL",
       "name": "Oracle Corp",
       "cap": 52,
-      "price": 101.19,
-      "d1": -8.48,
-      "w1": -19.27,
-      "ytd": -47.6
+      "price": 110.57,
+      "d1": -2.92,
+      "w1": -13.01,
+      "ytd": -42.75
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "PLTR",
       "name": "Palantir Tech",
       "cap": 48,
-      "price": 143.49,
-      "d1": -6.63,
-      "w1": -14.58,
-      "ytd": -14.52
+      "price": 153.68,
+      "d1": -1.91,
+      "w1": -10.43,
+      "ytd": -8.45
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "PANW",
       "name": "Palo Alto Networks",
       "cap": 42,
-      "price": 343.32,
-      "d1": -5.09,
-      "w1": 6.54,
-      "ytd": 91.4
+      "price": 361.73,
+      "d1": 6.42,
+      "w1": 12.11,
+      "ytd": 101.67
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "CRWD",
       "name": "CrowdStrike",
       "cap": 38,
-      "price": 229.44,
-      "d1": -5.76,
-      "w1": 1.25,
-      "ytd": 102.34
+      "price": 243.46,
+      "d1": 2.71,
+      "w1": 5.91,
+      "ytd": 114.7
     },
     {
       "sector": "TECHNOLOGY",
       "ticker": "AMAT",
       "name": "Applied Materials",
       "cap": 40,
-      "price": 302.63,
-      "d1": -10.71,
-      "w1": -18.2,
-      "ytd": 13.13
+      "price": 338.93,
+      "d1": -3.65,
+      "w1": -10.9,
+      "ytd": 26.7
     },
     {
       "sector": "COMMUNICATION SERVICES",
       "ticker": "GOOGL",
       "name": "Alphabet Inc",
       "cap": 230,
-      "price": 265.29,
-      "d1": -2.7,
-      "w1": -10.31,
-      "ytd": -15.66
+      "price": 272.66,
+      "d1": -3.46,
+      "w1": -8.72,
+      "ytd": -13.31
     },
     {
       "sector": "COMMUNICATION SERVICES",
       "ticker": "META",
       "name": "Meta Platforms",
       "cap": 155,
-      "price": 560.84,
-      "d1": -5.93,
-      "w1": -12.6,
-      "ytd": -13.55
+      "price": 596.22,
+      "d1": -3.27,
+      "w1": -4.39,
+      "ytd": -8.1
     },
     {
       "sector": "COMMUNICATION SERVICES",
       "ticker": "NFLX",
       "name": "Netflix Inc",
       "cap": 48,
-      "price": 56.73,
-      "d1": -2.96,
-      "w1": -8.72,
-      "ytd": -37.65
+      "price": 58.46,
+      "d1": -2.27,
+      "w1": -6.75,
+      "ytd": -35.75
     },
     {
       "sector": "COMMUNICATION SERVICES",
       "ticker": "DIS",
       "name": "Walt Disney Co",
       "cap": 40,
-      "price": 117.98,
-      "d1": -1.89,
-      "w1": -0.83,
-      "ytd": 6.29
+      "price": 120.25,
+      "d1": -1.72,
+      "w1": 1.71,
+      "ytd": 8.33
     },
     {
       "sector": "FINANCIAL",
       "ticker": "BRK-B",
       "name": "Berkshire Hathaway",
       "cap": 135,
-      "price": 570.0,
-      "d1": -0.36,
-      "w1": -3.87,
-      "ytd": 14.72
+      "price": 572.04,
+      "d1": -0.45,
+      "w1": -3.02,
+      "ytd": 15.13
     },
     {
       "sector": "FINANCIAL",
       "ticker": "JPM",
       "name": "JPMorgan Chase",
       "cap": 110,
-      "price": 310.53,
-      "d1": -3.03,
-      "w1": -10.3,
-      "ytd": -2.76
+      "price": 320.22,
+      "d1": -1.2,
+      "w1": -6.59,
+      "ytd": 0.28
     },
     {
       "sector": "FINANCIAL",
       "ticker": "V",
       "name": "Visa Inc",
       "cap": 85,
-      "price": 401.87,
-      "d1": -0.09,
-      "w1": -5.61,
-      "ytd": 16.9
+      "price": 402.25,
+      "d1": -3.12,
+      "w1": -4.3,
+      "ytd": 17.01
     },
     {
       "sector": "FINANCIAL",
       "ticker": "MA",
       "name": "Mastercard Inc",
       "cap": 72,
-      "price": 625.59,
-      "d1": -0.15,
-      "w1": -5.38,
-      "ytd": 11.81
+      "price": 626.5,
+      "d1": -2.62,
+      "w1": -4.0,
+      "ytd": 11.97
     },
     {
       "sector": "FINANCIAL",
       "ticker": "BAC",
       "name": "Bank of America",
       "cap": 55,
-      "price": 47.04,
-      "d1": -3.15,
-      "w1": -7.8,
-      "ytd": -14.58
+      "price": 48.57,
+      "d1": -0.7,
+      "w1": -3.84,
+      "ytd": -11.8
     },
     {
       "sector": "FINANCIAL",
       "ticker": "GS",
       "name": "Goldman Sachs",
       "cap": 42,
-      "price": 790.69,
-      "d1": -6.71,
-      "w1": -13.73,
-      "ytd": -12.26
+      "price": 847.53,
+      "d1": -2.94,
+      "w1": -7.23,
+      "ytd": -5.95
     },
     {
       "sector": "CONSUMER CYCLICAL",
       "ticker": "AMZN",
       "name": "Amazon.com Inc",
       "cap": 215,
-      "price": 246.82,
-      "d1": -4.1,
-      "w1": -7.44,
-      "ytd": 8.97
+      "price": 257.37,
+      "d1": -3.87,
+      "w1": -3.77,
+      "ytd": 13.63
     },
     {
       "sector": "CONSUMER CYCLICAL",
       "ticker": "TSLA",
       "name": "Tesla Inc",
       "cap": 145,
-      "price": 345.82,
-      "d1": -7.64,
-      "w1": -11.38,
-      "ytd": -21.06
+      "price": 374.41,
+      "d1": -2.43,
+      "w1": -5.8,
+      "ytd": -14.53
     },
     {
       "sector": "CONSUMER CYCLICAL",
       "ticker": "HD",
       "name": "Home Depot",
       "cap": 62,
-      "price": 339.04,
-      "d1": 0.7,
-      "w1": -2.77,
-      "ytd": 0.17
+      "price": 336.68,
+      "d1": -0.28,
+      "w1": -3.33,
+      "ytd": -0.53
     },
     {
       "sector": "HEALTHCARE",
       "ticker": "LLY",
       "name": "Eli Lilly & Co",
       "cap": 130,
-      "price": 1347.11,
-      "d1": -0.3,
-      "w1": -6.68,
-      "ytd": 25.45
+      "price": 1351.12,
+      "d1": -2.29,
+      "w1": -5.22,
+      "ytd": 25.82
     },
     {
       "sector": "HEALTHCARE",
       "ticker": "JNJ",
       "name": "Johnson & Johnson",
       "cap": 65,
-      "price": 270.47,
-      "d1": 1.25,
-      "w1": -5.35,
-      "ytd": 32.54
+      "price": 267.14,
+      "d1": -2.04,
+      "w1": -5.78,
+      "ytd": 30.91
     },
     {
       "sector": "HEALTHCARE",
       "ticker": "UNH",
       "name": "UnitedHealth Group",
       "cap": 58,
-      "price": 339.85,
-      "d1": 2.84,
-      "w1": -16.59,
-      "ytd": 3.02
+      "price": 330.48,
+      "d1": -5.55,
+      "w1": -18.43,
+      "ytd": 0.18
     },
     {
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "WMT",
       "name": "Walmart Inc",
       "cap": 95,
-      "price": 127.95,
-      "d1": 1.52,
-      "w1": -0.11,
-      "ytd": 14.19
+      "price": 126.04,
+      "d1": -1.04,
+      "w1": -0.12,
+      "ytd": 12.49
     },
     {
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "COST",
       "name": "Costco Wholesale",
       "cap": 75,
-      "price": 1102.15,
-      "d1": 0.76,
-      "w1": -0.37,
-      "ytd": 29.74
+      "price": 1093.83,
+      "d1": -0.25,
+      "w1": 0.15,
+      "ytd": 28.76
     },
     {
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "KO",
       "name": "Coca-Cola Co",
       "cap": 52,
-      "price": 96.99,
-      "d1": 0.94,
-      "w1": -2.28,
-      "ytd": 43.05
+      "price": 96.09,
+      "d1": -2.04,
+      "w1": -1.39,
+      "ytd": 41.72
     },
     {
       "sector": "INDUSTRIALS",
       "ticker": "GE",
       "name": "GE Aerospace",
       "cap": 54,
-      "price": 309.62,
-      "d1": -2.9,
-      "w1": -6.69,
-      "ytd": -3.06
+      "price": 318.88,
+      "d1": -2.81,
+      "w1": -3.62,
+      "ytd": -0.16
     },
     {
       "sector": "INDUSTRIALS",
       "ticker": "CAT",
       "name": "Caterpillar Inc",
       "cap": 48,
-      "price": 510.45,
-      "d1": -5.01,
-      "w1": -14.95,
-      "ytd": -13.97
+      "price": 537.37,
+      "d1": -3.83,
+      "w1": -11.22,
+      "ytd": -9.44
     },
     {
       "sector": "ENERGY",
       "ticker": "XOM",
       "name": "Exxon Mobil",
       "cap": 75,
-      "price": 159.99,
-      "d1": 0.67,
-      "w1": -5.62,
-      "ytd": 33.9
+      "price": 158.93,
+      "d1": -1.03,
+      "w1": -5.8,
+      "ytd": 33.01
     },
     {
       "sector": "ENERGY",
       "ticker": "CVX",
       "name": "Chevron Corp",
       "cap": 52,
-      "price": 208.37,
-      "d1": 0.91,
-      "w1": -4.45,
-      "ytd": 38.53
+      "price": 206.5,
+      "d1": 0.3,
+      "w1": -3.76,
+      "ytd": 37.29
     }
   ],
   "snapshots": {
@@ -835,21 +835,33 @@
       "d1": -3.7,
       "as_of": "2026-11-20",
       "source": "Yahoo Finance daily close (may be delayed)",
-      "realtime": false
+      "realtime": false,
+      "validation": {
+        "status": "valid",
+        "age_days": 1
+      }
     },
     "nasdaq": {
       "price": 22617.73,
       "d1": -5.28,
       "as_of": "2026-11-20",
       "source": "Yahoo Finance daily close (may be delayed)",
-      "realtime": false
+      "realtime": false,
+      "validation": {
+        "status": "valid",
+        "age_days": 1
+      }
     },
     "taiex": {
       "price": 38426.89,
       "d1": -4.4,
       "as_of": "2026-11-19",
       "source": "Yahoo Finance daily close (may be delayed)",
-      "realtime": false
+      "realtime": false,
+      "validation": {
+        "status": "valid",
+        "age_days": 2
+      }
     },
     "nikkei": {
       "price": 59444.21,
@@ -863,14 +875,22 @@
       "d1": -3.98,
       "as_of": "2026-11-20",
       "source": "Yahoo Finance daily close (may be delayed)",
-      "realtime": false
+      "realtime": false,
+      "validation": {
+        "status": "valid",
+        "age_days": 1
+      }
     },
     "wti": {
       "price": 83.62,
       "d1": 0.49,
       "as_of": "2026-11-20",
       "source": "Yahoo Finance daily close (may be delayed)",
-      "realtime": false
+      "realtime": false,
+      "validation": {
+        "status": "valid",
+        "age_days": 1
+      }
     },
     "copper": {
       "price": 5.47,
@@ -884,7 +904,11 @@
       "d1": 26.2,
       "as_of": "2026-11-20",
       "source": "Yahoo Finance daily close (may be delayed)",
-      "realtime": false
+      "realtime": false,
+      "validation": {
+        "status": "valid",
+        "age_days": 1
+      }
     },
     "us10y_tnx": {
       "price": 4.91,
@@ -1953,8 +1977,8 @@
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 58797,
-    "stablecoin_market_cap_b": 243.1
+    "btc_price": 59109,
+    "stablecoin_market_cap_b": 242.9
   },
   "macro_indicators": {
     "us_cpi_yoy": {
@@ -1967,7 +1991,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/CPIAUCSL",
       "series_id": "CPIAUCSL",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 51,
+        "freshness_limit_days": 150,
+        "expected_range": [
+          -10,
+          30
+        ]
+      }
     },
     "us_core_cpi_yoy": {
       "label": "美國核心 CPI 年增率",
@@ -1979,7 +2012,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/CPILFESL",
       "series_id": "CPILFESL",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 51,
+        "freshness_limit_days": 150,
+        "expected_range": [
+          -10,
+          30
+        ]
+      }
     },
     "us_unemployment": {
       "label": "美國失業率",
@@ -1991,7 +2033,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/UNRATE",
       "series_id": "UNRATE",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 51,
+        "freshness_limit_days": 150,
+        "expected_range": [
+          0,
+          30
+        ]
+      }
     },
     "us_fed_funds": {
       "label": "美國聯邦基金有效利率",
@@ -2003,7 +2054,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/FEDFUNDS",
       "series_id": "FEDFUNDS",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 51,
+        "freshness_limit_days": 150,
+        "expected_range": [
+          -2,
+          30
+        ]
+      }
     },
     "us_industrial_yoy": {
       "label": "美國工業生產年增率",
@@ -2015,7 +2075,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/INDPRO",
       "series_id": "INDPRO",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 51,
+        "freshness_limit_days": 150,
+        "expected_range": [
+          -50,
+          50
+        ]
+      }
     },
     "us_m2_yoy": {
       "label": "美國 M2 年增率",
@@ -2027,7 +2096,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/M2SL",
       "series_id": "M2SL",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 81,
+        "freshness_limit_days": 150,
+        "expected_range": [
+          -30,
+          50
+        ]
+      }
     },
     "us_payroll_change": {
       "label": "美國非農就業月增",
@@ -2039,7 +2117,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/PAYEMS",
       "series_id": "PAYEMS",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 51,
+        "freshness_limit_days": 150,
+        "expected_range": [
+          -5000,
+          5000
+        ]
+      }
     },
     "us_10y": {
       "label": "美國 10 年期公債殖利率",
@@ -2051,7 +2138,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/DGS10",
       "series_id": "DGS10",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 2,
+        "freshness_limit_days": 14,
+        "expected_range": [
+          -5,
+          30
+        ]
+      }
     },
     "us_2y": {
       "label": "美國 2 年期公債殖利率",
@@ -2063,7 +2159,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/DGS2",
       "series_id": "DGS2",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 2,
+        "freshness_limit_days": 14,
+        "expected_range": [
+          -5,
+          30
+        ]
+      }
     },
     "us_10y2y": {
       "label": "美債 10Y－2Y 利差",
@@ -2075,7 +2180,16 @@
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/T10Y2Y",
       "series_id": "T10Y2Y",
-      "evidence": "official_observation"
+      "evidence": "official_observation",
+      "validation": {
+        "status": "valid",
+        "age_days": 1,
+        "freshness_limit_days": 14,
+        "expected_range": [
+          -10,
+          10
+        ]
+      }
     }
   },
   "sources": {
@@ -2099,9 +2213,33 @@
   },
   "data_quality": {
     "status": "valid",
+    "validated_at": "2026-11-21T01:20:12Z",
     "errors": [],
     "warnings": [
-      "市場價格為來源最新日線，不是券商即時報價"
+      "市場價格為來源最新日線，不是券商即時報價",
+      "FRED 與央行歷史資料可能在後續發布時修訂"
+    ],
+    "checks": [
+      {
+        "name": "FRED coverage",
+        "passed": 10,
+        "required": 8
+      },
+      {
+        "name": "TW heatmap coverage",
+        "passed": 28,
+        "required": 28
+      },
+      {
+        "name": "US heatmap coverage",
+        "passed": 37,
+        "required": 37
+      },
+      {
+        "name": "Required market snapshots",
+        "passed": 6,
+        "required": 6
+      }
     ]
   }
 }

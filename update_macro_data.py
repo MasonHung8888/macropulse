@@ -470,6 +470,19 @@ def fetch_live_crypto():
     return crypto
 
 
+def observation_age_days(period: str) -> int | None:
+    """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
+    if not period:
+        return None
+    for fmt in ("%Y-%m-%d", "%Y-%m"):
+        try:
+            observed = datetime.strptime(period, fmt).date()
+            return (datetime.now(timezone.utc).date() - observed).days
+        except ValueError:
+            continue
+    return None
+
+
 def main():
     print("=" * 65)
     print("MacroPulse 雲端自動化真實總經資料擷取引擎啟動")
@@ -549,6 +562,8 @@ def main():
     required_snapshots = {"sp500", "nasdaq", "taiex", "gold", "wti", "vix"}
     missing_snapshots = sorted(required_snapshots - set(payload["snapshots"]))
     errors = []
+    warnings = ["市場價格為來源最新日線，不是券商即時報價", "FRED 與央行歷史資料可能在後續發布時修訂"]
+    checks = []
     if len(payload["tw_heatmap"]) != len(TW_WATCHLIST):
         errors.append(f"台股熱力圖缺漏：{len(payload['tw_heatmap'])}/{len(TW_WATCHLIST)}")
     tw_history_count = sum(row.get("w1") is not None and row.get("ytd") is not None for row in payload["tw_heatmap"])
@@ -560,16 +575,70 @@ def main():
         errors.append("市場快照缺漏：" + ", ".join(missing_snapshots))
     if len(payload["macro_indicators"]) < 8:
         errors.append(f"FRED 官方總經指標缺漏：{len(payload['macro_indicators'])}/10")
+    macro_ranges = {
+        "us_cpi_yoy": (-10, 30),
+        "us_core_cpi_yoy": (-10, 30),
+        "us_unemployment": (0, 30),
+        "us_fed_funds": (-2, 30),
+        "us_industrial_yoy": (-50, 50),
+        "us_m2_yoy": (-30, 50),
+        "us_payroll_change": (-5000, 5000),
+        "us_10y": (-5, 30),
+        "us_2y": (-5, 30),
+        "us_10y2y": (-10, 10),
+    }
+    for key, indicator in payload["macro_indicators"].items():
+        value = indicator.get("value")
+        lower, upper = macro_ranges.get(key, (-1e12, 1e12))
+        age = observation_age_days(indicator.get("period", ""))
+        freshness_limit = 14 if indicator.get("frequency") == "daily" else 150
+        range_ok = isinstance(value, (int, float)) and lower <= value <= upper
+        freshness_ok = age is not None and -1 <= age <= freshness_limit
+        indicator["validation"] = {
+            "status": "valid" if range_ok and freshness_ok else "invalid",
+            "age_days": age,
+            "freshness_limit_days": freshness_limit,
+            "expected_range": [lower, upper],
+        }
+        if not range_ok:
+            errors.append(f"{key} 超出合理範圍：{value}（預期 {lower} 至 {upper}）")
+        if not freshness_ok:
+            errors.append(f"{key} 資料期異常或過舊：{indicator.get('period')}（距今 {age} 天）")
+    checks.append({"name": "FRED coverage", "passed": len(payload["macro_indicators"]), "required": 8})
     for key in required_snapshots & set(payload["snapshots"]):
-        if not payload["snapshots"][key].get("as_of"):
+        snapshot = payload["snapshots"][key]
+        if not snapshot.get("as_of"):
             errors.append(f"{key} 缺少資料日期")
+            continue
+        age = observation_age_days(snapshot["as_of"])
+        price = snapshot.get("price")
+        if age is None or age < -1 or age > 10:
+            errors.append(f"{key} 市場資料過舊或日期異常：{snapshot['as_of']}")
+        if not isinstance(price, (int, float)) or price <= 0:
+            errors.append(f"{key} 市場價格不合理：{price}")
+        snapshot["validation"] = {"status": "valid" if age is not None and -1 <= age <= 10 and isinstance(price, (int, float)) and price > 0 else "invalid", "age_days": age}
+    cbc_period = payload.get("tw_m1b_m2", {}).get("latest", {}).get("date")
+    cbc_age = observation_age_days(cbc_period) if cbc_period else None
+    if cbc_age is None or cbc_age < -1 or cbc_age > 150:
+        errors.append(f"央行 M1B/M2 資料期異常或過舊：{cbc_period}")
+    checks.extend([
+        {"name": "TW heatmap coverage", "passed": len(payload["tw_heatmap"]), "required": len(TW_WATCHLIST)},
+        {"name": "US heatmap coverage", "passed": len(payload["sp500_heatmap"]), "required": len(SP500_WATCHLIST)},
+        {"name": "Required market snapshots", "passed": len(required_snapshots) - len(missing_snapshots), "required": len(required_snapshots)},
+    ])
     payload["sources"] = {
         "twse": {"label": "臺灣證券交易所", "status": "ok" if payload["tw_heatmap"] else "error"},
         "yahoo": {"label": "Yahoo Finance 延遲日線", "status": "ok" if not missing_snapshots else "partial", "realtime": False},
         "cbc": {"label": "中華民國中央銀行", "status": "ok" if payload["tw_m1b_m2"] else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
     }
-    payload["data_quality"] = {"status": "valid" if not errors else "invalid", "errors": errors, "warnings": ["市場價格為來源最新日線，不是券商即時報價"]}
+    payload["data_quality"] = {
+        "status": "valid" if not errors else "invalid",
+        "validated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "errors": errors,
+        "warnings": warnings,
+        "checks": checks,
+    }
     if errors:
         print("資料驗證失敗，保留上一版 JSON：")
         for error in errors:
