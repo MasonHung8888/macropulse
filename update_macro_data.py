@@ -22,6 +22,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+import zipfile
 from datetime import datetime, timezone
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -161,9 +162,109 @@ def fetch_cbc_m1b_m2(months: int = 24):
     }
 
 
+def fetch_fred_observations(series_ids: list[str]) -> dict[str, list]:
+    """一次讀取多個 FRED 官方序列，降低連線次數與逾時風險。"""
+    joined = urllib.parse.quote(",".join(series_ids), safe=",")
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={joined}"
+    # FRED 對部分 Python TLS/HTTP 連線會長時間無回應；沿用 yfinance
+    # 已安裝的 curl_cffi HTTP/2 客戶端，可避免 Actions 與本機逾時。
+    from curl_cffi import requests as curl_requests
+    response = curl_requests.get(url, timeout=60, impersonate="chrome")
+    response.raise_for_status()
+    observations = {series_id: [] for series_id in series_ids}
+    if response.content.startswith(b"PK"):
+        with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+            csv_texts = [archive.read(name).decode("utf-8") for name in archive.namelist() if name.endswith(".csv")]
+    else:
+        csv_texts = [response.text]
+    for csv_text in csv_texts:
+        for row in csv.DictReader(csv_text.splitlines()):
+            date = row.get("observation_date")
+            if not date:
+                continue
+            for series_id in series_ids:
+                raw_value = row.get(series_id)
+                if raw_value in (None, "", "."):
+                    continue
+                try:
+                    observations[series_id].append((date, float(raw_value)))
+                except (TypeError, ValueError):
+                    continue
+    return observations
+
+
+def yoy_observations(observations: list, periods: int = 12) -> list:
+    result = []
+    for idx in range(periods, len(observations)):
+        previous = observations[idx - periods][1]
+        if previous:
+            result.append((observations[idx][0], round((observations[idx][1] / previous - 1) * 100, 2)))
+    return result
+
+
+def fetch_fred_macro() -> tuple[dict, dict]:
+    """建立可追溯的美國總經指標與 24 期序列。"""
+    print("2/6 抓取 FRED 美國官方總經資料...")
+    definitions = {
+        "us_cpi_yoy": ("CPIAUCSL", "美國 CPI 年增率", "%", "monthly", "yoy"),
+        "us_core_cpi_yoy": ("CPILFESL", "美國核心 CPI 年增率", "%", "monthly", "yoy"),
+        "us_unemployment": ("UNRATE", "美國失業率", "%", "monthly", "level"),
+        "us_fed_funds": ("FEDFUNDS", "美國聯邦基金有效利率", "%", "monthly", "level"),
+        "us_industrial_yoy": ("INDPRO", "美國工業生產年增率", "%", "monthly", "yoy"),
+        "us_m2_yoy": ("M2SL", "美國 M2 年增率", "%", "monthly", "yoy"),
+        "us_payroll_change": ("PAYEMS", "美國非農就業月增", "千人", "monthly", "change"),
+        "us_10y": ("DGS10", "美國 10 年期公債殖利率", "%", "daily", "level"),
+        "us_2y": ("DGS2", "美國 2 年期公債殖利率", "%", "daily", "level"),
+        "us_10y2y": ("T10Y2Y", "美債 10Y－2Y 利差", "%", "daily", "level"),
+    }
+    indicators, series = {}, {}
+    all_observations = fetch_fred_observations([definition[0] for definition in definitions.values()])
+    for key, (fred_id, label, unit, frequency, transform) in definitions.items():
+        try:
+            raw = all_observations.get(fred_id, [])
+            if not raw:
+                raise ValueError("未取得有效觀測值")
+            if transform == "yoy":
+                values = yoy_observations(raw, 12)
+            elif transform == "change":
+                values = [(raw[i][0], round(raw[i][1] - raw[i - 1][1], 1)) for i in range(1, len(raw))]
+            else:
+                values = [(date, round(value, 2)) for date, value in raw]
+            if not values:
+                raise ValueError("轉換後無資料")
+            latest_date, latest_value = values[-1]
+            previous_value = values[-2][1] if len(values) > 1 else None
+            indicators[key] = {
+                "label": label,
+                "value": latest_value,
+                "unit": unit,
+                "period": latest_date,
+                "frequency": frequency,
+                "previous": previous_value,
+                "source": "Federal Reserve Bank of St. Louis (FRED)",
+                "source_url": f"https://fred.stlouisfed.org/series/{fred_id}",
+                "series_id": fred_id,
+                "evidence": "official_observation",
+            }
+            recent = values[-24:]
+            series[key] = {
+                "name": f"{label} [FRED]",
+                "unit": unit,
+                "labels": [date[:7] if frequency == "monthly" else date for date, _ in recent],
+                "data": [value for _, value in recent],
+                "source": "Federal Reserve Bank of St. Louis (FRED)",
+                "source_url": f"https://fred.stlouisfed.org/series/{fred_id}",
+                "as_of": latest_date,
+            }
+        except Exception as exc:
+            print(f"  FRED {fred_id} 取得失敗：{exc}")
+    print(f"  -> 成功取得 FRED 指標 {len(indicators)}/{len(definitions)} 項")
+    return indicators, series
+
+
 # 2. 抓取 TWSE 臺灣證券交易所台股 28 檔權值股收盤
 def fetch_twse_heatmap() -> list:
-    print("2/5 抓取 TWSE 收盤價，並以歷史日線計算 1W / YTD...")
+    print("3/6 抓取 TWSE 收盤價，並以歷史日線計算 1W / YTD...")
     raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL", timeout=20)
     rows = json.loads(raw)
     by_code = {r.get("Code", "").strip(): r for r in rows}
@@ -218,7 +319,7 @@ def fetch_twse_heatmap() -> list:
 
 # 3. 抓取 Yahoo Finance 美股熱力圖與大盤指數
 def fetch_us_market_data():
-    print("3/5 抓取 Yahoo Finance 美股成分股、指數與美債殖利率...")
+    print("4/6 抓取 Yahoo Finance 美股成分股、指數與美債殖利率...")
     sp500_heatmap = []
     snapshots = {}
     series = {}
@@ -329,7 +430,7 @@ def fetch_us_market_data():
 
 # 4. 公開 API 最新匯率
 def fetch_live_fx():
-    print("4/5 抓取歐洲央行 (ECB) 官方參考匯率與台幣匯率...")
+    print("5/6 抓取歐洲央行 (ECB) 參考匯率與台幣匯率...")
     rates = {}
     try:
         raw1 = fetch_url("https://api.frankfurter.app/latest?from=USD&to=JPY,EUR,GBP,AUD,CAD", timeout=10)
@@ -352,7 +453,7 @@ def fetch_live_fx():
 
 # 5. 公開 API 最新加密貨幣資料
 def fetch_live_crypto():
-    print("5/5 抓取 CoinGecko 比特幣現貨價與穩定幣規模...")
+    print("6/6 抓取 CoinGecko 比特幣現貨價與穩定幣規模...")
     crypto = {}
     try:
         raw = fetch_url("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether,usd-coin&vs_currencies=usd&include_market_cap=true", timeout=10)
@@ -386,6 +487,7 @@ def main():
         "series": {},
         "fx": {},
         "crypto": {},
+        "macro_indicators": {},
         "sources": {},
         "data_quality": {"status": "checking", "errors": [], "warnings": []},
     }
@@ -418,13 +520,18 @@ def main():
     except Exception as e:
         print(f"  台灣央行 CBC M1B/M2 抓取失敗: {e}")
 
-    # 2. TWSE 台股熱力圖
+    # 2. FRED 美國官方總經資料
+    fred_indicators, fred_series = fetch_fred_macro()
+    payload["macro_indicators"].update(fred_indicators)
+    payload["series"].update(fred_series)
+
+    # 3. TWSE 台股熱力圖
     try:
         payload["tw_heatmap"] = fetch_twse_heatmap()
     except Exception as e:
         print(f"  TWSE 台股抓取失敗: {e}")
 
-    # 3. Yahoo Finance 美股熱力圖、指數、美債殖利率
+    # 4. Yahoo Finance 美股熱力圖、指數、美債殖利率
     try:
         sp_heat, snaps, sers = fetch_us_market_data()
         payload["sp500_heatmap"] = sp_heat
@@ -433,10 +540,10 @@ def main():
     except Exception as e:
         print(f"  美股與市場數據處理失敗: {e}")
 
-    # 4. 匯率
+    # 5. 匯率
     payload["fx"] = fetch_live_fx()
 
-    # 5. 加密貨幣
+    # 6. 加密貨幣
     payload["crypto"] = fetch_live_crypto()
 
     required_snapshots = {"sp500", "nasdaq", "taiex", "gold", "wti", "vix"}
@@ -451,6 +558,8 @@ def main():
         errors.append(f"美股熱力圖缺漏：{len(payload['sp500_heatmap'])}/{len(SP500_WATCHLIST)}")
     if missing_snapshots:
         errors.append("市場快照缺漏：" + ", ".join(missing_snapshots))
+    if len(payload["macro_indicators"]) < 8:
+        errors.append(f"FRED 官方總經指標缺漏：{len(payload['macro_indicators'])}/10")
     for key in required_snapshots & set(payload["snapshots"]):
         if not payload["snapshots"][key].get("as_of"):
             errors.append(f"{key} 缺少資料日期")
@@ -458,6 +567,7 @@ def main():
         "twse": {"label": "臺灣證券交易所", "status": "ok" if payload["tw_heatmap"] else "error"},
         "yahoo": {"label": "Yahoo Finance 延遲日線", "status": "ok" if not missing_snapshots else "partial", "realtime": False},
         "cbc": {"label": "中華民國中央銀行", "status": "ok" if payload["tw_m1b_m2"] else "error"},
+        "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
     }
     payload["data_quality"] = {"status": "valid" if not errors else "invalid", "errors": errors, "warnings": ["市場價格為來源最新日線，不是券商即時報價"]}
     if errors:

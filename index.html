@@ -82,10 +82,10 @@
         <button data-tab="builder" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
           <i data-lucide="layers" class="w-4 h-4"></i>自編指數
         </button>
-        <button data-tab="etf" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+        <button data-tab="etf" data-disabled="true" class="nav-btn hidden px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors items-center gap-1.5">
           <i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF
         </button>
-        <button data-tab="calendar" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+        <button data-tab="calendar" data-disabled="true" class="nav-btn hidden px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors items-center gap-1.5">
           <i data-lucide="calendar-days" class="w-4 h-4"></i>行事曆
         </button>
         <button data-tab="mydash" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
@@ -120,8 +120,8 @@
       <button data-tab="toolbox" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="line-chart" class="w-4 h-4"></i>研究工具箱</button>
       <button data-tab="backtest" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="flask-conical" class="w-4 h-4"></i>量化回測</button>
       <button data-tab="builder" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4"></i>自編指數</button>
-      <button data-tab="etf" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF</button>
-      <button data-tab="calendar" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4"></i>財經行事曆</button>
+      <button data-tab="etf" data-disabled="true" class="nav-btn hidden text-left px-3 py-2 rounded-lg text-sm font-medium items-center gap-2"><i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF</button>
+      <button data-tab="calendar" data-disabled="true" class="nav-btn hidden text-left px-3 py-2 rounded-lg text-sm font-medium items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4"></i>財經行事曆</button>
       <button data-tab="mydash" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="bookmark" class="w-4 h-4"></i>我的儀表板</button>
       <button data-tab="import" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="upload" class="w-4 h-4"></i>匯入數據</button>
     </div>
@@ -157,7 +157,7 @@
           <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
             <i data-lucide="globe-2" class="w-6 h-6 text-blue-500"></i> 全球總經成績單
           </h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">動態追蹤景氣循環軌跡、MM 經濟衰退與升降息機率，以及全球股匯原物料週漲幅</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">追蹤 FRED、台灣央行、TWSE 與延遲市場日線；每筆資料保留期間與來源</p>
         </div>
         <button id="guide-modal-btn" type="button" class="self-start sm:self-auto px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-500 text-slate-900 font-semibold text-sm shadow-sm transition-colors flex items-center gap-1.5">
           <i data-lucide="help-circle" class="w-4 h-4"></i> 使用教學
@@ -171,7 +171,7 @@
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <!-- Col 1: 全球-景氣循環圖 (with Playback Slider & Controls) -->
-        <div class="lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+        <div class="hidden lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-2">
               <h2 class="font-semibold text-sm text-slate-700 dark:text-slate-200">全球-景氣循環圖</h2>
@@ -204,7 +204,7 @@
         </div>
 
         <!-- Col 2: MM 經濟指標 -->
-        <div class="lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex flex-col">
+        <div class="hidden lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex-col">
           <div class="flex items-center justify-between gap-2 mb-2.5">
             <h2 class="font-semibold text-sm text-slate-700 dark:text-slate-200">MM 經濟指標</h2>
             <div id="mm-ind-tabs" class="flex flex-wrap gap-1 text-xs">
@@ -218,15 +218,12 @@
         </div>
 
         <!-- Col 3: Top 5 一週漲幅 -->
-        <div class="lg:col-span-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex flex-col justify-between">
+        <div class="lg:col-span-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 mb-2.5">
               <h2 class="font-semibold text-sm text-slate-700 dark:text-slate-200">Top 5 一週漲幅</h2>
               <div id="top5-tabs" class="flex gap-1 text-xs">
                 <button data-top5="STOCK" class="top5-btn px-2 py-0.5 rounded font-medium">股</button>
-                <button data-top5="FX" class="top5-btn px-2 py-0.5 rounded font-medium">匯</button>
-                <button data-top5="ETF" class="top5-btn px-2 py-0.5 rounded font-medium">ETF</button>
-                <button data-top5="COMM" class="top5-btn px-2 py-0.5 rounded font-medium">原物料</button>
               </div>
             </div>
             <div id="top5-list" class="divide-y divide-slate-200 dark:divide-slate-800"></div>
@@ -240,22 +237,19 @@
       <!-- 國家細項分析切換 -->
       <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 class="text-lg font-bold tracking-tight">各國總經指標與 AI 決策摘要</h2>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">點選經濟體切換下方 KPI 卡片與 MM AI 研究助理洞察</p>
+          <h2 class="text-lg font-bold tracking-tight">官方總經指標摘要</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">目前僅顯示已接入官方來源的美國與台灣資料；資料期與來源會隨每次更新保存</p>
         </div>
         <div id="country-selector" class="flex flex-wrap gap-1.5">
           <button data-country="US" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇺🇸 美國</button>
           <button data-country="TW" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇹🇼 台灣</button>
-          <button data-country="EU" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇪🇺 歐元區</button>
-          <button data-country="CN" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇨🇳 中國</button>
-          <button data-country="JP" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇯🇵 日本</button>
         </div>
       </div>
 
       <div id="kpi-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+        <div class="hidden lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
           <div class="flex items-center justify-between mb-3">
             <div>
               <h2 class="font-semibold text-base flex items-center gap-2">
@@ -270,7 +264,7 @@
           </div>
         </div>
 
-        <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+        <div class="lg:col-span-12 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-3">
               <h2 class="font-semibold text-base flex items-center gap-2">
@@ -281,7 +275,7 @@
             <div id="ai-insight-body" class="space-y-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed"></div>
           </div>
           <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
-            <span>依據目前選定經濟體指標即時生成</span>
+            <span>僅摘要已驗證的官方觀測值，不代表投資建議</span>
             <div class="flex items-center gap-3">
               <button id="goto-money-btn" type="button" class="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
                 查看 M1B / M2 資金動能
@@ -311,22 +305,22 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div id="m1b-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M1B 年增率 (最新) [央行官方]</div>
-          <div id="m1b-val" class="text-2xl font-bold tabular-nums mt-1.5 text-blue-500">7.20%</div>
+          <div id="m1b-val" class="text-2xl font-bold tabular-nums mt-1.5 text-blue-500">—</div>
           <div id="m1b-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">中華民國中央銀行發布</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div id="m2-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M2 年增率 (最新) [央行官方]</div>
-          <div id="m2-val" class="text-2xl font-bold tabular-nums mt-1.5 text-amber-500">7.24%</div>
+          <div id="m2-val" class="text-2xl font-bold tabular-nums mt-1.5 text-amber-500">—</div>
           <div id="m2-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">中華民國中央銀行發布</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="text-xs font-medium text-slate-500 dark:text-slate-400">M1B - M2 剪刀差訊號</div>
-          <div id="spread-val" class="text-2xl font-bold tabular-nums mt-1.5 text-rose-500">-0.04%</div>
-          <div id="spread-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">資金偏緊 (死亡交叉)</div>
+          <div id="spread-val" class="text-2xl font-bold tabular-nums mt-1.5 text-rose-500">—</div>
+          <div id="spread-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">等待官方資料</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="text-xs font-medium text-slate-500 dark:text-slate-400">美國 10Y 公債最新日線殖利率</div>
-          <div id="us10y-kpi-val" class="text-2xl font-bold tabular-nums mt-1.5 text-emerald-500">4.98%</div>
+          <div id="us10y-kpi-val" class="text-2xl font-bold tabular-nums mt-1.5 text-emerald-500">—</div>
           <div id="us10y-kpi-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Yahoo Finance ^TNX 延遲日線</div>
         </div>
       </div>
@@ -355,7 +349,7 @@
                 <strong class="text-slate-900 dark:text-white">指標定義：</strong>M1B 包含通貨淨額、支票與活期（儲蓄）存款，代表隨時可動用的投資交易資金；M2 則加上定存與外匯存款等準貨幣。
               </div>
               <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
-                <strong class="text-emerald-600 dark:text-emerald-400">2026 年走勢拆解：</strong>2026 年 1–5 月 M1B（5.59%→9.56%）持續高於 M2（5.16%→7.83%）形成「黃金交叉」，帶動資金行情；8 月起 M1B 降至 6.65% 低於 M2 的 6.79%，顯示活期資金轉趨保守，與 11 月台股高檔拉回至 36,033.29 點相呼應。
+                <strong class="text-emerald-600 dark:text-emerald-400">判讀原則：</strong>網站會以央行最新正式資料更新數值與資料期。M1B－M2 剪刀差只反映貨幣結構，與股市可能相關但不代表因果，也不應單獨作為買賣訊號。
               </div>
               <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
                 <strong class="text-blue-600 dark:text-blue-400">操作提示：</strong>可前往「量化回測」分頁，選擇「台灣 M1B - M2 剪刀差 &gt; 0%」直接測試過去 24 個月台股加權指數的策略勝率。
@@ -419,16 +413,12 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
-            <i data-lucide="radar" class="w-6 h-6 text-emerald-500"></i> 操盤人必看（MM 基本面指數 &amp; 全球商品變數）
+            <i data-lucide="radar" class="w-6 h-6 text-emerald-500"></i> 已驗證市場與總經監測
           </h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">彙整股市、匯市、大宗商品、債市與主題專區最新報價與 MM 基本面四象限情境</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">僅呈現自動更新成功且帶有資料期間、來源與連結的觀測值；不再顯示示範快照</p>
         </div>
         <div class="flex items-center gap-2">
-          <select id="trader-period" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm">
-            <option value="2026/10">基本面更新：2026/10</option>
-            <option value="2026/09">基本面更新：2026/09</option>
-            <option value="2025/09">基本面更新：2025/09</option>
-          </select>
+          <span class="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-sm text-emerald-700 dark:text-emerald-300">官方／公開來源自動更新</span>
         </div>
       </div>
 
@@ -437,7 +427,7 @@
         <button data-quad="ALL" class="tquad-btn text-left p-3.5 rounded-xl border transition-all">
           <div class="text-xs font-semibold text-blue-500">全部情境</div>
           <div class="text-sm font-bold mt-0.5">顯示所有商品</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">共 48 項全球核心指標</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">項目數依本次成功驗證結果</div>
         </button>
         <button data-quad="HIGH_UP" class="tquad-btn text-left p-3.5 rounded-xl border transition-all">
           <div class="text-xs font-semibold text-emerald-500">數值高・趨勢向上</div>
@@ -460,11 +450,11 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div id="trader-cat-tabs" class="flex flex-wrap gap-1.5">
           <button data-tcat="ALL" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">全部</button>
-          <button data-tcat="股市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">股市 (11)</button>
-          <button data-tcat="匯市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">匯市 (7)</button>
-          <button data-tcat="大宗商品" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">大宗商品 (12)</button>
-          <button data-tcat="債市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">債市 (3)</button>
-          <button data-tcat="主題式專區" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">主題式專區 (15)</button>
+          <button data-tcat="股市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">股市</button>
+          <button data-tcat="匯市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">匯市</button>
+          <button data-tcat="大宗商品" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">大宗商品</button>
+          <button data-tcat="債市" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">債市</button>
+          <button data-tcat="總經數據" class="tcat-btn px-3 py-1.5 rounded-lg text-sm font-medium">總經數據</button>
         </div>
         <input id="trader-search" type="text" placeholder="搜尋商品（如 台股、黃金、VIX、比特幣）..." class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm w-full sm:w-64" />
       </div>
@@ -478,7 +468,7 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 class="text-xl sm:text-2xl font-bold tracking-tight">研究工具箱（雙軸疊加與即時運算）</h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">內建歷史示範序列（結合 2026 最新公開數據），支援移動平均、Z-Score 標準化與圖組收藏</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">僅載入本次通過驗證的官方與公開來源序列，支援移動平均、Z-Score 標準化與圖組收藏</p>
         </div>
         <div class="flex flex-wrap gap-2">
           <button id="save-to-mydash-btn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-sm font-medium hover:bg-amber-500/20 transition-colors">
@@ -871,9 +861,9 @@
         <button id="guide-close-btn" type="button" class="p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <div class="space-y-3 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-        <p><strong>1. 全球-景氣循環圖：</strong>將經濟體依成長動能與通膨/週期位置分為四象限——右上 <strong>Growth (擴張)</strong>、左上 <strong>Slow Growth (趨緩)</strong>、左下 <strong>Recession (衰退)</strong>、右下 <strong>Recovery (復甦)</strong>。拖動時間軸或按播放鍵可回顧過去 24 個月軌跡。</p>
-        <p><strong>2. MM 經濟指標：</strong>彙整全球景氣衰退機率（23.9%）、製造業週期指數（0.93）與 FedWatch 升降息機率，紅色漸層條代表數值警戒或機率權重。</p>
-        <p><strong>3. Top 5 一週漲幅：</strong>快速掃描全球股市、匯市、ETF 與原物料近一週表現領先或修正幅度最大的市場。</p>
+        <p><strong>1. 官方總經摘要：</strong>美國指標來自 FRED，台灣 M1B／M2 來自中央銀行；卡片會顯示實際資料期，而非網站更新日。</p>
+        <p><strong>2. 已驗證監測：</strong>只顯示本次抓取成功且通過完整性檢查的資料。每張卡片可開啟原始來源，未驗證的舊版示範快照不會出現在清單中。</p>
+        <p><strong>3. Top 5 一週漲幅：</strong>由本次美股熱力圖日線計算近一週表現；Yahoo Finance 資料可能延遲，並非券商逐筆行情。</p>
       </div>
       <div class="flex justify-end pt-2">
         <button id="guide-ok-btn" type="button" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium">開始使用</button>
@@ -888,7 +878,7 @@
   </div>
 
   <script>
-    // --- 1. Grounded Macro Data (2026) ---
+    // --- 1. Legacy layout defaults; cleared below until verified data loads. ---
     const COUNTRY_DATA = {
       US: {
         name: '美國 (US)',
@@ -977,7 +967,14 @@
       }
     };
 
-    // --- 2. Historical 24-Month Demo Series (anchored to 2026 CBC/FRED/Market levels) ---
+    // 清除舊版內建總經數字；只有成功載入官方資料包後才重新填入。
+    Object.values(COUNTRY_DATA).forEach(country => {
+      country.regime = '等待官方資料';
+      country.kpis = [];
+      country.insights = ['資料載入後，這裡只會摘要已通過驗證的官方觀測值。'];
+    });
+
+    // --- 2. Historical series; verified bundle data replaces defaults before display. ---
     const MONTHS = [
       '2024-12','2025-01','2025-02','2025-03','2025-04','2025-05',
       '2025-06','2025-07','2025-08','2025-09','2025-10','2025-11',
@@ -1047,6 +1044,9 @@
         data: [70.2,73.5,71.8,69.4,67.8,68.5,72.1,75.4,78.9,84.2,86.5,85.0,83.4,82.1,84.0,85.5,87.2,88.0,89.5,91.0,92.4,88.6,84.7,81.9]
       }
     };
+
+    // 不讓舊版示範序列進入研究、回測或匯出功能。
+    Object.keys(SERIES_DB).forEach(key => delete SERIES_DB[key]);
 
     const ETF_DB = [
       { ticker: 'SMH', name: 'VanEck 半導體 ETF', category: '半導體', fee: '0.35%', desc: '全球半導體供應鏈龍頭集中配置（Nvidia、台積電 ADR、ASML），規模約 $22B' },
@@ -1145,6 +1145,9 @@
         { name: '天然氣 Natural Gas', price: '$3.18', chg: '+1.42%', up: true }
       ]
     };
+
+    // 舊版榜單只作程式預設，不在資料包驗證前顯示。
+    TOP5_MOVERS.STOCK = [];
 
     const TRADER_ITEMS = [
       // 股市 (11)
@@ -1411,6 +1414,11 @@
       }
       if (Array.isArray(payload.sp500_heatmap) && payload.sp500_heatmap.length > 0) {
         HEATMAP_DATA.SP500 = payload.sp500_heatmap;
+        TOP5_MOVERS.STOCK = [...payload.sp500_heatmap]
+          .filter(row => Number.isFinite(row.w1))
+          .sort((a, b) => b.w1 - a.w1)
+          .slice(0, 5)
+          .map(row => ({ name: `${row.ticker} ${row.name}`, price: `$${Number(row.price).toLocaleString('en-US')}`, chg: `${row.w1 >= 0 ? '+' : ''}${row.w1.toFixed(2)}%`, up: row.w1 >= 0 }));
         count++;
       }
 
@@ -1448,17 +1456,71 @@
         }
         if (spSub) spSub.textContent = l.status;
 
-        if (COUNTRY_DATA && COUNTRY_DATA.TW && COUNTRY_DATA.TW.kpis && COUNTRY_DATA.TW.kpis[1]) {
-          COUNTRY_DATA.TW.kpis[1].value = `${l.m1b}% / ${l.m2}%`;
-          COUNTRY_DATA.TW.kpis[1].sub = `最新剪刀差 ${l.spread}% (${l.status})`;
-        }
+        COUNTRY_DATA.TW.regime = '央行官方貨幣數據監測';
+        COUNTRY_DATA.TW.kpis = [
+          { label: `台灣 M1B 年增率 (${l.date})`, value: `${l.m1b}%`, sub: '中華民國中央銀行 EF15M01', trend: 'neutral' },
+          { label: `台灣 M2 年增率 (${l.date})`, value: `${l.m2}%`, sub: '中華民國中央銀行 EF15M01', trend: 'neutral' },
+          { label: `M1B－M2 剪刀差 (${l.date})`, value: `${l.spread > 0 ? '+' : ''}${l.spread}%`, sub: l.status, trend: l.spread > 0 ? 'up' : 'warn' }
+        ];
+        COUNTRY_DATA.TW.insights = [
+          `央行最新資料期為 ${l.date}：M1B 年增 ${l.m1b}%，M2 年增 ${l.m2}%，剪刀差 ${l.spread}%。`,
+          '剪刀差是資金結構觀察指標，不能單獨推導股市必然漲跌；需與景氣、利率與企業獲利交叉判讀。'
+        ];
+
+        [
+          { name: '台灣 M1B 年增率', value: l.m1b, desc: '央行貨幣總計數 M1B 年增率。' },
+          { name: '台灣 M2 年增率', value: l.m2, desc: '央行貨幣總計數 M2 年增率。' },
+          { name: '台灣 M1B－M2 剪刀差', value: l.spread, desc: 'M1B 年增率減 M2 年增率。' }
+        ].forEach(info => {
+          let item = TRADER_ITEMS.find(x => x.name === info.name);
+          if (!item) {
+            item = { cat: '總經數據', sub: '台灣', name: info.name, quad: 'HIGH_UP', vars: '來源：中華民國中央銀行 EF15M01' };
+            TRADER_ITEMS.push(item);
+          }
+          item.val = `${info.value}%`;
+          item.date = l.date;
+          item.desc = info.desc;
+          item.dataStatus = 'verified';
+          item.source = '中華民國中央銀行';
+          item.sourceUrl = 'https://www.cbc.gov.tw/';
+        });
 
         const tkM1b = document.getElementById('tk-m1b-m2');
         if (tkM1b) tkM1b.textContent = `${l.m1b}% / ${l.m2}%`;
         count++;
       }
 
-      // D. 市場快照更新 (Ticker & Trader Tab)
+      // D. FRED 美國官方總經指標
+      if (payload.macro_indicators && typeof payload.macro_indicators === 'object') {
+        const macroEntries = Object.values(payload.macro_indicators);
+        macroEntries.forEach(indicator => {
+          let item = TRADER_ITEMS.find(x => x.name === indicator.label);
+          if (!item) {
+            item = { cat: indicator.label.includes('公債') || indicator.label.includes('利差') ? '債市' : '總經數據', sub: '美國', name: indicator.label, quad: 'HIGH_UP', vars: `FRED ${indicator.series_id}` };
+            TRADER_ITEMS.push(item);
+          }
+          item.val = `${Number(indicator.value).toLocaleString('zh-TW')}${indicator.unit}`;
+          item.date = indicator.period;
+          item.desc = `${indicator.frequency === 'daily' ? '日頻' : '月頻'}官方觀測值；前值 ${indicator.previous ?? '未提供'}${indicator.unit}。`;
+          item.quad = indicator.previous !== null && indicator.value >= indicator.previous ? 'HIGH_UP' : 'HIGH_DOWN';
+          item.dataStatus = 'verified';
+          item.source = indicator.source;
+          item.sourceUrl = indicator.source_url;
+        });
+
+        const macro = payload.macro_indicators;
+        COUNTRY_DATA.US.regime = 'FRED 官方資料監測';
+        COUNTRY_DATA.US.kpis = [macro.us_cpi_yoy, macro.us_core_cpi_yoy, macro.us_unemployment, macro.us_fed_funds]
+          .filter(Boolean)
+          .map(ind => ({ label: `${ind.label} (${ind.period})`, value: `${ind.value}${ind.unit}`, sub: `FRED ${ind.series_id}`, trend: ind.previous !== null && ind.value > ind.previous ? 'warn' : 'neutral' }));
+        COUNTRY_DATA.US.insights = [macro.us_cpi_yoy, macro.us_unemployment, macro.us_fed_funds]
+          .filter(Boolean)
+          .map(ind => `${ind.label}最新資料期 ${ind.period}，數值 ${ind.value}${ind.unit}，前值 ${ind.previous}${ind.unit}。`);
+        COUNTRY_DATA.US.insights.push('以上為歷史實績觀測，不是未來預測；資料發布具有時間落差且可能修訂。');
+        count += macroEntries.length;
+      }
+
+      // E. 市場快照更新 (Ticker & Trader Tab)
       if (payload.snapshots && typeof payload.snapshots === 'object') {
         const sn = payload.snapshots;
         const updTrader = (name, val, snapshot = null) => {
@@ -1468,6 +1530,7 @@
             it.date = snapshot?.as_of || dateStr;
             it.dataStatus = 'verified';
             it.source = snapshot?.source || '自動資料包';
+            it.sourceUrl = 'https://finance.yahoo.com/';
           }
         };
         if (sn.sp500) {
@@ -1526,13 +1589,13 @@
         const el = document.getElementById('tk-twd');
         if (el) el.textContent = payload.fx.TWD;
         const it = TRADER_ITEMS.find(x => x.name === '美元/台幣');
-        if (it) { it.val = String(payload.fx.TWD); it.date = dateStr; it.dataStatus = 'verified'; it.source = '公開匯率 API'; }
+        if (it) { it.val = String(payload.fx.TWD); it.date = dateStr; it.dataStatus = 'verified'; it.source = 'Open ER-API'; it.sourceUrl = 'https://www.exchangerate-api.com/'; }
       }
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
         const it = TRADER_ITEMS.find(x => x.name === '比特幣/美元');
-        if (it) { it.val = payload.crypto.btc_price.toLocaleString('en-US'); it.date = dateStr; it.dataStatus = 'verified'; it.source = 'CoinGecko'; }
+        if (it) { it.val = payload.crypto.btc_price.toLocaleString('en-US'); it.date = dateStr; it.dataStatus = 'verified'; it.source = 'CoinGecko'; it.sourceUrl = 'https://www.coingecko.com/'; }
       }
 
       // F. 狀態標記
@@ -1599,7 +1662,7 @@
         if (Object.keys(rates).length > 0) {
           const updateTrader = (name, val) => {
             const it = TRADER_ITEMS.find(x => x.name === name);
-            if (it && val) { it.val = val; it.date = todayStr; it.dataStatus = 'verified'; it.source = '公開匯率 API'; }
+            if (it && val) { it.val = val; it.date = todayStr; it.dataStatus = 'verified'; it.source = '公開匯率 API'; it.sourceUrl = 'https://www.frankfurter.app/'; }
           };
           if (rates.EUR) updateTrader('歐元/美元', (1 / rates.EUR).toFixed(4));
           if (rates.GBP) updateTrader('英鎊/美元', (1 / rates.GBP).toFixed(4));
@@ -1633,14 +1696,14 @@
             const tkBtc = document.getElementById('tk-btc');
             if (tkBtc) tkBtc.textContent = '$' + btcPrice;
             const btcItem = TRADER_ITEMS.find(x => x.name === '比特幣/美元');
-            if (btcItem) { btcItem.val = btcPrice; btcItem.date = todayStr; btcItem.dataStatus = 'verified'; btcItem.source = 'CoinGecko'; }
+            if (btcItem) { btcItem.val = btcPrice; btcItem.date = todayStr; btcItem.dataStatus = 'verified'; btcItem.source = 'CoinGecko'; btcItem.sourceUrl = 'https://www.coingecko.com/'; }
           }
           const usdtCap = cg.tether?.usd_market_cap || 0;
           const usdcCap = cg['usd-coin']?.usd_market_cap || 0;
           if (usdtCap + usdcCap > 0) {
             const totalB = ((usdtCap + usdcCap) / 1e9).toFixed(1) + 'b';
             const stbItem = TRADER_ITEMS.find(x => x.name === '穩定幣-市值');
-            if (stbItem) { stbItem.val = totalB; stbItem.date = todayStr; stbItem.dataStatus = 'verified'; stbItem.source = 'CoinGecko'; }
+            if (stbItem) { stbItem.val = totalB; stbItem.date = todayStr; stbItem.dataStatus = 'verified'; stbItem.source = 'CoinGecko'; stbItem.sourceUrl = 'https://www.coingecko.com/'; }
           }
           updatedSources.push('加密/穩定幣');
         }
@@ -1746,6 +1809,7 @@
       document.getElementById(`tab-${tabId}`).classList.remove('hidden');
 
       document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.disabled === 'true') return;
         const active = btn.dataset.tab === tabId;
         btn.className = `nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5 ${
           active
@@ -2236,6 +2300,7 @@
 
       const q = state.trader.query.toLowerCase();
       const filtered = TRADER_ITEMS.filter(it => {
+        if (it.dataStatus !== 'verified') return false;
         const mCat = state.trader.cat === 'ALL' || it.cat === state.trader.cat;
         const mQuad = state.trader.quad === 'ALL' || it.quad === state.trader.quad;
         const mQ = !q || it.name.toLowerCase().includes(q) || it.sub.toLowerCase().includes(q) || it.desc.toLowerCase().includes(q);
@@ -2258,7 +2323,10 @@
                 <span class="px-2 py-0.5 rounded-full font-medium ${qm.cls}">${qm.label}</span>
               </div>
               <h3 class="font-semibold text-base mt-1.5 text-slate-900 dark:text-slate-100">${it.name}</h3>
-              <span class="inline-flex mt-2 text-[10px] px-2 py-0.5 rounded-full ${it.dataStatus === 'verified' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-amber-500/10 text-amber-700 dark:text-amber-300'}">${it.dataStatus === 'verified' ? '來源更新' : '示範快照'}</span>
+              <div class="mt-2 flex items-center gap-2">
+                <span class="inline-flex text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">已驗證來源</span>
+                ${it.sourceUrl ? `<a href="${it.sourceUrl}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-[10px] text-blue-600 dark:text-blue-400 hover:underline">查看來源</a>` : ''}
+              </div>
             </div>
             <div class="flex items-baseline justify-between border-t border-slate-100 dark:border-slate-800 pt-2.5">
               <span class="text-xl font-bold tabular-nums text-blue-600 dark:text-blue-400">${it.val}</span>
@@ -2796,7 +2864,7 @@
       document.querySelectorAll('.top5-btn').forEach(btn => {
         btn.addEventListener('click', () => { state.scorecard.top5Cat = btn.dataset.top5; renderTop5(); });
       });
-      document.getElementById('top5-more-btn').addEventListener('click', () => switchTab('etf'));
+      document.getElementById('top5-more-btn').addEventListener('click', () => switchTab('heatmap'));
 
       // Trader tab events
       document.querySelectorAll('.tquad-btn').forEach(btn => {
@@ -2807,10 +2875,6 @@
       });
       document.getElementById('trader-search').addEventListener('input', e => {
         state.trader.query = e.target.value; renderTraderTab();
-      });
-      document.getElementById('trader-period').addEventListener('change', e => {
-        showToast(`已切換至 ${e.target.value} 基本面情境快照`);
-        renderTraderTab();
       });
       const traderModal = document.getElementById('trader-modal');
       document.getElementById('tm-close').addEventListener('click', () => traderModal.classList.add('hidden'));
@@ -2885,7 +2949,7 @@
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
       const hashTab = (window.location.hash || '').slice(1);
-      const validTabs = ['dashboard', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'etf', 'calendar', 'mydash', 'import'];
+      const validTabs = ['dashboard', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'mydash', 'import'];
       const initialTab = validTabs.includes(hashTab) ? hashTab : 'dashboard';
       switchTab(initialTab);
       syncLivePublicData(false);
