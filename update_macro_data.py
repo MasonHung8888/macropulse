@@ -700,6 +700,76 @@ def compute_equity_risk_premium(sp500_price, us10y_yield, sp500_forward_pe=22.4)
     }
 
 
+
+def compute_fed_net_liquidity():
+    """
+    計算美國聯準會 (Fed) 淨流動性指數:
+    Net Liquidity = Fed 總資產 (WALCL) - 財政部 TGA 存款 (WTREGEN) - 隔夜逆回購 RRP (RRPONTSYD)
+    """
+    print("9/10 抓取與計算美國 Fed 淨流動性指數 (Net Liquidity)...")
+    try:
+        obs = fetch_fred_observations(['WALCL', 'WTREGEN', 'RRPONTSYD'])
+        if not obs.get('WALCL') or not obs.get('WTREGEN'):
+            return None
+
+        walcl_m = {d[:7]: v / 1000.0 for d, v in obs['WALCL']}
+        wtregen_m = {d[:7]: v / 1000.0 for d, v in obs['WTREGEN']}
+        rrp_m = {d[:7]: v for d, v in obs.get('RRPONTSYD', [])}
+
+        months = sorted(set(walcl_m.keys()) & set(wtregen_m.keys()))[-24:]
+        history = []
+        for m in months:
+            w = walcl_m[m]
+            t = wtregen_m[m]
+            r = rrp_m.get(m, 0.0)
+            net_b = round(w - t - r, 2)
+            net_t = round(net_b / 1000.0, 3)
+            history.append({
+                "date": m,
+                "total_assets_billions": round(w, 2),
+                "tga_billions": round(t, 2),
+                "rrp_billions": round(r, 2),
+                "net_liquidity_billions": net_b,
+                "net_liquidity_trillions": net_t,
+            })
+
+        latest = history[-1] if history else None
+        prev = history[-2] if len(history) >= 2 else latest
+        mom_change_b = round(latest["net_liquidity_billions"] - prev["net_liquidity_billions"], 2)
+        mom_change_pct = round((mom_change_b / prev["net_liquidity_billions"]) * 100, 2)
+
+        if mom_change_b > 0:
+            regime = "流動性擴張注入中 (資金面偏多)"
+            regime_key = "expanding"
+            color = "emerald"
+            desc = f"Fed 總資產維持在 ${round(latest['total_assets_billions']/1000, 2)} 兆美元，近期受財政支出挹注，淨流動性單月回升 +${mom_change_b:,.0f} 億美元 (+{mom_change_pct}%)，為美股與風險資產提供流動性支撐。"
+        else:
+            regime = "流動性收縮抽水 (資金面謹慎)"
+            regime_key = "contracting"
+            color = "amber"
+            desc = f"Fed 淨流動性單月下滑 -${abs(mom_change_b):,.0f} 億美元 ({mom_change_pct}%)，主要受量化緊縮 (QT) 或財政部 TGA 發債吸水影響，市場流動性趨於緊縮。"
+
+        latest_info = {
+            **latest,
+            "mom_change_billions": mom_change_b,
+            "mom_change_pct": mom_change_pct,
+            "regime": regime,
+            "regime_key": regime_key,
+            "color": color,
+            "desc": desc,
+        }
+        print(f"  -> Fed 淨流動性最新: ${latest['net_liquidity_trillions']} 兆美元 (單月 {mom_change_pct:+}%)")
+        return {
+            "latest": latest_info,
+            "history": history,
+            "source": "Federal Reserve (FRED WALCL, WTREGEN, RRPONTSYD)",
+            "source_url": "https://fred.stlouisfed.org/",
+        }
+    except Exception as e:
+        print(f"  Fed 淨流動性計算失敗: {e}")
+        return None
+
+
 def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
@@ -945,6 +1015,22 @@ def main():
             "data": [d["erp"] for d in erp_data["history"]],
         }
         payload["snapshots"]["erp"] = erp_data["erp"]
+
+    # 9.5 美國 Fed 淨流動性指數 (Net Liquidity)
+    fed_liq = compute_fed_net_liquidity()
+    if not fed_liq and "fed_liquidity" in existing_payload:
+        fed_liq = existing_payload["fed_liquidity"]
+        print("  -> 使用上一份有效的 Fed 淨流動性資料")
+
+    if fed_liq and fed_liq.get("latest"):
+        payload["fed_liquidity"] = fed_liq
+        payload["series"]["fedNetLiquidity"] = {
+            "name": "美國 Fed 淨流動性 (兆美元) [官方]",
+            "unit": "兆美元",
+            "labels": [d["date"] for d in fed_liq["history"]],
+            "data": [d["net_liquidity_trillions"] for d in fed_liq["history"]],
+        }
+        payload["snapshots"]["fed_net_liquidity"] = fed_liq["latest"]["net_liquidity_trillions"]
 
     # 10. 跨市場 8x8 資產相關性矩陣
     corr_data = compute_cross_market_correlation()

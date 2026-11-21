@@ -358,6 +358,76 @@
           </div>
         </div>
       </div>
+
+      <!-- 美國 Fed 淨流動性指數 (Fed Net Liquidity Tracker) 與標普 500 走勢 -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="droplets" class="w-5 h-5 text-cyan-500"></i> 美國 Fed 淨流動性指數 (Fed Net Liquidity Tracker)
+              </h2>
+              <span id="fed-liq-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-cyan-500/15 text-cyan-600 dark:text-cyan-400">流動性追蹤</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              Fed 淨流動性 = Fed 總資產 (WALCL) − 財政部 TGA 存款 (WTREGEN) − 隔夜逆回購 (RRPONTSYD)；量化推動風險性資產 (S&amp;P 500) 定價的真實美元資金水位
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <a href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline flex items-center gap-1 font-medium">
+              FRED 官方數據庫 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 KPI 數值卡片 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-lg bg-cyan-50/50 dark:bg-cyan-950/20 border border-cyan-200/70 dark:border-cyan-800/50">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Fed 淨流動性總量 (最新)</div>
+            <div id="fed-net-liq-val" class="text-2xl font-bold tabular-nums mt-1 text-cyan-600 dark:text-cyan-400">$5.82 兆</div>
+            <div id="fed-net-liq-sub" class="text-[11px] text-cyan-600 dark:text-cyan-400 mt-0.5">月增 +$82.9B (+1.4%)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">1. Fed 總資產規模 (WALCL)</div>
+            <div id="fed-assets-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-800 dark:text-slate-200">$6.74 兆</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">FRED 每週三結算資產負債表</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">2. 扣除：財政部 TGA 存款</div>
+            <div id="fed-tga-val" class="text-2xl font-bold tabular-nums mt-1 text-amber-500">$916.6 億</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">美財政部存放 Fed 一般帳戶 (抽回市場資金)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">3. 扣除：隔夜逆回購 (ON RRP)</div>
+            <div id="fed-rrp-val" class="text-2xl font-bold tabular-nums mt-1 text-rose-500">$4.0 億</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">貨幣基金停泊 Fed 資金池 (未投入市場)</div>
+          </div>
+        </div>
+
+        <!-- 雙軸走勢圖與說明 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <div class="lg:col-span-8">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 24 個月 Fed 淨流動性 (兆美元，左軸) vs 標普 500 指數 (右軸)</span>
+              <span class="text-[11px] text-slate-400">水庫放水 → 資產估值擴張 ｜ 水庫抽水 → 估值承壓</span>
+            </div>
+            <div class="relative h-64">
+              <canvas id="fedLiquidityChart"></canvas>
+            </div>
+          </div>
+          <div class="lg:col-span-4 flex flex-col justify-between space-y-3 text-xs text-slate-600 dark:text-slate-300">
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+              <div class="font-bold text-slate-900 dark:text-white mb-1">💡 為什麼華爾街高度緊盯 Fed 淨流動性？</div>
+              <p class="leading-relaxed">
+                傳統只看 Fed 升降息或單純縮表 (QT) 容易失真。淨流動性代表「扣除被財政部 (TGA) 與逆回購 (RRP) 鎖死在 Fed 的資金後，真正留在商業銀行體系與金融市場可自由流通的基礎貨幣總量」。當淨流動性上升時，美股往往迎來充沛估值推升動能；反之流動性萎縮則加劇股市回檔風險。
+              </p>
+            </div>
+            <div id="fed-liq-commentary" class="p-3 rounded-lg border leading-relaxed bg-cyan-500/10 border-cyan-500/30 text-cyan-900 dark:text-cyan-200">
+              淨流動性最新為 $5.82 兆美元，近月變動 +$82.91 億美元 (+1.44%)。處於「流動性擴張注入中 (資金面偏多)」，美股標普 500 估值獲得總體資金面有力支撐。
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR & NDC INDICATORS -->
@@ -638,6 +708,7 @@
         <button data-preset="twM1bM2Spread|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">M1B-M2 剪刀差 vs 台股</button>
         <button data-preset="ndcScore|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">國發會景氣燈號 vs 台股</button>
         <button data-preset="equityRiskPremium|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美股 ERP 溢價 vs S&amp;P 500</button>
+        <button data-preset="fedNetLiquidity|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 transition-colors">Fed 淨流動性 vs S&amp;P 500</button>
         <button data-preset="us10y|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美債 10Y vs S&amp;P 500</button>
         <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
       </div>
@@ -777,6 +848,7 @@
             <option value="twM1bM2Spread">台灣 M1B - M2 剪刀差 (%)</option>
             <option value="ndcScore">國發會景氣綜合判斷分數 (分)</option>
             <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
+            <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
             <option value="spread10y2y">美債 10Y - 2Y 殖利率利差 (%)</option>
             <option value="usCpi">美國 CPI 年增率 (%)</option>
             <option value="us10y">美國 10 年期公債殖利率 (%)</option>
@@ -1653,6 +1725,49 @@
       if (kpiSub) kpiSub.textContent = `官方評定：${NDC_DEFAULT_DATA.latest.desc}`;
     }
 
+    // --- 3.6 Fed Net Liquidity Default Fallback ---
+    const FED_LIQUIDITY_DEFAULT_DATA = {
+      latest: {
+        date: '2026-11',
+        total_assets_billions: 6741.45,
+        tga_billions: 916.61,
+        rrp_billions: 0.40,
+        net_liquidity_billions: 5824.44,
+        net_liquidity_trillions: 5.824,
+        mom_change_billions: 82.91,
+        mom_change_pct: 1.44,
+        regime: '流動性擴張注入中 (資金面偏多)',
+        desc: 'Fed 淨流動性最新為 $5,824.4 億美元 (約 $5.82 兆)，近月變動 +$82.9 億美元 (+1.44%)。扣除 TGA ($916.6B) 與隔夜逆回購 ($0.4B) 後，流動性呈現擴張，資金面偏多有利風險資產。'
+      }
+    };
+
+    function populateFedLiquidityDefaultIfEmpty() {
+      const netVal = document.getElementById('fed-net-liq-val');
+      if (netVal && (!netVal.textContent || netVal.textContent === '—' || netVal.textContent.includes('5.82'))) {
+        const fed = FED_LIQUIDITY_DEFAULT_DATA.latest;
+        netVal.textContent = `$${(fed.net_liquidity_billions / 1000).toFixed(2)} 兆`;
+        const netSub = document.getElementById('fed-net-liq-sub');
+        if (netSub) {
+          const sign = fed.mom_change_billions >= 0 ? '+' : '';
+          netSub.textContent = `月增 ${sign}$${fed.mom_change_billions.toFixed(1)}B (${sign}${fed.mom_change_pct.toFixed(1)}%)`;
+          netSub.className = `text-[11px] mt-0.5 ${fed.mom_change_billions >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+        }
+        const assetsVal = document.getElementById('fed-assets-val');
+        if (assetsVal) assetsVal.textContent = `$${(fed.total_assets_billions / 1000).toFixed(2)} 兆`;
+        const tgaVal = document.getElementById('fed-tga-val');
+        if (tgaVal) tgaVal.textContent = `$${fed.tga_billions.toFixed(1)} 億`;
+        const rrpVal = document.getElementById('fed-rrp-val');
+        if (rrpVal) rrpVal.textContent = `$${fed.rrp_billions.toFixed(1)} 億`;
+        const badge = document.getElementById('fed-liq-badge');
+        if (badge) {
+          badge.textContent = fed.regime;
+          badge.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${fed.mom_change_billions >= 0 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-600 dark:text-rose-400'}`;
+        }
+        const comm = document.getElementById('fed-liq-commentary');
+        if (comm) comm.textContent = fed.desc;
+      }
+    }
+
     // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
     const CORRELATION_ASSETS = [
       { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
@@ -1728,7 +1843,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -2141,6 +2256,53 @@
         count++;
       }
 
+      // J. 美國 Fed 淨流動性指數 (Fed Net Liquidity Tracker)
+      if (payload.fed_liquidity && payload.fed_liquidity.latest) {
+        const fed = payload.fed_liquidity.latest;
+        const netVal = document.getElementById('fed-net-liq-val');
+        const netSub = document.getElementById('fed-net-liq-sub');
+        const assetsVal = document.getElementById('fed-assets-val');
+        const tgaVal = document.getElementById('fed-tga-val');
+        const rrpVal = document.getElementById('fed-rrp-val');
+        const badge = document.getElementById('fed-liq-badge');
+        const comm = document.getElementById('fed-liq-commentary');
+
+        if (netVal) netVal.textContent = `$${(fed.net_liquidity_billions / 1000).toFixed(2)} 兆`;
+        if (netSub) {
+          const sign = fed.mom_change_billions >= 0 ? '+' : '';
+          netSub.textContent = `月增 ${sign}$${fed.mom_change_billions.toFixed(1)}B (${sign}${fed.mom_change_pct.toFixed(1)}%)`;
+          netSub.className = `text-[11px] mt-0.5 ${fed.mom_change_billions >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+        }
+        if (assetsVal) assetsVal.textContent = `$${(fed.total_assets_billions / 1000).toFixed(2)} 兆`;
+        if (tgaVal) tgaVal.textContent = `$${fed.tga_billions.toFixed(1)} 億`;
+        if (rrpVal) rrpVal.textContent = `$${fed.rrp_billions.toFixed(1)} 億`;
+        if (badge) {
+          badge.textContent = fed.regime;
+          badge.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${fed.mom_change_billions >= 0 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-600 dark:text-rose-400'}`;
+        }
+        if (comm) comm.textContent = fed.desc;
+
+        if (COUNTRY_DATA.US && COUNTRY_DATA.US.insights) {
+          COUNTRY_DATA.US.insights.push(`美國 Fed 淨流動性總量為 $${(fed.net_liquidity_billions / 1000).toFixed(2)} 兆美元（資產規模 $${(fed.total_assets_billions / 1000).toFixed(2)}T − TGA $${fed.tga_billions.toFixed(0)}B − RRP $${fed.rrp_billions.toFixed(1)}B），處於「${fed.regime}」。`);
+        }
+
+        let item = TRADER_ITEMS.find(x => x.name === '美股-Fed淨流動性');
+        if (!item) {
+          item = { cat: '總經數據', sub: '美國', name: '美股-Fed淨流動性', quad: 'HIGH_UP', vars: 'WALCL - WTREGEN - RRP' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `$${(fed.net_liquidity_billions / 1000).toFixed(2)}T`;
+        item.date = fed.date || dateStr;
+        item.desc = `Fed 扣除財政部 TGA 與隔夜逆回購之真實流動性水位。${fed.regime}`;
+        item.dataStatus = 'verified';
+        item.source = payload.fed_liquidity.source || 'FRED (WALCL, WTREGEN, RRPONTSYD)';
+        item.sourceUrl = payload.fed_liquidity.source_url || 'https://fred.stlouisfed.org/';
+
+        count++;
+      } else {
+        populateFedLiquidityDefaultIfEmpty();
+      }
+
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
@@ -2163,6 +2325,7 @@
       }
 
       renderErpChart();
+      renderFedLiquidityChart();
       renderNdcChart();
       if (state.activeTab === 'dashboard') renderDashboard();
       if (state.activeTab === 'money') renderMoneyTab();
@@ -2603,6 +2766,7 @@
         plugins: [quadrantPlugin]
       });
       renderErpChart();
+      renderFedLiquidityChart();
     }
 
     function renderMoneyTab() {
@@ -2800,6 +2964,96 @@
               position: 'left',
               title: { display: true, text: 'ERP 溢價率 (%)', color: textColor() },
               grid: { color: gridColor() },
+              ticks: { color: textColor() }
+            }
+          }
+        }
+      });
+    }
+
+    function renderFedLiquidityChart() {
+      const canvas = document.getElementById('fedLiquidityChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.fedLiq) charts.fedLiq.destroy();
+
+      const fedSeries = SERIES_DB.fedNetLiquidity;
+      if (!fedSeries || !fedSeries.data || fedSeries.data.length === 0) return;
+
+      const labels = fedSeries.labels || MONTHS;
+      const fedValues = fedSeries.data;
+      const spSeries = SERIES_DB.sp500;
+      const spValues = (spSeries && spSeries.data) ? spSeries.data.slice(-labels.length) : [];
+
+      const datasets = [
+        {
+          label: 'Fed 淨流動性 (兆美元，左軸)',
+          data: fedValues,
+          borderColor: '#06b6d4',
+          backgroundColor: 'rgba(6, 182, 212, 0.12)',
+          pointBackgroundColor: '#06b6d4',
+          pointBorderColor: '#ffffff',
+          pointRadius: 3.5,
+          pointHoverRadius: 6,
+          tension: 0.25,
+          fill: true,
+          yAxisID: 'y'
+        }
+      ];
+
+      if (spValues.length === labels.length) {
+        datasets.push({
+          label: '標普 500 指數 (點，右軸)',
+          data: spValues,
+          borderColor: '#10b981',
+          borderDash: [4, 4],
+          pointRadius: 2,
+          tension: 0.25,
+          fill: false,
+          yAxisID: 'y1'
+        });
+      }
+
+      charts.fedLiq = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  if (c.datasetIndex === 0) {
+                    return `Fed 淨流動性: $${Number(c.raw).toFixed(3)} 兆美元`;
+                  }
+                  return `標普 500: ${Math.round(c.raw).toLocaleString()} 點`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: {
+              type: 'linear',
+              position: 'left',
+              title: { display: true, text: '淨流動性 (兆美元)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: {
+                color: textColor(),
+                callback: function(v) { return `$${v}T`; }
+              }
+            },
+            y1: {
+              type: 'linear',
+              position: 'right',
+              title: { display: true, text: '標普 500 (點)', color: textColor() },
+              grid: { drawOnChartArea: false },
               ticks: { color: textColor() }
             }
           }
@@ -3058,6 +3312,7 @@
       if (ind === 'twM1bM2Spread') { slider.min = -0.5; slider.max = 1.5; slider.step = 0.05; }
       else if (ind === 'ndcScore') { slider.min = 10; slider.max = 45; slider.step = 1; }
       else if (ind === 'equityRiskPremium') { slider.min = -1.5; slider.max = 2.0; slider.step = 0.05; }
+      else if (ind === 'fedNetLiquidity') { slider.min = 5.0; slider.max = 6.5; slider.step = 0.05; }
       else if (ind === 'spread10y2y') { slider.min = -0.2; slider.max = 0.5; slider.step = 0.05; }
       else if (ind === 'usCpi') { slider.min = 2.0; slider.max = 4.0; slider.step = 0.1; }
       else { slider.min = 4.0; slider.max = 5.2; slider.step = 0.05; }

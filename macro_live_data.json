@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-21T03:16:20Z",
+  "updated_at": "2026-11-21T03:34:02Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -948,7 +948,8 @@
     "us10y": 4.91,
     "spread10y5y": 0.21,
     "ndc_score": 41,
-    "erp": -0.45
+    "erp": -0.45,
+    "fed_net_liquidity": 5.824
   },
   "series": {
     "twM1b": {
@@ -2638,6 +2639,62 @@
         -0.64,
         -0.45
       ]
+    },
+    "fedNetLiquidity": {
+      "name": "美國 Fed 淨流動性 (兆美元) [官方]",
+      "unit": "兆美元",
+      "labels": [
+        "2024-12",
+        "2025-01",
+        "2025-02",
+        "2025-03",
+        "2025-04",
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10",
+        "2026-11"
+      ],
+      "data": [
+        5.648,
+        5.846,
+        5.851,
+        5.981,
+        5.863,
+        5.89,
+        5.837,
+        6.058,
+        5.935,
+        5.754,
+        5.577,
+        5.641,
+        5.697,
+        5.655,
+        5.71,
+        5.767,
+        5.71,
+        5.862,
+        5.79,
+        5.825,
+        5.773,
+        5.783,
+        5.742,
+        5.824
+      ]
     }
   },
   "fx": {
@@ -2649,7 +2706,7 @@
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 58383,
+    "btc_price": 57133,
     "stablecoin_market_cap_b": 243.0
   },
   "macro_indicators": {
@@ -3549,7 +3606,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-21T03:16:32Z",
+    "validated_at": "2026-11-21T03:34:20Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -3582,6 +3639,218 @@
         "required": 6
       }
     ]
+  },
+  "fed_liquidity": {
+    "latest": {
+      "date": "2026-11",
+      "total_assets_billions": 6741.45,
+      "tga_billions": 916.61,
+      "rrp_billions": 0.4,
+      "net_liquidity_billions": 5824.44,
+      "net_liquidity_trillions": 5.824,
+      "mom_change_billions": 82.91,
+      "mom_change_pct": 1.44,
+      "regime": "流動性擴張注入中 (資金面偏多)",
+      "regime_key": "expanding",
+      "color": "emerald",
+      "desc": "Fed 總資產維持在 $6.74 兆美元，近期受財政支出挹注，淨流動性單月回升 +$83 億美元 (+1.44%)，為美股與風險資產提供流動性支撐。"
+    },
+    "history": [
+      {
+        "date": "2024-12",
+        "total_assets_billions": 6885.96,
+        "tga_billions": 764.77,
+        "rrp_billions": 473.46,
+        "net_liquidity_billions": 5647.73,
+        "net_liquidity_trillions": 5.648
+      },
+      {
+        "date": "2025-01",
+        "total_assets_billions": 6818.19,
+        "tga_billions": 784.21,
+        "rrp_billions": 187.91,
+        "net_liquidity_billions": 5846.07,
+        "net_liquidity_trillions": 5.846
+      },
+      {
+        "date": "2025-02",
+        "total_assets_billions": 6766.1,
+        "tga_billions": 681.16,
+        "rrp_billions": 234.42,
+        "net_liquidity_billions": 5850.52,
+        "net_liquidity_trillions": 5.851
+      },
+      {
+        "date": "2025-03",
+        "total_assets_billions": 6740.25,
+        "tga_billions": 360.18,
+        "rrp_billions": 399.17,
+        "net_liquidity_billions": 5980.91,
+        "net_liquidity_trillions": 5.981
+      },
+      {
+        "date": "2025-04",
+        "total_assets_billions": 6709.28,
+        "tga_billions": 595.74,
+        "rrp_billions": 250.6,
+        "net_liquidity_billions": 5862.94,
+        "net_liquidity_trillions": 5.863
+      },
+      {
+        "date": "2025-05",
+        "total_assets_billions": 6673.24,
+        "tga_billions": 467.2,
+        "rrp_billions": 315.66,
+        "net_liquidity_billions": 5890.38,
+        "net_liquidity_trillions": 5.89
+      },
+      {
+        "date": "2025-06",
+        "total_assets_billions": 6662.2,
+        "tga_billions": 364.38,
+        "rrp_billions": 460.73,
+        "net_liquidity_billions": 5837.09,
+        "net_liquidity_trillions": 5.837
+      },
+      {
+        "date": "2025-07",
+        "total_assets_billions": 6642.58,
+        "tga_billions": 370.51,
+        "rrp_billions": 214.44,
+        "net_liquidity_billions": 6057.63,
+        "net_liquidity_trillions": 6.058
+      },
+      {
+        "date": "2025-08",
+        "total_assets_billions": 6603.38,
+        "tga_billions": 590.0,
+        "rrp_billions": 77.9,
+        "net_liquidity_billions": 5935.49,
+        "net_liquidity_trillions": 5.935
+      },
+      {
+        "date": "2025-09",
+        "total_assets_billions": 6608.4,
+        "tga_billions": 804.86,
+        "rrp_billions": 49.07,
+        "net_liquidity_billions": 5754.47,
+        "net_liquidity_trillions": 5.754
+      },
+      {
+        "date": "2025-10",
+        "total_assets_billions": 6587.03,
+        "tga_billions": 957.99,
+        "rrp_billions": 51.8,
+        "net_liquidity_billions": 5577.24,
+        "net_liquidity_trillions": 5.577
+      },
+      {
+        "date": "2025-11",
+        "total_assets_billions": 6552.42,
+        "tga_billions": 903.39,
+        "rrp_billions": 7.56,
+        "net_liquidity_billions": 5641.46,
+        "net_liquidity_trillions": 5.641
+      },
+      {
+        "date": "2025-12",
+        "total_assets_billions": 6640.62,
+        "tga_billions": 837.31,
+        "rrp_billions": 105.99,
+        "net_liquidity_billions": 5697.32,
+        "net_liquidity_trillions": 5.697
+      },
+      {
+        "date": "2026-01",
+        "total_assets_billions": 6587.57,
+        "tga_billions": 923.04,
+        "rrp_billions": 9.63,
+        "net_liquidity_billions": 5654.9,
+        "net_liquidity_trillions": 5.655
+      },
+      {
+        "date": "2026-02",
+        "total_assets_billions": 6613.8,
+        "tga_billions": 887.61,
+        "rrp_billions": 16.32,
+        "net_liquidity_billions": 5709.87,
+        "net_liquidity_trillions": 5.71
+      },
+      {
+        "date": "2026-03",
+        "total_assets_billions": 6657.16,
+        "tga_billions": 874.08,
+        "rrp_billions": 15.78,
+        "net_liquidity_billions": 5767.3,
+        "net_liquidity_trillions": 5.767
+      },
+      {
+        "date": "2026-04",
+        "total_assets_billions": 6699.95,
+        "tga_billions": 981.93,
+        "rrp_billions": 8.26,
+        "net_liquidity_billions": 5709.76,
+        "net_liquidity_trillions": 5.71
+      },
+      {
+        "date": "2026-05",
+        "total_assets_billions": 6704.38,
+        "tga_billions": 830.3,
+        "rrp_billions": 11.68,
+        "net_liquidity_billions": 5862.41,
+        "net_liquidity_trillions": 5.862
+      },
+      {
+        "date": "2026-06",
+        "total_assets_billions": 6735.65,
+        "tga_billions": 918.7,
+        "rrp_billions": 26.9,
+        "net_liquidity_billions": 5790.05,
+        "net_liquidity_trillions": 5.79
+      },
+      {
+        "date": "2026-07",
+        "total_assets_billions": 6738.19,
+        "tga_billions": 910.78,
+        "rrp_billions": 2.15,
+        "net_liquidity_billions": 5825.26,
+        "net_liquidity_trillions": 5.825
+      },
+      {
+        "date": "2026-08",
+        "total_assets_billions": 6730.91,
+        "tga_billions": 950.74,
+        "rrp_billions": 6.73,
+        "net_liquidity_billions": 5773.45,
+        "net_liquidity_trillions": 5.773
+      },
+      {
+        "date": "2026-09",
+        "total_assets_billions": 6743.03,
+        "tga_billions": 948.67,
+        "rrp_billions": 11.54,
+        "net_liquidity_billions": 5782.82,
+        "net_liquidity_trillions": 5.783
+      },
+      {
+        "date": "2026-10",
+        "total_assets_billions": 6745.64,
+        "tga_billions": 999.73,
+        "rrp_billions": 4.38,
+        "net_liquidity_billions": 5741.53,
+        "net_liquidity_trillions": 5.742
+      },
+      {
+        "date": "2026-11",
+        "total_assets_billions": 6741.45,
+        "tga_billions": 916.61,
+        "rrp_billions": 0.4,
+        "net_liquidity_billions": 5824.44,
+        "net_liquidity_trillions": 5.824
+      }
+    ],
+    "source": "Federal Reserve (FRED WALCL, WTREGEN, RRPONTSYD)",
+    "source_url": "https://fred.stlouisfed.org/"
   },
   "correlation_matrix": {
     "as_of": "2026-11",
