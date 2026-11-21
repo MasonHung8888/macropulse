@@ -1141,26 +1141,38 @@
         </div>
       </div>
 
-      <!-- 3. 4 欄核心總覽 KPI (與 ERP/Fed Liquidity 儀表完全同款) -->
+      <!-- 3. 4 欄核心總覽 KPI (點擊可立即展開歷史走勢與技術位階) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">台灣加權指數 TAIEX</div>
-          <div id="tw-kpi-taiex" class="text-2xl font-bold tabular-nums mt-1 text-rose-600 dark:text-rose-400">36,033.29</div>
+        <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('index', 'taiex')">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">台灣加權指數 TAIEX</span>
+            <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+          </div>
+          <div id="tw-kpi-taiex" class="text-2xl font-bold tabular-nums mt-1 text-rose-600 dark:text-rose-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">36,033.29</div>
           <div class="text-[11px] text-rose-500 mt-0.5">-2,393.30 (-6.23%) · 距季線 -19.4%</div>
         </div>
-        <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">五大底部訊號模型得分</div>
-          <div id="tw-kpi-score" class="text-2xl font-bold tabular-nums mt-1 text-rose-600 dark:text-rose-400">37 / 100 分</div>
+        <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="document.getElementById('twRadarChart').scrollIntoView({behavior: 'smooth'})">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">五大底部訊號模型得分</span>
+            <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="gauge" class="w-3 h-3"></i> 雷達</span>
+          </div>
+          <div id="tw-kpi-score" class="text-2xl font-bold tabular-nums mt-1 text-rose-600 dark:text-rose-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">37 / 100 分</div>
           <div class="text-[11px] text-slate-500 mt-0.5">高風險區間 (0~39) · 浮額清洗中</div>
         </div>
-        <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">外資期貨淨空單 (TAIFEX)</div>
-          <div id="tw-kpi-future" class="text-2xl font-bold tabular-nums mt-1 text-amber-500">-97,863 口</div>
+        <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('flow', 'futures')">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">外資期貨淨空單 (TAIFEX)</span>
+            <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 詳情</span>
+          </div>
+          <div id="tw-kpi-future" class="text-2xl font-bold tabular-nums mt-1 text-amber-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">-97,863 口</div>
           <div class="text-[11px] text-slate-500 mt-0.5">現貨 -95.1 億 (賣壓已大幅收斂)</div>
         </div>
-        <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">融資單日洗盤 (TWSE)</div>
-          <div id="tw-kpi-margin" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400">-491.41 億</div>
+        <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('flow', 'margin')">
+          <div class="flex items-center justify-between">
+            <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">融資單日洗盤 (TWSE)</span>
+            <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 詳情</span>
+          </div>
+          <div id="tw-kpi-margin" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">-491.41 億</div>
           <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">歷史級斷頭清洗 · 餘額 4,352億</div>
         </div>
       </div>
@@ -1324,29 +1336,41 @@
           </div>
         </div>
 
-        <!-- 4 KPI 卡片 -->
+        <!-- 4 KPI 卡片 (點擊檢視歷史走勢) -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
-          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">外資現貨買賣超 (TWSE)</div>
-            <div id="tw-chip-foreign-val" class="text-2xl font-bold tabular-nums text-rose-600 dark:text-rose-400">-95.11 億</div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('index', 'taiex')">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">外資現貨買賣超 (TWSE)</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+            </div>
+            <div id="tw-chip-foreign-val" class="text-2xl font-bold tabular-nums text-rose-600 dark:text-rose-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">-95.11 億</div>
             <div class="text-[11px] text-emerald-600 dark:text-emerald-400">賣壓已自前波數百億顯著收斂</div>
           </div>
 
-          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">外資台指期未平倉淨空單 (TAIFEX)</div>
-            <div id="tw-chip-future-val" class="text-2xl font-bold tabular-nums text-rose-600 dark:text-rose-400">-97,863 口</div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('flow', 'futures')">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">外資台指期未平倉 (TAIFEX)</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 詳情</span>
+            </div>
+            <div id="tw-chip-future-val" class="text-2xl font-bold tabular-nums text-rose-600 dark:text-rose-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">-97,863 口</div>
             <div class="text-[11px] text-rose-600 dark:text-rose-400">處歷史極高避險水位 (-7,007億)</div>
           </div>
 
-          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">台股信用交易融資餘額 (TWSE)</div>
-            <div id="tw-chip-margin-val" class="text-2xl font-bold tabular-nums text-indigo-600 dark:text-indigo-400">4,352.27 億</div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('flow', 'margin')">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">融資餘額與去槓桿 (TWSE)</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 詳情</span>
+            </div>
+            <div id="tw-chip-margin-val" class="text-2xl font-bold tabular-nums text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">4,352.27 億</div>
             <div id="tw-chip-margin-diff" class="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">單日暴減 -491.41 億 (極致清洗)</div>
           </div>
 
-          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">大盤成交金額 (TWSE)</div>
-            <div id="tw-chip-vol-val" class="text-2xl font-bold tabular-nums text-slate-800 dark:text-slate-100">9,353 億</div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('flow', 'volume')">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">大盤成交金額 (TWSE)</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+            </div>
+            <div id="tw-chip-vol-val" class="text-2xl font-bold tabular-nums text-slate-800 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">9,353 億</div>
             <div class="text-[11px] text-amber-600 dark:text-amber-400">價跌量增 · 爆量多殺多恐慌換手</div>
           </div>
         </div>
@@ -1359,15 +1383,25 @@
               投信買賣超：<span class="text-rose-600 dark:text-rose-400 font-bold">-73.47 億</span>｜自營商合計：<span class="text-rose-600 dark:text-rose-400 font-bold">-340.83 億</span>（自營避險高達 -290.15 億，反映衍生性商品多殺多避險砍盤）
             </div>
           </div>
-          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/50 space-y-1 text-xs">
-            <div class="font-semibold text-slate-800 dark:text-slate-200">美元兌新台幣匯率 (USDTWD)</div>
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/50 space-y-1 text-xs cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('macro', 'usdtwd')">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">美元兌新台幣匯率 (USDTWD)</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+            </div>
             <div class="text-slate-500 dark:text-slate-400 leading-relaxed">
               最新匯率：<span class="text-amber-600 dark:text-amber-400 font-bold">32.99</span>｜近 20 日小幅貶值 +0.45%，台幣雖未大幅升值但亦未失控摜破 33.5 大關，顯示資金並未呈現無序外逃。
             </div>
           </div>
-          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/50 space-y-1 text-xs">
-            <div class="font-semibold text-slate-800 dark:text-slate-200">央行貨幣供給 M1B - M2 剪刀差</div>
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/50 space-y-1 text-xs cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('macro', 'twM1bM2Spread')">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">央行貨幣供給 M1B - M2 剪刀差</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+            </div>
             <div class="text-slate-500 dark:text-slate-400 leading-relaxed">
+              台灣 M1B: 7.20% ｜ M2: 7.24% ｜ 剪刀差: <span class="text-rose-600 dark:text-rose-400 font-bold">-0.04%</span>。目前處於微幅偏緊狀態，靜待流動性由負轉正形成黃金交叉。
+            </div>
+          </div>
+        </div>
               台灣 M1B: 7.20% ｜ M2: 7.24% ｜ 剪刀差: <span class="text-rose-600 dark:text-rose-400 font-bold">-0.04%</span>。目前處於微幅偏緊狀態，靜待流動性由負轉正形成黃金交叉。
             </div>
           </div>
@@ -1410,21 +1444,30 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-3.5">
-          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美國 10 年期公債殖利率 (^TNX)</div>
-            <div class="text-xl font-bold tabular-nums text-slate-800 dark:text-slate-200">4.91%</div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('macro', 'us10y')">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">美國 10 年期公債殖利率 (^TNX)</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+            </div>
+            <div class="text-xl font-bold tabular-nums text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">4.91%</div>
             <div class="text-[11px] text-amber-600 dark:text-amber-400">30Y 殖利率 5.08% · 折現重力仍高</div>
           </div>
 
-          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美元指數 (DXY) ＆ VIX 恐慌指數</div>
-            <div class="text-xl font-bold tabular-nums text-slate-800 dark:text-slate-200">DXY 100.85 · VIX 23.4</div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('macro', 'dxy')">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">美元指數 (DXY) ＆ VIX</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+            </div>
+            <div class="text-xl font-bold tabular-nums text-slate-800 dark:text-slate-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">DXY 100.85 · VIX 23.4</div>
             <div class="text-[11px] text-slate-500 dark:text-slate-400">美元平穩 · VIX 攀升至警戒水準</div>
           </div>
 
-          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">NVIDIA (NVDA) 最新股價走勢</div>
-            <div class="text-xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">$182.50</div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('macro', 'nvda')">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">NVIDIA (NVDA) 最新股價走勢</span>
+              <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+            </div>
+            <div class="text-xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">$182.50</div>
             <div class="text-[11px] text-emerald-600 dark:text-emerald-400">Blackwell 全力放量，晶片需求無虞</div>
           </div>
 
@@ -2379,6 +2422,90 @@
       <div class="flex justify-end pt-2">
         <button id="guide-ok-btn" type="button" class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium">開始使用</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Interactive History & Trend Modal (歷史數據走勢互動視窗) -->
+  <div id="history-modal" class="fixed inset-0 z-50 hidden bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-4xl w-full p-4 sm:p-6 space-y-4 shadow-2xl my-auto transition-all max-h-[92vh] overflow-y-auto">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 border border-indigo-200/50 dark:border-indigo-800/50">
+            <i data-lucide="line-chart" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span id="hm-badge" class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300">走勢圖</span>
+              <span id="hm-sub" class="text-xs text-slate-500 dark:text-slate-400 font-mono">--</span>
+            </div>
+            <h3 id="hm-title" class="text-lg sm:text-xl font-black text-slate-900 dark:text-white mt-0.5">標的歷史走勢</h3>
+          </div>
+        </div>
+        <button id="hm-close-btn" type="button" class="p-2 rounded-xl text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Current Price / Value & Stats Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+        <div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400">最新收盤 / 數值</div>
+          <div class="flex items-baseline gap-1 mt-0.5">
+            <span id="hm-latest-val" class="text-xl sm:text-2xl font-black tabular-nums text-slate-900 dark:text-white">--</span>
+            <span id="hm-unit" class="text-xs text-slate-500 dark:text-slate-400"></span>
+          </div>
+        </div>
+        <div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400">當日 / 期間變動</div>
+          <div id="hm-change-badge" class="text-base sm:text-lg font-bold tabular-nums mt-0.5 text-emerald-600 dark:text-emerald-400">--</div>
+        </div>
+        <div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400">月線 (20MA) / 乖離</div>
+          <div id="hm-ma20" class="text-sm sm:text-base font-bold tabular-nums text-amber-600 dark:text-amber-400 mt-0.5">--</div>
+        </div>
+        <div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400">季線 (60MA) / 區間回檔</div>
+          <div id="hm-ma60" class="text-sm sm:text-base font-bold tabular-nums text-purple-600 dark:text-purple-400 mt-0.5">--</div>
+        </div>
+      </div>
+
+      <!-- Chart Toolbar (Timeframe Selector & Legend) -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl" id="hm-timeframe-group">
+          <button type="button" data-period="20" class="hm-tf-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">1M (月)</button>
+          <button type="button" data-period="60" class="hm-tf-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">3M (季)</button>
+          <button type="button" data-period="120" class="hm-tf-btn px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-sm transition-all">6M (半年)</button>
+          <button type="button" data-period="250" class="hm-tf-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">1Y (年)</button>
+          <button type="button" data-period="all" class="hm-tf-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all">全部</button>
+        </div>
+        <div class="flex items-center gap-3 text-[11px] text-slate-500 dark:text-slate-400">
+          <span class="flex items-center gap-1.5"><span class="w-3 h-0.5 bg-indigo-600 inline-block"></span> 走勢基準</span>
+          <span id="hm-legend-ma20" class="flex items-center gap-1.5"><span class="w-3 h-0.5 border-t border-dashed border-amber-500 inline-block"></span> 20MA</span>
+          <span id="hm-legend-ma60" class="flex items-center gap-1.5"><span class="w-3 h-0.5 border-t border-dashed border-purple-500 inline-block"></span> 60MA</span>
+        </div>
+      </div>
+
+      <!-- Main Chart Container -->
+      <div class="relative w-full h-64 sm:h-80 bg-slate-50/50 dark:bg-slate-950/30 rounded-xl p-2 border border-slate-100 dark:border-slate-800">
+        <canvas id="histModalChart"></canvas>
+      </div>
+
+      <!-- Deep Dive Strategy or Macro Interpretation Drawer -->
+      <div id="hm-strategy-drawer" class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/60 text-xs space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+            <i data-lucide="target" class="w-4 h-4 text-indigo-500"></i>
+            <span id="hm-drawer-title">關鍵點位與買點策略分析</span>
+          </span>
+          <span id="hm-drawer-date" class="text-[10px] text-slate-400 font-mono"></span>
+        </div>
+        <div id="hm-drawer-body" class="text-slate-600 dark:text-slate-300 leading-relaxed space-y-1">
+          <!-- Dynamic strategy or description -->
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -3522,7 +3649,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -4688,6 +4815,425 @@
       }
     }
 
+    let currentHistItem = null;
+    let currentHistPeriod = 120; // 預設 6M (120 交易日)
+
+    function openItemHistoryModal(category, key) {
+      const DATA = TW_BOTTOM_DATA || {};
+      const histDB = DATA.history_db || {};
+      let item = {
+        title: '',
+        sub: '',
+        badge: '',
+        unit: '',
+        latestVal: '--',
+        changePct: null,
+        ma20Val: null,
+        ma60Val: null,
+        high60: null,
+        low60: null,
+        dates: [],
+        closes: [],
+        ma20: [],
+        ma60: [],
+        volumes: [],
+        drawerTitle: '關鍵點位與策略分析',
+        drawerDate: '',
+        drawerHtml: ''
+      };
+
+      if (category === 'stock') {
+        const stocks = DATA.focus_stocks || [];
+        const s = stocks.find(x => x.key === key) || {};
+        const h = s.history || histDB[key] || {};
+        
+        item.title = `${s.name || key} (${s.code || ''})`;
+        item.sub = s.type || '焦點個股 / ETF';
+        item.badge = '個股買點分析';
+        item.unit = '元';
+        item.latestVal = s.close ? s.close.toFixed(2) : '--';
+        item.changePct = s.change_pct;
+        item.ma20Val = s.ma20;
+        item.ma60Val = s.ma60;
+        item.high60 = s.high60;
+        item.low60 = s.low60;
+        item.dates = h.dates || [];
+        item.closes = h.closes || [];
+        item.ma20 = h.ma20 || [];
+        item.ma60 = h.ma60 || [];
+        item.volumes = h.volumes || [];
+        item.drawerTitle = `${s.name || key} 關鍵支撐壓力與三階買點規劃`;
+        item.drawerDate = DATA.market_date || '';
+        item.drawerHtml = `
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pb-2 border-b border-slate-200 dark:border-slate-700/60 text-xs">
+            <div><strong class="text-emerald-600 dark:text-emerald-400">核心支撐：</strong><span class="text-slate-700 dark:text-slate-300">${s.support || '—'}</span></div>
+            <div><strong class="text-amber-600 dark:text-amber-400">反彈壓力：</strong><span class="text-slate-700 dark:text-slate-300">${s.resistance || '—'}</span></div>
+            <div><strong class="text-rose-600 dark:text-rose-400">跌破失效：</strong><span class="text-slate-700 dark:text-slate-300">${s.invalidation || '—'}</span></div>
+          </div>
+          <div class="space-y-1 pt-1 text-xs">
+            <div><strong class="text-indigo-600 dark:text-indigo-400">🎯 三階分批進場條件：</strong></div>
+            <div class="text-slate-600 dark:text-slate-300"><span class="font-semibold text-slate-500">[保守型]:</span> ${s.conservative_buy || '—'}</div>
+            <div class="text-slate-600 dark:text-slate-300"><span class="font-semibold text-slate-500">[中性型]:</span> ${s.neutral_buy || '—'}</div>
+            <div class="text-slate-600 dark:text-slate-300"><span class="font-semibold text-slate-500">[積極型]:</span> ${s.aggressive_buy || '—'}</div>
+            <div class="text-rose-600 dark:text-rose-400 pt-1 text-[11px]"><span class="font-bold">⚠️ 暫緩買進條件:</span> ${s.halt_condition || '—'}</div>
+            <div class="text-slate-500 dark:text-slate-400 pt-1 text-[11px]"><span class="font-semibold">產業定位與估值:</span> ${s.pe_ratio || ''} · ${s.ai_exposure || ''}</div>
+          </div>
+        `;
+      } else if (category === 'index') {
+        const twIndices = (DATA.indices && DATA.indices.twse) || {};
+        const d = (twIndices[key] || (DATA.indices && DATA.indices[key])) || {};
+        const h = d.history || histDB[key] || (key === 'taiex' ? histDB.taiex : {});
+
+        const nameMap = {
+          taiex: '台灣加權指數 (TAIEX)',
+          semi: '台灣半導體類股指數',
+          elec: '台灣電子工業類股指數',
+          elec_parts: '台灣電子零組件類股指數',
+          tw50: '臺灣50指數 (大型權值)',
+          tpex: '櫃買指數 (TPEx 中小型股)',
+          sox: '費城半導體指數 (SOX)',
+          ndx: '那斯達克 100 指數 (NDX)'
+        };
+
+        item.title = nameMap[key] || key.toUpperCase();
+        item.sub = (key === 'sox' || key === 'ndx') ? '美股科技核心' : '台灣證券交易所 (TWSE)';
+        item.badge = '指數趨勢分析';
+        item.unit = '點';
+        item.latestVal = d.close ? Number(d.close).toLocaleString('en-US') : '--';
+        item.changePct = d.change_pct !== undefined ? d.change_pct : d.change;
+        item.ma20Val = d.ma20;
+        item.ma60Val = d.ma60;
+        item.high60 = d.high60;
+        item.low60 = d.low60;
+        item.dates = (h && h.dates) || [];
+        item.closes = (h && h.closes) || [];
+        item.ma20 = (h && h.ma20) || [];
+        item.ma60 = (h && h.ma60) || [];
+        item.volumes = (h && h.volumes) || [];
+
+        // Fallback to SERIES_DB if local history is missing
+        if ((!item.closes || item.closes.length === 0) && SERIES_DB[key]) {
+          item.dates = SERIES_DB[key].labels || MONTHS;
+          item.closes = SERIES_DB[key].data || [];
+        }
+
+        item.drawerTitle = `${item.title} 趨勢技術位階解讀`;
+        item.drawerDate = DATA.market_date || '';
+        item.drawerHtml = `
+          <div class="space-y-1 text-xs">
+            <div><strong>均線結構：</strong>${d.close && d.ma60 ? (d.close < d.ma60 ? '<span class="text-rose-500 font-bold">跌破季線 (60MA) 呈空方排列</span>' : '<span class="text-emerald-500 font-bold">守穩季線 (60MA) 之上</span>') : '均線計算中'}，距季線乖離率 <strong>${d.dist_ma60_pct !== undefined ? d.dist_ma60_pct.toFixed(1) + '%' : '—'}</strong>。</div>
+            <div><strong>區間回檔：</strong>距近 60 日波段最高點回檔 <strong>${d.dd60 !== undefined ? d.dd60.toFixed(1) + '%' : '—'}</strong>，近 5 日累積漲跌 <strong>${d.r5 !== undefined ? (d.r5 >= 0 ? '+' : '') + d.r5.toFixed(1) + '%' : '—'}</strong>。</div>
+            <div class="text-slate-500 dark:text-slate-400 pt-1 leading-relaxed">
+              ${key === 'taiex' ? '加權指數目前處於急跌後的融資去槓桿清洗階段。歷史經驗顯示，當大盤距 20MA 負乖離突破 -12%~-15% 時，通常隨時觸發技術性跌深強彈，需進一步觀察成交量是否出現「量縮止跌」或「帶量長下影線」。' : '觀察該指數是否領先大盤止跌收紅，作為領先反轉訊號的重要參考。'}
+            </div>
+          </div>
+        `;
+      } else if (category === 'flow') {
+        if (key === 'volume') {
+          const vol = DATA.volume_analysis || {};
+          const vHist = vol.history || {};
+          item.title = '台股加權指數日成交金額 (億元)';
+          item.sub = 'TWSE 集中市場成交動能';
+          item.badge = '量價結構分析';
+          item.unit = '億元';
+          item.latestVal = vol.latest_amount_billion ? Number(vol.latest_amount_billion).toLocaleString() : (vol.volume_amount_ntd_billion ? Number(vol.volume_amount_ntd_billion).toLocaleString() : '--');
+          item.changePct = null;
+          item.ma20Val = vol.vol_20ma;
+          item.dates = vHist.dates || [];
+          item.closes = vHist.amounts || [];
+          item.volumes = [];
+          item.drawerTitle = '大盤量價型態與多空動力解讀';
+          item.drawerDate = DATA.market_date || '';
+          item.drawerHtml = `
+            <div class="space-y-1.5 text-xs">
+              <div><strong>當前量價型態：</strong><span class="font-bold text-amber-500">${vol.pattern || '觀察中'}</span></div>
+              <div><strong>成交動能比較：</strong>最新金額 <strong>${vol.latest_amount_billion || '—'} 億</strong> ｜ 5 日均量 <strong>${vol.vol_5ma || '—'} 億</strong> ｜ 20 日均量 <strong>${vol.vol_20ma || '—'} 億</strong> (量比 <strong>${vol.vol_ratio_20ma || '100'}%</strong>)。</div>
+              <p class="text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
+                健康的底部結構往往由「爆量長黑恐慌拋售」過渡到「極度量縮築底（窒息量）」，最後由「放量長紅突破短期均線」確認反轉。目前正處於恐慌換手清洗階段。
+              </p>
+            </div>
+          `;
+        } else if (key === 'margin') {
+          const m = DATA.margin_trading || {};
+          item.title = '台股信用交易融資餘額與去槓桿監控';
+          item.sub = 'TWSE 集中市場信用交易';
+          item.badge = '散戶籌碼指標';
+          item.unit = '億元';
+          item.latestVal = m.margin_balance ? m.margin_balance.toFixed(2) : '--';
+          item.changePct = m.margin_diff;
+          item.drawerTitle = '融資清洗與斷頭賣壓評估';
+          item.drawerDate = m.date || DATA.market_date || '';
+          item.drawerHtml = `
+            <div class="space-y-1.5 text-xs">
+              <div><strong>單日融資變化：</strong><span class="font-bold text-emerald-500">${m.margin_diff ? m.margin_diff.toFixed(2) : '—'} 億元</span> (前日餘額 ${m.margin_prev ? m.margin_prev.toFixed(2) : '—'} 億)</div>
+              <div><strong>融券餘額：</strong>${m.short_balance ? m.short_balance.toLocaleString() : '—'} 張 (單日變化 ${m.short_diff ? (m.short_diff >= 0 ? '+' : '') + m.short_diff.toLocaleString() : '—'} 張)</div>
+              <p class="text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
+                融資單日暴減逾 300~400 億元通常為維持率不足引發的「無差別斷頭處分」。此種極致去槓桿洗盤雖然在短線上造成殺盤重壓，但實務上往往代表浮額徹底清洗乾淨，為法人與國家隊低接創造絕佳條件。
+              </p>
+            </div>
+          `;
+        } else if (key === 'futures') {
+          const f = DATA.futures_oi || {};
+          item.title = '外資台指期未平倉多空淨部位 (TAIFEX)';
+          item.sub = '台灣期貨交易所官方未平倉';
+          item.badge = '期貨避險指標';
+          item.unit = '口';
+          item.latestVal = f.net_contracts !== undefined ? f.net_contracts.toLocaleString() : '--';
+          item.changePct = null;
+          item.drawerTitle = '外資期貨多空部位戰略意圖';
+          item.drawerDate = DATA.market_date || '';
+          item.drawerHtml = `
+            <div class="space-y-1.5 text-xs">
+              <div><strong>未平倉淨部位：</strong><span class="font-bold text-rose-500">${f.net_contracts ? f.net_contracts.toLocaleString() : '—'} 口</span> (契約金額約 ${f.net_amount_thousand ? (f.net_amount_thousand / 1e5).toFixed(1) : '—'} 億元)</div>
+              <p class="text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
+                外資持有大量現貨（台積電等科技權值股），當期貨空單維持在 8 萬至 10 萬口極高水位時，主因為鎖定現貨利潤之宏觀對沖避險。當外資出現單日主動回補 1.5 萬口以上空單時，為強烈的空單軋空回補先行訊號。
+              </p>
+            </div>
+          `;
+        }
+      } else if (category === 'macro') {
+        const s = SERIES_DB[key] || {};
+        const h = histDB[key] || {};
+        item.title = s.name || (h.symbol ? `${h.symbol} 歷史走勢` : key);
+        item.sub = '全球總經與跨市場指標';
+        item.badge = '歷史序列監控';
+        item.unit = s.unit || '';
+        item.dates = (h.dates && h.dates.length > 0) ? h.dates : (s.labels || MONTHS);
+        item.closes = (h.closes && h.closes.length > 0) ? h.closes : (s.data || []);
+        item.ma20 = h.ma20 || [];
+        item.ma60 = h.ma60 || [];
+        item.latestVal = item.closes.length > 0 ? (typeof item.closes[item.closes.length - 1] === 'number' ? Number(item.closes[item.closes.length - 1]).toLocaleString('en-US') : item.closes[item.closes.length - 1]) : '--';
+        item.changePct = item.closes.length >= 2 ? (((item.closes[item.closes.length - 1] / item.closes[item.closes.length - 2]) - 1) * 100).toFixed(2) : null;
+        item.drawerTitle = `${item.title} 經濟意義與閥值解析`;
+        item.drawerDate = '官方歷史資料庫';
+        item.drawerHtml = `
+          <div class="space-y-1.5 text-xs">
+            <div><strong>資料長度：</strong>共收錄 <strong>${item.closes.length}</strong> 筆已驗證歷史數據。</div>
+            <p class="text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
+              本指標與台股及全球風險資產具備高度傳導關聯。透過觀察其歷史高低點與極端區間，可客觀評估市場是否處於過度樂觀（泡沫警訊）或非理性恐慌（超跌超賣價值浮現）。
+            </p>
+          </div>
+        `;
+      }
+
+      currentHistItem = item;
+      
+      // 更新視窗 DOM
+      document.getElementById('hm-title').textContent = item.title;
+      document.getElementById('hm-sub').textContent = item.sub;
+      document.getElementById('hm-badge').textContent = item.badge;
+      document.getElementById('hm-latest-val').textContent = item.latestVal;
+      document.getElementById('hm-unit').textContent = item.unit;
+      
+      const chgEl = document.getElementById('hm-change-badge');
+      if (item.changePct !== null && item.changePct !== undefined) {
+        const c = Number(item.changePct);
+        chgEl.textContent = `${c >= 0 ? '+' : ''}${c.toFixed(2)}%`;
+        chgEl.className = `text-base sm:text-lg font-bold tabular-nums mt-0.5 ${c >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`;
+      } else {
+        chgEl.textContent = '—';
+        chgEl.className = 'text-base sm:text-lg font-bold tabular-nums mt-0.5 text-slate-400';
+      }
+
+      const ma20El = document.getElementById('hm-ma20');
+      if (item.ma20Val) {
+        ma20El.textContent = typeof item.ma20Val === 'number' ? item.ma20Val.toFixed(1) : item.ma20Val;
+      } else {
+        ma20El.textContent = '—';
+      }
+
+      const ma60El = document.getElementById('hm-ma60');
+      if (item.ma60Val) {
+        ma60El.textContent = typeof item.ma60Val === 'number' ? item.ma60Val.toFixed(1) : item.ma60Val;
+      } else {
+        ma60El.textContent = '—';
+      }
+
+      document.getElementById('hm-drawer-title').textContent = item.drawerTitle;
+      document.getElementById('hm-drawer-date').textContent = item.drawerDate;
+      document.getElementById('hm-drawer-body').innerHTML = item.drawerHtml;
+
+      renderHistoryModalChart();
+
+      // 顯示 Modal
+      document.getElementById('history-modal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function renderHistoryModalChart() {
+      if (!currentHistItem) return;
+      const canvas = document.getElementById('histModalChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.histModal) {
+        charts.histModal.destroy();
+        charts.histModal = null;
+      }
+
+      const item = currentHistItem;
+      const totalLen = (item.closes || []).length;
+      if (totalLen === 0) return;
+
+      const p = currentHistPeriod === 'all' ? totalLen : Math.min(totalLen, Number(currentHistPeriod));
+      const dates = item.dates.slice(-p);
+      const closes = item.closes.slice(-p);
+      const ma20 = (item.ma20 && item.ma20.length > 0) ? item.ma20.slice(-p) : null;
+      const ma60 = (item.ma60 && item.ma60.length > 0) ? item.ma60.slice(-p) : null;
+      const vols = (item.volumes && item.volumes.length > 0) ? item.volumes.slice(-p) : null;
+
+      const isDark = document.documentElement.classList.contains('dark');
+      const gridColor = isDark ? 'rgba(51, 65, 85, 0.4)' : 'rgba(226, 232, 240, 0.8)';
+      const textColor = isDark ? '#94a3b8' : '#64748b';
+
+      const grad = ctx.createLinearGradient(0, 0, 0, 300);
+      grad.addColorStop(0, 'rgba(99, 102, 241, 0.3)');
+      grad.addColorStop(1, 'rgba(99, 102, 241, 0.0)');
+
+      const datasets = [
+        {
+          label: item.title,
+          data: closes,
+          borderColor: '#6366f1',
+          borderWidth: 2.2,
+          backgroundColor: grad,
+          fill: true,
+          tension: 0.2,
+          pointRadius: closes.length > 60 ? 0 : 2.5,
+          pointHoverRadius: 5,
+          yAxisID: 'y'
+        }
+      ];
+
+      if (ma20 && ma20.some(v => v !== null && v !== undefined)) {
+        datasets.push({
+          label: '20MA (月線)',
+          data: ma20,
+          borderColor: '#f59e0b',
+          borderWidth: 1.5,
+          borderDash: [4, 3],
+          fill: false,
+          tension: 0.2,
+          pointRadius: 0,
+          yAxisID: 'y'
+        });
+      }
+
+      if (ma60 && ma60.some(v => v !== null && v !== undefined)) {
+        datasets.push({
+          label: '60MA (季線)',
+          data: ma60,
+          borderColor: '#a855f7',
+          borderWidth: 1.5,
+          borderDash: [3, 2],
+          fill: false,
+          tension: 0.2,
+          pointRadius: 0,
+          yAxisID: 'y'
+        });
+      }
+
+      const hasVols = vols && vols.some(v => v > 0);
+      if (hasVols) {
+        datasets.push({
+          label: '成交量 (股/口)',
+          type: 'bar',
+          data: vols,
+          backgroundColor: 'rgba(148, 163, 184, 0.35)',
+          borderRadius: 2,
+          yAxisID: 'y1'
+        });
+      }
+
+      charts.histModal = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: dates,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: isDark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+              titleColor: isDark ? '#f8fafc' : '#0f172a',
+              bodyColor: isDark ? '#cbd5e1' : '#334155',
+              borderColor: isDark ? '#334155' : '#e2e8f0',
+              borderWidth: 1,
+              padding: 10,
+              displayColors: true,
+              callbacks: {
+                label: function(c) {
+                  const val = c.raw;
+                  if (val === null || val === undefined) return '';
+                  const numStr = Number.isFinite(val) ? val.toLocaleString('en-US') : val;
+                  return `${c.dataset.label}: ${numStr} ${c.dataset.yAxisID === 'y1' ? '' : item.unit}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              ticks: {
+                color: textColor,
+                font: { size: 10 },
+                maxTicksLimit: 8
+              }
+            },
+            y: {
+              position: 'left',
+              grid: { color: gridColor },
+              ticks: {
+                color: textColor,
+                font: { size: 10 },
+                callback: v => Number.isFinite(v) ? (v >= 1000 ? v.toLocaleString('en-US') : v) : v
+              }
+            },
+            y1: {
+              display: hasVols,
+              position: 'right',
+              grid: { display: false },
+              ticks: { display: false },
+              min: 0
+            }
+          }
+        }
+      });
+    }
+
+    function initHistoryModalEvents() {
+      const modal = document.getElementById('history-modal');
+      if (!modal) return;
+      const closeBtn = document.getElementById('hm-close-btn');
+      if (closeBtn) closeBtn.addEventListener('click', () => modal.classList.add('hidden'));
+
+      modal.addEventListener('click', e => {
+        if (e.target === modal) modal.classList.add('hidden');
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+          modal.classList.add('hidden');
+        }
+      });
+
+      // Timeframe buttons
+      const tfBtns = document.querySelectorAll('.hm-tf-btn');
+      tfBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          tfBtns.forEach(b => {
+            b.className = 'hm-tf-btn px-3 py-1 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all';
+          });
+          btn.className = 'hm-tf-btn px-3 py-1 rounded-lg text-xs font-semibold bg-indigo-600 text-white shadow-sm transition-all';
+          currentHistPeriod = btn.dataset.period;
+          renderHistoryModalChart();
+        });
+      });
+    }
+
     function renderFocusStocks(stocks) {
       const sContainer = document.getElementById('tw-stocks-cards-container');
       if (!sContainer || !stocks) return;
@@ -4700,11 +5246,11 @@
       });
 
       sContainer.innerHTML = filtered.map(s => `
-        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 space-y-3">
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 space-y-3 cursor-pointer hover:border-indigo-500/80 hover:shadow-lg transition-all group" onclick="openItemHistoryModal('stock', '${s.key}')">
           <div class="flex items-start justify-between">
             <div>
               <div class="flex items-center gap-2">
-                <span class="text-sm font-black text-slate-900 dark:text-white">${s.name}</span>
+                <span class="text-sm font-black text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${s.name}</span>
                 <span class="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-bold">${s.code}</span>
                 <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300">${s.type}</span>
               </div>
@@ -4713,6 +5259,9 @@
             <div class="text-right">
               <div class="text-lg font-black tabular-nums text-slate-900 dark:text-white">${s.close ? s.close.toFixed(2) : '—'} 元</div>
               <div class="text-xs font-bold tabular-nums ${s.change_pct >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">${s.change_pct >= 0 ? '+' : ''}${s.change_pct}%</div>
+              <div class="text-[10px] text-indigo-600 dark:text-indigo-400 font-medium flex items-center justify-end gap-1 mt-0.5 opacity-90 group-hover:opacity-100">
+                <i data-lucide="line-chart" class="w-3 h-3"></i> 歷史走勢
+              </div>
             </div>
           </div>
 
@@ -4951,14 +5500,14 @@
         const ndx = DATA.indices.ndx || {};
 
         const list = [
-          { name: '加權指數 TAIEX', data: tw.taiex, extra: DATA.volume_analysis ? DATA.volume_analysis.pattern : '大盤基準' },
-          { name: '半導體類指數', data: tw.semi, extra: '相對大盤抗跌 +0.41%' },
-          { name: '電子工業類指數', data: tw.elec, extra: '權值權重 > 68%' },
-          { name: '電子零組件指數', data: tw.elec_parts, extra: 'AI 機櫃伺服器供應鏈' },
-          { name: '臺灣50指數', data: tw.tw50, extra: '大型龍頭權值' },
-          { name: '櫃買指數 TPEx', data: tpex, extra: '中小型股指標 (未止跌)' },
-          { name: '費城半導體 SOX', data: sox, extra: '全球半導體景氣核心' },
-          { name: '那斯達克100 NDX', data: ndx, extra: '美科技股 AI 風險偏好' }
+          { key: 'taiex', name: '加權指數 TAIEX', data: tw.taiex, extra: DATA.volume_analysis ? DATA.volume_analysis.pattern : '大盤基準' },
+          { key: 'semi', name: '半導體類指數', data: tw.semi, extra: '相對大盤抗跌 +0.41%' },
+          { key: 'elec', name: '電子工業類指數', data: tw.elec, extra: '權值權重 > 68%' },
+          { key: 'elec_parts', name: '電子零組件指數', data: tw.elec_parts, extra: 'AI 機櫃伺服器供應鏈' },
+          { key: 'tw50', name: '臺灣50指數', data: tw.tw50, extra: '大型龍頭權值' },
+          { key: 'tpex', name: '櫃買指數 TPEx', data: tpex, extra: '中小型股指標 (未止跌)' },
+          { key: 'sox', name: '費城半導體 SOX', data: sox, extra: '全球半導體景氣核心' },
+          { key: 'ndx', name: '那斯達克100 NDX', data: ndx, extra: '美科技股 AI 風險偏好' }
         ];
 
         tbody.innerHTML = list.map(item => {
@@ -4966,8 +5515,13 @@
           const chg = d.change_pct !== undefined ? d.change_pct : (d.change || 0);
           const isUp = chg >= 0;
           return `
-            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
-              <td class="p-3 font-bold text-slate-900 dark:text-slate-200">${item.name}</td>
+            <tr class="hover:bg-indigo-50/70 dark:hover:bg-slate-800/60 cursor-pointer transition-colors group" onclick="openItemHistoryModal('index', '${item.key}')">
+              <td class="p-3 font-bold text-slate-900 dark:text-slate-200">
+                <div class="flex items-center justify-between gap-1">
+                  <span class="group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">${item.name}</span>
+                  <span class="text-[10px] text-indigo-500 opacity-70 group-hover:opacity-100 flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
+                </div>
+              </td>
               <td class="p-3 font-semibold text-right tabular-nums text-slate-800 dark:text-slate-100">${d.close ? Number(d.close).toLocaleString('en-US') : '—'}</td>
               <td class="p-3 font-bold text-right tabular-nums ${isUp ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}">${isUp ? '+' : ''}${Number(chg).toFixed(2)}%</td>
               <td class="p-3 text-right tabular-nums text-slate-600 dark:text-slate-300">${d.r5 !== undefined ? (d.r5 >= 0 ? '+' : '') + d.r5.toFixed(1) + '%' : '—'}</td>
@@ -7470,6 +8024,9 @@
       document.getElementById('guide-modal-btn').addEventListener('click', () => guideModal.classList.remove('hidden'));
       document.getElementById('guide-close-btn').addEventListener('click', () => guideModal.classList.add('hidden'));
       document.getElementById('guide-ok-btn').addEventListener('click', () => guideModal.classList.add('hidden'));
+
+      // History Modal Events
+      initHistoryModalEvents();
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
       const hashTab = (window.location.hash || '').slice(1);

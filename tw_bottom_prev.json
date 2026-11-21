@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-21T20:10:18Z",
+  "updated_at": "2026-11-21T20:10:52Z",
   "market_date": "20261120",
   "market_status": "恐慌殺盤階段 (尚未確認止跌)",
   "model_score": {
@@ -36,7 +36,7 @@
         "name": "外資賣壓減弱",
         "weight": 20,
         "score": 7,
-        "actual": "外資現貨賣超 +0.0 億，台指期空單 -97,863 口，台幣匯率 33.03",
+        "actual": "外資現貨賣超 -95.1 億，台指期空單 -97,863 口，台幣匯率 33.03",
         "threshold": "現貨賣超收斂至百億內或轉買、期貨淨空單由峰值顯著回補、台幣貶壓趨緩",
         "status": "neutral",
         "date": "20261120"
@@ -160,7 +160,7 @@
     }
   },
   "institutional_flow": {
-    "foreign": 0.0,
+    "foreign": -95.11,
     "trust": -73.47,
     "dealer_prop": -50.68,
     "dealer_hedge": -290.15,

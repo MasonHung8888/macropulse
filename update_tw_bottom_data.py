@@ -205,6 +205,11 @@ def fetch_market_volume_history():
         "vol_20ma": vol_20ma,
         "vol_ratio_20ma": round((latest_amt / vol_20ma * 100), 1) if vol_20ma > 0 else 100.0,
         "pattern": vol_pattern,
+        "history": {
+            "dates": [str(row[0]) for row in rows],
+            "amounts": amounts,
+            "closes": closes,
+        }
     }
 
 
@@ -279,6 +284,21 @@ def fetch_stock_and_global_data():
                 vol_5ma = int(s_vol.tail(5).mean())
                 vol_20ma = int(s_vol.tail(20).mean())
                 
+        # 歷史走勢序列 (最長 250 個交易日，提供 1M/3M/6M/1Y 時間軸切換)
+        s_tail = s_close.tail(250)
+        hist_dates = [d.strftime("%Y-%m-%d") for d in s_tail.index]
+        hist_closes = [round(float(v), 2) for v in s_tail.values]
+        
+        s_ma20_all = s_close.rolling(20).mean().reindex(s_tail.index)
+        s_ma60_all = s_close.rolling(60).mean().reindex(s_tail.index)
+        hist_ma20 = [round(float(v), 2) if pd.notnull(v) else None for v in s_ma20_all.values]
+        hist_ma60 = [round(float(v), 2) if pd.notnull(v) else None for v in s_ma60_all.values]
+        
+        hist_vols = []
+        if vol_df is not None and sym in vol_df.columns:
+            s_v = vol_df[sym].reindex(s_tail.index).fillna(0)
+            hist_vols = [int(v) for v in s_v.values]
+            
         results[key] = {
             "symbol": sym,
             "close": round(curr, 2),
@@ -305,6 +325,13 @@ def fetch_stock_and_global_data():
             "dist_low60": dist_low60,
             "vol_5ma": vol_5ma,
             "vol_20ma": vol_20ma,
+            "history": {
+                "dates": hist_dates,
+                "closes": hist_closes,
+                "ma20": hist_ma20,
+                "ma60": hist_ma60,
+                "volumes": hist_vols,
+            }
         }
     return results
 
@@ -601,6 +628,7 @@ def generate_stock_analyses(global_data, indices, inst):
         entry["dd60"] = meta.get("dd60", 0.0)
         entry["r5"] = meta.get("r5", 0.0)
         entry["r20"] = meta.get("r20", 0.0)
+        entry["history"] = meta.get("history", {})
         enriched.append(entry)
     return enriched
 
@@ -694,6 +722,9 @@ def main():
     score_change = (model_score["total_score"] - prev_score) if prev_score is not None else 0
     model_score["score_change"] = score_change
     
+    if "taiex" in twse_indices and "taiex" in global_data:
+        twse_indices["taiex"]["history"] = global_data["taiex"].get("history", {})
+        
     # 整合完整 Payload
     payload = {
         "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
@@ -706,6 +737,7 @@ def main():
             "sox": global_data.get("sox", {}),
             "ndx": global_data.get("ndx", {}),
         },
+        "history_db": {k: v.get("history", {}) for k, v in global_data.items() if "history" in v},
         "institutional_flow": twse_inst,
         "margin_trading": twse_margin,
         "futures_oi": taifex_oi,
