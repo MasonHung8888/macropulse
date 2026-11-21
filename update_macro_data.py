@@ -114,7 +114,7 @@ def fetch_url(url: str, timeout: int = 15) -> str:
 
 # 1. 抓取台灣中央銀行 (CBC) 官方貨幣總計數
 def fetch_cbc_m1b_m2(months: int = 24):
-    print("1/5 抓取台灣中央銀行 (CBC) 官方貨幣總計數 (M1B / M2)...")
+    print("1/7 抓取台灣中央銀行 (CBC) 官方貨幣總計數 (M1B / M2)...")
     url = "https://cpx.cbc.gov.tw/API/DataAPI/Get?FileName=EF15M01"
     raw = fetch_url(url, timeout=20)
     data = json.loads(raw)
@@ -204,7 +204,7 @@ def yoy_observations(observations: list, periods: int = 12) -> list:
 
 def fetch_fred_macro() -> tuple[dict, dict]:
     """建立可追溯的美國總經指標與 24 期序列。"""
-    print("2/6 抓取 FRED 美國官方總經資料...")
+    print("2/7 抓取 FRED 美國官方總經資料...")
     definitions = {
         "us_cpi_yoy": ("CPIAUCSL", "美國 CPI 年增率", "%", "monthly", "yoy"),
         "us_core_cpi_yoy": ("CPILFESL", "美國核心 CPI 年增率", "%", "monthly", "yoy"),
@@ -262,9 +262,75 @@ def fetch_fred_macro() -> tuple[dict, dict]:
     return indicators, series
 
 
+def fetch_world_bank_macro() -> tuple[dict, dict]:
+    """取得跨國可比的世界銀行年度實績，保留最近非空正式值。"""
+    print("3/7 抓取世界銀行跨國年度總經資料...")
+    countries = {
+        "USA": ("US", "美國"),
+        "EMU": ("EU", "歐元區"),
+        "CHN": ("CN", "中國"),
+        "JPN": ("JP", "日本"),
+    }
+    definitions = {
+        "gdp_growth": ("NY.GDP.MKTP.KD.ZG", "實質 GDP 成長率", "%"),
+        "cpi_inflation": ("FP.CPI.TOTL.ZG", "CPI 通膨率", "%"),
+        "unemployment": ("SL.UEM.TOTL.ZS", "失業率", "%"),
+    }
+    result = {code: {"country": name, "indicators": {}} for _, (code, name) in countries.items()}
+    series = {}
+    from curl_cffi import requests as curl_requests
+    for metric, (indicator_id, label, unit) in definitions.items():
+        url = (
+            "https://api.worldbank.org/v2/country/USA;EMU;CHN;JPN/indicator/"
+            f"{indicator_id}?format=json&per_page=100&mrv=10"
+        )
+        response = curl_requests.get(url, timeout=45, impersonate="chrome")
+        response.raise_for_status()
+        body = response.json()
+        observations = body[1] if isinstance(body, list) and len(body) > 1 and isinstance(body[1], list) else []
+        grouped = {iso3: [] for iso3 in countries}
+        for row in observations:
+            iso3 = row.get("countryiso3code")
+            value = row.get("value")
+            if iso3 in grouped and value is not None:
+                grouped[iso3].append((str(row.get("date")), float(value)))
+        for iso3, values in grouped.items():
+            if not values:
+                continue
+            values.sort(key=lambda item: item[0])
+            country_code, _ = countries[iso3]
+            latest_period, latest_value = values[-1]
+            previous_value = values[-2][1] if len(values) > 1 else None
+            source_url = f"https://data.worldbank.org/indicator/{indicator_id}?locations={iso3}"
+            result[country_code]["indicators"][metric] = {
+                "label": label,
+                "value": round(latest_value, 2),
+                "unit": unit,
+                "period": latest_period,
+                "frequency": "annual",
+                "previous": round(previous_value, 2) if previous_value is not None else None,
+                "source": "World Bank Open Data",
+                "source_url": source_url,
+                "series_id": indicator_id,
+                "evidence": "official_international_observation",
+            }
+            series[f"wb_{country_code.lower()}_{metric}"] = {
+                "name": f"{result[country_code]['country']} {label} [World Bank]",
+                "unit": unit,
+                "labels": [period for period, _ in values],
+                "data": [round(value, 2) for _, value in values],
+                "source": "World Bank Open Data",
+                "source_url": source_url,
+                "as_of": latest_period,
+            }
+    total = sum(len(country["indicators"]) for country in result.values())
+    print(f"  -> 成功取得世界銀行跨國指標 {total}/12 項")
+    return result, series
+
+
 # 2. 抓取 TWSE 臺灣證券交易所台股 28 檔權值股收盤
 def fetch_twse_heatmap() -> list:
-    print("3/6 抓取 TWSE 收盤價，並以歷史日線計算 1W / YTD...")
+    print("4/7 抓取 TWSE 收盤價，並以歷史日線計算 1W / YTD...")
     raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL", timeout=20)
     rows = json.loads(raw)
     by_code = {r.get("Code", "").strip(): r for r in rows}
@@ -319,7 +385,7 @@ def fetch_twse_heatmap() -> list:
 
 # 3. 抓取 Yahoo Finance 美股熱力圖與大盤指數
 def fetch_us_market_data():
-    print("4/6 抓取 Yahoo Finance 美股成分股、指數與美債殖利率...")
+    print("5/7 抓取 Yahoo Finance 美股成分股、指數與美債殖利率...")
     sp500_heatmap = []
     snapshots = {}
     series = {}
@@ -430,7 +496,7 @@ def fetch_us_market_data():
 
 # 4. 公開 API 最新匯率
 def fetch_live_fx():
-    print("5/6 抓取歐洲央行 (ECB) 參考匯率與台幣匯率...")
+    print("6/7 抓取歐洲央行 (ECB) 參考匯率與台幣匯率...")
     rates = {}
     try:
         raw1 = fetch_url("https://api.frankfurter.app/latest?from=USD&to=JPY,EUR,GBP,AUD,CAD", timeout=10)
@@ -453,7 +519,7 @@ def fetch_live_fx():
 
 # 5. 公開 API 最新加密貨幣資料
 def fetch_live_crypto():
-    print("6/6 抓取 CoinGecko 比特幣現貨價與穩定幣規模...")
+    print("7/7 抓取 CoinGecko 比特幣現貨價與穩定幣規模...")
     crypto = {}
     try:
         raw = fetch_url("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,tether,usd-coin&vs_currencies=usd&include_market_cap=true", timeout=10)
@@ -474,7 +540,7 @@ def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
         return None
-    for fmt in ("%Y-%m-%d", "%Y-%m"):
+    for fmt in ("%Y-%m-%d", "%Y-%m", "%Y"):
         try:
             observed = datetime.strptime(period, fmt).date()
             return (datetime.now(timezone.utc).date() - observed).days
@@ -501,6 +567,7 @@ def main():
         "fx": {},
         "crypto": {},
         "macro_indicators": {},
+        "country_macro": {},
         "sources": {},
         "data_quality": {"status": "checking", "errors": [], "warnings": []},
     }
@@ -538,13 +605,18 @@ def main():
     payload["macro_indicators"].update(fred_indicators)
     payload["series"].update(fred_series)
 
-    # 3. TWSE 台股熱力圖
+    # 3. 世界銀行跨國年度資料
+    country_macro, country_series = fetch_world_bank_macro()
+    payload["country_macro"] = country_macro
+    payload["series"].update(country_series)
+
+    # 4. TWSE 台股熱力圖
     try:
         payload["tw_heatmap"] = fetch_twse_heatmap()
     except Exception as e:
         print(f"  TWSE 台股抓取失敗: {e}")
 
-    # 4. Yahoo Finance 美股熱力圖、指數、美債殖利率
+    # 5. Yahoo Finance 美股熱力圖、指數、美債殖利率
     try:
         sp_heat, snaps, sers = fetch_us_market_data()
         payload["sp500_heatmap"] = sp_heat
@@ -553,10 +625,10 @@ def main():
     except Exception as e:
         print(f"  美股與市場數據處理失敗: {e}")
 
-    # 5. 匯率
+    # 6. 匯率
     payload["fx"] = fetch_live_fx()
 
-    # 6. 加密貨幣
+    # 7. 加密貨幣
     payload["crypto"] = fetch_live_crypto()
 
     required_snapshots = {"sp500", "nasdaq", "taiex", "gold", "wti", "vix"}
@@ -605,6 +677,32 @@ def main():
         if not freshness_ok:
             errors.append(f"{key} 資料期異常或過舊：{indicator.get('period')}（距今 {age} 天）")
     checks.append({"name": "FRED coverage", "passed": len(payload["macro_indicators"]), "required": 8})
+    country_macro_count = sum(len(country.get("indicators", {})) for country in payload.get("country_macro", {}).values())
+    if country_macro_count < 12:
+        errors.append(f"世界銀行跨國指標缺漏：{country_macro_count}/12")
+    country_ranges = {
+        "gdp_growth": (-30, 30),
+        "cpi_inflation": (-20, 100),
+        "unemployment": (0, 50),
+    }
+    for country_code, country in payload.get("country_macro", {}).items():
+        for metric, indicator in country.get("indicators", {}).items():
+            value = indicator.get("value")
+            lower, upper = country_ranges[metric]
+            age = observation_age_days(indicator.get("period", ""))
+            range_ok = isinstance(value, (int, float)) and lower <= value <= upper
+            freshness_ok = age is not None and -366 <= age <= 1200
+            indicator["validation"] = {
+                "status": "valid" if range_ok and freshness_ok else "invalid",
+                "age_days": age,
+                "freshness_limit_days": 1200,
+                "expected_range": [lower, upper],
+            }
+            if not range_ok:
+                errors.append(f"{country_code}.{metric} 超出合理範圍：{value}")
+            if not freshness_ok:
+                errors.append(f"{country_code}.{metric} 資料年度異常或過舊：{indicator.get('period')}")
+    checks.append({"name": "World Bank country coverage", "passed": country_macro_count, "required": 12})
     for key in required_snapshots & set(payload["snapshots"]):
         snapshot = payload["snapshots"][key]
         if not snapshot.get("as_of"):
@@ -631,6 +729,7 @@ def main():
         "yahoo": {"label": "Yahoo Finance 延遲日線", "status": "ok" if not missing_snapshots else "partial", "realtime": False},
         "cbc": {"label": "中華民國中央銀行", "status": "ok" if payload["tw_m1b_m2"] else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
+        "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
     }
     payload["data_quality"] = {
         "status": "valid" if not errors else "invalid",

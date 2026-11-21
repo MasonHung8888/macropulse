@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-21T01:20:46Z",
+  "updated_at": "2026-11-21T01:24:55Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1693,6 +1693,376 @@
       "source_url": "https://fred.stlouisfed.org/series/T10Y2Y",
       "as_of": "2026-11-20"
     },
+    "wb_us_gdp_growth": {
+      "name": "美國 實質 GDP 成長率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        1.82,
+        2.46,
+        2.97,
+        2.58,
+        -2.08,
+        6.15,
+        2.52,
+        2.93,
+        2.79,
+        2.16
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=USA",
+      "as_of": "2025"
+    },
+    "wb_eu_gdp_growth": {
+      "name": "歐元區 實質 GDP 成長率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        1.81,
+        2.62,
+        1.78,
+        1.63,
+        -6.04,
+        6.44,
+        3.66,
+        0.46,
+        0.94,
+        1.41
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=EMU",
+      "as_of": "2025"
+    },
+    "wb_cn_gdp_growth": {
+      "name": "中國 實質 GDP 成長率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        6.77,
+        6.89,
+        6.76,
+        6.07,
+        2.34,
+        8.57,
+        3.13,
+        5.42,
+        4.96,
+        4.96
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=CHN",
+      "as_of": "2025"
+    },
+    "wb_jp_gdp_growth": {
+      "name": "日本 實質 GDP 成長率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        0.7,
+        1.62,
+        0.83,
+        -0.31,
+        -4.28,
+        3.56,
+        1.33,
+        0.72,
+        -0.24,
+        1.19
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=JPN",
+      "as_of": "2025"
+    },
+    "wb_us_cpi_inflation": {
+      "name": "美國 CPI 通膨率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024"
+      ],
+      "data": [
+        1.26,
+        2.13,
+        2.44,
+        1.81,
+        1.23,
+        4.7,
+        8.0,
+        4.12,
+        2.95
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=USA",
+      "as_of": "2024"
+    },
+    "wb_eu_cpi_inflation": {
+      "name": "歐元區 CPI 通膨率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        0.15,
+        1.38,
+        1.7,
+        1.45,
+        0.22,
+        2.53,
+        8.55,
+        5.95,
+        2.26,
+        2.47
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=EMU",
+      "as_of": "2025"
+    },
+    "wb_cn_cpi_inflation": {
+      "name": "中國 CPI 通膨率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        2.0,
+        1.59,
+        2.07,
+        2.9,
+        2.42,
+        0.98,
+        1.97,
+        0.23,
+        0.22,
+        0.06
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=CHN",
+      "as_of": "2025"
+    },
+    "wb_jp_cpi_inflation": {
+      "name": "日本 CPI 通膨率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        -0.13,
+        0.48,
+        0.99,
+        0.47,
+        -0.02,
+        -0.23,
+        2.5,
+        3.27,
+        2.74,
+        3.17
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=JPN",
+      "as_of": "2025"
+    },
+    "wb_us_unemployment": {
+      "name": "美國 失業率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        4.87,
+        4.36,
+        3.9,
+        3.67,
+        8.05,
+        5.35,
+        3.65,
+        3.64,
+        4.02,
+        4.2
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=USA",
+      "as_of": "2025"
+    },
+    "wb_eu_unemployment": {
+      "name": "歐元區 失業率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        9.99,
+        9.01,
+        8.09,
+        7.44,
+        7.78,
+        7.69,
+        6.73,
+        6.52,
+        6.35,
+        6.28
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=EMU",
+      "as_of": "2025"
+    },
+    "wb_cn_unemployment": {
+      "name": "中國 失業率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        4.56,
+        4.47,
+        4.31,
+        4.56,
+        5.0,
+        4.55,
+        4.98,
+        4.67,
+        4.59,
+        4.62
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=CHN",
+      "as_of": "2025"
+    },
+    "wb_jp_unemployment": {
+      "name": "日本 失業率 [World Bank]",
+      "unit": "%",
+      "labels": [
+        "2016",
+        "2017",
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "data": [
+        3.13,
+        2.82,
+        2.47,
+        2.35,
+        2.81,
+        2.81,
+        2.61,
+        2.6,
+        2.5,
+        2.45
+      ],
+      "source": "World Bank Open Data",
+      "source_url": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=JPN",
+      "as_of": "2025"
+    },
     "sp500": {
       "name": "[Yahoo 延遲市場資料] ^GSPC",
       "unit": "點",
@@ -1977,7 +2347,7 @@
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 59114,
+    "btc_price": 59010,
     "stablecoin_market_cap_b": 242.9
   },
   "macro_indicators": {
@@ -2192,6 +2562,280 @@
       }
     }
   },
+  "country_macro": {
+    "US": {
+      "country": "美國",
+      "indicators": {
+        "gdp_growth": {
+          "label": "實質 GDP 成長率",
+          "value": 2.16,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 2.79,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=USA",
+          "series_id": "NY.GDP.MKTP.KD.ZG",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              -30,
+              30
+            ]
+          }
+        },
+        "cpi_inflation": {
+          "label": "CPI 通膨率",
+          "value": 2.95,
+          "unit": "%",
+          "period": "2024",
+          "frequency": "annual",
+          "previous": 4.12,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=USA",
+          "series_id": "FP.CPI.TOTL.ZG",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 1055,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              -20,
+              100
+            ]
+          }
+        },
+        "unemployment": {
+          "label": "失業率",
+          "value": 4.2,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 4.02,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=USA",
+          "series_id": "SL.UEM.TOTL.ZS",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              0,
+              50
+            ]
+          }
+        }
+      }
+    },
+    "EU": {
+      "country": "歐元區",
+      "indicators": {
+        "gdp_growth": {
+          "label": "實質 GDP 成長率",
+          "value": 1.41,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 0.94,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=EMU",
+          "series_id": "NY.GDP.MKTP.KD.ZG",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              -30,
+              30
+            ]
+          }
+        },
+        "cpi_inflation": {
+          "label": "CPI 通膨率",
+          "value": 2.47,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 2.26,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=EMU",
+          "series_id": "FP.CPI.TOTL.ZG",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              -20,
+              100
+            ]
+          }
+        },
+        "unemployment": {
+          "label": "失業率",
+          "value": 6.28,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 6.35,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=EMU",
+          "series_id": "SL.UEM.TOTL.ZS",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              0,
+              50
+            ]
+          }
+        }
+      }
+    },
+    "CN": {
+      "country": "中國",
+      "indicators": {
+        "gdp_growth": {
+          "label": "實質 GDP 成長率",
+          "value": 4.96,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 4.96,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=CHN",
+          "series_id": "NY.GDP.MKTP.KD.ZG",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              -30,
+              30
+            ]
+          }
+        },
+        "cpi_inflation": {
+          "label": "CPI 通膨率",
+          "value": 0.06,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 0.22,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=CHN",
+          "series_id": "FP.CPI.TOTL.ZG",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              -20,
+              100
+            ]
+          }
+        },
+        "unemployment": {
+          "label": "失業率",
+          "value": 4.62,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 4.59,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=CHN",
+          "series_id": "SL.UEM.TOTL.ZS",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              0,
+              50
+            ]
+          }
+        }
+      }
+    },
+    "JP": {
+      "country": "日本",
+      "indicators": {
+        "gdp_growth": {
+          "label": "實質 GDP 成長率",
+          "value": 1.19,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": -0.24,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/NY.GDP.MKTP.KD.ZG?locations=JPN",
+          "series_id": "NY.GDP.MKTP.KD.ZG",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              -30,
+              30
+            ]
+          }
+        },
+        "cpi_inflation": {
+          "label": "CPI 通膨率",
+          "value": 3.17,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 2.74,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/FP.CPI.TOTL.ZG?locations=JPN",
+          "series_id": "FP.CPI.TOTL.ZG",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              -20,
+              100
+            ]
+          }
+        },
+        "unemployment": {
+          "label": "失業率",
+          "value": 2.45,
+          "unit": "%",
+          "period": "2025",
+          "frequency": "annual",
+          "previous": 2.5,
+          "source": "World Bank Open Data",
+          "source_url": "https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS?locations=JPN",
+          "series_id": "SL.UEM.TOTL.ZS",
+          "evidence": "official_international_observation",
+          "validation": {
+            "status": "valid",
+            "age_days": 689,
+            "freshness_limit_days": 1200,
+            "expected_range": [
+              0,
+              50
+            ]
+          }
+        }
+      }
+    }
+  },
   "sources": {
     "twse": {
       "label": "臺灣證券交易所",
@@ -2209,11 +2853,15 @@
     "fred": {
       "label": "Federal Reserve Bank of St. Louis (FRED)",
       "status": "ok"
+    },
+    "world_bank": {
+      "label": "World Bank Open Data",
+      "status": "ok"
     }
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-21T01:20:55Z",
+    "validated_at": "2026-11-21T01:25:06Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -2224,6 +2872,11 @@
         "name": "FRED coverage",
         "passed": 10,
         "required": 8
+      },
+      {
+        "name": "World Bank country coverage",
+        "passed": 12,
+        "required": 12
       },
       {
         "name": "TW heatmap coverage",

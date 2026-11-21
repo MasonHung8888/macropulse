@@ -238,11 +238,14 @@
       <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 class="text-lg font-bold tracking-tight">官方總經指標摘要</h2>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">目前僅顯示已接入官方來源的美國與台灣資料；資料期與來源會隨每次更新保存</p>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">美國使用 FRED 月／日頻資料；歐元區、中國、日本使用世界銀行年度可比資料；台灣使用央行資料</p>
         </div>
         <div id="country-selector" class="flex flex-wrap gap-1.5">
           <button data-country="US" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇺🇸 美國</button>
           <button data-country="TW" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇹🇼 台灣</button>
+          <button data-country="EU" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇪🇺 歐元區</button>
+          <button data-country="CN" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇨🇳 中國</button>
+          <button data-country="JP" class="country-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">🇯🇵 日本</button>
         </div>
       </div>
 
@@ -1520,7 +1523,51 @@
         count += macroEntries.length;
       }
 
-      // E. 市場快照更新 (Ticker & Trader Tab)
+      // E. 世界銀行跨國年度實績（不同國家採相同定義，便於比較）
+      if (payload.country_macro && typeof payload.country_macro === 'object') {
+        const countryLabels = { US: '美國', EU: '歐元區', CN: '中國', JP: '日本' };
+        Object.entries(payload.country_macro).forEach(([countryCode, country]) => {
+          const indicators = Object.values(country.indicators || {});
+          indicators.forEach(indicator => {
+            const itemName = `${countryLabels[countryCode] || country.country}－${indicator.label}`;
+            let item = TRADER_ITEMS.find(x => x.name === itemName);
+            if (!item) {
+              item = { cat: '總經數據', sub: countryLabels[countryCode] || country.country, name: itemName, quad: 'HIGH_UP', vars: `World Bank ${indicator.series_id}` };
+              TRADER_ITEMS.push(item);
+            }
+            item.val = `${Number(indicator.value).toLocaleString('zh-TW')}${indicator.unit}`;
+            item.date = indicator.period;
+            item.desc = `年度正式統計；前期 ${indicator.previous ?? '未提供'}${indicator.unit}。跨國比較時請留意各國發布時間不同。`;
+            item.quad = indicator.previous !== null && indicator.value >= indicator.previous ? 'HIGH_UP' : 'HIGH_DOWN';
+            item.dataStatus = 'verified';
+            item.source = indicator.source;
+            item.sourceUrl = indicator.source_url;
+          });
+
+          if (countryCode !== 'US' && COUNTRY_DATA[countryCode]) {
+            COUNTRY_DATA[countryCode].regime = '世界銀行年度實績監測';
+            COUNTRY_DATA[countryCode].kpis = indicators.map(ind => ({
+              label: `${ind.label} (${ind.period})`,
+              value: `${ind.value}${ind.unit}`,
+              sub: `World Bank ${ind.series_id}`,
+              trend: ind.previous !== null && ind.value > ind.previous ? 'warn' : 'neutral'
+            }));
+            COUNTRY_DATA[countryCode].insights = indicators.map(ind => `${ind.label}最新正式年度為 ${ind.period}，數值 ${ind.value}${ind.unit}，前期 ${ind.previous}${ind.unit}。`);
+            COUNTRY_DATA[countryCode].insights.push('年度資料適合觀察結構與跨國比較，不代表當月即時景氣；不同指標的最新年度可能不同。');
+          }
+          count += indicators.length;
+        });
+
+        const usAnnual = payload.country_macro.US?.indicators;
+        const usMonthly = payload.macro_indicators || {};
+        if (usAnnual?.gdp_growth) {
+          COUNTRY_DATA.US.kpis = [usAnnual.gdp_growth, usMonthly.us_cpi_yoy, usMonthly.us_unemployment, usMonthly.us_fed_funds]
+            .filter(Boolean)
+            .map(ind => ({ label: `${ind.label} (${ind.period})`, value: `${ind.value}${ind.unit}`, sub: `${ind.source}｜${ind.series_id}`, trend: ind.previous !== null && ind.value > ind.previous ? 'warn' : 'neutral' }));
+        }
+      }
+
+      // F. 市場快照更新 (Ticker & Trader Tab)
       if (payload.snapshots && typeof payload.snapshots === 'object') {
         const sn = payload.snapshots;
         const updTrader = (name, val, snapshot = null) => {
@@ -1609,7 +1656,7 @@
       if (healthCard) healthCard.firstElementChild.textContent = '資料包已通過完整性檢查';
       if (healthDetail) {
         const marketDate = payload.snapshots?.sp500?.as_of || '未標示';
-        healthDetail.textContent = `S&P 500／NASDAQ 等市場價格為 Yahoo Finance 最新日線（可能延遲），資料日 ${marketDate}；台股收盤來自 TWSE，M1B／M2 來自中央銀行。此處不是券商即時行情。`;
+        healthDetail.textContent = `S&P 500／NASDAQ 等市場價格為 Yahoo Finance 最新日線（可能延遲），資料日 ${marketDate}；台股收盤來自 TWSE，M1B／M2 來自中央銀行，美國總經來自 FRED，跨國年度資料來自世界銀行。此處不是券商即時行情。`;
       }
 
       if (state.activeTab === 'dashboard') renderDashboard();
