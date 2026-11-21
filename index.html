@@ -781,7 +781,7 @@
         <button data-preset="ndcScore|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">國發會景氣燈號 vs 台股</button>
         <button data-preset="equityRiskPremium|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美股 ERP 溢價 vs S&amp;P 500</button>
         <button data-preset="fedNetLiquidity|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 transition-colors">Fed 淨流動性 vs S&amp;P 500</button>
-        <button data-preset="sahmRule|spread10y2y" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors">薩姆規則 vs 10Y-2Y 利差</button>
+        <button data-preset="sahmRule|us_10y2y" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors">薩姆規則 vs 10Y-2Y 利差</button>
         <button data-preset="us10y|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美債 10Y vs S&amp;P 500</button>
         <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
       </div>
@@ -2043,6 +2043,12 @@
             count++;
           }
         });
+        if (SERIES_DB.us_10y2y && !SERIES_DB.spread10y2y) {
+          SERIES_DB.spread10y2y = SERIES_DB.us_10y2y;
+        }
+        if (SERIES_DB.spread10y2y && !SERIES_DB.us_10y2y) {
+          SERIES_DB.us_10y2y = SERIES_DB.spread10y2y;
+        }
         populateToolboxSelects();
       }
 
@@ -3562,8 +3568,16 @@
         }`;
       });
 
-      const sL = SERIES_DB[state.toolbox.left];
-      const sR = SERIES_DB[state.toolbox.right];
+      let sL = SERIES_DB[state.toolbox.left];
+      let sR = SERIES_DB[state.toolbox.right];
+      if (!sL && state.toolbox.left === 'spread10y2y') sL = SERIES_DB.us_10y2y;
+      if (!sR && state.toolbox.right === 'spread10y2y') sR = SERIES_DB.us_10y2y;
+      if (!sL && state.toolbox.left === 'us_10y2y') sL = SERIES_DB.spread10y2y;
+      if (!sR && state.toolbox.right === 'us_10y2y') sR = SERIES_DB.spread10y2y;
+      if (!sL || !sL.data) sL = SERIES_DB.taiex || Object.values(SERIES_DB)[0];
+      if (!sR || !sR.data) sR = SERIES_DB.sp500 || Object.values(SERIES_DB)[1];
+      if (!sL || !sR || !sL.data || !sR.data) return;
+
       const len = state.toolbox.range;
       const labels = (sL.labels || MONTHS).slice(-len);
       const dataL = transformSeries(sL.data.slice(-len), state.toolbox.transform);

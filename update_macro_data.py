@@ -1159,6 +1159,12 @@ def main():
             "labels": [d["date"] for d in rec_watch["history"]],
             "data": [d["sahm"] for d in rec_watch["history"]],
         }
+        payload["series"]["spread10y2y"] = {
+            "name": "美債 10Y - 2Y 殖利率利差 (%) [FRED官方]",
+            "unit": "%",
+            "labels": [d["date"] for d in rec_watch["history"]],
+            "data": [d["spread_10y2y"] for d in rec_watch["history"]],
+        }
         payload["series"]["spread10y3m"] = {
             "name": "美債 10Y - 3M 殖利率利差 (%) [FRED官方]",
             "unit": "%",
