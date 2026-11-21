@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-21T01:24:55Z",
+  "updated_at": "2026-11-21T01:25:37Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -136,8 +136,8 @@
       "cap": 95,
       "price": 3350.0,
       "d1": -9.95,
-      "w1": -18.69,
-      "ytd": 133.7,
+      "w1": null,
+      "ytd": null,
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
     },
@@ -2347,8 +2347,8 @@
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 59010,
-    "stablecoin_market_cap_b": 242.9
+    "btc_price": 59003,
+    "stablecoin_market_cap_b": 242.8
   },
   "macro_indicators": {
     "us_cpi_yoy": {
@@ -2861,7 +2861,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-21T01:25:06Z",
+    "validated_at": "2026-11-21T01:25:47Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
