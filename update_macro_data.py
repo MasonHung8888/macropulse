@@ -770,6 +770,119 @@ def compute_fed_net_liquidity():
         return None
 
 
+def compute_recession_watch() -> dict | None:
+    """
+    計算薩姆規則衰退預警 (Sahm Rule) 與美債殖利率倒掛修復計 (Yield Curve Inversion & Steepening Meter)
+    - 薩姆規則: SAHMREALTIME (臨界門檻 0.50%)
+    - 殖利率利差: T10Y2Y, T10Y3M, DGS10, DGS2
+    - 失業率: UNRATE
+    """
+    print("9.8 抓取與計算薩姆規則衰退預警與殖利率倒掛修復計...")
+    try:
+        series_ids = ["SAHMREALTIME", "T10Y2Y", "T10Y3M", "UNRATE", "DGS10", "DGS2"]
+        obs = fetch_fred_observations(series_ids)
+        if not obs.get("SAHMREALTIME") or not obs.get("T10Y2Y"):
+            return None
+
+        # 1. 薩姆規則 (月頻)
+        sahm_m = {d[:7]: v for d, v in obs["SAHMREALTIME"]}
+        unrate_m = {d[:7]: v for d, v in obs.get("UNRATE", [])}
+
+        # 2. 殖利率利差 (日頻轉月頻最新觀測值)
+        t10y2y_m = {}
+        for d, v in obs["T10Y2Y"]:
+            t10y2y_m[d[:7]] = v
+
+        t10y3m_m = {}
+        for d, v in obs.get("T10Y3M", []):
+            t10y3m_m[d[:7]] = v
+
+        # 取最近 24 個月交集
+        common_months = sorted(set(sahm_m.keys()) & set(t10y2y_m.keys()))[-24:]
+        history = []
+        for m in common_months:
+            history.append({
+                "date": m,
+                "sahm": sahm_m.get(m, 0.0),
+                "unemployment": unrate_m.get(m, 4.0),
+                "spread_10y2y": t10y2y_m.get(m, 0.0),
+                "spread_10y3m": t10y3m_m.get(m, 0.0),
+            })
+
+        latest_sahm = obs["SAHMREALTIME"][-1]
+        latest_t10y2y = obs["T10Y2Y"][-1]
+        latest_t10y3m = obs["T10Y3M"][-1] if obs.get("T10Y3M") else None
+        latest_unrate = obs["UNRATE"][-1] if obs.get("UNRATE") else None
+        latest_10y = obs["DGS10"][-1] if obs.get("DGS10") else None
+        latest_2y = obs["DGS2"][-1] if obs.get("DGS2") else None
+
+        sahm_val = round(latest_sahm[1], 2)
+        spread_10y2y_val = round(latest_t10y2y[1], 2)
+        spread_10y3m_val = round(latest_t10y3m[1], 2) if latest_t10y3m else 0.0
+        unrate_val = round(latest_unrate[1], 1) if latest_unrate else 4.1
+        dgs10_val = round(latest_10y[1], 2) if latest_10y else 5.0
+        dgs2_val = round(latest_2y[1], 2) if latest_2y else 4.7
+
+        # 薩姆規則狀態判定 (門檻 0.50%)
+        if sahm_val >= 0.50:
+            sahm_status = "觸發薩姆規則衰退警報 (高危險)"
+            sahm_badge_class = "bg-rose-500/15 text-rose-600 dark:text-rose-400"
+            sahm_level = "danger"
+        elif sahm_val >= 0.35:
+            sahm_status = "勞動市場放緩警示 (中風險)"
+            sahm_badge_class = "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+            sahm_level = "warning"
+        else:
+            sahm_status = "勞動市場安全擴張期 (極低衰退風險)"
+            sahm_badge_class = "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+            sahm_level = "safe"
+
+        # 殖利率曲線狀態判定 (10Y-2Y 與 10Y-3M)
+        if spread_10y2y_val < 0:
+            curve_status = "倒掛中 (Inverted - 衰退隱患積聚)"
+            curve_badge_class = "bg-rose-500/15 text-rose-600 dark:text-rose-400"
+            curve_type = "inverted"
+            curve_desc = f"10Y-2Y 利差呈現負值 ({spread_10y2y_val}%)，長短天期殖利率倒掛反映市場定價未來降息與經濟放緩預期。"
+        else:
+            curve_status = "倒掛解除·走向陡峭化 (Steepening)"
+            curve_badge_class = "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
+            curve_type = "steepening"
+            curve_desc = f"10Y-2Y 利差已修復至正值 (+{spread_10y2y_val}%)，10Y-3M 利差亦擴大至 +{spread_10y3m_val}%。殖利率曲線由倒掛進入陡峭化正常階段。"
+
+        summary_desc = (
+            f"薩姆規則最新值為 {sahm_val:.2f}%（距衰退警戒線 0.50% 仍有充足緩衝），官方失業率維持在 {unrate_val}%；"
+            f"美債 10Y-2Y 利差修復至 +{spread_10y2y_val}%，處於「{curve_status}」階段，整體宏觀經濟未現即刻衰退徵兆。"
+        )
+        print(f"  -> 薩姆規則: {sahm_val}% ({sahm_status}) | 10Y-2Y 利差: {spread_10y2y_val}%")
+
+        return {
+            "latest": {
+                "sahm_value": sahm_val,
+                "sahm_date": latest_sahm[0],
+                "sahm_status": sahm_status,
+                "sahm_badge_class": sahm_badge_class,
+                "sahm_level": sahm_level,
+                "unemployment_rate": unrate_val,
+                "spread_10y2y": spread_10y2y_val,
+                "spread_10y2y_date": latest_t10y2y[0],
+                "spread_10y3m": spread_10y3m_val,
+                "us_10y": dgs10_val,
+                "us_2y": dgs2_val,
+                "curve_status": curve_status,
+                "curve_badge_class": curve_badge_class,
+                "curve_type": curve_type,
+                "curve_desc": curve_desc,
+                "desc": summary_desc,
+            },
+            "history": history,
+            "source": "FRED (SAHMREALTIME, T10Y2Y, T10Y3M, UNRATE)",
+            "source_url": "https://fred.stlouisfed.org/series/SAHMREALTIME",
+        }
+    except Exception as e:
+        print(f"  薩姆規則與殖利率倒掛修復計計算失敗: {e}")
+        return None
+
+
 def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
@@ -1031,6 +1144,30 @@ def main():
             "data": [d["net_liquidity_trillions"] for d in fed_liq["history"]],
         }
         payload["snapshots"]["fed_net_liquidity"] = fed_liq["latest"]["net_liquidity_trillions"]
+
+    # 9.8 薩姆規則衰退預警 (Sahm Rule) 與殖利率倒掛修復計
+    rec_watch = compute_recession_watch()
+    if not rec_watch and "recession_watch" in existing_payload:
+        rec_watch = existing_payload["recession_watch"]
+        print("  -> 使用上一份有效的薩姆規則與殖利率倒掛修復計資料")
+
+    if rec_watch and rec_watch.get("latest"):
+        payload["recession_watch"] = rec_watch
+        payload["series"]["sahmRule"] = {
+            "name": "薩姆規則衰退指標 (%) [FRED官方]",
+            "unit": "%",
+            "labels": [d["date"] for d in rec_watch["history"]],
+            "data": [d["sahm"] for d in rec_watch["history"]],
+        }
+        payload["series"]["spread10y3m"] = {
+            "name": "美債 10Y - 3M 殖利率利差 (%) [FRED官方]",
+            "unit": "%",
+            "labels": [d["date"] for d in rec_watch["history"]],
+            "data": [d["spread_10y3m"] for d in rec_watch["history"]],
+        }
+        payload["snapshots"]["sahm_rule"] = rec_watch["latest"]["sahm_value"]
+        payload["snapshots"]["spread_10y2y"] = rec_watch["latest"]["spread_10y2y"]
+        payload["snapshots"]["spread_10y3m"] = rec_watch["latest"]["spread_10y3m"]
 
     # 10. 跨市場 8x8 資產相關性矩陣
     corr_data = compute_cross_market_correlation()

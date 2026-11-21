@@ -428,6 +428,78 @@
           </div>
         </div>
       </div>
+
+      <!-- 薩姆規則衰退預警 ＆ 殖利率倒掛修復計 (Sahm Rule & Yield Curve Recession Meter) -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="shield-alert" class="w-5 h-5 text-amber-500"></i> 薩姆規則衰退預警 ＆ 殖利率倒掛修復計
+              </h2>
+              <span id="recession-sahm-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">勞動市場安全</span>
+              <span id="recession-curve-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400">倒掛已解除</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              雙重衰退前瞻雷達：追蹤 Claudia Sahm 失業率動能指標（0.50% 觸發警戒）與美債 10Y-2Y / 10Y-3M 殖利率曲線倒掛修復進程
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <a href="https://fred.stlouisfed.org/series/SAHMREALTIME" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline flex items-center gap-1 font-medium">
+              FRED 官方數據庫 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 KPI 數值卡片 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/70 dark:border-emerald-800/50">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">薩姆規則指標 (Sahm Rule)</div>
+            <div id="sahm-val" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400">0.00%</div>
+            <div id="sahm-sub" class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">衰退警戒線 0.50%（緩衝充裕）</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美國最新失業率 (UNRATE)</div>
+            <div id="unrate-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-800 dark:text-slate-200">4.1%</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">3 個月均值 vs 過去 12 個月低點</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美債 10Y - 2Y 殖利率利差</div>
+            <div id="spread-10y2y-val" class="text-2xl font-bold tabular-nums mt-1 text-blue-600 dark:text-blue-400">+0.29%</div>
+            <div id="spread-10y2y-sub" class="text-[11px] text-blue-600 dark:text-blue-400 mt-0.5">倒掛已解除（走向陡峭化）</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美債 10Y - 3M 殖利率利差</div>
+            <div id="spread-10y3m-val" class="text-2xl font-bold tabular-nums mt-1 text-indigo-600 dark:text-indigo-400">+0.60%</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">紐約聯準會衰退機率核心指標</div>
+          </div>
+        </div>
+
+        <!-- 走勢圖與說明 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <div class="lg:col-span-8">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 24 個月 薩姆規則指標 (左軸) vs 美債 10Y-2Y 利差 (右軸)</span>
+              <span class="text-[11px] text-slate-400">紅虛線：0.50% 薩姆警戒線 ｜ 灰虛線：0% 倒掛臨界線</span>
+            </div>
+            <div class="relative h-64">
+              <canvas id="recessionChart"></canvas>
+            </div>
+          </div>
+          <div class="lg:col-span-4 flex flex-col justify-between space-y-3 text-xs text-slate-600 dark:text-slate-300">
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+              <div class="font-bold text-slate-900 dark:text-white mb-1">💡 什麼是「薩姆規則」與「倒掛修復」？</div>
+              <p class="leading-relaxed">
+                <strong>薩姆規則 (Sahm Rule)</strong>：由前聯準會經濟學家 Claudia Sahm 提出，當失業率 3 個月移動平均比過去 12 個月低點上升 ≥ 0.50% 時，歷史後半世紀 100% 準確對應美國經濟衰退。<br><br>
+                <strong>殖利率倒掛解除</strong>：歷史經驗中，衰退往往不是在殖利率倒掛當下爆發，而是在「倒掛解除並轉陡（Steepening）」時降臨。若短端暴跌（牛陡）代表緊急降息硬著陸；若利差平穩修復則指向軟著陸。
+              </p>
+            </div>
+            <div id="recession-commentary" class="p-3 rounded-lg border leading-relaxed bg-emerald-500/10 border-emerald-500/30 text-emerald-900 dark:text-emerald-200">
+              薩姆規則最新值為 0.00%（遠低於 0.50% 警戒線），勞動市場具備高度韌性；美債 10Y-2Y 利差修復至 +0.29%，呈現平穩陡峭化正常階段，整體宏觀經濟未現即刻衰退徵兆。
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR & NDC INDICATORS -->
@@ -709,6 +781,7 @@
         <button data-preset="ndcScore|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">國發會景氣燈號 vs 台股</button>
         <button data-preset="equityRiskPremium|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美股 ERP 溢價 vs S&amp;P 500</button>
         <button data-preset="fedNetLiquidity|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 transition-colors">Fed 淨流動性 vs S&amp;P 500</button>
+        <button data-preset="sahmRule|spread10y2y" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors">薩姆規則 vs 10Y-2Y 利差</button>
         <button data-preset="us10y|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美債 10Y vs S&amp;P 500</button>
         <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
       </div>
@@ -849,6 +922,7 @@
             <option value="ndcScore">國發會景氣綜合判斷分數 (分)</option>
             <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
             <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
+            <option value="sahmRule">薩姆規則衰退指標 (%)</option>
             <option value="spread10y2y">美債 10Y - 2Y 殖利率利差 (%)</option>
             <option value="usCpi">美國 CPI 年增率 (%)</option>
             <option value="us10y">美國 10 年期公債殖利率 (%)</option>
@@ -1768,6 +1842,47 @@
       }
     }
 
+    // --- 3.7 Sahm Rule & Recession Watch Default Fallback ---
+    const RECESSION_DEFAULT_DATA = {
+      latest: {
+        sahm_value: 0.00,
+        unemployment_rate: 4.1,
+        spread_10y2y: 0.29,
+        spread_10y3m: 0.60,
+        us_10y: 5.04,
+        us_2y: 4.76,
+        sahm_status: "勞動市場安全擴張期 (極低衰退風險)",
+        curve_status: "倒掛解除·走向陡峭化 (Steepening)",
+        desc: "薩姆規則最新值為 0.00%（遠低於 0.50% 警戒線），勞動市場具備高度韌性；美債 10Y-2Y 利差修復至 +0.29%，呈現平穩陡峭化正常階段，整體宏觀經濟未現即刻衰退徵兆。"
+      }
+    };
+
+    function populateRecessionDefaultIfEmpty() {
+      const sahmVal = document.getElementById('sahm-val');
+      if (sahmVal && (!sahmVal.textContent || sahmVal.textContent === '—' || sahmVal.textContent.includes('0.00'))) {
+        const rec = RECESSION_DEFAULT_DATA.latest;
+        sahmVal.textContent = `${rec.sahm_value.toFixed(2)}%`;
+        const unrateVal = document.getElementById('unrate-val');
+        if (unrateVal) unrateVal.textContent = `${rec.unemployment_rate.toFixed(1)}%`;
+        const s10y2y = document.getElementById('spread-10y2y-val');
+        if (s10y2y) s10y2y.textContent = `${rec.spread_10y2y >= 0 ? '+' : ''}${rec.spread_10y2y.toFixed(2)}%`;
+        const s10y3m = document.getElementById('spread-10y3m-val');
+        if (s10y3m) s10y3m.textContent = `${rec.spread_10y3m >= 0 ? '+' : ''}${rec.spread_10y3m.toFixed(2)}%`;
+        const sahmBadge = document.getElementById('recession-sahm-badge');
+        if (sahmBadge) {
+          sahmBadge.textContent = rec.sahm_status.split(' ')[0];
+          sahmBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400';
+        }
+        const curveBadge = document.getElementById('recession-curve-badge');
+        if (curveBadge) {
+          curveBadge.textContent = rec.curve_status.split('·')[0];
+          curveBadge.className = 'text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400';
+        }
+        const comm = document.getElementById('recession-commentary');
+        if (comm) comm.textContent = rec.desc;
+      }
+    }
+
     // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
     const CORRELATION_ASSETS = [
       { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
@@ -1843,7 +1958,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -2303,6 +2418,70 @@
         populateFedLiquidityDefaultIfEmpty();
       }
 
+      // K. 薩姆規則衰退預警 ＆ 殖利率倒掛修復計
+      if (payload.recession_watch && payload.recession_watch.latest) {
+        const rec = payload.recession_watch.latest;
+        const sahmVal = document.getElementById('sahm-val');
+        const sahmSub = document.getElementById('sahm-sub');
+        const unrateVal = document.getElementById('unrate-val');
+        const s10y2y = document.getElementById('spread-10y2y-val');
+        const s10y2ySub = document.getElementById('spread-10y2y-sub');
+        const s10y3m = document.getElementById('spread-10y3m-val');
+        const sahmBadge = document.getElementById('recession-sahm-badge');
+        const curveBadge = document.getElementById('recession-curve-badge');
+        const comm = document.getElementById('recession-commentary');
+
+        if (sahmVal) {
+          sahmVal.textContent = `${rec.sahm_value.toFixed(2)}%`;
+          sahmVal.className = `text-2xl font-bold tabular-nums mt-1 ${rec.sahm_value >= 0.50 ? 'text-rose-500' : rec.sahm_value >= 0.35 ? 'text-amber-500' : 'text-emerald-500'}`;
+        }
+        if (sahmSub) {
+          sahmSub.textContent = rec.sahm_value >= 0.50 ? '🚨 觸發薩姆規則衰退警報' : rec.sahm_value >= 0.35 ? '⚠️ 進入勞動市場放緩警戒' : '衰退警戒線 0.50%（緩衝充裕）';
+          sahmSub.className = `text-[11px] mt-0.5 ${rec.sahm_value >= 0.50 ? 'text-rose-500' : rec.sahm_value >= 0.35 ? 'text-amber-500' : 'text-emerald-500'}`;
+        }
+        if (unrateVal) unrateVal.textContent = `${rec.unemployment_rate.toFixed(1)}%`;
+        if (s10y2y) {
+          s10y2y.textContent = `${rec.spread_10y2y >= 0 ? '+' : ''}${rec.spread_10y2y.toFixed(2)}%`;
+          s10y2y.className = `text-2xl font-bold tabular-nums mt-1 ${rec.spread_10y2y >= 0 ? 'text-blue-600 dark:text-blue-400' : 'text-rose-500'}`;
+        }
+        if (s10y2ySub) {
+          s10y2ySub.textContent = rec.spread_10y2y >= 0 ? '倒掛已解除（走向陡峭化）' : '負值倒掛中（衰退警訊）';
+          s10y2ySub.className = `text-[11px] mt-0.5 ${rec.spread_10y2y >= 0 ? 'text-blue-600 dark:text-blue-400' : 'text-rose-500'}`;
+        }
+        if (s10y3m) {
+          s10y3m.textContent = `${rec.spread_10y3m >= 0 ? '+' : ''}${rec.spread_10y3m.toFixed(2)}%`;
+        }
+        if (sahmBadge) {
+          sahmBadge.textContent = rec.sahm_status.split(' ')[0];
+          sahmBadge.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${rec.sahm_badge_class}`;
+        }
+        if (curveBadge) {
+          curveBadge.textContent = rec.curve_status.split('·')[0];
+          curveBadge.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${rec.curve_badge_class}`;
+        }
+        if (comm) comm.textContent = rec.desc;
+
+        if (COUNTRY_DATA.US && COUNTRY_DATA.US.insights) {
+          COUNTRY_DATA.US.insights.push(`薩姆規則衰退指標為 ${rec.sahm_value.toFixed(2)}%（失業率 ${rec.unemployment_rate}%），美債 10Y-2Y 利差為 ${rec.spread_10y2y >= 0 ? '+' : ''}${rec.spread_10y2y}%（${rec.curve_status}）。`);
+        }
+
+        let item = TRADER_ITEMS.find(x => x.name === '美股-薩姆規則衰退指標');
+        if (!item) {
+          item = { cat: '總經數據', sub: '美國', name: '美股-薩姆規則衰退指標', quad: 'HIGH_UP', vars: 'Sahm Rule & UNRATE' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `${rec.sahm_value.toFixed(2)}%`;
+        item.date = rec.sahm_date || dateStr;
+        item.desc = `失業率 3M 均值 vs 過去 12M 低點之差值。${rec.sahm_status}`;
+        item.dataStatus = 'verified';
+        item.source = payload.recession_watch.source || 'FRED (SAHMREALTIME)';
+        item.sourceUrl = payload.recession_watch.source_url || 'https://fred.stlouisfed.org/series/SAHMREALTIME';
+
+        count++;
+      } else {
+        populateRecessionDefaultIfEmpty();
+      }
+
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
@@ -2326,6 +2505,7 @@
 
       renderErpChart();
       renderFedLiquidityChart();
+      renderRecessionChart();
       renderNdcChart();
       if (state.activeTab === 'dashboard') renderDashboard();
       if (state.activeTab === 'money') renderMoneyTab();
@@ -2767,6 +2947,7 @@
       });
       renderErpChart();
       renderFedLiquidityChart();
+      renderRecessionChart();
     }
 
     function renderMoneyTab() {
@@ -3061,6 +3242,118 @@
       });
     }
 
+    function renderRecessionChart() {
+      const canvas = document.getElementById('recessionChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.recession) charts.recession.destroy();
+
+      const sahmSeries = SERIES_DB.sahmRule;
+      const spreadSeries = SERIES_DB.spread10y2y || SERIES_DB.us10y2y;
+      if (!sahmSeries || !sahmSeries.data || sahmSeries.data.length === 0) return;
+
+      const labels = sahmSeries.labels || MONTHS;
+      const sahmValues = sahmSeries.data;
+      const spreadValues = (spreadSeries && spreadSeries.data) ? spreadSeries.data.slice(-labels.length) : [];
+
+      const datasets = [
+        {
+          label: '薩姆規則指標 (%，左軸)',
+          data: sahmValues,
+          borderColor: '#f59e0b',
+          backgroundColor: 'rgba(245, 158, 11, 0.12)',
+          pointBackgroundColor: sahmValues.map(v => v >= 0.50 ? '#ef4444' : v >= 0.35 ? '#f59e0b' : '#10b981'),
+          pointBorderColor: '#ffffff',
+          pointRadius: 3.5,
+          tension: 0.25,
+          fill: true,
+          yAxisID: 'y'
+        },
+        {
+          label: '0.50% 薩姆警戒線 (衰退臨界點)',
+          data: labels.map(() => 0.50),
+          borderColor: '#ef4444',
+          borderDash: [5, 4],
+          pointRadius: 0,
+          fill: false,
+          yAxisID: 'y'
+        }
+      ];
+
+      if (spreadValues.length === labels.length) {
+        datasets.push({
+          label: '美債 10Y - 2Y 利差 (%，右軸)',
+          data: spreadValues,
+          borderColor: '#3b82f6',
+          pointRadius: 2.5,
+          tension: 0.25,
+          fill: false,
+          yAxisID: 'y1'
+        });
+        datasets.push({
+          label: '0% 倒掛臨界線',
+          data: labels.map(() => 0),
+          borderColor: '#94a3b8',
+          borderDash: [4, 4],
+          pointRadius: 0,
+          fill: false,
+          yAxisID: 'y1'
+        });
+      }
+
+      charts.recession = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  if (c.datasetIndex === 0) {
+                    return `薩姆規則: ${Number(c.raw).toFixed(2)}% (${c.raw >= 0.50 ? '觸發衰退' : c.raw >= 0.35 ? '警戒' : '安全'})`;
+                  }
+                  if (c.datasetIndex === 2) {
+                    return `10Y-2Y 利差: ${c.raw >= 0 ? '+' : ''}${Number(c.raw).toFixed(2)}% (${c.raw >= 0 ? '正向/陡峭化' : '倒掛'})`;
+                  }
+                  return c.dataset.label;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: {
+              type: 'linear',
+              position: 'left',
+              title: { display: true, text: '薩姆規則 (%)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: {
+                color: textColor(),
+                callback: function(v) { return `${v}%`; }
+              }
+            },
+            y1: {
+              type: 'linear',
+              position: 'right',
+              title: { display: true, text: '10Y-2Y 利差 (%)', color: textColor() },
+              grid: { drawOnChartArea: false },
+              ticks: {
+                color: textColor(),
+                callback: function(v) { return `${v >= 0 ? '+' : ''}${v}%`; }
+              }
+            }
+          }
+        }
+      });
+    }
+
 
     function populateToolboxSelects() {
       const leftEl = document.getElementById('series-left');
@@ -3313,6 +3606,7 @@
       else if (ind === 'ndcScore') { slider.min = 10; slider.max = 45; slider.step = 1; }
       else if (ind === 'equityRiskPremium') { slider.min = -1.5; slider.max = 2.0; slider.step = 0.05; }
       else if (ind === 'fedNetLiquidity') { slider.min = 5.0; slider.max = 6.5; slider.step = 0.05; }
+      else if (ind === 'sahmRule') { slider.min = 0.0; slider.max = 1.0; slider.step = 0.05; }
       else if (ind === 'spread10y2y') { slider.min = -0.2; slider.max = 0.5; slider.step = 0.05; }
       else if (ind === 'usCpi') { slider.min = 2.0; slider.max = 4.0; slider.step = 0.1; }
       else { slider.min = 4.0; slider.max = 5.2; slider.step = 0.05; }
