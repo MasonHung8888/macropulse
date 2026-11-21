@@ -4881,8 +4881,16 @@
         `;
       } else if (category === 'index') {
         const twIndices = (DATA.indices && DATA.indices.twse) || {};
-        const d = (twIndices[key] || (DATA.indices && DATA.indices[key])) || {};
-        const h = d.history || histDB[key] || (key === 'taiex' ? histDB.taiex : {});
+        const baseD = twIndices[key] || (DATA.indices && DATA.indices[key]) || {};
+        const metaD = histDB[key] || {};
+        const d = Object.assign({}, metaD, baseD);
+        if (!d.ma20 && metaD.ma20) d.ma20 = metaD.ma20;
+        if (!d.ma60 && metaD.ma60) d.ma60 = metaD.ma60;
+        if (!d.dd60 && metaD.dd60) d.dd60 = metaD.dd60;
+        if (!d.dist_ma60_pct && metaD.dist_ma60_pct) d.dist_ma60_pct = metaD.dist_ma60_pct;
+        if (!d.dist_ma20_pct && metaD.dist_ma20_pct) d.dist_ma20_pct = metaD.dist_ma20_pct;
+        if (!d.r5 && metaD.r5) d.r5 = metaD.r5;
+        const h = (metaD && metaD.history && metaD.history.closes && metaD.history.closes.length > 0) ? metaD.history : (baseD.history || histDB[key] || {});
 
         const nameMap = {
           taiex: '台灣加權指數 (TAIEX)',
