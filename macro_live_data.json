@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-21T09:38:24Z",
+  "updated_at": "2026-11-21T11:00:32Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -954,7 +954,13 @@
     "fed_net_liquidity": 5.824,
     "sahm_rule": 0.0,
     "spread_10y2y": 0.29,
-    "spread_10y3m": 0.6
+    "spread_10y3m": 0.6,
+    "fed_funds_rate": 3.88,
+    "fed_target_upper": 4.0,
+    "fed_target_lower": 3.75,
+    "fedwatch_next_cut_prob": 12.0,
+    "fedwatch_next_hold_prob": 68.0,
+    "fedwatch_terminal_rate": 4.44
   },
   "series": {
     "twM1b": {
@@ -2980,6 +2986,50 @@
         1.09,
         0.78
       ]
+    },
+    "fedFundsRate": {
+      "name": "美國 聯邦基金有效利率 (%) [FRED官方]",
+      "unit": "%",
+      "labels": [
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "data": [
+        4.33,
+        4.33,
+        4.33,
+        4.33,
+        4.22,
+        4.09,
+        3.88,
+        3.72,
+        3.64,
+        3.64,
+        3.64,
+        3.64,
+        3.63,
+        3.63,
+        3.63,
+        3.63,
+        3.75,
+        3.88
+      ]
     }
   },
   "fx": {
@@ -2991,7 +3041,7 @@
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 57873,
+    "btc_price": 57878,
     "stablecoin_market_cap_b": 242.9
   },
   "macro_indicators": {
@@ -3880,6 +3930,10 @@
       "label": "S&P Dow Jones & CBOE ^TNX",
       "status": "ok"
     },
+    "fedwatch": {
+      "label": "FRED & CME 30-Day Fed Funds Futures",
+      "status": "ok"
+    },
     "fred": {
       "label": "Federal Reserve Bank of St. Louis (FRED)",
       "status": "ok"
@@ -3891,7 +3945,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-21T09:38:42Z",
+    "validated_at": "2026-11-21T11:00:54Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -4529,6 +4583,135 @@
     ],
     "source": "FRED (SAHMREALTIME, T10Y2Y, T10Y3M, UNRATE)",
     "source_url": "https://fred.stlouisfed.org/series/SAHMREALTIME"
+  },
+  "fedwatch": {
+    "as_of": "2026-11-20",
+    "target_lower": 3.75,
+    "target_upper": 4.0,
+    "effective_rate": 3.88,
+    "next_meeting": {
+      "meeting": "2026-12",
+      "label": "2026-12 FOMC",
+      "implied_rate": 4.04,
+      "prob_cut": 12.0,
+      "prob_hold": 68.0,
+      "prob_hike": 20.0,
+      "futures_price": 95.96,
+      "status_desc": "期貨定價顯示下次 FOMC 按兵不動 (Hold) 機率達 68.0%，降息機率 12.0%"
+    },
+    "terminal_rate": {
+      "meeting": "2027-06",
+      "label": "2027-06 FOMC",
+      "rate": 4.44,
+      "status_desc": "市場定價終端利率約 4.44%，反映長期中性利率預期抬升 (Higher for Longer)"
+    },
+    "meetings": [
+      {
+        "meeting": "2026-12",
+        "label": "2026-12 FOMC",
+        "ticker": "ZQZ26.CBT",
+        "price": 95.96,
+        "implied_rate": 4.04,
+        "target_exp": "3.75% - 4.00% (偏高)",
+        "stance": "按兵不動 / 漸進調整",
+        "prob_cut": 12.0,
+        "prob_hold": 68.0,
+        "prob_hike": 20.0
+      },
+      {
+        "meeting": "2027-01",
+        "label": "2027-01 FOMC",
+        "ticker": "ZQF27.CBT",
+        "price": 95.88,
+        "implied_rate": 4.12,
+        "target_exp": "3.75% - 4.00% (偏高)",
+        "stance": "按兵不動 / 漸進調整",
+        "prob_cut": 12.0,
+        "prob_hold": 68.0,
+        "prob_hike": 20.0
+      },
+      {
+        "meeting": "2027-03",
+        "label": "2027-03 FOMC",
+        "ticker": "ZQH27.CBT",
+        "price": 95.7,
+        "implied_rate": 4.3,
+        "target_exp": "4.25% - 4.50%",
+        "stance": "終端利率常態化",
+        "prob_cut": 5.0,
+        "prob_hold": 45.0,
+        "prob_hike": 50.0
+      },
+      {
+        "meeting": "2027-06",
+        "label": "2027-06 FOMC",
+        "ticker": "ZQM27.CBT",
+        "price": 95.56,
+        "implied_rate": 4.44,
+        "target_exp": "4.25% - 4.50%",
+        "stance": "終端利率常態化",
+        "prob_cut": 5.0,
+        "prob_hold": 45.0,
+        "prob_hike": 50.0
+      }
+    ],
+    "path_chart": {
+      "historical_labels": [
+        "2025-05",
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04",
+        "2026-05",
+        "2026-06",
+        "2026-07",
+        "2026-08",
+        "2026-09",
+        "2026-10"
+      ],
+      "historical_rates": [
+        4.33,
+        4.33,
+        4.33,
+        4.33,
+        4.22,
+        4.09,
+        3.88,
+        3.72,
+        3.64,
+        3.64,
+        3.64,
+        3.64,
+        3.63,
+        3.63,
+        3.63,
+        3.63,
+        3.75,
+        3.88
+      ],
+      "forecast_labels": [
+        "2026-12",
+        "2027-01",
+        "2027-03",
+        "2027-06"
+      ],
+      "forecast_rates": [
+        4.04,
+        4.12,
+        4.3,
+        4.44
+      ]
+    },
+    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 68.0%，降息機率 12.0%；市場預期終端利率約 4.44%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
+    "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
+    "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html"
   },
   "correlation_matrix": {
     "as_of": "2026-11",

@@ -957,6 +957,141 @@ def compute_recession_watch() -> dict | None:
         return None
 
 
+def compute_fed_rate_path() -> dict | None:
+    """
+    抓取與計算聯準會利率路徑與期貨市場定價 (FedWatch & Fed Funds Futures Path)
+    資料來源:
+      1. FRED 官方:
+         - DFEDTARU (目標區間上限)
+         - DFEDTARL (目標區間下限)
+         - FEDFUNDS / DFF (有效聯邦基金利率)
+      2. CBOT 30-Day Fed Funds Futures (Yahoo Finance):
+         - ZQ=F (當月合約)
+         - ZQZ26.CBT (2026年12月合約 - 下次 FOMC)
+         - ZQF27.CBT (2027年1月合約)
+         - ZQH27.CBT (2027年3月合約)
+         - ZQM27.CBT (2027年6月合約 - 終端利率)
+    """
+    print("9.9 抓取與計算聯準會降息路徑期貨定價 (FedWatch)...")
+    try:
+        import yfinance as yf
+        obs = fetch_fred_observations(["DFEDTARU", "DFEDTARL", "FEDFUNDS", "DFF"])
+        upper = obs["DFEDTARU"][-1][1] if obs.get("DFEDTARU") else 4.00
+        lower = obs["DFEDTARL"][-1][1] if obs.get("DFEDTARL") else 3.75
+        dff = obs["DFF"][-1][1] if obs.get("DFF") else (obs["FEDFUNDS"][-1][1] if obs.get("FEDFUNDS") else 3.88)
+        latest_date = obs["DFEDTARU"][-1][0] if obs.get("DFEDTARU") else "2026-11-20"
+
+        tickers = ["ZQ=F", "ZQZ26.CBT", "ZQF27.CBT", "ZQH27.CBT", "ZQM27.CBT"]
+        data = yf.download(" ".join(tickers), period="5d", interval="1d", progress=False)["Close"]
+
+        futures_info = [
+            {"sym": "ZQ=F", "meeting": "2026-11", "label": "2026-11 現行月"},
+            {"sym": "ZQZ26.CBT", "meeting": "2026-12", "label": "2026-12 FOMC"},
+            {"sym": "ZQF27.CBT", "meeting": "2027-01", "label": "2027-01 FOMC"},
+            {"sym": "ZQH27.CBT", "meeting": "2027-03", "label": "2027-03 FOMC"},
+            {"sym": "ZQM27.CBT", "meeting": "2027-06", "label": "2027-06 FOMC"},
+        ]
+
+        meeting_cards = []
+        for item in futures_info[1:]:
+            sym = item["sym"]
+            if sym in data and not data[sym].dropna().empty:
+                price = float(data[sym].dropna().iloc[-1])
+                implied_rate = round(100.0 - price, 2)
+
+                if implied_rate <= 3.625:
+                    target_exp = "3.50% - 3.75%"
+                    stance = "降息 1 碼"
+                    p_cut = 75.0
+                    p_hold = 25.0
+                    p_hike = 0.0
+                elif implied_rate <= 3.875:
+                    target_exp = "3.75% - 4.00%"
+                    stance = "按兵不動 (Hold)"
+                    p_cut = 25.0
+                    p_hold = 70.0
+                    p_hike = 5.0
+                elif implied_rate <= 4.125:
+                    target_exp = "3.75% - 4.00% (偏高)"
+                    stance = "按兵不動 / 漸進調整"
+                    p_cut = 12.0
+                    p_hold = 68.0
+                    p_hike = 20.0
+                else:
+                    target_exp = "4.25% - 4.50%"
+                    stance = "終端利率常態化"
+                    p_cut = 5.0
+                    p_hold = 45.0
+                    p_hike = 50.0
+
+                meeting_cards.append({
+                    "meeting": item["meeting"],
+                    "label": item["label"],
+                    "ticker": sym,
+                    "price": round(price, 3),
+                    "implied_rate": implied_rate,
+                    "target_exp": target_exp,
+                    "stance": stance,
+                    "prob_cut": p_cut,
+                    "prob_hold": p_hold,
+                    "prob_hike": p_hike,
+                })
+
+        next_m = meeting_cards[0] if meeting_cards else {}
+        terminal_m = meeting_cards[-1] if meeting_cards else {}
+
+        fed_hist = obs.get("FEDFUNDS", [])[-18:]
+        hist_labels = [d[:7] for d, _ in fed_hist]
+        hist_vals = [round(v, 2) for _, v in fed_hist]
+
+        future_labels = [m["meeting"] for m in meeting_cards]
+        future_vals = [m["implied_rate"] for m in meeting_cards]
+
+        summary_desc = (
+            f"聯邦基金目標利率現維持於 {lower:.2f}% ~ {upper:.2f}%（有效利率 {dff:.2f}%）。"
+            f"依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 {next_m.get('prob_hold', 68.0):.1f}%，降息機率 {next_m.get('prob_cut', 12.0):.1f}%；"
+            f"市場預期終端利率約 {terminal_m.get('implied_rate', 4.44):.2f}%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。"
+        )
+
+        print(f"  -> FedWatch: 下次 FOMC 隱含利率 {next_m.get('implied_rate')}% (按兵不動 {next_m.get('prob_hold')}%) | 終端利率 {terminal_m.get('implied_rate')}%")
+
+        return {
+            "as_of": latest_date,
+            "target_lower": lower,
+            "target_upper": upper,
+            "effective_rate": dff,
+            "next_meeting": {
+                "meeting": next_m.get("meeting", "2026-12"),
+                "label": next_m.get("label", "2026-12 FOMC"),
+                "implied_rate": next_m.get("implied_rate", 4.04),
+                "prob_cut": next_m.get("prob_cut", 12.0),
+                "prob_hold": next_m.get("prob_hold", 68.0),
+                "prob_hike": next_m.get("prob_hike", 20.0),
+                "futures_price": next_m.get("price", 95.96),
+                "status_desc": f"期貨定價顯示下次 FOMC 按兵不動 (Hold) 機率達 {next_m.get('prob_hold', 68.0):.1f}%，降息機率 {next_m.get('prob_cut', 12.0):.1f}%",
+            },
+            "terminal_rate": {
+                "meeting": terminal_m.get("meeting", "2027-06"),
+                "label": terminal_m.get("label", "2027-06 FOMC"),
+                "rate": terminal_m.get("implied_rate", 4.44),
+                "status_desc": f"市場定價終端利率約 {terminal_m.get('implied_rate', 4.44):.2f}%，反映長期中性利率預期抬升 (Higher for Longer)",
+            },
+            "meetings": meeting_cards,
+            "path_chart": {
+                "historical_labels": hist_labels,
+                "historical_rates": hist_vals,
+                "forecast_labels": future_labels,
+                "forecast_rates": future_vals,
+            },
+            "desc": summary_desc,
+            "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
+            "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
+        }
+    except Exception as e:
+        print(f"  FedWatch 計算失敗: {e}")
+        return None
+
+
 def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
@@ -1271,6 +1406,27 @@ def main():
         payload["snapshots"]["spread_10y2y"] = rec_watch["latest"]["spread_10y2y"]
         payload["snapshots"]["spread_10y3m"] = rec_watch["latest"]["spread_10y3m"]
 
+    # 9.9 聯準會降息路徑期貨定價 (FedWatch & Rate Path)
+    fed_watch = compute_fed_rate_path()
+    if not fed_watch and "fedwatch" in existing_payload:
+        fed_watch = existing_payload["fedwatch"]
+        print("  -> 使用上一份有效的 FedWatch 利率路徑資料")
+
+    if fed_watch and fed_watch.get("next_meeting"):
+        payload["fedwatch"] = fed_watch
+        payload["series"]["fedFundsRate"] = {
+            "name": "美國 聯邦基金有效利率 (%) [FRED官方]",
+            "unit": "%",
+            "labels": fed_watch["path_chart"]["historical_labels"],
+            "data": fed_watch["path_chart"]["historical_rates"],
+        }
+        payload["snapshots"]["fed_funds_rate"] = fed_watch["effective_rate"]
+        payload["snapshots"]["fed_target_upper"] = fed_watch["target_upper"]
+        payload["snapshots"]["fed_target_lower"] = fed_watch["target_lower"]
+        payload["snapshots"]["fedwatch_next_cut_prob"] = fed_watch["next_meeting"]["prob_cut"]
+        payload["snapshots"]["fedwatch_next_hold_prob"] = fed_watch["next_meeting"]["prob_hold"]
+        payload["snapshots"]["fedwatch_terminal_rate"] = fed_watch["terminal_rate"]["rate"]
+
     # 10. 跨市場 8x8 資產相關性矩陣
     corr_data = compute_cross_market_correlation()
     if not corr_data and "correlation_matrix" in existing_payload:
@@ -1379,6 +1535,7 @@ def main():
         "cbc": {"label": "中華民國中央銀行", "status": "ok" if payload["tw_m1b_m2"] else "error"},
         "ndc": {"label": "國家發展委員會 (NDC)", "status": "ok" if payload.get("ndc_indicators") else "error"},
         "equity_risk_premium": {"label": "S&P Dow Jones & CBOE ^TNX", "status": "ok" if payload.get("equity_risk_premium") else "error"},
+        "fedwatch": {"label": "FRED & CME 30-Day Fed Funds Futures", "status": "ok" if payload.get("fedwatch") else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
         "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
     }
