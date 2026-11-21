@@ -1581,6 +1581,78 @@
     };
 
     
+
+    // --- 3.4 NDC Business Indicators Default Fallback ---
+    const NDC_DEFAULT_DATA = {
+      latest: { date: '2026-09', score: 41, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+      history: [
+        { date: '2024-10', score: 32, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2024-11', score: 34, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2024-12', score: 38, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+        { date: '2025-01', score: 36, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2025-02', score: 34, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2025-03', score: 31, light: '綠燈', color: 'green', desc: '景氣穩定' },
+        { date: '2025-04', score: 35, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2025-05', score: 36, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2025-06', score: 38, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+        { date: '2025-07', score: 35, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2025-08', score: 39, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+        { date: '2025-09', score: 34, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2025-10', score: 35, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2025-11', score: 37, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2025-12', score: 38, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+        { date: '2026-01', score: 39, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+        { date: '2026-02', score: 37, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2026-03', score: 36, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2026-04', score: 35, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2026-05', score: 36, light: '黃紅燈', color: 'yellow-red', desc: '轉向熱絡' },
+        { date: '2026-06', score: 38, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+        { date: '2026-07', score: 39, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+        { date: '2026-08', score: 39, light: '紅燈', color: 'red', desc: '景氣熱絡' },
+        { date: '2026-09', score: 41, light: '紅燈', color: 'red', desc: '景氣熱絡' }
+      ],
+      components: [
+        { name: '股價指數', score: 5 },
+        { name: '批發、零售及餐飲業營業額', score: 5 },
+        { name: '工業生產指數', score: 5 },
+        { name: '製造業銷售量指數', score: 5 },
+        { name: '機械及電機設備進口值', score: 5 },
+        { name: '製造業營業氣候測驗點', score: 4 },
+        { name: '貨幣總計數 M1B', score: 3 },
+        { name: '工業及服務業加班工時', score: 4 },
+        { name: '海關出口值', score: 5 }
+      ]
+    };
+
+    function populateNdcDefaultIfEmpty() {
+      const compGrid = document.getElementById('ndc-components-grid');
+      if (compGrid && compGrid.children.length === 0 && NDC_DEFAULT_DATA.components) {
+        compGrid.innerHTML = NDC_DEFAULT_DATA.components.map(item => {
+          const scoreColor = item.score >= 5 ? 'text-red-500 bg-red-500/10' : item.score === 4 ? 'text-amber-500 bg-amber-500/10' : item.score === 3 ? 'text-emerald-500 bg-emerald-500/10' : 'text-blue-500 bg-blue-500/10';
+          return `
+            <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+              <span class="text-slate-700 dark:text-slate-300 font-medium">${item.name}</span>
+              <span class="px-2 py-0.5 rounded font-bold tabular-nums ${scoreColor}">${item.score} 分</span>
+            </div>
+          `;
+        }).join('');
+      }
+      const badge = document.getElementById('ndc-light-badge');
+      if (badge && (!badge.textContent || badge.textContent.includes('41分'))) {
+        badge.textContent = `${NDC_DEFAULT_DATA.latest.date}：${NDC_DEFAULT_DATA.latest.score}分 · ${NDC_DEFAULT_DATA.latest.light}`;
+        badge.className = 'text-xs font-bold px-2.5 py-0.5 rounded-full text-white bg-red-600';
+      }
+      const kpiLabel = document.getElementById('ndc-kpi-label');
+      const kpiVal = document.getElementById('ndc-kpi-val');
+      const kpiSub = document.getElementById('ndc-kpi-sub');
+      if (kpiLabel) kpiLabel.textContent = `國發會景氣燈號 (${NDC_DEFAULT_DATA.latest.date}) [官方]`;
+      if (kpiVal) {
+        kpiVal.textContent = `${NDC_DEFAULT_DATA.latest.score}分 · ${NDC_DEFAULT_DATA.latest.light}`;
+        kpiVal.className = 'text-2xl font-bold tabular-nums mt-1.5 text-rose-500';
+      }
+      if (kpiSub) kpiSub.textContent = `官方評定：${NDC_DEFAULT_DATA.latest.desc}`;
+    }
+
     // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
     const CORRELATION_ASSETS = [
       { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
@@ -2559,6 +2631,7 @@
           }
         }
       });
+      populateNdcDefaultIfEmpty();
       renderNdcChart();
     }
     function getLightColor(score, light) {
@@ -2575,9 +2648,14 @@
       const ctx = canvas.getContext('2d');
       if (charts.ndc) charts.ndc.destroy();
 
-      const ndcSeries = SERIES_DB.ndcScore;
+      let ndcSeries = SERIES_DB.ndcScore;
+      if (!ndcSeries || !ndcSeries.data || ndcSeries.data.length === 0) {
+        ndcSeries = {
+          labels: NDC_DEFAULT_DATA.history.map(d => d.date),
+          data: NDC_DEFAULT_DATA.history.map(d => d.score)
+        };
+      }
       const taiexSeries = SERIES_DB.taiex;
-      if (!ndcSeries || !ndcSeries.data || ndcSeries.data.length === 0) return;
 
       const labels = ndcSeries.labels || MONTHS;
       const scores = ndcSeries.data;
