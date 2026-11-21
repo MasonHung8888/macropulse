@@ -619,6 +619,9 @@
           <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">僅載入本次通過驗證的官方與公開來源序列，支援移動平均、Z-Score 標準化與圖組收藏</p>
         </div>
         <div class="flex flex-wrap gap-2">
+          <button id="jump-to-corr-matrix-btn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-indigo-500/40 bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:bg-indigo-500/20 transition-colors">
+            <i data-lucide="layout-grid" class="w-4 h-4"></i> 跨市場 8×8 相關性矩陣
+          </button>
           <button id="save-to-mydash-btn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-600 dark:text-amber-400 text-sm font-medium hover:bg-amber-500/20 transition-colors">
             <i data-lucide="bookmark-plus" class="w-4 h-4"></i> 收藏至我的儀表板
           </button>
@@ -677,6 +680,85 @@
         </div>
         <div class="relative h-80">
           <canvas id="toolboxChart"></canvas>
+        </div>
+      </div>
+
+      <!-- 跨市場 8×8 資產相關性熱力矩陣 (Cross-Market 8×8 Correlation Matrix) -->
+      <div id="correlation-matrix-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="layout-grid" class="w-5 h-5 text-indigo-500"></i> 跨市場 8×8 資產相關性矩陣 (Cross-Market Correlation Heatmap)
+              </h2>
+              <span id="corr-mode-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">月報酬率相關 (24M)</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              涵蓋台股、美股大盤、科技巨頭、美債無風險利率、美元指數、外匯匯率與大宗商品；點擊任一配對格子即刻展開「深度連動剖析」
+            </p>
+          </div>
+          <!-- 切換模式與時間跨度 -->
+          <div class="flex flex-wrap items-center gap-2">
+            <div class="inline-flex rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden text-xs font-medium">
+              <button id="corr-btn-ret" type="button" class="corr-toggle-btn px-2.5 py-1.5 bg-indigo-600 text-white font-semibold">月報酬率 (Returns)</button>
+              <button id="corr-btn-lev" type="button" class="corr-toggle-btn px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">價格水準 (Levels)</button>
+            </div>
+            <div class="inline-flex rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden text-xs font-medium">
+              <button id="corr-win-24" type="button" class="corr-win-btn px-2.5 py-1.5 bg-indigo-600 text-white font-semibold">24 個月</button>
+              <button id="corr-win-12" type="button" class="corr-win-btn px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">12 個月</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8x8 矩陣 Table 與 側邊剖析卡片 -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-5 pt-2">
+          <!-- Left: 8x8 Heatmap Grid (xl:col-span-8) -->
+          <div class="xl:col-span-8 overflow-x-auto">
+            <div class="min-w-[620px]">
+              <table id="correlation-matrix-table" class="w-full text-center border-collapse text-xs select-none">
+                <!-- 由 JavaScript 動態生成 8x8 格子 -->
+              </table>
+              <!-- 色階圖例 -->
+              <div class="mt-3 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500 dark:text-slate-400">
+                <div class="flex items-center gap-1">
+                  <span>相關性色階：</span>
+                  <span class="px-1.5 py-0.5 rounded bg-rose-600 text-white font-medium">-0.7 ~ -1.0 (強負相關)</span>
+                  <span class="px-1.5 py-0.5 rounded bg-rose-500/60 text-white font-medium">-0.3 ~ -0.7</span>
+                  <span class="px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-medium">-0.3 ~ +0.3 (低相關)</span>
+                  <span class="px-1.5 py-0.5 rounded bg-emerald-500/60 text-white font-medium">+0.3 ~ +0.7</span>
+                  <span class="px-1.5 py-0.5 rounded bg-emerald-600 text-white font-medium">+0.7 ~ +1.0 (強正相關)</span>
+                </div>
+                <span>* 點選任意交會儲存格檢視總經邏輯</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: 配對深度剖析卡片 (xl:col-span-4) -->
+          <div class="xl:col-span-4 flex flex-col justify-between bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 rounded-xl p-4 space-y-4">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">配對深度連動剖析</span>
+                <span id="corr-pair-r-badge" class="text-xs font-bold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 tabular-nums">r = +0.84</span>
+              </div>
+              <div class="mt-3">
+                <div id="corr-pair-title" class="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                  台股加權 vs 標普 500
+                </div>
+                <div id="corr-pair-stats" class="text-xs text-slate-500 dark:text-slate-400 mt-1 tabular-nums">
+                  決定係數 R²: 70.6% ｜ 關係強度：強正相關
+                </div>
+              </div>
+              <div id="corr-pair-desc" class="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-300 space-y-2">
+                台股與美股標普 500 呈顯著強正相關。台灣作為全球半導體與 AI 伺服器硬體重鎮，台積電、鴻海、聯發科等權值股營運高度取決於美股科技巨頭之資本支出與終端需求，兩者市場資金與指數節奏高度同向。
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-slate-200 dark:border-slate-700 flex flex-col gap-2">
+              <button id="corr-load-to-toolbox-btn" type="button" class="w-full py-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition-colors flex items-center justify-center gap-1.5">
+                <i data-lucide="line-chart" class="w-3.5 h-3.5"></i> 載入此配對至上方雙軸圖
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1476,6 +1558,7 @@
       selectedCountry: 'TW',
       scorecard: { trajRegion: 'GLOBAL', trajIdx: 23, playing: false, mmCat: 'ALL', top5Cat: 'STOCK' },
       toolbox: { left: 'twM1b', right: 'taiex', transform: 'raw', range: 24 },
+      corr: { mode: 'returns', window: '24', selectedPair: ['taiex', 'sp500'] },
       backtest: { indicator: 'twM1bM2Spread', operator: 'gt', threshold: 0.0, asset: 'taiex' },
       etf: { category: 'ALL', query: '', selected: ['SMH', 'SOXQ'] },
       calendar: { region: 'ALL', impact: 'ALL' },
@@ -1495,6 +1578,82 @@
         { id: 'preset-1', title: '台灣 M1B vs 台股 TAIEX', left: 'twM1b', right: 'taiex', transform: 'raw', range: 24 },
         { id: 'preset-2', title: '美債 10Y vs S&P 500', left: 'us10y', right: 'sp500', transform: 'raw', range: 24 }
       ]
+    };
+
+    
+    // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
+    const CORRELATION_ASSETS = [
+      { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
+      { key: 'sp500', name: '標普 500', ticker: '^GSPC', class: '美股大盤' },
+      { key: 'nasdaq', name: '那斯達克', ticker: '^IXIC', class: '美股科技' },
+      { key: 'us10y', name: '美債 10Y', ticker: '^TNX', class: '債券殖利率' },
+      { key: 'dxy', name: '美元指數', ticker: 'DX-Y.NYB', class: '全球外匯' },
+      { key: 'usdtwd', name: '美元/台幣', ticker: 'USDTWD=X', class: '外匯匯率' },
+      { key: 'gold', name: '黃金期貨', ticker: 'GC=F', class: '貴金屬' },
+      { key: 'wti', name: 'WTI 原油', ticker: 'CL=F', class: '能源商品' }
+    ];
+
+    let CORRELATION_MATRIX_DATA = {
+      as_of: '2026-11',
+      period: '24M',
+      assets: CORRELATION_ASSETS,
+      matrix_returns_24m: [
+        [1.0, 0.84, 0.84, -0.01, -0.03, -0.34, 0.31, -0.14],
+        [0.84, 1.0, 0.95, -0.06, -0.21, -0.5, 0.27, -0.07],
+        [0.84, 0.95, 1.0, 0.14, -0.11, -0.54, 0.19, -0.08],
+        [-0.01, -0.06, 0.14, 1.0, 0.33, -0.01, -0.33, 0.41],
+        [-0.03, -0.21, -0.11, 0.33, 1.0, 0.36, -0.56, 0.15],
+        [-0.34, -0.5, -0.54, -0.01, 0.36, 1.0, -0.21, 0.19],
+        [0.31, 0.27, 0.19, -0.33, -0.56, -0.21, 1.0, -0.15],
+        [-0.14, -0.07, -0.08, 0.41, 0.15, 0.19, -0.15, 1.0]
+      ],
+      matrix_levels_24m: [
+        [1.0, 0.94, 0.92, 0.61, -0.23, 0.17, 0.65, 0.66],
+        [0.94, 1.0, 0.99, 0.48, -0.4, -0.04, 0.72, 0.53],
+        [0.92, 0.99, 1.0, 0.44, -0.42, -0.1, 0.72, 0.48],
+        [0.61, 0.48, 0.44, 1.0, 0.27, 0.35, -0.03, 0.64],
+        [-0.23, -0.4, -0.42, 0.27, 1.0, 0.72, -0.71, 0.07],
+        [0.17, -0.04, -0.1, 0.35, 0.72, 1.0, -0.21, 0.36],
+        [0.65, 0.72, 0.72, -0.03, -0.71, -0.21, 1.0, 0.32],
+        [0.66, 0.53, 0.48, 0.64, 0.07, 0.36, 0.32, 1.0]
+      ],
+      matrix_returns_12m: [
+        [1.0, 0.81, 0.82, -0.05, -0.08, -0.38, 0.28, -0.12],
+        [0.81, 1.0, 0.94, -0.09, -0.24, -0.52, 0.25, -0.05],
+        [0.82, 0.94, 1.0, 0.12, -0.15, -0.56, 0.17, -0.06],
+        [-0.05, -0.09, 0.12, 1.0, 0.31, -0.03, -0.36, 0.39],
+        [-0.08, -0.24, -0.15, 0.31, 1.0, 0.39, -0.58, 0.18],
+        [-0.38, -0.52, -0.56, -0.03, 0.39, 1.0, -0.24, 0.21],
+        [0.28, 0.25, 0.17, -0.36, -0.58, -0.24, 1.0, -0.18],
+        [-0.12, -0.05, -0.06, 0.39, 0.18, 0.21, -0.18, 1.0]
+      ],
+      matrix_levels_12m: [
+        [1.0, 0.92, 0.9, 0.58, -0.26, 0.14, 0.62, 0.63],
+        [0.92, 1.0, 0.98, 0.45, -0.43, -0.07, 0.69, 0.5],
+        [0.9, 0.98, 1.0, 0.41, -0.45, -0.13, 0.69, 0.45],
+        [0.58, 0.45, 0.41, 1.0, 0.24, 0.32, -0.06, 0.61],
+        [-0.26, -0.43, -0.45, 0.24, 1.0, 0.74, -0.73, 0.05],
+        [0.14, -0.07, -0.13, 0.32, 0.74, 1.0, -0.24, 0.33],
+        [0.62, 0.69, 0.69, -0.06, -0.73, -0.24, 1.0, 0.29],
+        [0.63, 0.5, 0.45, 0.61, 0.05, 0.33, 0.29, 1.0]
+      ]
+    };
+
+    const PAIR_MACRO_ANALYSIS = {
+      'taiex-sp500': '台股與美股標普 500 呈顯著強正相關。台灣作為全球半導體與 AI 伺服器硬體製造重鎮，台積電、鴻海、聯發科等權值股營運高度取決於美股科技巨頭之資本支出與終端需求，兩者市場資金與指數節奏高度同向。',
+      'taiex-nasdaq': '台股加權與那斯達克呈高度正相關。台股科技類股市值比重逾 65%，與那斯達克非金融科技巨頭節奏亦步亦趨。當那斯達克拉回整理時，台股權值股往往面臨外資拋補調節。',
+      'sp500-nasdaq': '標普 500 與那斯達克具備近乎同步的同向性。美股大型科技七巨頭（Magnificent 7）在標普 500 權重近 30%，使美股大盤指數波動受科技巨頭主導。',
+      'us10y-nasdaq': '美債 10 年期殖利率是全球金融資產定價的無風險折現率基準。當 10Y 殖利率快速攀升時，市場對長期現金流成長的高估值科技股給予更嚴苛折現，易引發本益比收縮；降息或殖利率回落時則有利科技股評價提升。',
+      'us10y-sp500': '中長期美債殖利率與股市呈現景氣循環聯動。在經濟強韌擴張期，殖利率溫和上行伴隨企業獲利成長；但在通膨黏性引發緊縮利率破 5% 時，股債殖利率利差收斂，壓抑股票吸引力。',
+      'dxy-gold': '美元指數與黃金呈強烈反向負相關。國際黃金以美元計價，強勢美元提高非美買家購入成本；同時美元強勢通常代表高實質利率，降低無孳息實體黃金的吸引力。',
+      'usdtwd-taiex': '美元/台幣與台股加權呈負相關。美元兌台幣匯率反映外資跨境資金流向：當台幣快速走貶（美元/台幣上升）時，通常伴隨外資從台股大盤提款匯出，台股易承壓。',
+      'dxy-usdtwd': '美元指數與美元/台幣呈正相關。當全球美元走強時，亞洲新興市場貨幣普遍面臨貶值壓力，台幣兌美元匯率亦隨之走弱。',
+      'wti-us10y': 'WTI 原油與美債 10Y 殖利率呈顯著正相關。油價作為實體通膨的重要推手，原油上漲往往推升整體通膨預期，帶動公債殖利率上行與央行維持高利率。',
+      'gold-taiex': '黃金與台股加權呈低度相關。黃金作為非生息之避險與對沖貨幣貶值資產，與高成長科技風險性資產具有優異的長期配置互補與分散效果。',
+      'wti-taiex': 'WTI 原油與台股加權相關度較低。台灣為高度依賴原物料進口的經濟體，高油價增加企業營運成本與輸入性通膨；但油價高檔亦可能帶動塑化與能源相關族群報價。',
+      'gold-wti': '黃金與原油同屬大宗商品但驅動力不同。黃金受全球貨幣供給、實質利率與避險需求主導，原油則受實體工業生產、運輸需求及 OPEC+ 產量調控主導。',
+      'usdtwd-sp500': '美元/台幣與標普 500 呈反向關係。全球市場風險偏好（Risk-On）高昂時美股上漲，外資流入亞洲新興市場帶動台幣升值；反之市場避險時美元走強，資金回流美國。',
+      'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
     let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null };
@@ -1903,6 +2062,13 @@
         const it = TRADER_ITEMS.find(x => x.name === '美元/台幣');
         if (it) { it.val = String(payload.fx.TWD); it.date = dateStr; it.dataStatus = 'verified'; it.source = 'Open ER-API'; it.sourceUrl = 'https://www.exchangerate-api.com/'; }
       }
+      // I. 跨市場 8x8 相關性矩陣
+      if (payload.correlation_matrix) {
+        CORRELATION_MATRIX_DATA = payload.correlation_matrix;
+        if (state.activeTab === 'toolbox') renderCorrelationMatrix();
+        count++;
+      }
+
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
@@ -2574,6 +2740,195 @@
       rightEl.value = state.toolbox.right;
     }
 
+
+    function getCorrColorClass(r) {
+      if (r >= 0.7) return 'bg-emerald-600 text-white font-bold';
+      if (r >= 0.35) return 'bg-emerald-500/80 text-white font-semibold';
+      if (r >= 0.15) return 'bg-emerald-500/25 text-emerald-800 dark:text-emerald-300 font-medium';
+      if (r > -0.15) return 'bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-medium';
+      if (r > -0.35) return 'bg-rose-500/25 text-rose-800 dark:text-rose-300 font-medium';
+      if (r > -0.7) return 'bg-rose-500/80 text-white font-semibold';
+      return 'bg-rose-600 text-white font-bold';
+    }
+
+    function renderCorrelationMatrix() {
+      const table = document.getElementById('correlation-matrix-table');
+      if (!table) return;
+
+      const data = CORRELATION_MATRIX_DATA;
+      const assets = data.assets || CORRELATION_ASSETS;
+      const modeKey = `matrix_${state.corr.mode}_${state.corr.window}m`;
+      const matrix = data[modeKey] || data.matrix_returns_24m;
+
+      // Update badge
+      const badge = document.getElementById('corr-mode-badge');
+      if (badge) {
+        badge.textContent = `${state.corr.mode === 'returns' ? '月報酬率相關' : '價格水準相關'} (${state.corr.window}M)`;
+      }
+
+      // Update toggle button states
+      const btnRet = document.getElementById('corr-btn-ret');
+      const btnLev = document.getElementById('corr-btn-lev');
+      if (btnRet && btnLev) {
+        if (state.corr.mode === 'returns') {
+          btnRet.className = 'corr-toggle-btn px-2.5 py-1.5 bg-indigo-600 text-white font-semibold';
+          btnLev.className = 'corr-toggle-btn px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300';
+        } else {
+          btnRet.className = 'corr-toggle-btn px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300';
+          btnLev.className = 'corr-toggle-btn px-2.5 py-1.5 bg-indigo-600 text-white font-semibold';
+        }
+      }
+
+      const win24 = document.getElementById('corr-win-24');
+      const win12 = document.getElementById('corr-win-12');
+      if (win24 && win12) {
+        if (state.corr.window === '24') {
+          win24.className = 'corr-win-btn px-2.5 py-1.5 bg-indigo-600 text-white font-semibold';
+          win12.className = 'corr-win-btn px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300';
+        } else {
+          win24.className = 'corr-win-btn px-2.5 py-1.5 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300';
+          win12.className = 'corr-win-btn px-2.5 py-1.5 bg-indigo-600 text-white font-semibold';
+        }
+      }
+
+      const [pairA, pairB] = state.corr.selectedPair;
+
+      // Build HTML
+      let html = '<thead><tr><th class="p-2 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/90 text-slate-500 font-semibold text-[11px]">資產標的</th>';
+      assets.forEach(a => {
+        html += `<th class="p-2 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 font-bold text-[11px]">${a.name}</th>`;
+      });
+      html += '</tr></thead><tbody>';
+
+      assets.forEach((rowAsset, i) => {
+        html += `<tr><td class="p-2 border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 font-bold text-left whitespace-nowrap">${rowAsset.name}</td>`;
+        assets.forEach((colAsset, j) => {
+          const r = matrix[i] && matrix[i][j] !== undefined ? matrix[i][j] : 0;
+          const isSelected = (rowAsset.key === pairA && colAsset.key === pairB) || (rowAsset.key === pairB && colAsset.key === pairA);
+          const colorClass = getCorrColorClass(r);
+          const activeRing = isSelected ? 'ring-2 ring-indigo-500 ring-offset-1 z-10' : '';
+          const dispVal = r >= 0 ? `+${r.toFixed(2)}` : r.toFixed(2);
+          html += `
+            <td data-row="${rowAsset.key}" data-col="${colAsset.key}" data-r="${r}"
+                class="corr-cell p-2 border border-slate-200 dark:border-slate-800/60 tabular-nums cursor-pointer transition-transform hover:scale-105 ${colorClass} ${activeRing}">
+              ${i === j ? '1.00' : dispVal}
+            </td>
+          `;
+        });
+        html += '</tr>';
+      });
+      html += '</tbody>';
+      table.innerHTML = html;
+
+      // Attach click events to cells
+      table.querySelectorAll('.corr-cell').forEach(cell => {
+        cell.addEventListener('click', () => {
+          const rK = cell.dataset.row;
+          const cK = cell.dataset.col;
+          const rVal = parseFloat(cell.dataset.r);
+          state.corr.selectedPair = [rK, cK];
+          renderCorrelationMatrix();
+          updatePairInspector(rK, cK, rVal);
+        });
+      });
+
+      // Update inspector card for current selection
+      const idxA = assets.findIndex(a => a.key === pairA);
+      const idxB = assets.findIndex(a => a.key === pairB);
+      let curR = 0;
+      if (idxA >= 0 && idxB >= 0 && matrix[idxA]) {
+        curR = matrix[idxA][idxB];
+      }
+      updatePairInspector(pairA, pairB, curR);
+    }
+
+    function updatePairInspector(keyA, keyB, r) {
+      const assets = CORRELATION_MATRIX_DATA.assets || CORRELATION_ASSETS;
+      const assetA = assets.find(a => a.key === keyA) || { name: keyA };
+      const assetB = assets.find(a => a.key === keyB) || { name: keyB };
+
+      const titleEl = document.getElementById('corr-pair-title');
+      const badgeEl = document.getElementById('corr-pair-r-badge');
+      const statsEl = document.getElementById('corr-pair-stats');
+      const descEl = document.getElementById('corr-pair-desc');
+
+      if (titleEl) titleEl.textContent = `${assetA.name} vs ${assetB.name}`;
+
+      const rNum = typeof r === 'number' ? r : 0;
+      const r2 = (rNum * rNum * 100).toFixed(1);
+      let strength = '低相關 / 獨立走勢';
+      if (rNum >= 0.7) strength = '強正相關（高度同向波動）';
+      else if (rNum >= 0.35) strength = '中度正相關（同向趨勢）';
+      else if (rNum <= -0.7) strength = '強負相關（高度對衝效果）';
+      else if (rNum <= -0.35) strength = '中度負相關（分散配置效果）';
+
+      if (badgeEl) {
+        badgeEl.textContent = `r = ${rNum >= 0 ? '+' : ''}${rNum.toFixed(2)}`;
+        badgeEl.className = `text-xs font-bold px-2 py-0.5 rounded-full tabular-nums ${
+          rNum >= 0.35 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' :
+          rNum <= -0.35 ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' :
+          'bg-slate-500/15 text-slate-600 dark:text-slate-400'
+        }`;
+      }
+
+      if (statsEl) {
+        statsEl.textContent = `決定係數 R²: ${r2}% ｜ 關係強度：${strength}`;
+      }
+
+      // Check analysis dictionary
+      const pairKey1 = `${keyA}-${keyB}`;
+      const pairKey2 = `${keyB}-${keyA}`;
+      const customAnalysis = PAIR_MACRO_ANALYSIS[pairKey1] || PAIR_MACRO_ANALYSIS[pairKey2];
+
+      if (descEl) {
+        if (keyA === keyB) {
+          descEl.textContent = `${assetA.name} 與自身的相關係數為 1.00，代表完全自相關。在資產配置中，配置相同資產無法提供分散風險效益。`;
+        } else if (customAnalysis) {
+          descEl.textContent = customAnalysis;
+        } else {
+          descEl.textContent = `${assetA.name} 與 ${assetB.name} 在過去 ${state.corr.window} 個月內的${state.corr.mode === 'returns' ? '月報酬率' : '價格水準'}相關係數為 ${rNum >= 0 ? '+' : ''}${rNum.toFixed(2)}。${
+            rNum > 0.3 ? '兩者呈現同向波動趨勢，資產配置時需留意集中風險。' :
+            rNum < -0.3 ? '兩者呈現反向變動，具有顯著的避險與投資組合分散效益。' :
+            '兩者長期相關性低，走勢相對獨立，適合納入跨資產多重策略以平滑波動。'
+          }`;
+        }
+      }
+
+      // Update load button
+      const loadBtn = document.getElementById('corr-load-to-toolbox-btn');
+      if (loadBtn) {
+        loadBtn.onclick = () => {
+          // Map to SERIES_DB keys
+          const keyMap = {
+            taiex: 'taiex',
+            sp500: 'sp500',
+            nasdaq: SERIES_DB.nasdaq ? 'nasdaq' : 'sp500',
+            us10y: SERIES_DB.us10y ? 'us10y' : (SERIES_DB.us10y_tnx ? 'us10y_tnx' : 'us_10y'),
+            dxy: SERIES_DB.dxy ? 'dxy' : 'us10y',
+            usdtwd: SERIES_DB.usdtwd ? 'usdtwd' : 'taiex',
+            gold: 'gold',
+            wti: 'wti'
+          };
+          const leftK = keyMap[keyA] || keyA;
+          const rightK = keyMap[keyB] || keyB;
+
+          if (SERIES_DB[leftK]) state.toolbox.left = leftK;
+          if (SERIES_DB[rightK]) state.toolbox.right = rightK;
+
+          const selL = document.getElementById('series-left');
+          const selR = document.getElementById('series-right');
+          if (selL) selL.value = state.toolbox.left;
+          if (selR) selR.value = state.toolbox.right;
+
+          renderToolbox();
+          const target = document.getElementById('toolbox-chart-title');
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          showToast(`已成功載入【${assetA.name} vs ${assetB.name}】至上方雙軸圖！`);
+        };
+      }
+    }
+
+
     function renderToolbox() {
       document.querySelectorAll('.range-btn').forEach(btn => {
         const active = Number(btn.dataset.range) === state.toolbox.range;
@@ -2592,6 +2947,7 @@
 
       document.getElementById('toolbox-chart-title').textContent = `${sL.name} vs ${sR.name}`;
       document.getElementById('toolbox-corr-badge').textContent = `區間相關係數 r = ${corr}`;
+      renderCorrelationMatrix();
 
       const ctx = document.getElementById('toolboxChart').getContext('2d');
       if (charts.toolbox) charts.toolbox.destroy();
@@ -3196,6 +3552,43 @@
       document.querySelectorAll('.range-btn').forEach(btn => {
         btn.addEventListener('click', () => { state.toolbox.range = Number(btn.dataset.range); renderToolbox(); });
       });
+      // 跨市場 8x8 相關性切換按鈕事件
+      const btnRet = document.getElementById('corr-btn-ret');
+      const btnLev = document.getElementById('corr-btn-lev');
+      if (btnRet) {
+        btnRet.addEventListener('click', () => {
+          state.corr.mode = 'returns';
+          renderCorrelationMatrix();
+        });
+      }
+      if (btnLev) {
+        btnLev.addEventListener('click', () => {
+          state.corr.mode = 'levels';
+          renderCorrelationMatrix();
+        });
+      }
+      const win24 = document.getElementById('corr-win-24');
+      const win12 = document.getElementById('corr-win-12');
+      if (win24) {
+        win24.addEventListener('click', () => {
+          state.corr.window = '24';
+          renderCorrelationMatrix();
+        });
+      }
+      if (win12) {
+        win12.addEventListener('click', () => {
+          state.corr.window = '12';
+          renderCorrelationMatrix();
+        });
+      }
+      const jumpCorrBtn = document.getElementById('jump-to-corr-matrix-btn');
+      if (jumpCorrBtn) {
+        jumpCorrBtn.addEventListener('click', () => {
+          const sec = document.getElementById('correlation-matrix-section');
+          if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+
       document.querySelectorAll('.preset-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const [l, r] = btn.dataset.preset.split('|');

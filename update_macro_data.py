@@ -445,6 +445,8 @@ def fetch_us_market_data():
         "us10y_tnx": "^TNX",
         "us30y_tyx": "^TYX",
         "us5y_fvx": "^FVX",
+        "dxy": "DX-Y.NYB",
+        "usdtwd": "USDTWD=X",
     }
     try:
         daily_data = yf.download(" ".join(indices.values()), period="1mo", interval="1d", group_by="ticker", auto_adjust=True, progress=False)
@@ -472,10 +474,11 @@ def fetch_us_market_data():
                         monthly[d.strftime("%Y-%m")] = round(float(value), 2)
                     labels = sorted(monthly)[-24:]
                     vals = [monthly[label] for label in labels]
-                    if key in ["sp500", "taiex", "gold", "wti", "us10y_tnx"]:
+                    if key in ["sp500", "taiex", "gold", "wti", "us10y_tnx", "nasdaq", "dxy", "usdtwd"]:
+                        unit_str = "%" if "tnx" in key else "USD" if key in ["gold", "wti"] else "TWD" if key == "usdtwd" else "點"
                         series[key] = {
                             "name": f"[Yahoo 延遲市場資料] {sym}",
-                            "unit": "%" if "tnx" in key else "USD" if key in ["gold", "wti"] else "點",
+                            "unit": unit_str,
                             "labels": labels,
                             "data": vals,
                             "source": "Yahoo Finance monthly history",
@@ -703,6 +706,67 @@ def observation_age_days(period: str) -> int | None:
     return None
 
 
+
+def compute_cross_market_correlation():
+    """
+    計算跨市場 8x8 資產相關性矩陣 (台股加權、標普500、那斯達克、美債10Y、美元指數、美元/台幣、黃金、WTI原油)
+    包含 24 個月與 12 個月之月報酬率相關 (Returns) 與價格水準相關 (Levels)
+    """
+    print("8/8 計算跨市場 8x8 資產相關性矩陣...")
+    try:
+        import yfinance as yf
+    except ImportError:
+        print("  yfinance 未安裝，跳過跨市場相關性計算")
+        return None
+    assets = [
+        {"key": "taiex", "name": "台股加權", "ticker": "^TWII", "class": "台股大盤"},
+        {"key": "sp500", "name": "標普 500", "ticker": "^GSPC", "class": "美股大盤"},
+        {"key": "nasdaq", "name": "那斯達克", "ticker": "^IXIC", "class": "美股科技"},
+        {"key": "us10y", "name": "美債 10Y", "ticker": "^TNX", "class": "債券殖利率"},
+        {"key": "dxy", "name": "美元指數", "ticker": "DX-Y.NYB", "class": "全球外匯"},
+        {"key": "usdtwd", "name": "美元/台幣", "ticker": "USDTWD=X", "class": "外匯匯率"},
+        {"key": "gold", "name": "黃金期貨", "ticker": "GC=F", "class": "貴金屬"},
+        {"key": "wti", "name": "WTI 原油", "ticker": "CL=F", "class": "能源商品"},
+    ]
+    try:
+        tickers = [a["ticker"] for a in assets]
+        daily_data = yf.download(" ".join(tickers), period="2y", interval="1d", auto_adjust=True, progress=False)["Close"]
+        df_monthly = daily_data.ffill().resample("ME").last().dropna()
+        df_monthly = df_monthly[[a["ticker"] for a in assets]]
+        df_monthly.columns = [a["key"] for a in assets]
+
+        returns_24 = df_monthly.pct_change().dropna().tail(24)
+        corr_ret_24 = returns_24.corr().round(2).values.tolist()
+        corr_lev_24 = df_monthly.tail(24).corr().round(2).values.tolist()
+
+        returns_12 = df_monthly.pct_change().dropna().tail(12)
+        corr_ret_12 = returns_12.corr().round(2).values.tolist()
+        corr_lev_12 = df_monthly.tail(12).corr().round(2).values.tolist()
+
+        labels = [d.strftime("%Y-%m") for d in df_monthly.tail(24).index]
+        series_dict = {}
+        for a in assets:
+            k = a["key"]
+            series_dict[k] = [round(float(v), 2) for v in df_monthly[k].tail(24)]
+
+        return {
+            "as_of": labels[-1] if labels else "",
+            "period": "24M",
+            "assets": assets,
+            "labels": labels,
+            "matrix_returns_24m": corr_ret_24,
+            "matrix_levels_24m": corr_lev_24,
+            "matrix_returns_12m": corr_ret_12,
+            "matrix_levels_12m": corr_lev_12,
+            "series": series_dict,
+            "source": "Yahoo Finance (日線月結重採樣)",
+            "source_url": "https://finance.yahoo.com/",
+        }
+    except Exception as e:
+        print(f"  跨市場 8x8 相關性計算失敗: {e}")
+        return None
+
+
 def main():
     print("=" * 65)
     print("MacroPulse 雲端自動化真實總經資料擷取引擎啟動")
@@ -819,6 +883,12 @@ def main():
             "data": [d["erp"] for d in erp_data["history"]],
         }
         payload["snapshots"]["erp"] = erp_data["erp"]
+
+    # 10. 跨市場 8x8 資產相關性矩陣
+    corr_data = compute_cross_market_correlation()
+    if corr_data:
+        payload["correlation_matrix"] = corr_data
+        print(f"  -> 成功計算 8x8 跨市場資產相關性矩陣 (期數: {corr_data['period']}, 最新: {corr_data['as_of']})")
 
     required_snapshots = {"sp500", "nasdaq", "taiex", "gold", "wti", "vix"}
     missing_snapshots = sorted(required_snapshots - set(payload["snapshots"]))
