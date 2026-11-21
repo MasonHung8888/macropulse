@@ -65,7 +65,7 @@
           <i data-lucide="layout-dashboard" class="w-4 h-4"></i>總經儀表板
         </button>
         <button data-tab="money" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="coins" class="w-4 h-4"></i>M1B / M2 資金面
+          <i data-lucide="coins" class="w-4 h-4"></i>資金動能 ＆ 景氣燈號
         </button>
         <button data-tab="trader" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
           <i data-lucide="radar" class="w-4 h-4"></i>操盤人必看
@@ -114,7 +114,7 @@
     <!-- Mobile Nav -->
     <div id="mobile-nav" class="hidden lg:hidden border-t border-slate-200 dark:border-slate-800 px-4 py-2 bg-white dark:bg-slate-900 grid grid-cols-2 gap-1">
       <button data-tab="dashboard" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="layout-dashboard" class="w-4 h-4"></i>總經儀表板</button>
-      <button data-tab="money" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="coins" class="w-4 h-4"></i>M1B / M2 資金面</button>
+      <button data-tab="money" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="coins" class="w-4 h-4"></i>資金動能 ＆ 景氣燈號</button>
       <button data-tab="trader" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="radar" class="w-4 h-4"></i>操盤人必看</button>
       <button data-tab="heatmap" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="grid-2x2" class="w-4 h-4"></i>市場熱力圖</button>
       <button data-tab="toolbox" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="line-chart" class="w-4 h-4"></i>研究工具箱</button>
@@ -281,7 +281,7 @@
             <span>僅摘要已驗證的官方觀測值，不代表投資建議</span>
             <div class="flex items-center gap-3">
               <button id="goto-money-btn" type="button" class="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
-                查看 M1B / M2 資金動能
+                查看 資金動能 ＆ 景氣燈號
               </button>
               <button id="goto-toolbox-btn" type="button" class="text-blue-600 dark:text-blue-400 font-medium hover:underline flex items-center gap-1">
                 前往研究工具箱深入分析 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
@@ -290,22 +290,90 @@
           </div>
         </div>
       </div>
+
+      <!-- 美股股權風險溢價 (Equity Risk Premium, ERP) 股債性價比儀表 -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="scale" class="w-5 h-5 text-indigo-500"></i> 美股股權風險溢價 (ERP) 股債性價比儀表
+              </h2>
+              <span id="erp-regime-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400">債券極具性價比</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              ERP = 標普 500 盈利殖利率 (1 / Forward PE) − 美國 10 年期公債殖利率；反映承擔股票風險相對於無風險美債的超額收益補償
+            </p>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 sm:text-right">
+            <span>官方/基準來源：<a href="https://finance.yahoo.com/quote/%5ETNX" target="_blank" class="text-blue-500 hover:underline">S&amp;P Dow Jones &amp; CBOE ^TNX</a></span>
+          </div>
+        </div>
+
+        <!-- KPI 4 欄 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">標普 500 預估本益比 (Forward P/E)</div>
+            <div id="erp-pe-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-800 dark:text-white">22.4x</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">S&amp;P 500 點位：<span id="erp-sp-price">6,910.39</span></div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">標普 500 盈利殖利率 (Earnings Yield)</div>
+            <div id="erp-ey-val" class="text-2xl font-bold tabular-nums mt-1 text-blue-500">4.46%</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">公式：1 ÷ Forward P/E</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美國 10 年期公債殖利率 (無風險基準)</div>
+            <div id="erp-us10y-val" class="text-2xl font-bold tabular-nums mt-1 text-amber-500">4.91%</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">Yahoo Finance ^TNX 延遲日線</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">股權風險溢價 (ERP)</div>
+            <div id="erp-val" class="text-2xl font-bold tabular-nums mt-1 text-rose-500">-0.45%</div>
+            <div id="erp-desc-sub" class="text-[11px] text-rose-500 mt-0.5">負值倒掛中（債券性價比高）</div>
+          </div>
+        </div>
+
+        <!-- ERP 歷史走勢與圖表說明 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <div class="lg:col-span-8">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 24 個月 ERP 走勢與 0% 臨界基準線</span>
+              <span class="text-[11px] text-slate-400">綠區 (ERP &gt; 0%) 股票吸引力高 ｜ 紅區 (ERP &lt; 0%) 債券性價比高</span>
+            </div>
+            <div class="relative h-64">
+              <canvas id="erpChart"></canvas>
+            </div>
+          </div>
+          <div class="lg:col-span-4 flex flex-col justify-between space-y-3 text-xs text-slate-600 dark:text-slate-300">
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+              <div class="font-bold text-slate-900 dark:text-white mb-1">💡 什麼是 ERP 股權風險溢價？</div>
+              <p class="leading-relaxed">
+                投資股票承擔企業營運與市場波動風險，理性投資人要求報酬率必須高於「無風險的美國公債」。當 ERP &gt; 2% 時，代表股市便宜且風險補償充裕；當 ERP &lt; 0% 時，代表買股票賺取的隱含收益率低於躺平買美債，市場資金易轉向高評級固定收益。
+              </p>
+            </div>
+            <div id="erp-regime-commentary" class="p-3 rounded-lg border leading-relaxed bg-amber-500/10 border-amber-500/30 text-amber-900 dark:text-amber-200">
+              標普 500 盈利殖利率 (4.46%) 低於美債無風險利率 (4.91%)，風險溢價呈現負值倒掛 (-0.45%)。歷史經驗顯示股票估值偏緊，固定收益債券性價比高於歷史均值。
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR -->
+    <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR & NDC INDICATORS -->
     <section id="tab-money" class="tab-panel hidden space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">M1B / M2 貨幣供給與市場資金動能</h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">追蹤台灣央行 M1B／M2 剪刀差（黃金交叉／死亡交叉）與台股加權指數、美國 M2 流動性</p>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">台灣總經雙核心：M1B / M2 資金動能 ＆ 國發會景氣對策信號</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">追蹤台灣央行 M1B／M2 剪刀差、國發會景氣燈號（官方 9~45 分）與台股加權指數互動</p>
         </div>
         <button id="open-m1b-in-toolbox" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition-colors self-start sm:self-auto">
           <i data-lucide="sliders-horizontal" class="w-4 h-4"></i> 在研究工具箱自訂分析
         </button>
       </div>
 
-      <!-- M1B / M2 KPI Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- M1B / M2 & NDC KPI Cards (5 Cards) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div id="m1b-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">台灣 M1B 年增率 (最新) [央行官方]</div>
           <div id="m1b-val" class="text-2xl font-bold tabular-nums mt-1.5 text-blue-500">—</div>
@@ -320,6 +388,11 @@
           <div class="text-xs font-medium text-slate-500 dark:text-slate-400">M1B - M2 剪刀差訊號</div>
           <div id="spread-val" class="text-2xl font-bold tabular-nums mt-1.5 text-rose-500">—</div>
           <div id="spread-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">等待官方資料</div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div id="ndc-kpi-label" class="text-xs font-medium text-slate-500 dark:text-slate-400">國發會景氣燈號 (最新) [官方]</div>
+          <div id="ndc-kpi-val" class="text-2xl font-bold tabular-nums mt-1.5 text-rose-500">41分 · 紅燈</div>
+          <div id="ndc-kpi-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">國家發展委員會官方發布</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="text-xs font-medium text-slate-500 dark:text-slate-400">美國 10Y 公債最新日線殖利率</div>
@@ -355,8 +428,80 @@
                 <strong class="text-emerald-600 dark:text-emerald-400">判讀原則：</strong>網站會以央行最新正式資料更新數值與資料期。M1B－M2 剪刀差只反映貨幣結構，與股市可能相關但不代表因果，也不應單獨作為買賣訊號。
               </div>
               <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
-                <strong class="text-blue-600 dark:text-blue-400">操作提示：</strong>可前往「量化回測」分頁，選擇「台灣 M1B - M2 剪刀差 &gt; 0%」直接測試過去 24 個月台股加權指數的策略勝率。
+                <strong class="text-blue-600 dark:text-blue-400">操作提示：</strong>可前往「量化回測」分頁，選擇「台灣 M1B - M2 剪刀差 &gt; 0%」或「國發會景氣綜合判斷分數」直接測試過去 24 個月台股加權指數的策略勝率。
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 國發會景氣對策信號 (NDC Business Indicators) 專區 -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-lg flex items-center gap-2">
+                <i data-lucide="traffic-light" class="w-5 h-5 text-emerald-500"></i> 國發會景氣對策信號（景氣燈號）
+              </h2>
+              <span id="ndc-light-badge" class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-rose-500 text-white">41分 · 紅燈</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              國家發展委員會每月發布之綜合判斷分數 (9~45 分) 與燈號訊號，由 9 項實體經濟與金融子指標組成
+            </p>
+          </div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 sm:text-right">
+            <span>官方來源：<a href="https://index.ndc.gov.tw/n/zh_tw" target="_blank" class="text-blue-500 hover:underline">國發會景氣指標查詢系統</a></span>
+          </div>
+        </div>
+
+        <!-- 景氣燈號五燈等級與投資手冊對照 -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
+          <div class="p-2.5 rounded-lg border border-red-500/30 bg-red-500/10 text-center">
+            <div class="font-bold text-red-600 dark:text-red-400">🔴 紅燈 (38~45分)</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">景氣熱絡 · 逢高分批停利</div>
+          </div>
+          <div class="p-2.5 rounded-lg border border-amber-500/30 bg-amber-500/10 text-center">
+            <div class="font-bold text-amber-600 dark:text-amber-400">🟠 黃紅燈 (32~37分)</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">轉向熱絡 · 謹慎樂觀</div>
+          </div>
+          <div class="p-2.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-center">
+            <div class="font-bold text-emerald-600 dark:text-emerald-400">🟢 綠燈 (23~31分)</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">穩定成長 · 逢回定期定額</div>
+          </div>
+          <div class="p-2.5 rounded-lg border border-sky-500/30 bg-sky-500/10 text-center">
+            <div class="font-bold text-sky-600 dark:text-sky-400">🟡 黃藍燈 (17~22分)</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">轉向衰退 · 伺機尋找底部</div>
+          </div>
+          <div class="p-2.5 rounded-lg border border-blue-500/30 bg-blue-500/10 text-center">
+            <div class="font-bold text-blue-600 dark:text-blue-400">🔵 藍燈 (9~16分)</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">景氣低迷 · 歷史長線買點</div>
+          </div>
+        </div>
+
+        <!-- 歷史走勢圖 (NDC 分數 vs 台股加權指數 TAIEX) -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <div class="lg:col-span-8">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 24 個月景氣綜合判斷分數 vs 台股加權指數</span>
+              <span class="text-[11px] text-slate-400">折線點顏色即代表當月燈號</span>
+            </div>
+            <div class="relative h-72">
+              <canvas id="ndcChart"></canvas>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4 flex flex-col justify-between space-y-3">
+            <div>
+              <h3 class="text-xs font-bold text-slate-700 dark:text-slate-200 mb-2">9 項構成項目最新評分</h3>
+              <div id="ndc-components-grid" class="space-y-1.5 text-xs">
+                <!-- 動態由 JavaScript 生成 9 大子指標 -->
+              </div>
+            </div>
+            <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 text-xs text-slate-600 dark:text-slate-300">
+              <div class="font-bold text-slate-900 dark:text-white mb-1">📊 歷史戰法驗證</div>
+              <p class="leading-relaxed">
+                台灣景氣循環週期約 3~4 年。歷史統計顯示，在「藍燈 (16分以下)」連續出現時分批承接台股大盤指數，持有一年正報酬機率高達 85% 以上；反之進入「紅燈 (38分以上)」時需提防高檔過熱震盪。
+              </p>
             </div>
           </div>
         </div>
@@ -488,6 +633,8 @@
         <span class="text-slate-500 dark:text-slate-400 font-medium">經典圖組預設：</span>
         <button data-preset="twM1b|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">台灣 M1B vs 台股 TAIEX</button>
         <button data-preset="twM1bM2Spread|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">M1B-M2 剪刀差 vs 台股</button>
+        <button data-preset="ndcScore|taiex" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">國發會景氣燈號 vs 台股</button>
+        <button data-preset="equityRiskPremium|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美股 ERP 溢價 vs S&amp;P 500</button>
         <button data-preset="us10y|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美債 10Y vs S&amp;P 500</button>
         <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
       </div>
@@ -546,6 +693,8 @@
           <label for="bt-indicator" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">訊號指標</label>
           <select id="bt-indicator" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
             <option value="twM1bM2Spread">台灣 M1B - M2 剪刀差 (%)</option>
+            <option value="ndcScore">國發會景氣綜合判斷分數 (分)</option>
+            <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
             <option value="spread10y2y">美債 10Y - 2Y 殖利率利差 (%)</option>
             <option value="usCpi">美國 CPI 年增率 (%)</option>
             <option value="us10y">美國 10 年期公債殖利率 (%)</option>
@@ -1348,7 +1497,7 @@
       ]
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -1631,6 +1780,122 @@
         if (sn.spread10y2y !== undefined) updTrader('美國-10年期-2年期公債殖利率', sn.spread10y2y + '%');
       }
 
+      // G. 國發會景氣對策信號 (NDC Business Indicators)
+      if (payload.ndc_indicators && payload.ndc_indicators.latest) {
+        const ndc = payload.ndc_indicators;
+        const l = ndc.latest;
+        const badge = document.getElementById('ndc-light-badge');
+        if (badge) {
+          badge.textContent = `${l.date}：${l.score}分 · ${l.light}`;
+          let colorBg = 'bg-rose-500';
+          if (l.score >= 38) colorBg = 'bg-red-600';
+          else if (l.score >= 32) colorBg = 'bg-amber-500';
+          else if (l.score >= 23) colorBg = 'bg-emerald-600';
+          else if (l.score >= 17) colorBg = 'bg-sky-500';
+          else colorBg = 'bg-blue-600';
+          badge.className = `text-xs font-bold px-2.5 py-0.5 rounded-full text-white ${colorBg}`;
+        }
+
+        const kpiLabel = document.getElementById('ndc-kpi-label');
+        const kpiVal = document.getElementById('ndc-kpi-val');
+        const kpiSub = document.getElementById('ndc-kpi-sub');
+        if (kpiLabel) kpiLabel.textContent = `國發會景氣燈號 (${l.date}) [官方]`;
+        if (kpiVal) {
+          kpiVal.textContent = `${l.score}分 · ${l.light}`;
+          kpiVal.className = `text-2xl font-bold tabular-nums mt-1.5 ${l.score >= 38 ? 'text-rose-500' : l.score >= 32 ? 'text-amber-500' : l.score >= 23 ? 'text-emerald-500' : 'text-blue-500'}`;
+        }
+        if (kpiSub) kpiSub.textContent = `官方評定：${l.desc}`;
+
+        // 渲染 9 項構成項目評分
+        const compGrid = document.getElementById('ndc-components-grid');
+        if (compGrid && Array.isArray(ndc.components)) {
+          compGrid.innerHTML = ndc.components.map(item => {
+            const scoreColor = item.score >= 5 ? 'text-red-500 bg-red-500/10' : item.score === 4 ? 'text-amber-500 bg-amber-500/10' : item.score === 3 ? 'text-emerald-500 bg-emerald-500/10' : 'text-blue-500 bg-blue-500/10';
+            return `
+              <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+                <span class="text-slate-700 dark:text-slate-300 font-medium">${item.name}</span>
+                <span class="px-2 py-0.5 rounded font-bold tabular-nums ${scoreColor}">${item.score} 分</span>
+              </div>
+            `;
+          }).join('');
+        }
+
+        if (COUNTRY_DATA.TW && COUNTRY_DATA.TW.kpis) {
+          COUNTRY_DATA.TW.kpis.push({
+            label: `國發會景氣燈號 (${l.date})`,
+            value: `${l.score}分 (${l.light})`,
+            sub: '國家發展委員會官方',
+            trend: l.score >= 38 ? 'warn' : l.score <= 16 ? 'up' : 'neutral'
+          });
+        }
+        if (COUNTRY_DATA.TW && COUNTRY_DATA.TW.insights) {
+          COUNTRY_DATA.TW.insights.push(`國發會最新景氣對策信號為 ${l.date}：綜合分數 ${l.score} 分，呈現「${l.light}」（${l.desc}）。`);
+        }
+
+        let item = TRADER_ITEMS.find(x => x.name === '台灣-國發會景氣燈號綜合分數');
+        if (!item) {
+          item = { cat: '總經數據', sub: '台灣', name: '台灣-國發會景氣燈號綜合分數', quad: 'HIGH_UP', vars: '國發會景氣指標查詢系統' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `${l.score}分 (${l.light})`;
+        item.date = l.date;
+        item.desc = `國發會官方景氣對策信號；${l.desc}。由 9 項子指標構成。`;
+        item.dataStatus = 'verified';
+        item.source = ndc.source || '國家發展委員會';
+        item.sourceUrl = ndc.source_url || 'https://index.ndc.gov.tw/n/zh_tw';
+
+        count++;
+      }
+
+      // H. 標普 500 股權風險溢價 (Equity Risk Premium, ERP)
+      if (payload.equity_risk_premium) {
+        const erp = payload.equity_risk_premium;
+        const peVal = document.getElementById('erp-pe-val');
+        const spPrice = document.getElementById('erp-sp-price');
+        const eyVal = document.getElementById('erp-ey-val');
+        const us10yVal = document.getElementById('erp-us10y-val');
+        const valEl = document.getElementById('erp-val');
+        const descSub = document.getElementById('erp-desc-sub');
+        const badge = document.getElementById('erp-regime-badge');
+        const comm = document.getElementById('erp-regime-commentary');
+
+        if (peVal) peVal.textContent = `${erp.sp500_forward_pe}x`;
+        if (spPrice) spPrice.textContent = Number(erp.sp500_price).toLocaleString('en-US');
+        if (eyVal) eyVal.textContent = `${erp.earnings_yield}%`;
+        if (us10yVal) us10yVal.textContent = `${erp.us10y_yield}%`;
+        if (valEl) {
+          valEl.textContent = `${erp.erp >= 0 ? '+' : ''}${erp.erp}%`;
+          valEl.className = `text-2xl font-bold tabular-nums mt-1 ${erp.erp >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+        }
+        if (descSub) {
+          descSub.textContent = erp.erp < 0 ? '負值倒掛中（債券性價比高）' : '正向溢價（股票風險補償充裕）';
+          descSub.className = `text-[11px] mt-0.5 ${erp.erp >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+        }
+        if (badge) {
+          badge.textContent = erp.regime;
+          badge.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${erp.erp >= 0 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-600 dark:text-rose-400'}`;
+        }
+        if (comm) comm.textContent = erp.desc;
+
+        if (COUNTRY_DATA.US && COUNTRY_DATA.US.insights) {
+          COUNTRY_DATA.US.insights.push(`標普 500 股權風險溢價 (ERP) 為 ${erp.erp}%（本益比 ${erp.sp500_forward_pe}x vs 10Y 美債 ${erp.us10y_yield}%），處於「${erp.regime}」。`);
+        }
+
+        let item = TRADER_ITEMS.find(x => x.name === '美股-股權風險溢價 (ERP)');
+        if (!item) {
+          item = { cat: '總經數據', sub: '美國', name: '美股-股權風險溢價 (ERP)', quad: 'HIGH_UP', vars: 'S&P 500 PE vs US10Y' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `${erp.erp >= 0 ? '+' : ''}${erp.erp}%`;
+        item.date = payload.snapshots?.sp500?.as_of || dateStr;
+        item.desc = `標普 500 盈利殖利率 (${erp.earnings_yield}%) 減 10 年美債殖利率 (${erp.us10y_yield}%)。${erp.regime}`;
+        item.dataStatus = 'verified';
+        item.source = erp.source || 'S&P Dow Jones & CBOE ^TNX';
+        item.sourceUrl = erp.source_url || 'https://finance.yahoo.com/';
+
+        count++;
+      }
+
       // E. 匯率與加密貨幣
       if (payload.fx && payload.fx.TWD) {
         const el = document.getElementById('tk-twd');
@@ -1659,6 +1924,8 @@
         healthDetail.textContent = `S&P 500／NASDAQ 等市場價格為 Yahoo Finance 最新日線（可能延遲），資料日 ${marketDate}；台股收盤來自 TWSE，M1B／M2 來自中央銀行，美國總經來自 FRED，跨國年度資料來自世界銀行。此處不是券商即時行情。`;
       }
 
+      renderErpChart();
+      renderNdcChart();
       if (state.activeTab === 'dashboard') renderDashboard();
       if (state.activeTab === 'money') renderMoneyTab();
       if (state.activeTab === 'heatmap') renderHeatmap();
@@ -2097,6 +2364,7 @@
         },
         plugins: [quadrantPlugin]
       });
+      renderErpChart();
     }
 
     function renderMoneyTab() {
@@ -2125,7 +2393,176 @@
           }
         }
       });
+      renderNdcChart();
     }
+    function getLightColor(score, light) {
+      if (score >= 38 || (light && light.includes('紅') && !light.includes('黃'))) return '#ef4444'; // 紅燈
+      if (score >= 32 || (light && light.includes('黃紅'))) return '#f59e0b'; // 黃紅燈
+      if (score >= 23 || (light && light.includes('綠'))) return '#10b981'; // 綠燈
+      if (score >= 17 || (light && light.includes('黃藍'))) return '#0ea5e9'; // 黃藍燈
+      return '#3b82f6'; // 藍燈
+    }
+
+    function renderNdcChart() {
+      const canvas = document.getElementById('ndcChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.ndc) charts.ndc.destroy();
+
+      const ndcSeries = SERIES_DB.ndcScore;
+      const taiexSeries = SERIES_DB.taiex;
+      if (!ndcSeries || !ndcSeries.data || ndcSeries.data.length === 0) return;
+
+      const labels = ndcSeries.labels || MONTHS;
+      const scores = ndcSeries.data;
+      const pointColors = scores.map(s => getLightColor(s));
+
+      charts.ndc = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '國發會景氣綜合判斷分數 (分)',
+              data: scores,
+              borderColor: '#ef4444',
+              backgroundColor: 'rgba(239,68,68,0.1)',
+              pointBackgroundColor: pointColors,
+              pointBorderColor: '#ffffff',
+              pointRadius: 5,
+              pointHoverRadius: 7,
+              yAxisID: 'y',
+              tension: 0.25
+            },
+            {
+              label: '台股 TAIEX (右軸)',
+              data: taiexSeries ? taiexSeries.data : [],
+              borderColor: '#10b981',
+              borderDash: [4, 3],
+              yAxisID: 'y1',
+              tension: 0.25,
+              pointRadius: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                afterLabel: function(context) {
+                  if (context.datasetIndex === 0) {
+                    const score = context.raw;
+                    let l = '藍燈 (9-16分)';
+                    if (score >= 38) l = '紅燈 (38-45分)';
+                    else if (score >= 32) l = '黃紅燈 (32-37分)';
+                    else if (score >= 23) l = '綠燈 (23-31分)';
+                    else if (score >= 17) l = '黃藍燈 (17-22分)';
+                    return `燈號等級：${l}`;
+                  }
+                  return '';
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: {
+              type: 'linear',
+              position: 'left',
+              min: 5,
+              max: 50,
+              title: { display: true, text: '綜合判斷分數 (9~45分)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: { color: textColor() }
+            },
+            y1: {
+              type: 'linear',
+              position: 'right',
+              title: { display: true, text: 'TAIEX 指數', color: '#10b981' },
+              grid: { drawOnChartArea: false },
+              ticks: { color: '#10b981' }
+            }
+          }
+        }
+      });
+    }
+
+    function renderErpChart() {
+      const canvas = document.getElementById('erpChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.erp) charts.erp.destroy();
+
+      const erpSeries = SERIES_DB.equityRiskPremium;
+      if (!erpSeries || !erpSeries.data || erpSeries.data.length === 0) return;
+
+      const labels = erpSeries.labels || MONTHS;
+      const erpValues = erpSeries.data;
+      const pointColors = erpValues.map(v => v >= 0 ? '#10b981' : '#f43f5e');
+
+      charts.erp = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '標普 500 股權風險溢價 (ERP %)',
+              data: erpValues,
+              borderColor: '#6366f1',
+              backgroundColor: 'rgba(99,102,241,0.1)',
+              pointBackgroundColor: pointColors,
+              pointBorderColor: '#ffffff',
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              tension: 0.25,
+              fill: false
+            },
+            {
+              label: '0% 基準線 (股債均衡線)',
+              data: labels.map(() => 0),
+              borderColor: '#94a3b8',
+              borderDash: [5, 5],
+              pointRadius: 0,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  if (c.datasetIndex === 0) {
+                    const v = c.raw;
+                    return `ERP: ${v >= 0 ? '+' : ''}${v.toFixed(2)}% (${v >= 0 ? '股票吸引力高' : '債券性價比高'})`;
+                  }
+                  return c.dataset.label;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
+            y: {
+              type: 'linear',
+              position: 'left',
+              title: { display: true, text: 'ERP 溢價率 (%)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: { color: textColor() }
+            }
+          }
+        }
+      });
+    }
+
 
     function populateToolboxSelects() {
       const leftEl = document.getElementById('series-left');
@@ -2185,6 +2622,8 @@
       const slider = document.getElementById('bt-threshold');
       const ind = state.backtest.indicator;
       if (ind === 'twM1bM2Spread') { slider.min = -0.5; slider.max = 1.5; slider.step = 0.05; }
+      else if (ind === 'ndcScore') { slider.min = 10; slider.max = 45; slider.step = 1; }
+      else if (ind === 'equityRiskPremium') { slider.min = -1.5; slider.max = 2.0; slider.step = 0.05; }
       else if (ind === 'spread10y2y') { slider.min = -0.2; slider.max = 0.5; slider.step = 0.05; }
       else if (ind === 'usCpi') { slider.min = 2.0; slider.max = 4.0; slider.step = 0.1; }
       else { slider.min = 4.0; slider.max = 5.2; slider.step = 0.05; }

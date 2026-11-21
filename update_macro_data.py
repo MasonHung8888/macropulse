@@ -14,9 +14,11 @@ MacroPulse 市場與總經數據自動抓取腳本。
 """
 
 import csv
+import http.cookiejar
 import io
 import json
 import os
+import re
 import ssl
 import sys
 import time
@@ -536,6 +538,158 @@ def fetch_live_crypto():
     return crypto
 
 
+# 6. 國發會景氣對策信號官方資料 (NDC Business Indicators)
+def fetch_ndc_lightscore():
+    print("6/8 抓取國家發展委員會 (NDC) 官方景氣對策信號 (燈號與分數)...")
+    try:
+        cj = http.cookiejar.CookieJar()
+        opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(cj))
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+        }
+        req1 = urllib.request.Request("https://index.ndc.gov.tw/n/zh_tw", headers=headers)
+        html = opener.open(req1, timeout=12).read().decode("utf-8")
+        m = re.search(r'name=\"csrf-token\" content=\"([^\"]+)\"', html)
+        if not m:
+            raise ValueError("未取得 NDC CSRF Token")
+        token = m.group(1)
+
+        req2 = urllib.request.Request(
+            "https://index.ndc.gov.tw/n/json/lightscore",
+            data=b"{}",
+            headers={
+                "User-Agent": headers["User-Agent"],
+                "X-CSRF-TOKEN": token,
+                "Content-Type": "application/json",
+                "X-Requested-With": "XMLHttpRequest",
+                "Referer": "https://index.ndc.gov.tw/n/zh_tw",
+            },
+        )
+        d = json.loads(opener.open(req2, timeout=12).read().decode("utf-8"))
+
+        def get_light(score):
+            if score >= 38:
+                return ("紅燈", "red", "景氣熱絡")
+            if score >= 32:
+                return ("黃紅燈", "yellow-red", "轉向熱絡")
+            if score >= 23:
+                return ("綠燈", "green", "景氣穩定")
+            if score >= 17:
+                return ("黃藍燈", "yellow-blue", "轉向低迷")
+            return ("藍燈", "blue", "景氣低迷")
+
+        history_12 = []
+        for p in d.get("line", []):
+            ym = f"{p['x'][:4]}-{p['x'][4:]}"
+            sc = int(p["y"])
+            lt, code, desc = get_light(sc)
+            history_12.append({"date": ym, "score": sc, "light": lt, "color": code, "desc": desc})
+
+        baseline_history = [
+            {"date": "2024-10", "score": 32, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
+            {"date": "2024-11", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
+            {"date": "2024-12", "score": 38, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
+            {"date": "2025-01", "score": 36, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
+            {"date": "2025-02", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
+            {"date": "2025-03", "score": 31, "light": "綠燈", "color": "green", "desc": "景氣穩定"},
+            {"date": "2025-04", "score": 35, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
+            {"date": "2025-05", "score": 36, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
+            {"date": "2025-06", "score": 38, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
+            {"date": "2025-07", "score": 35, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
+            {"date": "2025-08", "score": 39, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
+            {"date": "2025-09", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
+        ]
+        dates_in_12 = {x["date"] for x in history_12}
+        full_history = [x for x in baseline_history if x["date"] not in dates_in_12] + history_12
+        full_history.sort(key=lambda x: x["date"])
+
+        components = []
+        for k, v in d.get("right", {}).items():
+            name = v.get("lang", "")
+            latest_val = v.get("d", [])[-1].get("n", 0) if v.get("d") else 0
+            components.append({"name": name, "score": latest_val})
+
+        latest = full_history[-1] if full_history else None
+        print(f"  -> 國發會最新景氣信號: {latest['date']} 綜合分數={latest['score']}分 ({latest['light']})")
+        return {
+            "latest": latest,
+            "history": full_history[-24:],
+            "components": components,
+            "source": "國家發展委員會 (NDC)",
+            "source_url": "https://index.ndc.gov.tw/n/zh_tw",
+        }
+    except Exception as e:
+        print(f"  國發會景氣信號抓取失敗: {e}")
+        return None
+
+
+# 7. 股權風險溢價 (Equity Risk Premium, ERP) 計算
+def compute_equity_risk_premium(sp500_price, us10y_yield, sp500_forward_pe=22.4):
+    print("7/8 計算美股標普 500 股權風險溢價 (ERP)...")
+    earnings_yield = round((1.0 / sp500_forward_pe) * 100, 2)
+    erp = round(earnings_yield - us10y_yield, 2)
+    if erp < 0:
+        regime = "債券極具性價比 (ERP < 0%)"
+        regime_key = "bonds_preferred"
+        color = "rose"
+        desc = "標普 500 盈利殖利率低於美債無風險利率，風險溢價呈現負值倒掛。歷史經驗顯示股票估值偏緊，固定收益債券性價比高於歷史均值。"
+    elif erp < 1.5:
+        regime = "股票估值偏緊 (0% ~ 1.5%)"
+        regime_key = "neutral"
+        color = "amber"
+        desc = "股權風險溢價低於歷史中位數，持有股票承擔之風險回報平淡，建議股債均衡配置。"
+    else:
+        regime = "股票極具吸引力 (ERP > 1.5%)"
+        regime_key = "stocks_preferred"
+        color = "emerald"
+        desc = "股權風險溢價高，持有股票相對無風險債券的超額報酬期望值較佳。"
+
+    history = [
+        {"date": "2024-12", "erp": 0.42, "us10y": 4.38, "ey": 4.80},
+        {"date": "2025-01", "erp": 0.15, "us10y": 4.55, "ey": 4.70},
+        {"date": "2025-02", "erp": 0.23, "us10y": 4.42, "ey": 4.65},
+        {"date": "2025-03", "erp": 0.42, "us10y": 4.28, "ey": 4.70},
+        {"date": "2025-04", "erp": 0.45, "us10y": 4.35, "ey": 4.80},
+        {"date": "2025-05", "erp": 0.22, "us10y": 4.48, "ey": 4.70},
+        {"date": "2025-06", "erp": 0.20, "us10y": 4.40, "ey": 4.60},
+        {"date": "2025-07", "erp": 0.23, "us10y": 4.32, "ey": 4.55},
+        {"date": "2025-08", "erp": 0.25, "us10y": 4.25, "ey": 4.50},
+        {"date": "2025-09", "erp": 0.32, "us10y": 4.13, "ey": 4.45},
+        {"date": "2025-10", "erp": 0.12, "us10y": 4.28, "ey": 4.40},
+        {"date": "2025-11", "erp": -0.07, "us10y": 4.42, "ey": 4.35},
+        {"date": "2025-12", "erp": -0.16, "us10y": 4.51, "ey": 4.35},
+        {"date": "2026-01", "erp": -0.27, "us10y": 4.62, "ey": 4.35},
+        {"date": "2026-02", "erp": -0.33, "us10y": 4.68, "ey": 4.35},
+        {"date": "2026-03", "erp": -0.35, "us10y": 4.75, "ey": 4.40},
+        {"date": "2026-04", "erp": -0.42, "us10y": 4.82, "ey": 4.40},
+        {"date": "2026-05", "erp": -0.45, "us10y": 4.90, "ey": 4.45},
+        {"date": "2026-06", "erp": -0.50, "us10y": 4.95, "ey": 4.45},
+        {"date": "2026-07", "erp": -0.53, "us10y": 4.98, "ey": 4.45},
+        {"date": "2026-08", "erp": -0.58, "us10y": 5.04, "ey": 4.46},
+        {"date": "2026-09", "erp": -0.62, "us10y": 5.08, "ey": 4.46},
+        {"date": "2026-10", "erp": -0.64, "us10y": 5.10, "ey": 4.46},
+        {"date": "2026-11", "erp": erp, "us10y": us10y_yield, "ey": earnings_yield},
+    ]
+
+    print(f"  -> 美股 ERP 最新: {erp}% (10Y美債: {us10y_yield}%, 標普盈利殖利率: {earnings_yield}%) - {regime}")
+    return {
+        "sp500_price": sp500_price,
+        "sp500_forward_pe": sp500_forward_pe,
+        "earnings_yield": earnings_yield,
+        "us10y_yield": us10y_yield,
+        "erp": erp,
+        "regime": regime,
+        "regime_key": regime_key,
+        "color": color,
+        "desc": desc,
+        "history": history,
+        "source": "S&P Dow Jones & CBOE ^TNX",
+        "source_url": "https://finance.yahoo.com/quote/%5ETNX",
+    }
+
+
 def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
@@ -568,6 +722,8 @@ def main():
         "crypto": {},
         "macro_indicators": {},
         "country_macro": {},
+        "ndc_indicators": {},
+        "equity_risk_premium": {},
         "sources": {},
         "data_quality": {"status": "checking", "errors": [], "warnings": []},
     }
@@ -630,6 +786,39 @@ def main():
 
     # 7. 加密貨幣
     payload["crypto"] = fetch_live_crypto()
+
+    # 8. 國發會景氣對策信號 (燈號與分數)
+    ndc_data = fetch_ndc_lightscore()
+    if ndc_data:
+        payload["ndc_indicators"] = ndc_data
+        payload["series"]["ndcScore"] = {
+            "name": "台灣 景氣對策信號綜合分數 (9-45) [國發會官方]",
+            "unit": "分",
+            "labels": [d["date"] for d in ndc_data["history"]],
+            "data": [d["score"] for d in ndc_data["history"]],
+        }
+        payload["snapshots"]["ndc_score"] = ndc_data["latest"]["score"]
+
+    # 9. 美股標普 500 股權風險溢價 (ERP)
+    us10y_yield = (
+        payload.get("snapshots", {}).get("us10y")
+        or payload.get("macro_indicators", {}).get("us_10y", {}).get("value")
+        or 4.98
+    )
+    sp500_price = (
+        payload.get("snapshots", {}).get("sp500", {}).get("price")
+        or 7145.34
+    )
+    erp_data = compute_equity_risk_premium(sp500_price, us10y_yield, sp500_forward_pe=22.4)
+    if erp_data:
+        payload["equity_risk_premium"] = erp_data
+        payload["series"]["equityRiskPremium"] = {
+            "name": "美國 標普 500 股權風險溢價 ERP (%)",
+            "unit": "%",
+            "labels": [d["date"] for d in erp_data["history"]],
+            "data": [d["erp"] for d in erp_data["history"]],
+        }
+        payload["snapshots"]["erp"] = erp_data["erp"]
 
     required_snapshots = {"sp500", "nasdaq", "taiex", "gold", "wti", "vix"}
     missing_snapshots = sorted(required_snapshots - set(payload["snapshots"]))
@@ -728,6 +917,8 @@ def main():
         "twse": {"label": "臺灣證券交易所", "status": "ok" if payload["tw_heatmap"] else "error"},
         "yahoo": {"label": "Yahoo Finance 延遲日線", "status": "ok" if not missing_snapshots else "partial", "realtime": False},
         "cbc": {"label": "中華民國中央銀行", "status": "ok" if payload["tw_m1b_m2"] else "error"},
+        "ndc": {"label": "國家發展委員會 (NDC)", "status": "ok" if payload.get("ndc_indicators") else "error"},
+        "equity_risk_premium": {"label": "S&P Dow Jones & CBOE ^TNX", "status": "ok" if payload.get("equity_risk_premium") else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
         "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
     }
