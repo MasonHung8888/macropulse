@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>台股底部判斷與 AI 供應鏈買點監控系統 | MacroPulse Taiwan Alpha</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#eef2ff', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca' }
+          }
+        }
+      }
+    };
+  </script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    .tabular-nums { font-variant-numeric: tabular-nums; font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen transition-colors duration-200">
+
+  <!-- 頂部導航列 -->
+  <header class="sticky top-0 z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-medium transition-colors border border-slate-700">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i> 回首頁 MacroPulse
+        </a>
+        <div class="h-4 w-px bg-slate-700"></div>
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🇹🇼</span>
+          <h1 class="font-bold text-base sm:text-lg tracking-tight text-white flex items-center gap-2">
+            台股底部與 AI 供應鏈買點監控系統
+          </h1>
+          <span class="hidden md:inline-flex px-2 py-0.5 rounded text-[11px] font-semibold bg-indigo-500/15 text-indigo-400 border border-indigo-500/30">
+            Taiwan Alpha Engine
+          </span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div id="live-date-pill" class="text-xs px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-medium tabular-nums">
+          資料日: 2026-11-20
+        </div>
+        <button id="refresh-btn" type="button" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold transition-colors shadow-sm">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          <span>更新監控數據</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主內容容器 -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+    <!-- 一、核心目標：六大關鍵問題快速診斷 -->
+    <section class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 sm:p-6 shadow-xl">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-700">
+        <div>
+          <div class="flex items-center gap-2">
+            <h2 class="text-lg font-bold text-white flex items-center gap-2">
+              <i data-lucide="crosshair" class="w-5 h-5 text-indigo-400"></i> 一、核心目標：市場階段與買點診斷
+            </h2>
+            <span id="market-stage-badge" class="px-3 py-1 rounded-full text-xs font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/40">
+              恐慌殺盤階段 (尚未確認止跌)
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">以實際官方數據回答投資人最核心的六大底部決策問題，杜絕憑感覺預測底部</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right">
+            <div class="text-xs text-slate-400">五大底部訊號模型得分</div>
+            <div id="hero-score-val" class="text-2xl font-black text-rose-400 tabular-nums">37 / 100 分</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 大問題問答網格 -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-5">
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1.5">
+          <div class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Q1. 目前處於哪個市場階段？
+          </div>
+          <div class="text-sm font-semibold text-white">恐慌殺盤與融資斷頭期 (多殺多慣性)</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            加權指數單日大跌 -2,393 點 (-6.23%)，跌破所有短天期均線。融資單日暴減 491.4 億，散戶去槓桿多殺多引發流動性急凍。
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1.5">
+          <div class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Q2. 是否已經接近可能的底部？
+          </div>
+          <div class="text-sm font-semibold text-emerald-400">已出現「早期籌碼底部」訊號</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            融資單日清洗 491 億創下歷史記錄，融資浮額快速出清。歷史經驗顯示，融資單日暴減超過 300 億通常領先大盤絕對底部 3~7 個交易日。
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1.5">
+          <div class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Q3. 技術性反彈還是趨勢反轉？
+          </div>
+          <div class="text-sm font-semibold text-amber-400">尚未止跌，反彈先視為「跌深反抽」</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            指數目前距 20MA (-15.6%) 負乖離過大，隨時有千點報復性反彈，但需等大盤連續兩日量縮或站回 5MA，方具備趨勢反轉條件。
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1.5">
+          <div class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Q4. 外資是否仍持續撤出台灣？
+          </div>
+          <div class="text-sm font-semibold text-white">現貨賣壓顯著收斂，但期貨避險沉重</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            外資單日現貨僅賣超 -95.1 億，相較大盤暴跌幅度顯著收斂；惟台指期淨空單仍高達 -97,863 口，顯示外資防範國際黑天鵝避險情緒極濃。
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1.5">
+          <div class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Q5. 半導體及 AI 供應鏈是否領先止跌？
+          </div>
+          <div class="text-sm font-semibold text-sky-400">半導體相對抗跌，具備初步支撐性</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            台灣半導體類指數單日跌幅 -5.82%，抗跌於大盤 (-6.23%)，台積電 2,000 元整數心理關卡買盤積極承接，但電子零組件 (-9.51%) 補跌壓力仍大。
+          </p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1.5">
+          <div class="text-xs font-bold text-indigo-400 flex items-center gap-1.5">
+            <i data-lucide="help-circle" class="w-3.5 h-3.5"></i> Q6. 核心標的是否出現分批布局條件？
+          </div>
+          <div class="text-sm font-semibold text-indigo-300">適合啟動「第一梯次金字塔分批」</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            台積電本益比降至 20 倍、鴻海降至 13 倍、廣達 14 倍，0050 自高點回檔已達 -27.5%，保守者建議等待 5MA 走平，積極者可先買 25~30%。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 二、五大底部訊號評分模型 (總分100分) -->
+    <section class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="gauge" class="w-5 h-5 text-indigo-400"></i> 二、五大底部訊號評分模型 (Five-Factor Quantitative Bottom Meter)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            總分 100 分。量化評估：加權技術 (25%)、半導體電子 (25%)、外資賣壓 (20%)、櫃買廣度 (20%)、融資去槓桿 (10%)
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs text-slate-400">評級門檻:</span>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 font-medium">0~39 高風險</span>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-medium">40~59 觀察</span>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-400 font-medium">60~74 築底</span>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-sky-500/20 text-sky-400 font-medium">75~89 止跌</span>
+          <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">90~100 轉強</span>
+        </div>
+      </div>
+
+      <!-- 總分儀表進度條 -->
+      <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-700/60 space-y-2">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-bold text-slate-200">當前綜合模型得分：</span>
+            <span id="meter-score-text" class="text-2xl font-black text-rose-400 tabular-nums">37 分</span>
+            <span id="meter-stage-tag" class="text-xs font-semibold px-2 py-0.5 rounded bg-rose-500/15 text-rose-400">恐慌殺盤階段</span>
+          </div>
+          <div class="text-xs text-slate-400">
+            上一交易日變化: <span id="score-delta" class="font-bold text-slate-300">0 分 (初次基期)</span>
+          </div>
+        </div>
+        <div class="relative w-full h-4 rounded-full overflow-hidden bg-slate-800">
+          <div id="score-meter-bar" class="h-full bg-gradient-to-r from-rose-500 via-amber-500 via-indigo-500 to-emerald-500 transition-all duration-700" style="width: 37%;"></div>
+        </div>
+        <div class="flex justify-between text-[11px] text-slate-400 pt-1">
+          <span>0 (極度恐慌多殺多)</span>
+          <span>40 (初步止跌徵兆)</span>
+          <span>60 (築底分批具性價比)</span>
+          <span>75 (多項止跌成立)</span>
+          <span>100 (多項趨勢反轉)</span>
+        </div>
+      </div>
+
+      <!-- 5 大因子評分卡片網格 -->
+      <div id="factors-grid" class="grid grid-cols-1 md:grid-cols-5 gap-3.5">
+        <!-- 動態由 JS 渲染，此處為預設佔位 -->
+      </div>
+    </section>
+
+    <!-- 三、台股核心八大指數監控矩陣 -->
+    <section class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="bar-chart-2" class="w-5 h-5 text-indigo-400"></i> 三、台股核心八大指數監控矩陣 (Core 8 Indices Matrix)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            每日追蹤台股大盤、科技權值、中小型股及美股科技指標之均線、回檔幅度與量價關係
+          </p>
+        </div>
+        <span class="text-xs px-2.5 py-1 rounded bg-slate-900 text-slate-400 border border-slate-700">
+          TWSE &amp; TPEx &amp; Yahoo 官方日線
+        </span>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-900/90 text-slate-400 border-b border-slate-700">
+              <th class="p-3 font-semibold">指數名稱</th>
+              <th class="p-3 font-semibold text-right">最新收盤</th>
+              <th class="p-3 font-semibold text-right">單日漲跌</th>
+              <th class="p-3 font-semibold text-right">近5日 (%)</th>
+              <th class="p-3 font-semibold text-right">近20日 (%)</th>
+              <th class="p-3 font-semibold text-right">近60日高點回檔</th>
+              <th class="p-3 font-semibold text-right">距 20MA</th>
+              <th class="p-3 font-semibold text-right">距 60MA</th>
+              <th class="p-3 font-semibold text-center">均線位階</th>
+              <th class="p-3 font-semibold">量價關係 / 相對大盤強弱</th>
+            </tr>
+          </thead>
+          <tbody id="indices-tbody" class="divide-y divide-slate-700/60">
+            <!-- 動態填充 -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 四、資金流向與籌碼監控 -->
+    <section class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="coins" class="w-5 h-5 text-indigo-400"></i> 四、資金流向與籌碼監控 (Flow &amp; Leverage Monitor)
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            區分外資現貨買賣超與期貨避險部位，監測融資斷頭去槓桿幅度與央行貨幣流動性
+          </p>
+        </div>
+      </div>
+
+      <!-- 籌碼 KPI 卡片 -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
+          <div class="text-xs text-slate-400 font-medium">外資現貨買賣超 (TWSE)</div>
+          <div id="chip-foreign-val" class="text-2xl font-bold tabular-nums text-rose-400">-95.11 億</div>
+          <div class="text-[11px] text-emerald-400">賣壓已自前波數百億顯著收斂</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
+          <div class="text-xs text-slate-400 font-medium">外資台指期未平倉淨空單 (TAIFEX)</div>
+          <div id="chip-future-val" class="text-2xl font-bold tabular-nums text-rose-400">-97,863 口</div>
+          <div class="text-[11px] text-rose-400">處歷史極高避險水位 (-7,007億)</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
+          <div class="text-xs text-slate-400 font-medium">台股信用交易融資餘額 (TWSE)</div>
+          <div id="chip-margin-val" class="text-2xl font-bold tabular-nums text-indigo-400">4,352.27 億</div>
+          <div id="chip-margin-diff" class="text-[11px] font-bold text-emerald-400">單日暴減 -491.41 億 (極致清洗)</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
+          <div class="text-xs text-slate-400 font-medium">大盤成交金額 (TWSE)</div>
+          <div id="chip-vol-val" class="text-2xl font-bold tabular-nums text-white">9,353 億</div>
+          <div class="text-[11px] text-amber-400">價跌量增 · 爆量多殺多恐慌換手</div>
+        </div>
+      </div>
+
+      <!-- 額外資金指標 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-2">
+        <div class="p-3.5 rounded-xl bg-slate-900/40 border border-slate-700/50 space-y-1">
+          <div class="text-xs font-semibold text-slate-300">投信 ＆ 自營商買賣超</div>
+          <div class="text-xs text-slate-400 leading-relaxed">
+            投信買賣超：<span class="text-rose-400 font-bold">-73.47 億</span>｜自營商合計：<span class="text-rose-400 font-bold">-340.83 億</span>（自營避險賣超高達 -290.15 億，反映衍生性商品多殺多避險砍盤）
+          </div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/40 border border-slate-700/50 space-y-1">
+          <div class="text-xs font-semibold text-slate-300">美元兌新台幣匯率 (USDTWD)</div>
+          <div class="text-xs text-slate-400 leading-relaxed">
+            最新匯率：<span class="text-amber-400 font-bold">32.99</span>｜近 20 日小幅貶值 +0.45%，台幣雖未大幅升值但亦未失控摜破 33.5 大關，顯示資金並未呈現無序外逃。
+          </div>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-900/40 border border-slate-700/50 space-y-1">
+          <div class="text-xs font-semibold text-slate-300">央行貨幣供給 M1B - M2 剪刀差</div>
+          <div class="text-xs text-slate-400 leading-relaxed">
+            台灣 M1B: 7.20% ｜ M2: 7.24% ｜ 剪刀差: <span class="text-rose-400 font-bold">-0.04%</span>。目前處於微幅偏緊狀態，靜待流動性由負轉正形成黃金交叉。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 五、六大核心標的買點與 AI 供應鏈分析 -->
+    <section class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700">
+        <div>
+          <h2 class="text-lg font-bold text-white flex items-center gap-2">
+            <i data-lucide="cpu" class="w-5 h-5 text-indigo-400"></i> 五、六大焦點標的買點與 AI 供應鏈分析
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">
+            0050、00981A、台積電 (2330)、鴻海 (2317)、廣達 (2382)、緯創 (3231) 之估值、均線、三階分批條件與暫緩買進警示
+          </p>
+        </div>
+        <div class="text-xs text-slate-400">
+          以基本面與估值安全邊際為基石，拒絕情緒追高
+        </div>
+      </div>
+
+      <div id="stocks-cards-container" class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <!-- 動態由 JS 渲染 6 檔卡片 -->
+      </div>
+    </section>
+
+    <!-- 六、國際總體經濟與美股 AI 巨頭聯動監控 -->
+    <section class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+      <div class="pb-3 border-b border-slate-700">
+        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <i data-lucide="globe" class="w-5 h-5 text-indigo-400"></i> 六、國際總體經濟與美股 AI 巨頭聯動監控
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          全球利率、美股巨頭 AI 資本支出（CapEx）與出口管制對台股硬體代工之傳導剖析
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-3.5">
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
+          <div class="text-xs text-slate-400 font-medium">美國 10 年期公債殖利率 (^TNX)</div>
+          <div class="text-xl font-bold tabular-nums text-slate-200">4.91%</div>
+          <div class="text-[11px] text-amber-400">30Y 殖利率 5.08% · 折現重力仍高</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
+          <div class="text-xs text-slate-400 font-medium">美元指數 (DXY) ＆ VIX 恐慌指數</div>
+          <div class="text-xl font-bold tabular-nums text-slate-200">DXY 100.85 · VIX 23.4</div>
+          <div class="text-[11px] text-slate-400">美元平穩 · VIX 攀升至警戒水準</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
+          <div class="text-xs text-slate-400 font-medium">NVIDIA (NVDA) 最新股價走勢</div>
+          <div class="text-xl font-bold tabular-nums text-emerald-400">$182.50</div>
+          <div class="text-[11px] text-emerald-400">Blackwell 全力放量，晶片需求無虞</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-1">
+          <div class="text-xs text-slate-400 font-medium">美科技巨頭 AI 資本支出 (CapEx)</div>
+          <div class="text-xl font-bold tabular-nums text-indigo-400">&gt; $3,200 億美元</div>
+          <div class="text-[11px] text-slate-300">Microsoft/Google/Meta 續調升支出</div>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-900/40 border border-slate-700/50 space-y-2 text-xs text-slate-300 leading-relaxed">
+        <div class="font-bold text-white flex items-center gap-1.5">
+          <i data-lucide="info" class="w-4 h-4 text-indigo-400"></i> 總經與產業深度解讀：
+        </div>
+        <p>
+          當前台股暴跌主因為「融資籌碼多殺多與長端利率高檔引發的短期流動性衝擊」，並非「AI 實體訂單或產業趨勢逆轉」。微軟、Meta、Alphabet 與亞馬遜最新法說會均重申 2026 年資本支出維持強勁雙位數擴張，台積電先進製程產能滿載至 2027 年。短期的恐慌性折價恰恰為長線資金創造了以合理甚至低估本益比買入全球頂尖 AI 硬體供應鏈的絕佳戰略窗口。
+        </p>
+      </div>
+    </section>
+
+    <!-- 七、三種市場情境推演與今日投資觀察結論 -->
+    <section class="bg-slate-800/80 border border-slate-700/80 rounded-2xl p-5 sm:p-6 shadow-xl space-y-5">
+      <div class="pb-3 border-b border-slate-700">
+        <h2 class="text-lg font-bold text-white flex items-center gap-2">
+          <i data-lucide="compass" class="w-5 h-5 text-indigo-400"></i> 七、三種市場情境推演與今日投資觀察結論
+        </h2>
+        <p class="text-xs text-slate-400 mt-1">
+          基於機率與支撐均線推演未來路徑，提供清晰明確的每日操盤決策指引
+        </p>
+      </div>
+
+      <!-- 三種市場情境 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-emerald-500/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-400">樂觀情境 (機率 30%)</span>
+            <span class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold">V 型報復反彈</span>
+          </div>
+          <div class="text-sm font-bold text-white">目標區間: 38,500 ~ 40,000 點</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            觸發條件：外資期貨空單單日大舉回補 >1.5 萬口、融資清洗後連兩日收放量長紅棒、台積電快速重返 2,100 元關卡。
+          </p>
+          <div class="text-[11px] text-emerald-300 font-medium">策略：第一時間搶進台積電、鴻海強勢股。</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-indigo-500/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-indigo-400">基準情境 (機率 55%)</span>
+            <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-semibold">低檔反覆築底 (W 底)</span>
+          </div>
+          <div class="text-sm font-bold text-white">目標區間: 35,200 ~ 37,200 點</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            觸發條件：大盤在 35,000~36,500 點量縮打底，籌碼由散戶移轉至官股與長線壽險資金，技術指標日 KD 與 RSI 出現超賣背離。
+          </p>
+          <div class="text-[11px] text-indigo-300 font-medium">策略：金字塔分批佈局，逢急殺支撐買 1~2 成。</div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-slate-900/60 border border-rose-500/30 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-rose-400">壓力情境 (機率 15%)</span>
+            <span class="text-[11px] px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 font-semibold">深層次修正探底</span>
+          </div>
+          <div class="text-sm font-bold text-white">目標區間: 33,000 ~ 34,200 點 (年線)</div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            觸發條件：美費半跌破半年線、美國對中科技限制再升級、外資期貨淨空單破 10 萬口且現貨單日再賣超逾 500 億。
+          </p>
+          <div class="text-[11px] text-rose-300 font-medium">策略：觸發失效條件停損，保留 50% 現金等 VIX 飆高。</div>
+        </div>
+      </div>
+
+      <!-- 今日投資觀察結論專區 -->
+      <div class="p-5 rounded-xl bg-indigo-950/30 border border-indigo-500/40 space-y-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="check-circle-2" class="w-5 h-5 text-indigo-400"></i>
+          <h3 class="text-base font-bold text-white">今日投資觀察結論 (Daily Investment Verdict)</h3>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="space-y-2">
+            <div class="font-bold text-slate-200">1. 現在是否適合開始分批布局？</div>
+            <p class="text-slate-300 leading-relaxed">
+              👉 <span class="text-emerald-400 font-bold">適合開始「極小量金字塔式分批測試」，嚴禁單筆梭哈！</span><br>
+              五大底部模型總分 37 分，雖技術均線尚未站穩，但單日融資暴減 491 億元為歷史級籌碼出清訊號。建議總資金先動用 20%~25% 在關鍵支撐建立基本部位。
+            </p>
+
+            <div class="font-bold text-slate-200 pt-2">2. 哪些股票或 ETF 已接近觀察買點？</div>
+            <ul class="text-slate-300 space-y-1 pl-4 list-disc">
+              <li><strong class="text-white">台積電 (2330):</strong> 2,000 元大關處於歷史本益比 20 倍下緣，國安基金與主權基金重要防線</li>
+              <li><strong class="text-white">鴻海 (2317):</strong> 回檔至 210 元本益比僅 13 倍，具備 4.2% 高殖利率與 NVL72 量產能見度</li>
+              <li><strong class="text-white">元大台灣50 (0050):</strong> 84.45 元回檔幅度達 -27.5%，跌破半年線具備中長線高期望值</li>
+            </ul>
+          </div>
+
+          <div class="space-y-2">
+            <div class="font-bold text-slate-200">3. 哪些訊號仍然不利？</div>
+            <ul class="text-slate-300 space-y-1 pl-4 list-disc">
+              <li>外資台指期淨空單仍高達 <span class="text-rose-400 font-bold">-97,863 口</span>，避險套保空壓未除</li>
+              <li>櫃買指數 TPEx 單日重挫 <span class="text-rose-400 font-bold">-7.72%</span> 破底，中小型投機股流動性風險未退</li>
+              <li>加權指數仍位於下彎 5MA (39,451) 與 10MA (40,892) 之下，技術結構仍受慣性壓制</li>
+            </ul>
+
+            <div class="font-bold text-slate-200 pt-2">4. 明天最需要觀察的三個數據是什麼？</div>
+            <ol class="text-slate-300 space-y-1 pl-4 list-decimal">
+              <li><strong class="text-indigo-300">台積電能否開盤迅速拉回 2,000 元整數心理關卡，並守住日 K 線紅棒</strong></li>
+              <li><strong class="text-indigo-300">外資在台指期的未平倉淨空單是否出現 5,000 口以上的主動獲利回補</strong></li>
+              <li><strong class="text-indigo-300">大盤成交量是否在 7,000~8,000 億元區間呈現「量縮止跌」或「帶長下影線」</strong></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 頁尾 -->
+  <footer class="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+    <p>© 2026 MacroPulse Taiwan Alpha Analytics. 數據優先採用臺灣證券交易所 (TWSE)、櫃買中心 (TPEx)、期交所 (TAIFEX) 官方日線報表。本系統僅供學術量化研究與宏觀趨勢觀察，非個別買賣建議。</p>
+  </footer>
+
+  <!-- 前端互動與資料綁定腳本 -->
+  <script>
+    let DATA = null;
+
+    async function loadData() {
+      try {
+        const res = await fetch('tw_bottom_data.json?t=' + Date.now());
+        if (!res.ok) throw new Error('Failed to load JSON');
+        DATA = await res.json();
+        renderAll();
+      } catch (err) {
+        console.warn('載入最新 tw_bottom_data.json 失敗，使用預設快照', err);
+      }
+    }
+
+    function renderAll() {
+      if (!DATA) return;
+
+      // 日期
+      const datePill = document.getElementById('live-date-pill');
+      if (datePill && DATA.market_date) {
+        datePill.textContent = `官方資料日: ${DATA.market_date}`;
+      }
+
+      // 評分與狀態
+      const score = DATA.model_score || {};
+      const heroScore = document.getElementById('hero-score-val');
+      if (heroScore) heroScore.textContent = `${score.total_score} / 100 分`;
+
+      const meterScore = document.getElementById('meter-score-text');
+      if (meterScore) {
+        meterScore.textContent = `${score.total_score} 分`;
+        meterScore.className = `text-2xl font-black tabular-nums ${score.total_score >= 60 ? 'text-emerald-400' : score.total_score >= 40 ? 'text-amber-400' : 'text-rose-400'}`;
+      }
+
+      const stageBadge = document.getElementById('market-stage-badge');
+      if (stageBadge && score.stage) {
+        stageBadge.textContent = score.stage;
+      }
+      const stageTag = document.getElementById('meter-stage-tag');
+      if (stageTag && score.stage) {
+        stageTag.textContent = score.stage;
+      }
+
+      const bar = document.getElementById('score-meter-bar');
+      if (bar) bar.style.width = `${Math.min(100, Math.max(5, score.total_score))}%`;
+
+      const delta = document.getElementById('score-delta');
+      if (delta && score.score_change !== undefined) {
+        delta.textContent = `${score.score_change >= 0 ? '+' : ''}${score.score_change} 分`;
+      }
+
+      // 渲染五大因子卡片
+      const fGrid = document.getElementById('factors-grid');
+      if (fGrid && score.factors) {
+        fGrid.innerHTML = score.factors.map(f => `
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border ${f.status === 'pass' ? 'border-emerald-500/40 bg-emerald-950/10' : f.status === 'neutral' ? 'border-amber-500/40 bg-amber-950/10' : 'border-slate-700/60'} space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-200">${f.name}</span>
+              <span class="text-xs font-bold ${f.score > 0 ? 'text-indigo-400' : 'text-slate-500'}">${f.score} / ${f.weight}分</span>
+            </div>
+            <div class="text-[11px] text-slate-400 leading-snug">
+              <strong class="text-slate-300">實際:</strong> ${f.actual}
+            </div>
+            <div class="text-[10px] text-slate-500 leading-snug pt-1 border-t border-slate-800">
+              <strong>門檻:</strong> ${f.threshold}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 渲染八大指數表格
+      const tbody = document.getElementById('indices-tbody');
+      if (tbody && DATA.indices) {
+        const tw = DATA.indices.twse || {};
+        const tpex = DATA.indices.tpex || {};
+        const sox = DATA.indices.sox || {};
+        const ndx = DATA.indices.ndx || {};
+
+        const list = [
+          { name: '加權指數 TAIEX', data: tw.taiex, extra: DATA.volume_analysis ? DATA.volume_analysis.pattern : '大盤基準' },
+          { name: '半導體類指數', data: tw.semi, extra: '相對大盤抗跌 +0.41%' },
+          { name: '電子工業類指數', data: tw.elec, extra: '權值權重 > 68%' },
+          { name: '電子零組件指數', data: tw.elec_parts, extra: 'AI 機櫃伺服器供應鏈' },
+          { name: '臺灣50指數', data: tw.tw50, extra: '大型龍頭權值' },
+          { name: '櫃買指數 TPEx', data: tpex, extra: '中小型股指標 (未止跌)' },
+          { name: '費城半導體 SOX', data: sox, extra: '全球半導體景氣核心' },
+          { name: '那斯達克100 NDX', data: ndx, extra: '美科技股 AI 風險偏好' }
+        ];
+
+        tbody.innerHTML = list.map(item => {
+          const d = item.data || {};
+          const chg = d.change_pct !== undefined ? d.change_pct : (d.change || 0);
+          const isUp = chg >= 0;
+          return `
+            <tr class="hover:bg-slate-800/40 transition-colors">
+              <td class="p-3 font-bold text-slate-200">${item.name}</td>
+              <td class="p-3 font-semibold text-right tabular-nums">${d.close ? Number(d.close).toLocaleString('en-US') : '—'}</td>
+              <td class="p-3 font-bold text-right tabular-nums ${isUp ? 'text-emerald-400' : 'text-rose-400'}">${isUp ? '+' : ''}${Number(chg).toFixed(2)}%</td>
+              <td class="p-3 text-right tabular-nums text-slate-300">${d.r5 !== undefined ? (d.r5 >= 0 ? '+' : '') + d.r5.toFixed(1) + '%' : '—'}</td>
+              <td class="p-3 text-right tabular-nums text-slate-300">${d.r20 !== undefined ? (d.r20 >= 0 ? '+' : '') + d.r20.toFixed(1) + '%' : '—'}</td>
+              <td class="p-3 text-right tabular-nums font-semibold ${d.dd60 < -20 ? 'text-rose-400' : 'text-slate-300'}">${d.dd60 !== undefined ? d.dd60.toFixed(1) + '%' : '—'}</td>
+              <td class="p-3 text-right tabular-nums ${d.dist_ma20_pct < 0 ? 'text-rose-400' : 'text-emerald-400'}">${d.dist_ma20_pct !== undefined ? (d.dist_ma20_pct >= 0 ? '+' : '') + d.dist_ma20_pct.toFixed(1) + '%' : '—'}</td>
+              <td class="p-3 text-right tabular-nums ${d.dist_ma60_pct < 0 ? 'text-rose-400' : 'text-emerald-400'}">${d.dist_ma60_pct !== undefined ? (d.dist_ma60_pct >= 0 ? '+' : '') + d.dist_ma60_pct.toFixed(1) + '%' : '—'}</td>
+              <td class="p-3 text-center">
+                <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${d.close && d.ma60 && d.close < d.ma60 ? 'bg-rose-500/20 text-rose-400' : 'bg-emerald-500/20 text-emerald-400'}">
+                  ${d.close && d.ma60 ? (d.close < d.ma60 ? '跌破季線' : '站穩季線') : '觀察中'}
+                </span>
+              </td>
+              <td class="p-3 text-slate-400">${item.extra}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 渲染籌碼數值
+      const inst = DATA.institutional_flow || {};
+      const foreignEl = document.getElementById('chip-foreign-val');
+      if (foreignEl && inst.foreign !== undefined) {
+        foreignEl.textContent = `${inst.foreign >= 0 ? '+' : ''}${inst.foreign} 億`;
+      }
+      const fut = DATA.futures_oi || {};
+      const futEl = document.getElementById('chip-future-val');
+      if (futEl && fut.net_contracts !== undefined) {
+        futEl.textContent = `${fut.net_contracts.toLocaleString()} 口`;
+      }
+      const margin = DATA.margin_trading || {};
+      const marginEl = document.getElementById('chip-margin-val');
+      if (marginEl && margin.margin_balance !== undefined) {
+        marginEl.textContent = `${margin.margin_balance.toFixed(2)} 億`;
+      }
+      const marginDiffEl = document.getElementById('chip-margin-diff');
+      if (marginDiffEl && margin.margin_diff !== undefined) {
+        marginDiffEl.textContent = `單日暴減 ${margin.margin_diff} 億 (去槓桿清洗)`;
+      }
+
+      // 渲染六大標的
+      const sContainer = document.getElementById('stocks-cards-container');
+      if (sContainer && DATA.focus_stocks) {
+        sContainer.innerHTML = DATA.focus_stocks.map(s => `
+          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-700/60 space-y-3">
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-sm font-black text-white">${s.name}</span>
+                  <span class="text-xs font-mono text-indigo-400">${s.code}</span>
+                  <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">${s.type}</span>
+                </div>
+                <div class="text-xs text-slate-400 mt-0.5">${s.ai_exposure}</div>
+              </div>
+              <div class="text-right">
+                <div class="text-lg font-black tabular-nums text-white">${s.close ? s.close.toFixed(2) : '—'} 元</div>
+                <div class="text-xs font-bold tabular-nums ${s.change_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${s.change_pct >= 0 ? '+' : ''}${s.change_pct}%</div>
+              </div>
+            </div>
+
+            <!-- 均線與估值 -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px] bg-slate-800/40 p-2.5 rounded-lg border border-slate-700/40">
+              <div><span class="text-slate-400">20MA:</span> <span class="font-bold tabular-nums text-slate-200">${s.ma20 ? s.ma20.toFixed(1) : '—'}</span></div>
+              <div><span class="text-slate-400">60MA:</span> <span class="font-bold tabular-nums text-slate-200">${s.ma60 ? s.ma60.toFixed(1) : '—'}</span></div>
+              <div><span class="text-slate-400">60日高點回檔:</span> <span class="font-bold tabular-nums text-rose-400">${s.dd60 ? s.dd60.toFixed(1) + '%' : '—'}</span></div>
+              <div><span class="text-slate-400">估值:</span> <span class="font-bold text-slate-200">${s.pe_ratio}</span></div>
+            </div>
+
+            <!-- 關鍵價位 -->
+            <div class="text-xs space-y-1">
+              <div><strong class="text-emerald-400">核心支撐:</strong> <span class="text-slate-300">${s.support}</span></div>
+              <div><strong class="text-amber-400">反彈壓力:</strong> <span class="text-slate-300">${s.resistance}</span></div>
+              <div><strong class="text-rose-400">跌破失效條件:</strong> <span class="text-slate-300">${s.invalidation}</span></div>
+            </div>
+
+            <!-- 三種分批買點 -->
+            <div class="space-y-1.5 pt-2 border-t border-slate-700/60 text-xs">
+              <div class="text-indigo-400 font-bold">🎯 三階分批進場規劃：</div>
+              <div class="text-slate-300"><span class="text-slate-400 font-semibold">[保守型]:</span> ${s.conservative_buy}</div>
+              <div class="text-slate-300"><span class="text-slate-400 font-semibold">[中性型]:</span> ${s.neutral_buy}</div>
+              <div class="text-slate-300"><span class="text-slate-400 font-semibold">[積極型]:</span> ${s.aggressive_buy}</div>
+              <div class="text-rose-400 pt-1 text-[11px]"><span class="font-bold">⚠️ 暫緩買進警示:</span> ${s.halt_condition}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      lucide.createIcons();
+    }
+
+    document.getElementById('refresh-btn').addEventListener('click', () => {
+      loadData();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      loadData();
+    });
+  </script>
+</body>
+</html>

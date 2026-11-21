@@ -157,6 +157,30 @@ flowchart TD
   - $-5.0\% \le \text{YoY} < 0.0\%$：**有序縮表緊縮**（橙燈，當前縮表收尾常態，流動性收縮放緩）
   - $\text{YoY} < -5.0\%$：深度流動性緊縮（紅燈，流動性急凍，估值顯著承壓）
 
+### 9. 🇹🇼 台股底部與 AI 供應鏈買點監控系統（Taiwan Bottom & AI Supply Chain Hunter）
+* **資料擷取引擎**：`update_tw_bottom_data.py`（輸出 `tw_bottom_data.json`，並備份 `tw_bottom_prev.json` 用於比對日變動）。
+* **對應指令**：輸入「更新台股底部監控」即可自動執行 `python update_tw_bottom_data.py`。
+* **官方端點**：
+  - TWSE 價格指數：`https://www.twse.com.tw/rwd/zh/afterTrading/MI_INDEX?response=json&type=IND`（加權、臺灣50、半導體、電子工業、電子零組件）
+  - TWSE 三大法人：`https://www.twse.com.tw/rwd/zh/fund/BFI82U?response=json`（外資、投信、自營買賣超）
+  - TWSE 信用交易：`https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?response=json`（融資融券餘額與增減）
+  - TWSE 大盤成交金額：`https://www.twse.com.tw/rwd/zh/afterTrading/FMTQIK?response=json`（成交金額、5MA/20MA 均量、量價結構）
+  - TPEx 櫃買指數：`https://www.tpex.org.tw/www/zh-tw/afterTrading/indexSummary?response=json`（櫃買指數收盤行情）
+  - TAIFEX 期交所：`https://www.taifex.com.tw/cht/3/futContractsDate`（外資臺股期貨未平倉多空淨口數與契約金額）
+  - Yahoo Finance：`^SOX`, `^NDX`, `USDTWD=X`, `^VIX`, `0050.TW`, `00981A.TW`, `2330.TW`, `2317.TW`, `2382.TW`, `3231.TW`
+* **五大底部訊號量化模型（100分制）**：
+  1. 加權指數技術止跌 (25%): 不破近5日低點 (8分) + 站上5MA/10MA (8分) + 量價關係由價跌量增轉為量縮止跌/放量反彈 (9分)
+  2. 半導體電子族群轉強 (25%): 半導體相對強弱提升 (9分) + 台積電率先站上短期均線 (8分) + 電子零組件抗跌 (8分)
+  3. 外資賣壓減弱 (20%): 現貨賣超收斂至百億內或轉買 (7分) + 台指期淨空單顯著回補 (7分) + 台幣匯率止貶 (6分)
+  4. 櫃買與市場廣度改善 (20%): 櫃買指數未破波段新低 (8分) + TPEx 站穩關鍵心理關卡 (6分) + 那斯達克100收斂跌勢 (6分)
+  5. 融資籌碼改善 (10%): 單日融資大幅減碼去槓桿 >30億 (10分，浮額清洗訊號)
+* **評級區間**：
+  - 0～39分：恐慌殺盤階段（高風險，尚未確認止跌）
+  - 40～59分：觀察階段（中高風險，初步止跌徵兆浮現）
+  - 60～74分：築底階段（中風險，訊號增加，具性價比，小額金字塔分批）
+  - 75～89分：止跌成立（中低風險，多項底部訊號確認）
+  - 90～100分：趨勢轉強（低風險，多項趨勢條件成立）
+
 ---
 
 ## 🛡️ 資料防錯閘門與保護機制 (Data Quality Gates)
