@@ -676,6 +676,152 @@
           </div>
         </div>
       </div>
+
+      <!-- 巴菲特指標：美股市值 / GDP 估值計 (Buffett Indicator: US Total Market Cap vs GDP) -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="scale" class="w-5 h-5 text-indigo-500"></i> 巴菲特指標：美股市值 / GDP 估值計 (Buffett Indicator)
+              </h2>
+              <span id="buffett-rating-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400">當前估值：顯著高估 (208.9%)</span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              股神華倫·巴菲特衡量整體股市總體估值的首選指標：以 Wilshire 5000 全美總市值對比美國名目 GDP，評估美股相對於實體經濟之泡沫與長期安全邊際
+            </p>
+          </div>
+          <div class="flex items-center gap-2 self-start sm:self-auto">
+            <span class="text-xs font-medium px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">FRED (GDP) ＆ Wilshire 5000 (^W5000)</span>
+            <a href="https://fred.stlouisfed.org/series/GDP" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5">
+              FRED 官方序列 <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- 4 KPI 數值卡片 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-lg bg-rose-50/50 dark:bg-rose-950/20 border border-rose-200/70 dark:border-rose-800/50">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">當前巴菲特指標比率</div>
+            <div id="buffett-ratio-val" class="text-3xl font-extrabold tabular-nums mt-1 text-rose-600 dark:text-rose-400">208.9%</div>
+            <div id="buffett-ratio-sub" class="text-[11px] text-rose-600 dark:text-rose-400 mt-0.5 font-medium">顯著高估 (泡沫警戒區間)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">全美股市總市值 (Wilshire 5000)</div>
+            <div id="buffett-mcap-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">$68.96 兆</div>
+            <div id="buffett-mcap-sub" class="text-[11px] text-slate-400 mt-0.5">約 68,957 點 (1點≈$10億)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美國名目 GDP (季度折年率)</div>
+            <div id="buffett-gdp-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">$33.01 兆</div>
+            <div id="buffett-gdp-sub" class="text-[11px] text-slate-400 mt-0.5">FRED 官方發布 (2026-Q3)</div>
+          </div>
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">一年前同期比率 (1 Year Ago)</div>
+            <div id="buffett-prev-1y-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">217.2%</div>
+            <div id="buffett-prev-1y-sub" class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">相較一年前收斂 -8.3%</div>
+          </div>
+        </div>
+
+        <!-- 儀表條與歷史走勢圖 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-2">
+          <!-- 左側 7 欄: 五色分級量表與 24 個月走勢圖 -->
+          <div class="lg:col-span-7 space-y-4">
+            <!-- 五色漸層估值量表 -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between text-xs font-semibold">
+                <span class="text-emerald-600 dark:text-emerald-400">&lt;75% 顯著低估</span>
+                <span class="text-teal-500">75~90% 適度低估</span>
+                <span class="text-sky-500">90~115% 合理估值</span>
+                <span class="text-amber-500">115~140% 適度高估</span>
+                <span class="text-rose-600 dark:text-rose-400">&gt;140% 泡沫警戒</span>
+              </div>
+              <div class="relative w-full h-3.5 rounded-full overflow-hidden bg-slate-200 dark:bg-slate-700">
+                <div class="absolute inset-0 bg-gradient-to-r from-emerald-500 via-teal-400 via-sky-400 via-amber-400 to-rose-600"></div>
+                <!-- 游標指針 (比例基於 50% ~ 250% 區間對映) -->
+                <div id="buffett-pointer" class="absolute top-0 bottom-0 w-2 bg-white shadow-md border border-slate-400 rounded-sm transform -translate-x-1/2 transition-all duration-500" style="left: 79.5%;"></div>
+              </div>
+              <div class="flex justify-between text-[11px] text-slate-400 pt-0.5">
+                <span>極具安全邊際 (強烈買進)</span>
+                <span id="buffett-pointer-label" class="font-bold text-rose-600 dark:text-rose-400">當前讀數: 208.9% (顯著高估)</span>
+                <span>極度亢奮 (小心玩火)</span>
+              </div>
+            </div>
+
+            <!-- 24 個月歷史走勢圖 -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-slate-700 dark:text-slate-300">過去 24 個月 巴菲特指標歷史走勢 (美股市值 / GDP %)</span>
+                <span class="text-[11px] text-slate-400">紅虛線：140% 泡沫警戒線 ｜ 藍虛線：100% 歷史基準線</span>
+              </div>
+              <div class="relative h-60">
+                <canvas id="buffettChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右側 5 欄: 估值五大區間解讀與巴菲特箴言 -->
+          <div class="lg:col-span-5 space-y-3 text-xs">
+            <div class="font-bold text-slate-900 dark:text-white flex items-center justify-between pb-1 border-b border-slate-100 dark:border-slate-800">
+              <span>巴菲特指標估值體系與區間劃分</span>
+              <span class="text-[11px] text-slate-400 font-normal">歷史均值 ≈ 125%</span>
+            </div>
+            <div class="space-y-2">
+              <div class="flex items-center justify-between p-2 rounded bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-900/50">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                  <span class="font-semibold text-rose-700 dark:text-rose-300">&gt; 140%：顯著高估 (泡沫警戒)</span>
+                </div>
+                <span class="font-bold text-rose-600 dark:text-rose-400">當前 208.9% 處此區</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 opacity-75">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                  <span class="font-medium text-amber-700 dark:text-amber-300">115% ~ 140%：適度高估 (警示偏高)</span>
+                </div>
+                <span class="text-slate-400">成長溢價區間</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-sky-50 dark:bg-sky-950/20 border border-sky-200 dark:border-sky-900/40 opacity-75">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
+                  <span class="font-medium text-sky-700 dark:text-sky-300">90% ~ 115%：合理估值 (歷史常態)</span>
+                </div>
+                <span class="text-slate-400">均衡定價</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-teal-50 dark:bg-teal-950/20 border border-teal-200 dark:border-teal-900/40 opacity-75">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-teal-500"></span>
+                  <span class="font-medium text-teal-700 dark:text-teal-300">75% ~ 90%：適度低估 (合理偏低)</span>
+                </div>
+                <span class="text-slate-400">買進良機</span>
+              </div>
+              <div class="flex items-center justify-between p-2 rounded bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 opacity-75">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                  <span class="font-medium text-emerald-700 dark:text-emerald-300">&lt; 75%：顯著低估 (強烈買進)</span>
+                </div>
+                <span class="text-slate-400">極致安全邊際</span>
+              </div>
+            </div>
+
+            <!-- 動態總經解讀 -->
+            <div id="buffett-commentary" class="p-3 rounded-lg border leading-relaxed bg-rose-500/10 border-rose-500/30 text-rose-900 dark:text-rose-200">
+              巴菲特指標（美股市值 / GDP 比率）最新讀數為 208.9%，處於「顯著高估 (泡沫警戒)」區間。目前美股 Wilshire 5000 總市值約 $68.96 兆美元，對比美國名目 GDP $33.01 兆美元。歷史上該指標高於 140% 即進入顯著高估，當前比率相較一年前 (217.2%) 收斂了 8.3 個百分點，顯示受大型科技巨頭估值拉升影響，整體美股相對於實體經濟規模仍處於極端擴張期。
+            </div>
+
+            <!-- 巴菲特經典名言引用框 -->
+            <div class="p-3 rounded-lg border bg-slate-50 dark:bg-slate-800/80 border-slate-200 dark:border-slate-700/80 text-slate-600 dark:text-slate-400 space-y-1 italic">
+              <div class="flex items-center gap-1.5 font-semibold text-slate-700 dark:text-slate-200 not-italic">
+                <i data-lucide="quote" class="w-3.5 h-3.5 text-indigo-500"></i>
+                <span>華倫·巴菲特 (Warren Buffett, 2001) 指標原意：</span>
+              </div>
+              <p>
+                「如果該比率跌到 70% 或 80%，買股票可能會帶來豐厚回報；如果該比率接近 200%，如同在玩火 (playing with fire)。」
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- TAB 2: M1B / M2 LIQUIDITY MONITOR & NDC INDICATORS -->
@@ -1042,6 +1188,7 @@
         <button data-preset="sahmRule|us_10y2y" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-amber-500/20 text-amber-600 dark:text-amber-400 transition-colors">薩姆規則 vs 10Y-2Y 利差</button>
         <button data-preset="us_10y|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美債 10Y vs S&amp;P 500</button>
         <button data-preset="fearAndGreed|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 transition-colors">恐慌貪婪指數 vs S&amp;P 500</button>
+        <button data-preset="buffettIndicator|sp500" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 transition-colors">巴菲特指標 vs S&amp;P 500</button>
         <button data-preset="usM2|gold" class="preset-btn px-2.5 py-1 rounded-full bg-slate-200/70 dark:bg-slate-800 hover:bg-blue-500/20 transition-colors">美國 M2 年增率 vs 黃金</button>
       </div>
 
@@ -1182,6 +1329,7 @@
             <option value="twExportOrdersYoY">台灣外銷訂單年增率 (%)</option>
             <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
             <option value="fearAndGreed">恐慌與貪婪綜合指數 (0-100)</option>
+            <option value="buffettIndicator">巴菲特指標 (美股市值 / GDP %)</option>
             <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
             <option value="fedFundsRate">美國 聯邦基金有效利率 (%)</option>
             <option value="sahmRule">薩姆規則衰退指標 (%)</option>
@@ -2369,6 +2517,74 @@
       }
     }
 
+    // --- 3.46 Buffett Indicator (巴菲特指標: 美股市值 / GDP) Default Data & Populator ---
+    const BUFFETT_DEFAULT_DATA = {
+      latest: {
+        ratio: 208.9,
+        rating: "顯著高估 (泡沫警戒)",
+        rating_key: "extreme_bubble",
+        color: "#ef4444",
+        as_of: "2026-11",
+        market_cap_trillions: 68.96,
+        gdp_trillions: 33.01,
+        previous_1m: 228.8,
+        previous_1y: 217.2,
+        desc: "巴菲特指標（美股市值 / GDP 比率）最新讀數為 208.9%，處於「顯著高估 (泡沫警戒)」區間。目前美股 Wilshire 5000 總市值約 $68.96 兆美元，對比美國名目 GDP $33.01 兆美元。歷史上該指標高於 140% 即進入顯著高估，當前比率相較一年前 (217.2%) 收斂了 8.3 個百分點，顯示受大型科技巨頭估值拉升影響，整體美股相對於實體經濟規模仍處於極端擴張期。",
+        historical_avg: 125.0
+      },
+      history_24m: {
+        labels: ["2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08","2026-09","2026-10","2026-11"],
+        ratios: [197.0,201.4,197.3,185.4,181.3,192.6,202.2,203.0,207.4,214.4,216.9,217.2,216.8,217.1,215.8,204.9,221.3,232.3,231.2,226.8,232.7,230.4,228.8,208.9],
+        mcaps: [58.97,60.78,59.52,55.93,55.52,59.0,61.94,63.29,64.68,66.85,68.24,68.34,68.21,69.26,68.85,65.36,72.05,75.65,75.29,74.86,76.8,76.04,75.52,68.96],
+        gdps: [29.93,30.17,30.17,30.17,30.63,30.63,30.63,31.18,31.18,31.18,31.46,31.46,31.46,31.91,31.91,31.91,32.56,32.56,32.56,33.01,33.01,33.01,33.01,33.01]
+      }
+    };
+
+    function populateBuffettDefaultIfEmpty() {
+      const bi = (state.livePayload && state.livePayload.buffett_indicator) ? state.livePayload.buffett_indicator : BUFFETT_DEFAULT_DATA;
+      if (!bi || !bi.latest) return;
+      const l = bi.latest;
+
+      const valEl = document.getElementById('buffett-ratio-val');
+      if (valEl) {
+        valEl.textContent = `${l.ratio.toFixed(1)}%`;
+        valEl.className = `text-3xl font-extrabold tabular-nums mt-1 ${l.ratio >= 140 ? 'text-rose-600 dark:text-rose-400' : l.ratio >= 115 ? 'text-amber-500' : l.ratio >= 90 ? 'text-sky-500' : 'text-emerald-500'}`;
+      }
+      const subEl = document.getElementById('buffett-ratio-sub');
+      if (subEl) {
+        subEl.textContent = `${l.rating} 區間`;
+        subEl.className = `text-[11px] mt-0.5 font-medium ${l.ratio >= 140 ? 'text-rose-600 dark:text-rose-400' : l.ratio >= 115 ? 'text-amber-500' : l.ratio >= 90 ? 'text-sky-500' : 'text-emerald-500'}`;
+      }
+      const badgeEl = document.getElementById('buffett-rating-badge');
+      if (badgeEl) {
+        badgeEl.textContent = `當前估值：${l.rating} (${l.ratio.toFixed(1)}%)`;
+        badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${l.ratio >= 140 ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : l.ratio >= 115 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : l.ratio >= 90 ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'}`;
+      }
+
+      const mcapEl = document.getElementById('buffett-mcap-val');
+      if (mcapEl) mcapEl.textContent = `$${l.market_cap_trillions.toFixed(2)} 兆`;
+      const gdpEl = document.getElementById('buffett-gdp-val');
+      if (gdpEl) gdpEl.textContent = `$${l.gdp_trillions.toFixed(2)} 兆`;
+      const p1yEl = document.getElementById('buffett-prev-1y-val');
+      if (p1yEl) p1yEl.textContent = `${l.previous_1y.toFixed(1)}%`;
+      const p1ySub = document.getElementById('buffett-prev-1y-sub');
+      if (p1ySub) {
+        const diff = l.ratio - l.previous_1y;
+        p1ySub.textContent = diff >= 0 ? `年增擴張 +${diff.toFixed(1)}%` : `相較一年前收斂 ${diff.toFixed(1)}%`;
+      }
+
+      const pointer = document.getElementById('buffett-pointer');
+      if (pointer) {
+        const pct = Math.min(100, Math.max(0, ((l.ratio - 50) / (250 - 50)) * 100));
+        pointer.style.left = `${pct}%`;
+      }
+      const ptrLabel = document.getElementById('buffett-pointer-label');
+      if (ptrLabel) ptrLabel.textContent = `當前讀數: ${l.ratio.toFixed(1)}% (${l.rating})`;
+
+      const comm = document.getElementById('buffett-commentary');
+      if (comm) comm.textContent = l.desc;
+    }
+
     // --- 3.5 Cross-Market 8x8 Correlation Matrix Data & Analyses ---
     const CORRELATION_ASSETS = [
       { key: 'taiex', name: '台股加權', ticker: '^TWII', class: '台股大盤' },
@@ -2444,7 +2660,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -3183,6 +3399,71 @@
         populateFearGreedDefaultIfEmpty();
       }
 
+      // O. 巴菲特指標 (Buffett Indicator: 美股市值 / GDP 估值計)
+      if (payload.buffett_indicator && payload.buffett_indicator.latest) {
+        const bi = payload.buffett_indicator;
+        const l = bi.latest;
+
+        const valEl = document.getElementById('buffett-ratio-val');
+        if (valEl) {
+          valEl.textContent = `${l.ratio.toFixed(1)}%`;
+          valEl.className = `text-3xl font-extrabold tabular-nums mt-1 ${l.ratio >= 140 ? 'text-rose-600 dark:text-rose-400' : l.ratio >= 115 ? 'text-amber-500' : l.ratio >= 90 ? 'text-sky-500' : 'text-emerald-500'}`;
+        }
+        const subEl = document.getElementById('buffett-ratio-sub');
+        if (subEl) {
+          subEl.textContent = `${l.rating} 區間`;
+          subEl.className = `text-[11px] mt-0.5 font-medium ${l.ratio >= 140 ? 'text-rose-600 dark:text-rose-400' : l.ratio >= 115 ? 'text-amber-500' : l.ratio >= 90 ? 'text-sky-500' : 'text-emerald-500'}`;
+        }
+        const badgeEl = document.getElementById('buffett-rating-badge');
+        if (badgeEl) {
+          badgeEl.textContent = `當前估值：${l.rating} (${l.ratio.toFixed(1)}%)`;
+          badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full ${l.ratio >= 140 ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : l.ratio >= 115 ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400' : l.ratio >= 90 ? 'bg-sky-500/15 text-sky-600 dark:text-sky-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'}`;
+        }
+
+        const mcapEl = document.getElementById('buffett-mcap-val');
+        if (mcapEl) mcapEl.textContent = `$${l.market_cap_trillions.toFixed(2)} 兆`;
+        const gdpEl = document.getElementById('buffett-gdp-val');
+        if (gdpEl) gdpEl.textContent = `$${l.gdp_trillions.toFixed(2)} 兆`;
+        const p1yEl = document.getElementById('buffett-prev-1y-val');
+        if (p1yEl) p1yEl.textContent = `${l.previous_1y.toFixed(1)}%`;
+        const p1ySub = document.getElementById('buffett-prev-1y-sub');
+        if (p1ySub) {
+          const diff = l.ratio - l.previous_1y;
+          p1ySub.textContent = diff >= 0 ? `年增擴張 +${diff.toFixed(1)}%` : `相較一年前收斂 ${diff.toFixed(1)}%`;
+        }
+
+        const pointer = document.getElementById('buffett-pointer');
+        if (pointer) {
+          const pct = Math.min(100, Math.max(0, ((l.ratio - 50) / (250 - 50)) * 100));
+          pointer.style.left = `${pct}%`;
+        }
+        const ptrLabel = document.getElementById('buffett-pointer-label');
+        if (ptrLabel) ptrLabel.textContent = `當前讀數: ${l.ratio.toFixed(1)}% (${l.rating})`;
+
+        const comm = document.getElementById('buffett-commentary');
+        if (comm) comm.textContent = l.desc;
+
+        if (COUNTRY_DATA.US && COUNTRY_DATA.US.insights) {
+          COUNTRY_DATA.US.insights.push(`巴菲特指標處於「${l.rating}」水準（全美股市值/GDP 比率 ${l.ratio.toFixed(1)}%，一年前 ${l.previous_1y.toFixed(1)}%），美股長線估值處於歷史極端高位，遠超 140% 泡沫警戒線。`);
+        }
+
+        let item = TRADER_ITEMS.find(x => x.name === '美股-巴菲特指標');
+        if (!item) {
+          item = { cat: '總經數據', sub: '美國', name: '美股-巴菲特指標', quad: 'HIGH_UP', vars: 'Buffett Indicator' };
+          TRADER_ITEMS.push(item);
+        }
+        item.val = `${l.ratio.toFixed(1)}%`;
+        item.date = l.as_of || dateStr;
+        item.desc = `美股市值 / GDP 估值計。${l.desc}`;
+        item.dataStatus = 'verified';
+        item.source = bi.source || 'FRED (GDP) & Yahoo Finance (^W5000)';
+        item.sourceUrl = bi.source_url || 'https://fred.stlouisfed.org/series/GDP';
+
+        count++;
+      } else {
+        populateBuffettDefaultIfEmpty();
+      }
+
       if (payload.crypto && payload.crypto.btc_price) {
         const el = document.getElementById('tk-btc');
         if (el) el.textContent = '$' + payload.crypto.btc_price.toLocaleString('en-US');
@@ -3209,6 +3490,7 @@
       renderRecessionChart();
       renderFedWatchChart();
       renderFearGreedChart();
+      renderBuffettChart();
       renderNdcChart();
       renderExportOrdersChart();
       if (state.activeTab === 'dashboard') renderDashboard();
@@ -3654,6 +3936,7 @@
       renderRecessionChart();
       renderFedWatchChart();
       renderFearGreedChart();
+      renderBuffettChart();
     }
 
     function renderMoneyTab() {
@@ -4378,6 +4661,99 @@
       });
     }
 
+    function renderBuffettChart() {
+      const canvas = document.getElementById('buffettChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.buffett) charts.buffett.destroy();
+
+      const bi = (state.livePayload && state.livePayload.buffett_indicator) ? state.livePayload.buffett_indicator : BUFFETT_DEFAULT_DATA;
+      if (!bi || !bi.history_24m) return;
+
+      const labels = bi.history_24m.labels || [];
+      const ratios = bi.history_24m.ratios || [];
+      const mcaps = bi.history_24m.mcaps || [];
+      const gdps = bi.history_24m.gdps || [];
+
+      const lineGradient = ctx.createLinearGradient(0, 0, 0, 240);
+      lineGradient.addColorStop(0, 'rgba(139, 92, 246, 0.25)');
+      lineGradient.addColorStop(1, 'rgba(139, 92, 246, 0.0)');
+
+      charts.buffett = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: '巴菲特指標 (美股市值 / GDP %)',
+              data: ratios,
+              borderColor: '#8b5cf6',
+              backgroundColor: lineGradient,
+              pointBackgroundColor: ratios.map(r => r >= 140 ? '#ef4444' : r >= 115 ? '#f59e0b' : r >= 90 ? '#38bdf8' : '#10b981'),
+              pointBorderColor: '#ffffff',
+              pointRadius: 3.5,
+              tension: 0.25,
+              fill: true
+            },
+            {
+              label: '140% 顯著高估 / 泡沫警戒線',
+              data: labels.map(() => 140),
+              borderColor: '#ef4444',
+              borderDash: [5, 4],
+              pointRadius: 0,
+              fill: false
+            },
+            {
+              label: '100% 歷史常態基準線',
+              data: labels.map(() => 100),
+              borderColor: '#38bdf8',
+              borderDash: [4, 4],
+              pointRadius: 0,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  if (c.datasetIndex === 0) {
+                    const r = Number(c.raw);
+                    const idx = c.dataIndex;
+                    const m = mcaps[idx] !== undefined ? `$${mcaps[idx]}T` : '';
+                    const g = gdps[idx] !== undefined ? `$${gdps[idx]}T` : '';
+                    const tag = r >= 140 ? '顯著高估 (泡沫警戒)' : r >= 115 ? '適度高估' : r >= 90 ? '合理估值' : '低估';
+                    return [
+                      `巴菲特指標: ${r.toFixed(1)}% (${tag})`,
+                      `全美股市值: ${m} ｜ 美國名目 GDP: ${g}`
+                    ];
+                  }
+                  return c.dataset.label;
+                }
+              }
+            }
+          },
+          scales: {
+            x: { grid: { color: gridColor() }, ticks: { color: textColor(), maxTicksLimit: 12 } },
+            y: {
+              min: 50,
+              max: 260,
+              title: { display: true, text: '比率 (%)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: {
+                color: textColor(),
+                callback: function(v) { return v + '%'; }
+              }
+            }
+          }
+        }
+      });
+    }
 
     function populateToolboxSelects() {
       const leftEl = document.getElementById('series-left');
@@ -4642,6 +5018,8 @@
       else if (ind === 'ndcScore') { slider.min = 10; slider.max = 45; slider.step = 1; }
       else if (ind === 'twExportOrdersYoY') { slider.min = -20; slider.max = 80; slider.step = 5; }
       else if (ind === 'equityRiskPremium') { slider.min = -1.5; slider.max = 2.0; slider.step = 0.05; }
+      else if (ind === 'fearAndGreed') { slider.min = 10; slider.max = 90; slider.step = 1; }
+      else if (ind === 'buffettIndicator') { slider.min = 100; slider.max = 240; slider.step = 5; }
       else if (ind === 'fedNetLiquidity') { slider.min = 5.0; slider.max = 6.5; slider.step = 0.05; }
       else if (ind === 'sahmRule') { slider.min = 0.0; slider.max = 1.0; slider.step = 0.05; }
       else if (ind === 'spread10y2y') { slider.min = -0.2; slider.max = 0.5; slider.step = 0.05; }

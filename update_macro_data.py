@@ -1307,6 +1307,136 @@ def compute_fear_and_greed_index() -> dict | None:
         return None
 
 
+def compute_buffett_indicator() -> dict | None:
+    """計算巴菲特指標 (Buffett Indicator: 美國股市總市值 / 名目 GDP 比率)。
+
+    - 分子：Wilshire 5000 Total Market Index (^W5000 via Yahoo Finance)，其指數點位 1 點約等同 10 億美元美股市值。
+    - 分母：FRED 官方美國名目 GDP (GDP)，以 10 億美元為單位發布，進行月度前向填補 (ffill) 與時間序列對齊。
+    - 估值基準：
+      < 75%: 顯著低估 (強烈買進)
+      75% ~ 90%: 適度低估 (合理偏低)
+      90% ~ 115%: 合理估值 (歷史常態)
+      115% ~ 140%: 適度高估 (警示偏高)
+      >= 140%: 顯著高估 (泡沫警戒)
+    """
+    try:
+        import pandas as pd
+        import yfinance as yf
+
+        print("  正在計算巴菲特指標 (Buffett Indicator)...")
+        fred_data = fetch_fred_observations(["GDP"])
+        gdp_obs = fred_data.get("GDP", [])
+        if not gdp_obs:
+            print("  FRED GDP 無資料")
+            return None
+
+        gdp_df = pd.DataFrame(gdp_obs, columns=["date", "gdp"])
+        gdp_df["date"] = pd.to_datetime(gdp_df["date"])
+        gdp_df = gdp_df.set_index("date")
+
+        w5000 = yf.download("^W5000", period="3y", interval="1mo", progress=False)
+        if w5000.empty:
+            print("  Yahoo Finance ^W5000 無資料")
+            return None
+
+        if isinstance(w5000.columns, pd.MultiIndex):
+            close_s = w5000["Close"].iloc[:, 0]
+        else:
+            close_s = w5000["Close"]
+
+        close_df = pd.DataFrame({"w5000": close_s})
+        close_df.index = pd.to_datetime(close_df.index)
+
+        all_dates = pd.date_range(start=gdp_df.index.min(), end=close_df.index.max(), freq="MS")
+        gdp_monthly = gdp_df.reindex(all_dates).ffill()
+
+        combined = close_df.join(gdp_monthly, how="inner")
+        combined["ratio"] = (combined["w5000"] / combined["gdp"]) * 100.0
+
+        combined_24m = combined.tail(24)
+        if len(combined_24m) < 12:
+            print("  巴菲特指標樣本數不足 12 期")
+            return None
+
+        labels = [d.strftime("%Y-%m") for d in combined_24m.index]
+        ratios = [round(float(r), 1) for r in combined_24m["ratio"]]
+        mcaps = [round(float(m) / 1000.0, 2) for m in combined_24m["w5000"]]
+        gdps = [round(float(g) / 1000.0, 2) for g in combined_24m["gdp"]]
+
+        latest_ratio = ratios[-1]
+        latest_mcap = mcaps[-1]
+        latest_gdp = gdps[-1]
+        latest_month = labels[-1]
+        prev_1m = ratios[-2] if len(ratios) >= 2 else latest_ratio
+        prev_1y = ratios[-13] if len(ratios) >= 13 else ratios[0]
+
+        if latest_ratio < 75.0:
+            rating = "顯著低估 (強烈買進)"
+            rating_key = "undervalued"
+            color = "#10b981"
+        elif latest_ratio < 90.0:
+            rating = "適度低估 (合理偏低)"
+            rating_key = "modest_undervalued"
+            color = "#34d399"
+        elif latest_ratio < 115.0:
+            rating = "合理估值 (歷史常態)"
+            rating_key = "fair"
+            color = "#38bdf8"
+        elif latest_ratio < 140.0:
+            rating = "適度高估 (警示偏高)"
+            rating_key = "modest_overvalued"
+            color = "#f59e0b"
+        else:
+            rating = "顯著高估 (泡沫警戒)"
+            rating_key = "extreme_bubble"
+            color = "#ef4444"
+
+        diff_1y = latest_ratio - prev_1y
+        trend_1y_text = f"相較一年前 ({prev_1y:.1f}%) 擴張了 {diff_1y:+.1f} 個百分點" if diff_1y >= 0 else f"相較一年前 ({prev_1y:.1f}%) 收斂了 {-diff_1y:.1f} 個百分點"
+
+        summary_desc = (
+            f"巴菲特指標（美股市值 / GDP 比率）最新讀數為 {latest_ratio:.1f}%，處於「{rating}」區間。"
+            f"目前美股 Wilshire 5000 總市值約 ${latest_mcap:.2f} 兆美元，對比美國名目 GDP ${latest_gdp:.2f} 兆美元。"
+            f"歷史上該指標高於 140% 即進入顯著高估，當前比率 {trend_1y_text}，顯示受大型科技巨頭估值拉升影響，整體美股相對於實體經濟規模仍處於極端擴張期。"
+        )
+
+        print(f"  -> 巴菲特指標最新: {latest_ratio}% ({rating}) | 美股市值: ${latest_mcap}T, GDP: ${latest_gdp}T")
+
+        return {
+            "latest": {
+                "ratio": latest_ratio,
+                "rating": rating,
+                "rating_key": rating_key,
+                "color": color,
+                "as_of": latest_month,
+                "market_cap_trillions": latest_mcap,
+                "gdp_trillions": latest_gdp,
+                "previous_1m": prev_1m,
+                "previous_1y": prev_1y,
+                "desc": summary_desc,
+                "historical_avg": 125.0,
+            },
+            "history_24m": {
+                "labels": labels,
+                "ratios": ratios,
+                "mcaps": mcaps,
+                "gdps": gdps,
+            },
+            "bands": [
+                {"label": "顯著低估 (<75%)", "min": 0, "max": 75, "color": "#10b981"},
+                {"label": "適度低估 (75-90%)", "min": 75, "max": 90, "color": "#34d399"},
+                {"label": "合理估值 (90-115%)", "min": 90, "max": 115, "color": "#38bdf8"},
+                {"label": "適度高估 (115-140%)", "min": 115, "max": 140, "color": "#f59e0b"},
+                {"label": "顯著高估 (>140%)", "min": 140, "max": 250, "color": "#ef4444"},
+            ],
+            "source": "FRED (GDP) & Yahoo Finance (^W5000 Wilshire 5000 Total Market Index)",
+            "source_url": "https://fred.stlouisfed.org/series/GDP",
+        }
+    except Exception as e:
+        print(f"  巴菲特指標計算失敗: {e}")
+        return None
+
+
 def observation_age_days(period: str) -> int | None:
     """將日／月資料期換算成距今天數；無法辨識時回傳 None。"""
     if not period:
@@ -1659,6 +1789,25 @@ def main():
         payload["snapshots"]["fear_and_greed"] = fg_data["latest"]["score"]
         payload["snapshots"]["fear_and_greed_rating"] = fg_data["latest"]["rating"]
 
+    # 9.96 巴菲特指標 (Buffett Indicator: 美股市值 / GDP 估值計)
+    buffett_data = compute_buffett_indicator()
+    if not buffett_data and "buffett_indicator" in existing_payload:
+        buffett_data = existing_payload["buffett_indicator"]
+        print("  -> 使用上一份有效的巴菲特指標資料")
+
+    if buffett_data and buffett_data.get("latest"):
+        payload["buffett_indicator"] = buffett_data
+        payload["series"]["buffettIndicator"] = {
+            "name": "巴菲特指標 (美股市值 / GDP %)",
+            "unit": "%",
+            "labels": buffett_data["history_24m"]["labels"],
+            "data": buffett_data["history_24m"]["ratios"],
+        }
+        payload["snapshots"]["buffett_ratio"] = buffett_data["latest"]["ratio"]
+        payload["snapshots"]["buffett_rating"] = buffett_data["latest"]["rating"]
+        payload["snapshots"]["us_total_market_cap"] = buffett_data["latest"]["market_cap_trillions"]
+        payload["snapshots"]["us_nominal_gdp"] = buffett_data["latest"]["gdp_trillions"]
+
     # 10. 跨市場 8x8 資產相關性矩陣
     corr_data = compute_cross_market_correlation()
     if not corr_data and "correlation_matrix" in existing_payload:
@@ -1769,6 +1918,7 @@ def main():
         "equity_risk_premium": {"label": "S&P Dow Jones & CBOE ^TNX", "status": "ok" if payload.get("equity_risk_premium") else "error"},
         "fedwatch": {"label": "FRED & CME 30-Day Fed Funds Futures", "status": "ok" if payload.get("fedwatch") else "error"},
         "fear_and_greed": {"label": "FRED & CBOE / S&P Market Sentiment", "status": "ok" if payload.get("fear_and_greed") else "error"},
+        "buffett_indicator": {"label": "FRED (GDP) & Yahoo Finance (^W5000)", "status": "ok" if payload.get("buffett_indicator") else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
         "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
     }
