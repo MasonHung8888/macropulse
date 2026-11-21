@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-21T01:20:01Z",
+  "updated_at": "2026-11-21T01:20:46Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1977,7 +1977,7 @@
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 59109,
+    "btc_price": 59114,
     "stablecoin_market_cap_b": 242.9
   },
   "macro_indicators": {
@@ -2213,7 +2213,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-21T01:20:12Z",
+    "validated_at": "2026-11-21T01:20:55Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
