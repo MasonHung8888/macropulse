@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-20T23:20:20Z",
+  "updated_at": "2026-11-21T00:04:13Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1953,7 +1953,7 @@
     "TWD": 32.99
   },
   "crypto": {
-    "btc_price": 58984,
+    "btc_price": 58797,
     "stablecoin_market_cap_b": 243.1
   },
   "macro_indicators": {
