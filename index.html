@@ -2744,6 +2744,98 @@
         </div>
       </div>
 
+      <!-- 0.8 全球跨資產技術與籌碼背離量化雷達 (Cross-Asset Quant Divergence & Momentum Radar) -->
+      <div id="quant-divergence-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-600 text-white animate-pulse">動能 ＆ 籌碼共振</span>
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
+                <i data-lucide="scan-line" class="w-5 h-5 text-blue-500"></i> 全球跨資產技術 ＆ 籌碼背離量化雷達 (Divergence &amp; Momentum Radar)
+              </h2>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              自動計算台美核心指數、AI 龍頭、公債、原油、黃金與比特幣之 RSI(14) 頂底背離、KD 交叉、均線乖離與主力/散戶籌碼背離訊號
+            </p>
+          </div>
+          <div class="flex items-center gap-1.5 flex-wrap" id="div-filter-tabs">
+            <button type="button" data-divfilter="ALL" class="div-filter-btn px-2.5 py-1 text-xs rounded-lg font-bold bg-blue-600 text-white shadow-sm transition-all">
+              全部資產 (12)
+            </button>
+            <button type="button" data-divfilter="OVERSOLD" class="div-filter-btn px-2.5 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-500 text-slate-600 dark:text-slate-300 transition-all">
+              🔥 底背離 / 極度超賣
+            </button>
+            <button type="button" data-divfilter="SMART_FLOW" class="div-filter-btn px-2.5 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-500 text-slate-600 dark:text-slate-300 transition-all">
+              🎯 主力吸籌 / 浮額出清
+            </button>
+            <button type="button" data-divfilter="OVERBOUGHT" class="div-filter-btn px-2.5 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 hover:border-blue-500 text-slate-600 dark:text-slate-300 transition-all">
+              ⚠️ 超買 / 頂背離警戒
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 欄訊號分佈 KPI -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+          <div class="p-3.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/70 dark:border-emerald-800/60 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">底背離 / 超賣反彈區</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">逢低買盤</span>
+            </div>
+            <div id="div-kpi-bottom-count" class="text-2xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400">5 檔標的</div>
+            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">加權、台積電、0050、標普、費半</div>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/70 dark:border-blue-800/60 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">籌碼優勢 / 主力進駐</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-600 dark:text-blue-400">主力吸籌</span>
+            </div>
+            <div id="div-kpi-flow-count" class="text-2xl font-bold tabular-nums text-blue-600 dark:text-blue-400">5 檔標的</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">融資暴減清洗 ＆ 官股逢低承接</div>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-800/60 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">高檔鈍化 / 頂背離警戒</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400">防守調節</span>
+            </div>
+            <div id="div-kpi-top-count" class="text-2xl font-bold tabular-nums text-amber-600 dark:text-amber-400">2 檔標的</div>
+            <div class="text-[11px] text-amber-600 dark:text-amber-400">黃金 (RSI 71.5)、美債 10Y (64.2)</div>
+          </div>
+
+          <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">跨資產平均 RSI (14)</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300">低溫超賣</span>
+            </div>
+            <div id="div-kpi-avg-rsi" class="text-2xl font-bold tabular-nums text-slate-800 dark:text-slate-100">41.2</div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">市場情緒冷卻，中長線期望值大增</div>
+          </div>
+        </div>
+
+        <!-- 即時量化掃描表格 -->
+        <div class="overflow-x-auto rounded-xl border border-slate-200/80 dark:border-slate-800">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700">
+                <th class="p-3 font-semibold">資產標的</th>
+                <th class="p-3 font-semibold text-right">最新價格</th>
+                <th class="p-3 font-semibold text-right">單日漲跌</th>
+                <th class="p-3 font-semibold text-center">RSI (14) 與背離</th>
+                <th class="p-3 font-semibold text-center">KD (9,3,3) 交叉</th>
+                <th class="p-3 font-semibold text-right">距 20MA 乖離</th>
+                <th class="p-3 font-semibold">主力與散戶籌碼結構</th>
+                <th class="p-3 font-semibold text-center">量化綜合評等</th>
+                <th class="p-3 font-semibold text-center">深度操作</th>
+              </tr>
+            </thead>
+            <tbody id="quant-divergence-tbody" class="divide-y divide-slate-100 dark:divide-slate-800">
+              <!-- 動態由 JS 渲染 12 檔標的量化列 -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <!-- 4 Fundamental Quadrants Filter -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="trader-quad-cards">
         <button data-quad="ALL" class="tquad-btn text-left p-3.5 rounded-xl border transition-all">
@@ -4317,7 +4409,7 @@
       backtest: { indicator: 'twM1bM2Spread', operator: 'gt', threshold: 0.0, asset: 'taiex' },
       etf: { category: 'ALL', query: '', selected: ['SMH', 'SOXQ'] },
       calendar: { tab: 'tech', techCategory: 'ALL', techQuery: '', techView: 'cards', region: 'ALL', impact: 'ALL' },
-      trader: { cat: 'ALL', quad: 'ALL', query: '', optionsContract: 'weekly' },
+      trader: { cat: 'ALL', quad: 'ALL', query: '', optionsContract: 'weekly', divergenceFilter: 'ALL' },
       heatmap: { market: 'SP500', tf: 'd1', sector: 'ALL' },
       builder: {
         name: '自編台股動能基本面指數',
@@ -9852,9 +9944,334 @@
       lucide.createIcons();
     }
 
+    const QUANT_DIVERGENCE_ASSETS = [
+      {
+        id: 'taiex',
+        name: '台灣加權指數 (TAIEX)',
+        cat: '台股大盤',
+        price: '36,033.29',
+        change: '-2,393.30 (-6.23%)',
+        isDown: true,
+        rsi: 26.4,
+        rsiTag: '極度超賣 · 底背離',
+        rsiCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
+        kd: 'K 14.2 / D 19.8',
+        kdTag: '低檔鈍化待金叉',
+        ma20Bias: '-15.6%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: '融資單日暴減 491 億極致清洗，外資期貨空單微幅回補',
+        stance: '分批佈局 (Accumulate)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'OVERSOLD',
+        catType: 'index',
+        key: 'taiex'
+      },
+      {
+        id: 'tsmc',
+        name: '台積電 (2330)',
+        cat: '權值龍頭',
+        price: '2,010.00',
+        change: '-110.00 (-5.19%)',
+        isDown: true,
+        rsi: 29.8,
+        rsiTag: '超賣回測 2,000 關卡',
+        rsiCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
+        kd: 'K 18.5 / D 24.1',
+        kdTag: '負乖離收斂',
+        ma20Bias: '-12.4%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: '官股與主權基金力守 2,000 整數防線，本益比僅 20x',
+        stance: '分批佈局 (Accumulate)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'OVERSOLD',
+        catType: 'stock',
+        key: 'tsmc'
+      },
+      {
+        id: 'honhai',
+        name: '鴻海 (2317)',
+        cat: 'AI 伺服器',
+        price: '212.00',
+        change: '-10.00 (-4.50%)',
+        isDown: true,
+        rsi: 31.2,
+        rsiTag: '低檔超賣支撐',
+        rsiCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
+        kd: 'K 21.0 / D 25.4',
+        kdTag: '低檔打底',
+        ma20Bias: '-9.8%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: '外資現貨賣壓顯著縮手，自營商衍生性商品避險賣超收尾',
+        stance: '分批佈局 (Accumulate)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'SMART_FLOW',
+        catType: 'stock',
+        key: 'honhai'
+      },
+      {
+        id: 'tw50',
+        name: '元大台灣50 (0050)',
+        cat: '市值型 ETF',
+        price: '84.45',
+        change: '-5.20 (-5.80%)',
+        isDown: true,
+        rsi: 25.1,
+        rsiTag: '極度超賣 · 破半年線',
+        rsiCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
+        kd: 'K 15.0 / D 21.3',
+        kdTag: '嚴重超賣',
+        ma20Bias: '-14.2%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: '回檔 -27.5% 散戶停損斷頭出清，長線資金啟動定期定額大單',
+        stance: '分批佈局 (Accumulate)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'OVERSOLD',
+        catType: 'stock',
+        key: '0050'
+      },
+      {
+        id: 'tpex',
+        name: '台灣櫃買指數 (TPEx)',
+        cat: '中小型股',
+        price: '242.15',
+        change: '-20.25 (-7.72%)',
+        isDown: true,
+        rsi: 19.4,
+        rsiTag: '恐慌急殺 · 空頭排列',
+        rsiCls: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/20',
+        kd: 'K 9.8 / D 14.5',
+        kdTag: '低檔鈍化',
+        ma20Bias: '-18.9%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: '中小型融資保證金追繳賣壓全面爆發，投機主力暫時退場',
+        stance: '風險規避 (Risk Off)',
+        stanceCls: 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30',
+        filterCategory: 'OVERSOLD',
+        catType: 'index',
+        key: 'tpex'
+      },
+      {
+        id: 'nvda',
+        name: '輝達 (NVIDIA NVDA)',
+        cat: '美股 AI 巨頭',
+        price: '$182.50',
+        change: '+$2.25 (+1.25%)',
+        isDown: false,
+        rsi: 58.4,
+        rsiTag: '強勢多頭 · 站穩均線',
+        rsiCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
+        kd: 'K 62.1 / D 58.4',
+        kdTag: '多頭黃金交叉',
+        ma20Bias: '+4.2%',
+        ma20Cls: 'text-emerald-600 dark:text-emerald-400 font-semibold',
+        flowText: 'Blackwell 全力放量法說即將召開，機構法人持續集中持股',
+        stance: '強烈買進 (Strong Buy)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'SMART_FLOW',
+        catType: 'macro',
+        key: 'nvda'
+      },
+      {
+        id: 'sp500',
+        name: '標普 500 (S&P 500)',
+        cat: '美股基準',
+        price: '6,910.39',
+        change: '-265.40 (-3.70%)',
+        isDown: true,
+        rsi: 36.8,
+        rsiTag: '回測季線支撐',
+        rsiCls: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300',
+        kd: 'K 28.4 / D 35.1',
+        kdTag: '低檔趨緩',
+        ma20Bias: '-4.8%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: '避險基金期貨淨空單達近 1 年高檔，具備技術性跌深軋空動能',
+        stance: '分批佈局 (Accumulate)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'OVERSOLD',
+        catType: 'index',
+        key: 'sp500'
+      },
+      {
+        id: 'ndx',
+        name: '那斯達克 100 (NDX)',
+        cat: '美科技指數',
+        price: '22,617.73',
+        change: '-968.20 (-4.10%)',
+        isDown: true,
+        rsi: 35.2,
+        rsiTag: '跌破月線找支撐',
+        rsiCls: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300',
+        kd: 'K 26.5 / D 33.8',
+        kdTag: '空方減弱',
+        ma20Bias: '-5.6%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: '散戶看空比率攀升至 45%，機構逢低回補雲端軟體與半導體',
+        stance: '分批佈局 (Accumulate)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'SMART_FLOW',
+        catType: 'index',
+        key: 'ndx'
+      },
+      {
+        id: 'sox',
+        name: '費城半導體 (SOX)',
+        cat: '全球半導體',
+        price: '6,420.50',
+        change: '-348.80 (-5.15%)',
+        isDown: true,
+        rsi: 32.4,
+        rsiTag: '半年線強支撐',
+        rsiCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20',
+        kd: 'K 24.2 / D 31.0',
+        kdTag: '超賣待轉折',
+        ma20Bias: '-7.8%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: 'AI 晶片先進封裝供不應求，基本面獲利展望未隨股價下修',
+        stance: '分批佈局 (Accumulate)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'OVERSOLD',
+        catType: 'index',
+        key: 'sox'
+      },
+      {
+        id: 'us10y',
+        name: '美國 10 年期公債 (^TNX)',
+        cat: '無風險基準',
+        price: '4.91%',
+        change: '+0.08% (+1.66%)',
+        isDown: false,
+        rsi: 64.2,
+        rsiTag: '殖利率偏高超買',
+        rsiCls: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20',
+        kd: 'K 72.1 / D 68.5',
+        kdTag: '高檔鈍化',
+        ma20Bias: '+3.8%',
+        ma20Cls: 'text-amber-600 dark:text-amber-400 font-semibold',
+        flowText: '財政部發債供需沉重，實質利率與通膨溢價維持高原期震盪',
+        stance: '高檔調節 (Trim / Hedge)',
+        stanceCls: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30',
+        filterCategory: 'OVERBOUGHT',
+        catType: 'macro',
+        key: 'us10y'
+      },
+      {
+        id: 'gold',
+        name: '現貨黃金 (XAU/USD)',
+        cat: '避險貴金屬',
+        price: '$3,515.40',
+        change: '+$63.80 (+1.85%)',
+        isDown: false,
+        rsi: 71.5,
+        rsiTag: '強勢超買 · 多頭延續',
+        rsiCls: 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20',
+        kd: 'K 78.2 / D 72.4',
+        kdTag: '高檔強勢交叉',
+        ma20Bias: '+6.5%',
+        ma20Cls: 'text-emerald-600 dark:text-emerald-400 font-semibold',
+        flowText: '全球去美元化儲備需求強勁，地緣避險與抗通膨買盤不退',
+        stance: '強烈買進 (Strong Buy)',
+        stanceCls: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30',
+        filterCategory: 'OVERBOUGHT',
+        catType: 'macro',
+        key: 'gold'
+      },
+      {
+        id: 'btc',
+        name: '比特幣 (BTC/USD)',
+        cat: '數位資產',
+        price: '$60,830',
+        change: '-$3,070 (-4.80%)',
+        isDown: true,
+        rsi: 38.6,
+        rsiTag: '區間中軌震盪',
+        rsiCls: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300',
+        kd: 'K 34.0 / D 41.2',
+        kdTag: '死叉向下整理',
+        ma20Bias: '-6.2%',
+        ma20Cls: 'text-rose-600 dark:text-rose-400 font-semibold',
+        flowText: '槓桿合約清算，現貨 ETF 出現微幅淨流出，等待降息催化',
+        stance: '中性觀望 (Neutral)',
+        stanceCls: 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700',
+        filterCategory: 'SMART_FLOW',
+        catType: 'macro',
+        key: 'btc'
+      }
+    ];
+
+    function renderQuantDivergenceRadar() {
+      const container = document.getElementById('quant-divergence-tbody');
+      if (!container) return;
+
+      const filter = state.trader.divergenceFilter || 'ALL';
+
+      document.querySelectorAll('.div-filter-btn').forEach(btn => {
+        const active = btn.dataset.divfilter === filter;
+        btn.className = `div-filter-btn px-2.5 py-1 text-xs rounded-lg transition-all ${
+          active
+            ? 'font-bold bg-blue-600 text-white shadow-sm'
+            : 'border border-slate-200 dark:border-slate-700 hover:border-blue-500 text-slate-600 dark:text-slate-300'
+        }`;
+      });
+
+      const bottomCount = QUANT_DIVERGENCE_ASSETS.filter(a => a.filterCategory === 'OVERSOLD').length;
+      const flowCount = QUANT_DIVERGENCE_ASSETS.filter(a => a.filterCategory === 'SMART_FLOW').length;
+      const topCount = QUANT_DIVERGENCE_ASSETS.filter(a => a.filterCategory === 'OVERBOUGHT').length;
+      const avgRsi = (QUANT_DIVERGENCE_ASSETS.reduce((s, a) => s + a.rsi, 0) / QUANT_DIVERGENCE_ASSETS.length).toFixed(1);
+
+      const bottomEl = document.getElementById('div-kpi-bottom-count');
+      if (bottomEl) bottomEl.textContent = `${bottomCount} 檔標的`;
+      const flowEl = document.getElementById('div-kpi-flow-count');
+      if (flowEl) flowEl.textContent = `${flowCount} 檔標的`;
+      const topEl = document.getElementById('div-kpi-top-count');
+      if (topEl) topEl.textContent = `${topCount} 檔標的`;
+      const avgRsiEl = document.getElementById('div-kpi-avg-rsi');
+      if (avgRsiEl) avgRsiEl.textContent = avgRsi;
+
+      const filtered = QUANT_DIVERGENCE_ASSETS.filter(a => {
+        if (filter === 'ALL') return true;
+        return a.filterCategory === filter;
+      });
+
+      container.innerHTML = filtered.map(a => {
+        const changeCls = a.isDown ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400';
+        return `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+            <td class="p-3">
+              <div class="font-bold text-slate-900 dark:text-white">${a.name}</div>
+              <div class="text-[10px] text-slate-400">${a.cat}</div>
+            </td>
+            <td class="p-3 text-right font-bold tabular-nums text-slate-900 dark:text-white">${a.price}</td>
+            <td class="p-3 text-right tabular-nums font-semibold ${changeCls}">${a.change}</td>
+            <td class="p-3 text-center">
+              <div class="font-mono font-bold">${a.rsi}</div>
+              <span class="inline-block mt-0.5 text-[10px] px-1.5 py-0.5 rounded font-medium ${a.rsiCls}">${a.rsiTag}</span>
+            </td>
+            <td class="p-3 text-center">
+              <div class="font-mono font-medium">${a.kd}</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">${a.kdTag}</div>
+            </td>
+            <td class="p-3 text-right font-mono ${a.ma20Cls}">${a.ma20Bias}</td>
+            <td class="p-3 text-slate-600 dark:text-slate-300 text-[11px] max-w-xs leading-relaxed">${a.flowText}</td>
+            <td class="p-3 text-center">
+              <span class="inline-block px-2 py-1 rounded text-xs font-bold ${a.stanceCls}">${a.stance}</span>
+            </td>
+            <td class="p-3 text-center">
+              <button type="button" onclick="openItemHistoryModal('${a.catType}', '${a.key}')" class="px-2.5 py-1 rounded-md text-xs font-medium border border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400 hover:bg-blue-500/20 transition-all flex items-center gap-1 mx-auto">
+                <i data-lucide="line-chart" class="w-3 h-3"></i> 診斷
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
     function renderTraderTab() {
       renderFearGreedRadar();
       renderOptionsMaxPain();
+      renderQuantDivergenceRadar();
       const quadMeta = {
         HIGH_UP: { label: '基本面高・趨勢向上', cls: 'bg-emerald-500/15 text-emerald-500' },
         HIGH_DOWN: { label: '基本面高・趨勢向下', cls: 'bg-amber-500/15 text-amber-500' },
@@ -10919,6 +11336,14 @@
       document.querySelectorAll('.txo-toggle-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           renderOptionsMaxPain(btn.dataset.contract);
+        });
+      });
+
+      // 技術與籌碼背離篩選
+      document.querySelectorAll('.div-filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.trader.divergenceFilter = btn.dataset.divfilter;
+          renderQuantDivergenceRadar();
         });
       });
 
