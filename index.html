@@ -88,8 +88,8 @@
         <button data-tab="etf" data-disabled="true" class="nav-btn hidden px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors items-center gap-1.5">
           <i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF
         </button>
-        <button data-tab="calendar" data-disabled="true" class="nav-btn hidden px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors items-center gap-1.5">
-          <i data-lucide="calendar-days" class="w-4 h-4"></i>行事曆
+        <button data-tab="calendar" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="calendar-days" class="w-4 h-4"></i>科技 ＆ 財經行事曆
         </button>
         <button data-tab="mydash" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
           <i data-lucide="bookmark" class="w-4 h-4"></i>我的儀表板
@@ -125,7 +125,7 @@
       <button data-tab="backtest" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="flask-conical" class="w-4 h-4"></i>量化回測</button>
       <button data-tab="builder" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4"></i>自編指數</button>
       <button data-tab="etf" data-disabled="true" class="nav-btn hidden text-left px-3 py-2 rounded-lg text-sm font-medium items-center gap-2"><i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF</button>
-      <button data-tab="calendar" data-disabled="true" class="nav-btn hidden text-left px-3 py-2 rounded-lg text-sm font-medium items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4"></i>財經行事曆</button>
+      <button data-tab="calendar" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4"></i>科技 ＆ 財經行事曆</button>
       <button data-tab="mydash" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="bookmark" class="w-4 h-4"></i>我的儀表板</button>
       <button data-tab="import" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="upload" class="w-4 h-4"></i>匯入數據</button>
     </div>
@@ -1631,9 +1631,29 @@
             </div>
           </div>
         </div>
-              台灣 M1B: 7.20% ｜ M2: 7.24% ｜ 剪刀差: <span class="text-rose-600 dark:text-rose-400 font-bold">-0.04%</span>。目前處於微幅偏緊狀態，靜待流動性由負轉正形成黃金交叉。
+      </div>
+
+      <!-- 6.5 近期關鍵 AI 財報法說預警雷達 (Upcoming Tech Earnings & Guidance Radar) -->
+      <div class="bg-gradient-to-r from-indigo-900/10 via-purple-900/10 to-blue-900/10 dark:from-indigo-950/40 dark:via-purple-950/30 dark:to-blue-950/40 border border-indigo-200/70 dark:border-indigo-800/60 rounded-xl p-5 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-indigo-100 dark:border-indigo-900/60">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500 text-white animate-pulse">即時倒數雷達</span>
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
+                <i data-lucide="bell-ring" class="w-5 h-5 text-indigo-500"></i> 近期關鍵 AI 財報法說預警 (未來 14 日登場)
+              </h2>
             </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              輝達 (NVDA)、鴻海 (2317)、廣達 (2382) 即將接棒召開法說會與財報發布，密切牽動加權指數波動與 AI 概念股訂單驗收節奏
+            </p>
           </div>
+          <button onclick="switchTab('calendar')" class="px-3.5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold transition-all flex items-center gap-1.5 shrink-0 shadow-sm hover:shadow">
+            查看完整 16 檔科技法說行事曆 <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+          </button>
+        </div>
+
+        <div id="tw-radar-quick-cards" class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          <!-- 動態由 JS 渲染即將登場的前三檔標的 -->
         </div>
       </div>
 
@@ -2687,15 +2707,104 @@
       </div>
     </section>
 
-    <!-- TAB 6: ECONOMIC CALENDAR -->
-    <section id="tab-calendar" class="tab-panel hidden space-y-5">
+    <!-- TAB 6: ECONOMIC & TECH EARNINGS CALENDAR -->
+    <section id="tab-calendar" class="tab-panel hidden space-y-6">
+      <!-- 標題與簡介 -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 class="text-xl sm:text-2xl font-bold tracking-tight">全球財經行事曆 (2026 年 11–12 月)</h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">追蹤央行利率決議、通膨、M1B/M2 與就業關鍵數據發布時程</p>
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
+            <i data-lucide="calendar-days" class="w-6 h-6 text-indigo-500"></i> 全球財經 ＆ 科技法說行事曆
+          </h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+            即時追蹤美股 AI 巨頭、台股核心供應鏈法說日程與預估指標，及全球央行決議與關鍵總經數據發布時程
+          </p>
         </div>
-        <div class="flex flex-wrap gap-2">
-          <select id="cal-region" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center gap-1.5">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-500"></i> 基準日期：2026-11-20
+          </span>
+        </div>
+      </div>
+
+      <!-- 4 欄頂部統計卡片 (Summary Stat Cards) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+            <span>🔥 7 日內法說登場</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400">極高影響</span>
+          </div>
+          <div class="text-xl font-black text-slate-900 dark:text-white">3 場重磅事件</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1 flex items-center gap-1">
+            <span class="font-medium text-indigo-600 dark:text-indigo-400">NVDA、鴻海、廣達</span> 倒數 5~8 天
+          </div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+            <span>⚡ 核心法說聚焦主題</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">關鍵焦點</span>
+          </div>
+          <div class="text-xl font-black text-slate-900 dark:text-white">Blackwell ＆ 液冷</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">CoWoS 擴產 ｜ 2027 CSP 資本支出</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+            <span>🎯 追蹤關鍵標的</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">完整覆蓋</span>
+          </div>
+          <div class="text-xl font-black text-slate-900 dark:text-white">16 檔美台領頭羊</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">台積電、輝達、聯發科、奇鋐、川湖等</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+          <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+            <span>🏛️ 央行與重大總經</span>
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400">全球流動性</span>
+          </div>
+          <div class="text-xl font-black text-slate-900 dark:text-white">12 項指標事件</div>
+          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">FOMC 12/16 ｜ 台央行 12/17 ｜ BOJ 12/18</div>
+        </div>
+      </div>
+
+      <!-- 雙軌主頁籤切換 (Master Track Tabs) -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-2">
+        <div class="flex items-center gap-2">
+          <button id="cal-track-tech-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 bg-indigo-600 text-white shadow-sm">
+            <i data-lucide="cpu" class="w-4 h-4"></i> AI 巨頭與台股法說會雷達 (16 檔)
+          </button>
+          <button id="cal-track-macro-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">
+            <i data-lucide="landmark" class="w-4 h-4"></i> 全球央行與重大總經時程 (12 項)
+          </button>
+        </div>
+
+        <!-- Tech Calendar 控制區 (Filter Pills & Search & View Switcher) -->
+        <div id="cal-tech-controls" class="flex flex-wrap items-center gap-2">
+          <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg text-xs">
+            <button data-tech-cat="ALL" class="cal-tech-cat-btn px-2.5 py-1 rounded-md font-semibold transition-colors bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm">全部 (16)</button>
+            <button data-tech-cat="SOON" class="cal-tech-cat-btn px-2.5 py-1 rounded-md font-medium transition-colors text-slate-600 dark:text-slate-300 hover:text-indigo-600">⚡ 近 14 日</button>
+            <button data-tech-cat="US_AI" class="cal-tech-cat-btn px-2.5 py-1 rounded-md font-medium transition-colors text-slate-600 dark:text-slate-300 hover:text-indigo-600">美股巨頭</button>
+            <button data-tech-cat="TW_SUPPLY" class="cal-tech-cat-btn px-2.5 py-1 rounded-md font-medium transition-colors text-slate-600 dark:text-slate-300 hover:text-indigo-600">台股供應鏈</button>
+          </div>
+
+          <div class="relative">
+            <input id="cal-tech-search" type="text" placeholder="搜尋代號/名稱/焦點..." class="pl-8 pr-3 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs w-44 focus:outline-none focus:ring-1 focus:ring-indigo-500" />
+            <i data-lucide="search" class="w-3.5 h-3.5 absolute left-2.5 top-2 text-slate-400"></i>
+          </div>
+
+          <div class="flex items-center border border-slate-300 dark:border-slate-700 rounded-lg overflow-hidden text-xs">
+            <button id="cal-view-cards-btn" type="button" class="px-2.5 py-1.5 font-medium bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white flex items-center gap-1" title="卡片檢視">
+              <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> 卡片
+            </button>
+            <button id="cal-view-table-btn" type="button" class="px-2.5 py-1.5 font-medium bg-white dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1" title="清單表格">
+              <i data-lucide="list" class="w-3.5 h-3.5"></i> 表格
+            </button>
+          </div>
+        </div>
+
+        <!-- Macro Calendar 控制區 (Region & Impact Dropdowns) -->
+        <div id="cal-macro-controls" class="hidden flex flex-wrap items-center gap-2">
+          <select id="cal-region" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs">
             <option value="ALL">全部地區</option>
             <option value="US">🇺🇸 美國</option>
             <option value="TW">🇹🇼 台灣</option>
@@ -2703,7 +2812,7 @@
             <option value="EU">🇪🇺 歐元區</option>
             <option value="CN">🇨🇳 中國</option>
           </select>
-          <select id="cal-impact" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm">
+          <select id="cal-impact" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-1.5 text-xs">
             <option value="ALL">全部重要度</option>
             <option value="HIGH">高影響力</option>
             <option value="MEDIUM">中影響力</option>
@@ -2711,20 +2820,48 @@
         </div>
       </div>
 
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm text-left">
-            <thead class="bg-slate-50 dark:bg-slate-800/70 text-xs uppercase text-slate-500 dark:text-slate-400">
-              <tr>
-                <th class="px-4 py-3">日期</th>
-                <th class="px-4 py-3">地區</th>
-                <th class="px-4 py-3">事件 / 指標名稱</th>
-                <th class="px-4 py-3">重要度</th>
-                <th class="px-4 py-3">市場焦點 / 前值參考</th>
-              </tr>
-            </thead>
-            <tbody id="calendar-tbody" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
-          </table>
+      <!-- Track 1 Container: Tech Earnings & Guidance Cards / Table -->
+      <div id="cal-tech-panel" class="space-y-4">
+        <!-- Cards Container -->
+        <div id="cal-tech-cards-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"></div>
+        <!-- Table Container -->
+        <div id="cal-tech-table-container" class="hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-50 dark:bg-slate-800/70 uppercase text-slate-500 dark:text-slate-400">
+                <tr>
+                  <th class="px-4 py-3 whitespace-nowrap">日程 / 倒數</th>
+                  <th class="px-4 py-3 whitespace-nowrap">標的代號</th>
+                  <th class="px-4 py-3 whitespace-nowrap">財報季度</th>
+                  <th class="px-4 py-3 whitespace-nowrap">市場預估 (EPS / 營收)</th>
+                  <th class="px-4 py-3 min-w-[280px]">法說會三大核心焦點</th>
+                  <th class="px-4 py-3 min-w-[220px]">歷史台股連動效應</th>
+                  <th class="px-4 py-3 whitespace-nowrap">關聯供應鏈</th>
+                </tr>
+              </thead>
+              <tbody id="cal-tech-tbody" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Track 2 Container: Central Banks & Macro Events Table -->
+      <div id="cal-macro-panel" class="hidden space-y-4">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden shadow-sm">
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-left">
+              <thead class="bg-slate-50 dark:bg-slate-800/70 text-xs uppercase text-slate-500 dark:text-slate-400">
+                <tr>
+                  <th class="px-4 py-3">發布日期 / 倒數</th>
+                  <th class="px-4 py-3">地區</th>
+                  <th class="px-4 py-3">事件 / 指標名稱</th>
+                  <th class="px-4 py-3">重要度</th>
+                  <th class="px-4 py-3">市場焦點 / 前值參考</th>
+                </tr>
+              </thead>
+              <tbody id="calendar-tbody" class="divide-y divide-slate-200 dark:divide-slate-800"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </section>
@@ -3100,12 +3237,373 @@
       { date: '2026-11-18', region: 'US', flag: '🇺🇸', event: 'FOMC 10 月會議紀要公布', impact: 'HIGH', note: '多數官員支持維持鷹派，討論若通膨未降不排除更大幅度升息' },
       { date: '2026-11-20', region: 'JP', flag: '🇯🇵', event: '日本全國 CPI 年增率公布', impact: 'HIGH', note: '影響日本央行 12 月升息節奏的關鍵物價指標' },
       { date: '2026-11-20', region: 'CN', flag: '🇨🇳', event: '中國 1 年期 / 5 年期 LPR 報價', impact: 'MEDIUM', note: '觀察人行是否維持寬鬆以支撐內需成長' },
+      { date: '2026-11-20', region: 'TW', flag: '🇹🇼', event: '台灣 10 月外銷訂單統計公布', impact: 'HIGH', note: '實際 554.5 億美元 (年增 4.9%)，AI 伺服器與半導體訂單穩健' },
       { date: '2026-11-24', region: 'TW', flag: '🇹🇼', event: '台灣 10 月貨幣總計數 (M1B / M2)', impact: 'HIGH', note: '關注 M1B (前值 6.65%) 與 M2 (前值 7.24%) 剪刀差是否收斂' },
       { date: '2026-12-04', region: 'US', flag: '🇺🇸', event: '美國 11 月非農就業報告 (NFP)', impact: 'HIGH', note: '前值失業率 4.1%，觀察勞動市場是否維持低裁員、低招募' },
+      { date: '2026-12-08', region: 'EU', flag: '🇪🇺', event: '歐洲央行 (ECB) 利率決議', impact: 'MEDIUM', note: '評估歐元區通膨回落路徑與景氣降息步調' },
       { date: '2026-12-10', region: 'US', flag: '🇺🇸', event: '美國 11 月 CPI 消費者物價指數', impact: 'HIGH', note: '前值 3.7%，若高於預期將強化 Fed 升息壓力' },
+      { date: '2026-12-11', region: 'US', flag: '🇺🇸', event: '美國 11 月 PPI 生產者物價指數', impact: 'MEDIUM', note: '觀察商品與服務端上游成本通膨傳導壓力' },
       { date: '2026-12-16', region: 'US', flag: '🇺🇸', event: '聯準會 (FOMC) 利率決議', impact: 'HIGH', note: '市場高度關注是否升息 25bp 及最新利率點陣圖' },
       { date: '2026-12-17', region: 'TW', flag: '🇹🇼', event: '台灣央行 Q4 理監事聯席會議', impact: 'HIGH', note: '現行利率 2.00%，更新 2027 年台灣 GDP 與 CPI 預測' },
-      { date: '2026-12-18', region: 'JP', flag: '🇯🇵', event: '日本央行 (BOJ) 利率決議', impact: 'HIGH', note: '市場定價升息機率約 85%，關注總裁植田和男會後談話' }
+      { date: '2026-12-18', region: 'JP', flag: '🇯🇵', event: '日本央行 (BOJ) 利率決議', impact: 'HIGH', note: '市場定價升息機率約 85%，關注總裁植田和男會後談話' },
+      { date: '2026-12-23', region: 'US', flag: '🇺🇸', event: '美國 11 月核心 PCE 物價指數', impact: 'HIGH', note: 'Fed 最青睞的通膨指標，影響明年初利率路徑' },
+      { date: '2027-01-28', region: 'US', flag: '🇺🇸', event: '聯準會 (FOMC) 2027 首場利率決議', impact: 'HIGH', note: '全球流動性開局風向球，更新全年降息次數預期' }
+    ];
+
+    const TECH_EARNINGS_DATA = [
+      {
+        ticker: 'NVDA',
+        name: '輝達 (NVIDIA)',
+        category: 'US_AI',
+        categoryLabel: '美股 AI 巨頭',
+        flag: '🇺🇸',
+        date: '2026-11-25',
+        timeSlot: '美東盤後 (AMC)',
+        period: 'Q3 FY27 財報法說',
+        consensusEps: '$0.85',
+        epsYoy: '+112%',
+        consensusRev: '$38.2B',
+        revYoy: '+111%',
+        badgeColor: 'emerald',
+        focusPoints: [
+          'Blackwell (B200 / GB200 NVL72) 晶片良率與 Q4 出貨放量進度',
+          'CSP 四大巨頭 (MSFT, GOOGL, META, AMZN) 2027 年 AI 資本支出指引',
+          '數據中心毛利率能否維持 75% 高水準及液冷機櫃供貨瓶頸緩解狀況'
+        ],
+        marketImpact: '歷史發布後次日台股 AI 概念股波動 ±4.5%，台積電 ADR 連動度達 91%',
+        supplyChain: ['2330 台積電', '2317 鴻海', '2382 廣達', '3017 奇鋐', '6669 緯穎']
+      },
+      {
+        ticker: '2317',
+        name: '鴻海 (Foxconn)',
+        category: 'TW_SUPPLY',
+        categoryLabel: 'AI 伺服器整機',
+        flag: '🇹🇼',
+        date: '2026-11-27',
+        timeSlot: '台股盤後 15:00',
+        period: '11 月營運展望法說',
+        consensusEps: 'NT$3.85',
+        epsYoy: '+24%',
+        consensusRev: 'NT$1.85 兆',
+        revYoy: '+18%',
+        badgeColor: 'blue',
+        focusPoints: [
+          'GB200 NVL72 / NVL36 伺服器機櫃量產出貨規模與客戶驗收進度',
+          '墨西哥、美國及台灣水冷整機測試產能擴產利用率',
+          '伺服器與低軌衛星、電動車多元營收占比與毛利率走勢'
+        ],
+        marketImpact: '歷史法說後次日鴻海股價平均波動 ±3.2%，加權指數連動度 72%',
+        supplyChain: ['2354 鴻準', '6442 廣運', '3017 奇鋐', '2330 台積電']
+      },
+      {
+        ticker: '2382',
+        name: '廣達 (Quanta)',
+        category: 'TW_SUPPLY',
+        categoryLabel: '白牌 AI 伺服器',
+        flag: '🇹🇼',
+        date: '2026-11-28',
+        timeSlot: '台股盤後 14:30',
+        period: 'Q3 季報營運展望會',
+        consensusEps: 'NT$4.20',
+        epsYoy: '+38%',
+        consensusRev: 'NT$3,750 億',
+        revYoy: '+42%',
+        badgeColor: 'indigo',
+        focusPoints: [
+          '2026 全年與 2027 上半年 AI 伺服器營收占比是否突破 55%',
+          '水冷散熱方案 (CDU / 分歧管) 整合進度與自製率提升',
+          'CSP 雲端大廠客戶訂單能見度已延伸至 2027 年下半年'
+        ],
+        marketImpact: '法說後 5 日股價平均上漲機率 68%，平均漲跌幅 ±5.1%',
+        supplyChain: ['3017 奇鋐', '3324 雙鴻', '2059 川湖', '3231 緯創']
+      },
+      {
+        ticker: '3231',
+        name: '緯創 (Wistron)',
+        category: 'TW_SUPPLY',
+        categoryLabel: 'GPU 基板龍頭',
+        flag: '🇹🇼',
+        date: '2026-12-08',
+        timeSlot: '台股盤後 14:00',
+        period: '12 月法說暨 2027 展望',
+        consensusEps: 'NT$1.85',
+        epsYoy: '+48%',
+        consensusRev: 'NT$920 億',
+        revYoy: '+28%',
+        badgeColor: 'cyan',
+        focusPoints: [
+          'NVIDIA HGX / Blackwell B200 GPU 基板供貨份額穩定性',
+          '新竹與越南擴廠產能投產效益與車用、網通產品組合優化',
+          '營業利益率能否突破 4.2% 創歷史單季新高'
+        ],
+        marketImpact: '次日股價波動度較大，平均振幅約 ±4.8%，與美股 AMD/NVDA 高度連動',
+        supplyChain: ['6669 緯穎', '2330 台積電', '3017 奇鋐']
+      },
+      {
+        ticker: 'AVGO',
+        name: '博通 (Broadcom)',
+        category: 'US_AI',
+        categoryLabel: 'AI ASIC & 網通',
+        flag: '🇺🇸',
+        date: '2026-12-10',
+        timeSlot: '美東盤後 (AMC)',
+        period: 'Q4 FY26 財報法說',
+        consensusEps: '$1.42',
+        epsYoy: '+31%',
+        consensusRev: '$14.1B',
+        revYoy: '+47%',
+        badgeColor: 'purple',
+        focusPoints: [
+          'Google TPU v6 及 Meta ASIC 自研處理器訂單放量能見度',
+          '800G / 1.6T Tomahawk 5 乙太網光互聯網路設備出貨成長',
+          'VMware 雲端軟體授權轉型訂閱制的年度經常性收入 (ARR) 增速'
+        ],
+        marketImpact: '直接影響台股 ASIC 智原 (3035)、世芯-KY (3661)、聯發科 (2454) 評價',
+        supplyChain: ['3661 世芯-KY', '3035 智原', '3443 創意', '2330 台積電']
+      },
+      {
+        ticker: '6669',
+        name: '緯穎 (Wiwynn)',
+        category: 'TW_SUPPLY',
+        categoryLabel: '純白牌 AI 雲端',
+        flag: '🇹🇼',
+        date: '2026-12-15',
+        timeSlot: '台股盤後 14:30',
+        period: '營運展望交流會',
+        consensusEps: 'NT$38.50',
+        epsYoy: '+78%',
+        consensusRev: 'NT$960 億',
+        revYoy: '+85%',
+        badgeColor: 'violet',
+        focusPoints: [
+          'Meta 與 AWS 兩大核心客戶 ASIC AI 伺服器專案拉貨節奏',
+          '全新液冷與沉浸式散熱架構機櫃在馬來西亞新廠的組裝產能',
+          '2027 年微軟 (MSFT) 專案比重拉升進度與毛利率展望'
+        ],
+        marketImpact: '高價股指標，歷史法說會後 3 日股價平均變動率達 ±6.5%',
+        supplyChain: ['2382 廣達', '3231 緯創', '3017 奇鋐', '2059 川湖']
+      },
+      {
+        ticker: '3017',
+        name: '奇鋐 (CCI)',
+        category: 'TW_SUPPLY',
+        categoryLabel: '水冷板散熱模組',
+        flag: '🇹🇼',
+        date: '2026-12-18',
+        timeSlot: '台股盤後 14:00',
+        period: '法說會暨液冷展望',
+        consensusEps: 'NT$7.80',
+        epsYoy: '+65%',
+        consensusRev: 'NT$210 億',
+        revYoy: '+32%',
+        badgeColor: 'teal',
+        focusPoints: [
+          '水冷板 (Cold Plate) 與歧管 (Manifold) 產能利用率及 CSP 認證份額',
+          '越南廠二期液冷散熱模組產線產能開出與良率表現',
+          'GB200 散熱系統整體單機價值 (ASP) 較前代 Hopper 提升 3~4 倍效益'
+        ],
+        marketImpact: '散熱族群龍頭，帶動雙鴻 (3324)、高力 (8996)、建準 (2421) 走勢',
+        supplyChain: ['3324 雙鴻', '8996 高力', '2421 建準', '2382 廣達']
+      },
+      {
+        ticker: '2059',
+        name: '川湖 (King Slide)',
+        category: 'TW_SUPPLY',
+        categoryLabel: '伺服器專利導軌',
+        flag: '🇹🇼',
+        date: '2026-12-22',
+        timeSlot: '台股盤後 14:30',
+        period: '營運法說暨導軌升級',
+        consensusEps: 'NT$16.20',
+        epsYoy: '+55%',
+        consensusRev: 'NT$29.5 億',
+        revYoy: '+48%',
+        badgeColor: 'amber',
+        focusPoints: [
+          'Blackwell GB200 NVL72 專利導軌全球市占率 (預估高達 80% 以上)',
+          '美洲與歐洲 CSP 資料中心重型導軌規格升級帶動之 ASP 續增',
+          '全年毛利率能否穩定站上 68%~70% 的歷史超高區間'
+        ],
+        marketImpact: '千金股指標，法說會後法人籌碼調整反應靈敏，歷史上漲機率 73%',
+        supplyChain: ['2317 鴻海', '2382 廣達', '6669 緯穎', '6213 聯茂']
+      },
+      {
+        ticker: '2330 / TSM',
+        name: '台積電 (TSMC)',
+        category: 'TW_SUPPLY',
+        categoryLabel: '晶圓代工與先進封裝',
+        flag: '🇹🇼',
+        date: '2027-01-14',
+        timeSlot: '台股盤後 14:00 (台北時間)',
+        period: 'Q4 2026 財報法說暨全年成果',
+        consensusEps: 'NT$14.85 / ADR $2.30',
+        epsYoy: '+45%',
+        consensusRev: 'NT$8,400 億',
+        revYoy: '+34%',
+        badgeColor: 'rose',
+        focusPoints: [
+          '2nm (N2 / N2P) 於新竹寶山與高雄廠量產時程與客戶投片量 (Apple/NVIDIA)',
+          'CoWoS 先進封裝月產能擴展至 7~8 萬片進度與 Panel-level 扇出型封裝',
+          '2027 年全年資本支出 (CapEx) 預算目標（市場預估 360~380 億美元）',
+          '海外晶圓廠 (美國、日本熊本、德國) 量產進度與毛利稀釋影響'
+        ],
+        marketImpact: '台股定海神針，佔加權指數 35% 權重；歷史法說後 5 日台股上漲機率 76%，平均波動 ±450 點',
+        supplyChain: ['3131 弘塑', '3583 辛耘', '3680 家登', '6187 萬潤', '2303 聯電']
+      },
+      {
+        ticker: 'ASML',
+        name: '艾司摩爾 (ASML)',
+        category: 'US_AI',
+        categoryLabel: '半導體微影設備',
+        flag: '🇳🇱',
+        date: '2027-01-20',
+        timeSlot: '歐洲盤前 (BMO)',
+        period: 'Q4 2026 財報法說',
+        consensusEps: '€6.85',
+        epsYoy: '+32%',
+        consensusRev: '€8.6B',
+        revYoy: '+26%',
+        badgeColor: 'sky',
+        focusPoints: [
+          'High-NA EUV 設備交付與各大晶圓廠 (TSMC/Intel/Samsung) 裝機進度',
+          '2027 全年淨預訂額 (Net Bookings) 是否達到 350 億歐元高標',
+          '中國市場營收占比常態化調整進展與地緣政治管制評估'
+        ],
+        marketImpact: '全球半導體景氣晴雨表，直接影響台積電與供應鏈家登 (3680)、帆宣 (6196)',
+        supplyChain: ['3680 家登', '6196 帆宣', '2330 台積電']
+      },
+      {
+        ticker: '2454',
+        name: '聯發科 (MediaTek)',
+        category: 'TW_SUPPLY',
+        categoryLabel: 'IC 設計 & Edge AI',
+        flag: '🇹🇼',
+        date: '2027-01-22',
+        timeSlot: '台股盤後 15:00',
+        period: 'Q4 2026 法說暨 2027 展望',
+        consensusEps: 'NT$18.50',
+        epsYoy: '+19%',
+        consensusRev: 'NT$1,420 億',
+        revYoy: '+12%',
+        badgeColor: 'orange',
+        focusPoints: [
+          '天璣 9500 旗艦 3nm 晶片在 Android 旗艦機型之採用率與市占率',
+          '與 Arm 合作之 AI PC 處理器與車用智慧座艙 Dimensity Auto 進度',
+          'CSP 雲端資料中心特製 AI ASIC 加速晶片合作專案能見度'
+        ],
+        marketImpact: 'IC 設計族群指標，牽動高價 IC 股聯詠 (3034)、瑞昱 (2379) 表現',
+        supplyChain: ['2330 台積電', '2449 京元電子', '3711 日月光投控']
+      },
+      {
+        ticker: 'MSFT',
+        name: '微軟 (Microsoft)',
+        category: 'US_AI',
+        categoryLabel: 'AI 雲端與企業軟體',
+        flag: '🇺🇸',
+        date: '2027-01-26',
+        timeSlot: '美東盤後 (AMC)',
+        period: 'Q2 FY27 財報法說',
+        consensusEps: '$3.35',
+        epsYoy: '+14%',
+        consensusRev: '$69.8B',
+        revYoy: '+13.5%',
+        badgeColor: 'blue',
+        focusPoints: [
+          'Azure 雲端智慧服務營收年增率（市場預估維持 30%~32% 高檔）',
+          'M365 Copilot 企業席次付費轉換率與自研 Maia AI 晶片上線比例',
+          '2027 季度 AI 算力基礎設施 CapEx 投入規模與自由現金流'
+        ],
+        marketImpact: '美股總市值代表，影響加權指數 AI 雲端供應鏈整體評價',
+        supplyChain: ['2382 廣達', '6669 緯穎', '2317 鴻海', '3231 緯創']
+      },
+      {
+        ticker: 'GOOGL',
+        name: 'Alphabet (Google)',
+        category: 'US_AI',
+        categoryLabel: '搜尋、雲端與 TPU',
+        flag: '🇺🇸',
+        date: '2027-01-28',
+        timeSlot: '美東盤後 (AMC)',
+        period: 'Q4 2026 財報法說',
+        consensusEps: '$2.15',
+        epsYoy: '+28%',
+        consensusRev: '$94.2B',
+        revYoy: '+14%',
+        badgeColor: 'emerald',
+        focusPoints: [
+          'Google Cloud (GCP) 獲利率擴張及自研 TPU v6 / v7 降本增效成果',
+          'AI Overviews (搜尋 AI 摘要) 廣告變現點擊率與商業模式進展',
+          'Gemini 2.0 模型在企業端及 Android 裝置生態整合落地情況'
+        ],
+        marketImpact: '直接影響台股世芯-KY (3661)、廣達 (2382)、台積電 (2330)',
+        supplyChain: ['3661 世芯-KY', '2382 廣達', '2330 台積電', '3017 奇鋐']
+      },
+      {
+        ticker: 'META',
+        name: 'Meta (Meta Platforms)',
+        category: 'US_AI',
+        categoryLabel: '開源 AI 與數位廣告',
+        flag: '🇺🇸',
+        date: '2027-01-28',
+        timeSlot: '美東盤後 (AMC)',
+        period: 'Q4 2026 財報法說',
+        consensusEps: '$6.20',
+        epsYoy: '+35%',
+        consensusRev: '$46.5B',
+        revYoy: '+21%',
+        badgeColor: 'blue',
+        focusPoints: [
+          '2027 全年資本支出指引是否上調至 480~520 億美元區間',
+          'Llama 4 開源大模型開發生態與 AI 智慧眼鏡 (Ray-Ban Meta) 出貨量',
+          'AI 演算法推薦帶來之廣告轉化率 (ROAS) 提升與營業利潤率'
+        ],
+        marketImpact: 'Meta 為台灣伺服器代工廠最大買家之一，直接牽動緯穎、廣達營收',
+        supplyChain: ['6669 緯穎', '2382 廣達', '2059 川湖', '3017 奇鋐']
+      },
+      {
+        ticker: 'AAPL',
+        name: '蘋果 (Apple)',
+        category: 'US_AI',
+        categoryLabel: '消費電子與端側 AI',
+        flag: '🇺🇸',
+        date: '2027-01-29',
+        timeSlot: '美東盤後 (AMC)',
+        period: 'Q1 FY27 財報法說',
+        consensusEps: '$2.42',
+        epsYoy: '+9%',
+        consensusRev: '$124.5B',
+        revYoy: '+6.8%',
+        badgeColor: 'slate',
+        focusPoints: [
+          'Apple Intelligence 多語言版本上線後帶動之 iPhone 升級換機循環力道',
+          '大中華區市場營收是否止跌回升及印度製造供應鏈產能占比',
+          '服務營收 (Services) 毛利率表現與自研 M5 晶片導入進度'
+        ],
+        marketImpact: '影響台股蘋概股族群：台積電 (2330)、鴻海 (2317)、大立光 (3008)、和碩 (4938)',
+        supplyChain: ['2330 台積電', '2317 鴻海', '3008 大立光', '2354 鴻準']
+      },
+      {
+        ticker: 'AMD',
+        name: '超微 (AMD)',
+        category: 'US_AI',
+        categoryLabel: '資料中心 GPU & x86',
+        flag: '🇺🇸',
+        date: '2027-02-02',
+        timeSlot: '美東盤後 (AMC)',
+        period: 'Q4 2026 財報法說',
+        consensusEps: '$1.25',
+        epsYoy: '+62%',
+        consensusRev: '$7.8B',
+        revYoy: '+31%',
+        badgeColor: 'rose',
+        focusPoints: [
+          'MI325X / MI350 系列資料中心 AI 加速卡 2027 全年出貨營收預估 (目標 $60 億+)',
+          '伺服器 EPYC 處理器在雲端市場對 Intel x86 份額的蠶食速度',
+          '嵌入式與客戶端 PC (Ryzen AI) 庫存調整後之復甦強度'
+        ],
+        marketImpact: '影響台股板卡與代工廠：健策 (3653)、祥碩 (5269)、廣達 (2382)、台積電 (2330)',
+        supplyChain: ['3653 健策', '5269 祥碩', '2330 台積電', '2382 廣達']
+      }
     ];
 
     const TRAJ_SERIES = {
@@ -3364,7 +3862,7 @@
       corr: { mode: 'returns', window: '24', selectedPair: ['taiex', 'sp500'] },
       backtest: { indicator: 'twM1bM2Spread', operator: 'gt', threshold: 0.0, asset: 'taiex' },
       etf: { category: 'ALL', query: '', selected: ['SMH', 'SOXQ'] },
-      calendar: { region: 'ALL', impact: 'ALL' },
+      calendar: { tab: 'tech', techCategory: 'ALL', techQuery: '', techView: 'cards', region: 'ALL', impact: 'ALL' },
       trader: { cat: 'ALL', quad: 'ALL', query: '' },
       heatmap: { market: 'SP500', tf: 'd1', sector: 'ALL' },
       builder: {
@@ -6085,6 +6583,9 @@
         kpiTaiex.textContent = Number(taiex.close).toLocaleString('en-US');
       }
 
+      // 渲染近期關鍵 AI 財報法說預警雷達
+      renderTaiwanRadarQuickCards();
+
       // 渲染焦點標的
       renderFocusStocks(DATA.focus_stocks);
 
@@ -8650,28 +9151,378 @@
       });
     }
 
+    function getDaysDiff(targetDateStr) {
+      const base = new Date('2026-11-20T00:00:00');
+      const target = new Date(targetDateStr + 'T00:00:00');
+      return Math.ceil((target - base) / (1000 * 60 * 60 * 24));
+    }
+
+    function formatCountdownBadge(targetDateStr) {
+      const diff = getDaysDiff(targetDateStr);
+      if (diff < 0) {
+        return `<span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-500 border border-slate-200 dark:border-slate-700 whitespace-nowrap">已公佈</span>`;
+      }
+      if (diff === 0) {
+        return `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500 text-white animate-pulse shadow-sm whitespace-nowrap">🚨 今日登場</span>`;
+      }
+      if (diff <= 7) {
+        return `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 flex items-center gap-1 shadow-sm whitespace-nowrap"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-ping inline-block"></span>🔥 倒數 ${diff} 天</span>`;
+      }
+      if (diff <= 14) {
+        return `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 flex items-center gap-1 shadow-sm whitespace-nowrap">⚡ 倒數 ${diff} 天</span>`;
+      }
+      return `<span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center gap-1 whitespace-nowrap">⏰ 倒數 ${diff} 天</span>`;
+    }
+
+    function copyEarningsBrief(ticker) {
+      const item = TECH_EARNINGS_DATA.find(x => x.ticker === ticker);
+      if (!item) return;
+      const text = `【${item.flag} ${item.name} (${item.ticker}) 法說重點】\n日期：${item.date} (${item.timeSlot})\n季度：${item.period}\n預估 EPS：${item.consensusEps} (${item.epsYoy}) ｜ 營收：${item.consensusRev} (${item.revYoy})\n三大焦點：\n` + item.focusPoints.map((f, i) => `${i+1}. ${f}`).join('\n') + `\n市場連動：${item.marketImpact}\n連動供應鏈：${item.supplyChain.join('、')}`;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`已複製 ${item.ticker} 法說三大焦點摘要！`);
+      }).catch(() => {
+        showToast(`複製失敗，請手動複製`);
+      });
+    }
+
+    function renderTaiwanRadarQuickCards() {
+      const container = document.getElementById('tw-radar-quick-cards');
+      if (!container) return;
+      const upcoming = TECH_EARNINGS_DATA
+        .map(x => ({ ...x, diff: getDaysDiff(x.date) }))
+        .filter(x => x.diff >= 0)
+        .sort((a, b) => a.diff - b.diff)
+        .slice(0, 3);
+
+      container.innerHTML = upcoming.map(item => `
+        <div class="bg-white/80 dark:bg-slate-900/80 border border-indigo-200/60 dark:border-indigo-900/60 rounded-xl p-3.5 shadow-sm hover:border-indigo-500 transition-all flex flex-col justify-between space-y-3">
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-base">${item.flag}</span>
+                  <span class="font-mono font-bold text-sm text-slate-900 dark:text-white">${item.ticker}</span>
+                  <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">${item.name}</span>
+                </div>
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">${item.period} · ${item.timeSlot}</div>
+              </div>
+              <div>${formatCountdownBadge(item.date)}</div>
+            </div>
+
+            <!-- EPS & 營收預估 -->
+            <div class="grid grid-cols-2 gap-2 mt-2.5 p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 text-xs">
+              <div>
+                <span class="text-[10px] text-slate-400">市場預估 EPS</span>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">${item.consensusEps} <span class="text-emerald-500 font-bold">${item.epsYoy}</span></div>
+              </div>
+              <div>
+                <span class="text-[10px] text-slate-400">市場預估營收</span>
+                <div class="font-semibold text-slate-800 dark:text-slate-200">${item.consensusRev} <span class="text-emerald-500 font-bold">${item.revYoy}</span></div>
+              </div>
+            </div>
+
+            <!-- 核心第一焦點 -->
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-2 line-clamp-2 leading-relaxed">
+              🎯 <span class="font-medium text-indigo-600 dark:text-indigo-400">核心焦點:</span> ${item.focusPoints[0]}
+            </p>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-[10px] text-slate-400">連動: ${item.supplyChain.slice(0, 2).join('、')}</span>
+            <button onclick="switchTab('calendar')" class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1">
+              查看焦點詳情 <i data-lucide="chevron-right" class="w-3 h-3"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+    }
+
     function renderCalendar() {
+      const isTech = state.calendar.tab === 'tech';
+      const techBtn = document.getElementById('cal-track-tech-btn');
+      const macroBtn = document.getElementById('cal-track-macro-btn');
+      const techControls = document.getElementById('cal-tech-controls');
+      const macroControls = document.getElementById('cal-macro-controls');
+      const techPanel = document.getElementById('cal-tech-panel');
+      const macroPanel = document.getElementById('cal-macro-panel');
+
+      if (techBtn && macroBtn) {
+        if (isTech) {
+          techBtn.className = 'px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 bg-indigo-600 text-white shadow-sm';
+          macroBtn.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800';
+          if (techControls) techControls.classList.remove('hidden');
+          if (macroControls) macroControls.classList.add('hidden');
+          if (techPanel) techPanel.classList.remove('hidden');
+          if (macroPanel) macroPanel.classList.add('hidden');
+          renderTechEarningsCalendar();
+        } else {
+          techBtn.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800';
+          macroBtn.className = 'px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 bg-indigo-600 text-white shadow-sm';
+          if (techControls) techControls.classList.add('hidden');
+          if (macroControls) macroControls.classList.remove('hidden');
+          if (techPanel) techPanel.classList.add('hidden');
+          if (macroPanel) macroPanel.classList.remove('hidden');
+          renderMacroCalendar();
+        }
+      }
+      lucide.createIcons();
+    }
+
+    function renderTechEarningsCalendar() {
+      const q = (state.calendar.techQuery || '').trim().toLowerCase();
+      const cat = state.calendar.techCategory;
+
+      const filtered = TECH_EARNINGS_DATA.filter(item => {
+        const diff = getDaysDiff(item.date);
+        let matchCat = true;
+        if (cat === 'SOON') matchCat = diff >= 0 && diff <= 14;
+        else if (cat === 'US_AI') matchCat = item.category === 'US_AI';
+        else if (cat === 'TW_SUPPLY') matchCat = item.category === 'TW_SUPPLY';
+
+        let matchQuery = true;
+        if (q) {
+          const hay = `${item.ticker} ${item.name} ${item.period} ${item.focusPoints.join(' ')} ${item.supplyChain.join(' ')}`.toLowerCase();
+          matchQuery = hay.includes(q);
+        }
+        return matchCat && matchQuery;
+      }).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+      document.querySelectorAll('.cal-tech-cat-btn').forEach(btn => {
+        if (btn.dataset.techCat === cat) {
+          btn.className = 'cal-tech-cat-btn px-2.5 py-1 rounded-md font-semibold transition-colors bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm';
+        } else {
+          btn.className = 'cal-tech-cat-btn px-2.5 py-1 rounded-md font-medium transition-colors text-slate-600 dark:text-slate-300 hover:text-indigo-600';
+        }
+      });
+
+      const cardsContainer = document.getElementById('cal-tech-cards-container');
+      const tableContainer = document.getElementById('cal-tech-table-container');
+      const cardsBtn = document.getElementById('cal-view-cards-btn');
+      const tableBtn = document.getElementById('cal-view-table-btn');
+
+      if (state.calendar.techView === 'cards') {
+        if (cardsContainer) cardsContainer.classList.remove('hidden');
+        if (tableContainer) tableContainer.classList.add('hidden');
+        if (cardsBtn) cardsBtn.className = 'px-2.5 py-1.5 font-medium bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white flex items-center gap-1';
+        if (tableBtn) tableBtn.className = 'px-2.5 py-1.5 font-medium bg-white dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1';
+
+        if (filtered.length === 0) {
+          cardsContainer.innerHTML = `<div class="col-span-full p-12 text-center rounded-xl border border-dashed border-slate-300 dark:border-slate-700 text-slate-500">無符合篩選條件的科技法說標的</div>`;
+        } else {
+          cardsContainer.innerHTML = filtered.map(item => `
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm hover:shadow-md hover:border-indigo-500/60 transition-all flex flex-col justify-between space-y-4">
+              <div class="space-y-3">
+                <!-- 頂部代號與倒數 -->
+                <div class="flex items-start justify-between gap-2 pb-2.5 border-b border-slate-100 dark:border-slate-800">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl">${item.flag}</span>
+                    <div>
+                      <div class="flex items-center gap-1.5">
+                        <span class="font-mono font-bold text-base text-slate-900 dark:text-white">${item.ticker}</span>
+                        <span class="text-xs px-2 py-0.5 rounded-full font-medium ${item.category === 'US_AI' ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20' : 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20'}">${item.categoryLabel}</span>
+                      </div>
+                      <div class="text-xs text-slate-600 dark:text-slate-300 font-medium">${item.name}</div>
+                    </div>
+                  </div>
+                  <div>${formatCountdownBadge(item.date)}</div>
+                </div>
+
+                <!-- 時間與季度標籤 -->
+                <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                  <span class="flex items-center gap-1 font-mono"><i data-lucide="calendar" class="w-3.5 h-3.5 text-indigo-500"></i> ${item.date} (${item.timeSlot})</span>
+                  <span class="font-semibold text-indigo-600 dark:text-indigo-400">${item.period}</span>
+                </div>
+
+                <!-- 財報市場共識 (EPS / 營收) -->
+                <div class="grid grid-cols-2 gap-2 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200/60 dark:border-slate-700/50 text-xs">
+                  <div>
+                    <div class="text-[10px] text-slate-400 font-medium">市場預估 EPS</div>
+                    <div class="font-bold text-slate-800 dark:text-slate-100 text-sm mt-0.5">${item.consensusEps} <span class="text-emerald-500 text-xs font-semibold">${item.epsYoy}</span></div>
+                  </div>
+                  <div>
+                    <div class="text-[10px] text-slate-400 font-medium">市場預估營收</div>
+                    <div class="font-bold text-slate-800 dark:text-slate-100 text-sm mt-0.5">${item.consensusRev} <span class="text-emerald-500 text-xs font-semibold">${item.revYoy}</span></div>
+                  </div>
+                </div>
+
+                <!-- 法說三大關鍵焦點 -->
+                <div class="space-y-1.5 pt-1">
+                  <div class="text-[11px] font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                    <i data-lucide="crosshair" class="w-3.5 h-3.5 text-indigo-500"></i> 法人法說會三大焦點：
+                  </div>
+                  <ul class="space-y-1 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                    ${item.focusPoints.map(p => `
+                      <li class="flex items-start gap-1.5">
+                        <i data-lucide="check" class="w-3 h-3 text-emerald-500 shrink-0 mt-0.5"></i>
+                        <span>${p}</span>
+                      </li>
+                    `).join('')}
+                  </ul>
+                </div>
+
+                <!-- 歷史台股連動效應 -->
+                <div class="p-2.5 rounded-lg bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-900/50 text-xs text-indigo-950 dark:text-indigo-200 space-y-1">
+                  <div class="font-semibold flex items-center gap-1 text-indigo-800 dark:text-indigo-300 text-[11px]">
+                    <i data-lucide="trending-up" class="w-3.5 h-3.5 text-indigo-500"></i> 市場連動與歷史效應
+                  </div>
+                  <p class="leading-relaxed text-[11px] opacity-90">${item.marketImpact}</p>
+                </div>
+              </div>
+
+              <!-- 關聯供應鏈與複製操作 -->
+              <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs gap-2">
+                <div class="flex flex-wrap items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 overflow-hidden">
+                  <span class="font-medium text-slate-400">連動:</span>
+                  ${item.supplyChain.slice(0, 3).map(s => `<span class="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px]">${s}</span>`).join('')}
+                </div>
+                <button onclick="copyEarningsBrief('${item.ticker}')" class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-indigo-50 hover:text-indigo-600 dark:hover:bg-indigo-950/60 text-slate-600 dark:text-slate-300 text-xs font-semibold transition-colors flex items-center gap-1 shrink-0" title="複製焦點摘要至剪貼簿">
+                  <i data-lucide="copy" class="w-3 h-3"></i> 複製重點
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      } else {
+        if (cardsContainer) cardsContainer.classList.add('hidden');
+        if (tableContainer) tableContainer.classList.remove('hidden');
+        if (cardsBtn) cardsBtn.className = 'px-2.5 py-1.5 font-medium bg-white dark:bg-slate-900 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center gap-1';
+        if (tableBtn) tableBtn.className = 'px-2.5 py-1.5 font-medium bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white flex items-center gap-1';
+
+        const tbody = document.getElementById('cal-tech-tbody');
+        tbody.innerHTML = filtered.length === 0
+          ? `<tr><td colspan="7" class="px-4 py-8 text-center text-slate-500">無符合篩選條件的科技法說標的</td></tr>`
+          : filtered.map(item => `
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+              <td class="px-4 py-3 whitespace-nowrap">
+                <div class="font-mono font-medium">${item.date}</div>
+                <div class="mt-1">${formatCountdownBadge(item.date)}</div>
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap">
+                <div class="flex items-center gap-1.5">
+                  <span>${item.flag}</span>
+                  <span class="font-mono font-bold">${item.ticker}</span>
+                </div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px]">${item.name}</div>
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap">
+                <div class="font-medium text-indigo-600 dark:text-indigo-400">${item.period}</div>
+                <div class="text-slate-400 text-[10px]">${item.timeSlot}</div>
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap">
+                <div>EPS: <span class="font-bold">${item.consensusEps}</span> <span class="text-emerald-500 text-[11px]">(${item.epsYoy})</span></div>
+                <div class="text-slate-500 dark:text-slate-400 text-[11px]">營收: <span class="font-bold">${item.consensusRev}</span> (${item.revYoy})</div>
+              </td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-300 leading-relaxed min-w-[280px]">
+                <ul class="list-disc list-inside space-y-0.5">
+                  ${item.focusPoints.map(p => `<li>${p}</li>`).join('')}
+                </ul>
+              </td>
+              <td class="px-4 py-3 text-slate-600 dark:text-slate-300 min-w-[220px]">
+                ${item.marketImpact}
+              </td>
+              <td class="px-4 py-3 whitespace-nowrap">
+                <div class="flex flex-col gap-1">
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400">${item.supplyChain.slice(0, 3).join('、')}</span>
+                  <button onclick="copyEarningsBrief('${item.ticker}')" class="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-0.5">
+                    <i data-lucide="copy" class="w-3 h-3"></i> 複製摘要
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `).join('');
+      }
+      lucide.createIcons();
+    }
+
+    function renderMacroCalendar() {
       const filtered = CALENDAR_EVENTS.filter(ev => {
         const matchReg = state.calendar.region === 'ALL' || ev.region === state.calendar.region;
         const matchImp = state.calendar.impact === 'ALL' || ev.impact === state.calendar.impact;
         return matchReg && matchImp;
-      });
+      }).sort((a, b) => new Date(a.date) - new Date(b.date));
+
       const tbody = document.getElementById('calendar-tbody');
       tbody.innerHTML = filtered.length === 0
         ? `<tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">無符合篩選條件的財經事件</td></tr>`
         : filtered.map(ev => `
           <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
-            <td class="px-4 py-3 font-medium tabular-nums whitespace-nowrap">${ev.date}</td>
-            <td class="px-4 py-3 whitespace-nowrap">${ev.flag} ${ev.region}</td>
-            <td class="px-4 py-3 font-medium">${ev.event}</td>
             <td class="px-4 py-3 whitespace-nowrap">
-              <span class="px-2 py-0.5 rounded-full text-xs font-medium ${ev.impact === 'HIGH' ? 'bg-rose-500/15 text-rose-500' : 'bg-amber-500/15 text-amber-500'}">
-                ${ev.impact === 'HIGH' ? '高' : '中'}
+              <div class="font-mono font-medium">${ev.date}</div>
+              <div class="mt-1">${formatCountdownBadge(ev.date)}</div>
+            </td>
+            <td class="px-4 py-3 whitespace-nowrap">${ev.flag} ${ev.region}</td>
+            <td class="px-4 py-3 font-semibold text-slate-900 dark:text-white">${ev.event}</td>
+            <td class="px-4 py-3 whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded-full text-xs font-semibold ${ev.impact === 'HIGH' ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/20' : 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20'}">
+                ${ev.impact === 'HIGH' ? '高影響力' : '中影響力'}
               </span>
             </td>
-            <td class="px-4 py-3 text-slate-600 dark:text-slate-300">${ev.note}</td>
+            <td class="px-4 py-3 text-slate-600 dark:text-slate-300 leading-relaxed">${ev.note}</td>
           </tr>
         `).join('');
+      lucide.createIcons();
+    }
+
+    function initCalendarEvents() {
+      const techBtn = document.getElementById('cal-track-tech-btn');
+      const macroBtn = document.getElementById('cal-track-macro-btn');
+      if (techBtn) {
+        techBtn.addEventListener('click', () => {
+          state.calendar.tab = 'tech';
+          renderCalendar();
+        });
+      }
+      if (macroBtn) {
+        macroBtn.addEventListener('click', () => {
+          state.calendar.tab = 'macro';
+          renderCalendar();
+        });
+      }
+
+      document.querySelectorAll('.cal-tech-cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.calendar.techCategory = btn.dataset.techCat;
+          renderTechEarningsCalendar();
+        });
+      });
+
+      const searchInput = document.getElementById('cal-tech-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', e => {
+          state.calendar.techQuery = e.target.value;
+          renderTechEarningsCalendar();
+        });
+      }
+
+      const cardsBtn = document.getElementById('cal-view-cards-btn');
+      const tableBtn = document.getElementById('cal-view-table-btn');
+      if (cardsBtn) {
+        cardsBtn.addEventListener('click', () => {
+          state.calendar.techView = 'cards';
+          renderTechEarningsCalendar();
+        });
+      }
+      if (tableBtn) {
+        tableBtn.addEventListener('click', () => {
+          state.calendar.techView = 'table';
+          renderTechEarningsCalendar();
+        });
+      }
+
+      const regionSelect = document.getElementById('cal-region');
+      const impactSelect = document.getElementById('cal-impact');
+      if (regionSelect) {
+        regionSelect.addEventListener('change', e => {
+          state.calendar.region = e.target.value;
+          renderMacroCalendar();
+        });
+      }
+      if (impactSelect) {
+        impactSelect.addEventListener('change', e => {
+          state.calendar.impact = e.target.value;
+          renderMacroCalendar();
+        });
+      }
     }
 
     function renderMyDashboard() {
@@ -8880,8 +9731,7 @@
       document.getElementById('etf-cat-filter').addEventListener('change', e => { state.etf.category = e.target.value; renderEtfTab(); });
       document.getElementById('etf-search').addEventListener('input', e => { state.etf.query = e.target.value; renderEtfTab(); });
 
-      document.getElementById('cal-region').addEventListener('change', e => { state.calendar.region = e.target.value; renderCalendar(); });
-      document.getElementById('cal-impact').addEventListener('change', e => { state.calendar.impact = e.target.value; renderCalendar(); });
+      initCalendarEvents();
 
       const sampleCsv = MONTHS.slice(-12).map((m, i) => `${m},${(12 + i * 1.4 + (i % 2 === 0 ? 1.5 : -0.8)).toFixed(1)}`).join('\n');
       document.getElementById('csv-textarea').value = sampleCsv;
@@ -9066,8 +9916,9 @@
       initHistoryModalEvents();
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
+      renderTaiwanRadarQuickCards();
       const hashTab = (window.location.hash || '').slice(1);
-      const validTabs = ['dashboard', 'taiwan', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'mydash', 'import'];
+      const validTabs = ['dashboard', 'taiwan', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'calendar', 'mydash', 'import'];
       const initialTab = validTabs.includes(hashTab) ? hashTab : 'dashboard';
       switchTab(initialTab);
       syncLivePublicData(false);
