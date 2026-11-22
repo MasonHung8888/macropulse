@@ -1661,6 +1661,150 @@
         </div>
       </div>
 
+      <!-- 7.5 金字塔分批建倉與部位試算器 (Pyramid DCA & Position Sizing Calculator) -->
+      <div id="tw-dca-calculator" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+        
+        <!-- Header -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs uppercase font-black px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300">實戰操盤</span>
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
+                <i data-lucide="calculator" class="w-5 h-5 text-indigo-500"></i> 金字塔分批建倉與部位試算器 (Pyramid DCA Calculator)
+              </h2>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              結合當前五大底部模型評分與歷史回測，自訂總資金規模與風險偏好，自動精算三梯次掛單價位、下單股數、均價及停損保護
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button id="dca-copy-plan-btn" type="button" class="px-3 py-1.5 rounded-lg border border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold transition-colors flex items-center gap-1.5">
+              <i data-lucide="clipboard-copy" class="w-3.5 h-3.5"></i> 複製下單備忘錄
+            </button>
+          </div>
+        </div>
+
+        <!-- 參數設定面板 (Inputs Panel) -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60 space-y-4">
+          
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <!-- 總預算輸入 (5 欄) -->
+            <div class="md:col-span-5 space-y-2">
+              <div class="flex items-center justify-between">
+                <label for="dca-capital-input" class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <i data-lucide="wallet" class="w-4 h-4 text-indigo-500"></i> 可動用總投資預算 (NTD)
+                </label>
+                <span id="dca-capital-display" class="text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400">NT$ 1,000,000</span>
+              </div>
+              <div class="relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-xs text-slate-400 font-bold">NT$</span>
+                <input id="dca-capital-input" type="number" step="10000" min="50000" max="100000000" value="1000000" class="w-full pl-10 pr-3 py-2 text-sm rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 font-bold text-slate-900 dark:text-white tabular-nums focus:border-indigo-500 focus:outline-none" />
+              </div>
+              <!-- 快捷金額 Chips -->
+              <div class="flex flex-wrap gap-1.5" id="dca-quick-capital">
+                <button type="button" data-val="500000" class="dca-cap-btn px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors">50萬</button>
+                <button type="button" data-val="1000000" class="dca-cap-btn px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-600 text-white shadow-sm transition-colors">100萬 (推薦)</button>
+                <button type="button" data-val="2000000" class="dca-cap-btn px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors">200萬</button>
+                <button type="button" data-val="3000000" class="dca-cap-btn px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors">300萬</button>
+                <button type="button" data-val="5000000" class="dca-cap-btn px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors">500萬</button>
+              </div>
+            </div>
+
+            <!-- 策略偏好選擇 (7 欄) -->
+            <div class="md:col-span-7 space-y-2">
+              <label class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <i data-lucide="shield" class="w-4 h-4 text-indigo-500"></i> 風險偏好與資金配置策略
+              </label>
+              <div class="grid grid-cols-3 gap-2" id="dca-strategy-selector">
+                <div data-strategy="balanced" class="dca-strat-card p-2.5 rounded-lg border-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/30 cursor-pointer transition-all space-y-1">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-indigo-700 dark:text-indigo-300">穩健型 (推薦)</span>
+                    <i data-lucide="check-circle" class="w-3.5 h-3.5 text-indigo-600"></i>
+                  </div>
+                  <div class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">保留 10% 現金</div>
+                  <div class="text-[10px] font-mono text-indigo-600 dark:text-indigo-400">20% ➔ 30% ➔ 40%</div>
+                </div>
+
+                <div data-strategy="defensive" class="dca-strat-card p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer transition-all space-y-1 hover:border-indigo-500">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300">保守型</span>
+                    <i data-lucide="circle" class="w-3.5 h-3.5 text-slate-400"></i>
+                  </div>
+                  <div class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">保留 25% 緊急現金</div>
+                  <div class="text-[10px] font-mono text-slate-500">15% ➔ 25% ➔ 35%</div>
+                </div>
+
+                <div data-strategy="aggressive" class="dca-strat-card p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer transition-all space-y-1 hover:border-indigo-500">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-slate-700 dark:text-slate-300">積極型</span>
+                    <i data-lucide="circle" class="w-3.5 h-3.5 text-slate-400"></i>
+                  </div>
+                  <div class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight">保留 5% 現金</div>
+                  <div class="text-[10px] font-mono text-slate-500">25% ➔ 35% ➔ 35%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 標的挑選勾選列 -->
+          <div class="pt-3 border-t border-slate-200/70 dark:border-slate-700/60 space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <i data-lucide="check-square" class="w-4 h-4 text-indigo-500"></i> 參與建倉標的組合 (勾選切換)
+              </span>
+              <span class="text-[11px] text-slate-400">系統自動依據策略配比精算整張與零股</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2" id="dca-stocks-checklist">
+              <!-- 動態由 JS 渲染 6 檔核取方塊 -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 模型聯動策略指引橫幅 -->
+        <div id="dca-sync-banner" class="p-3.5 rounded-xl border border-rose-500/30 bg-rose-500/10 text-xs flex items-start gap-2.5">
+          <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
+          <div class="space-y-1">
+            <div class="font-bold text-rose-800 dark:text-rose-200">
+              當前模型狀態聯動：恐慌殺盤階段（評分 37 分）
+            </div>
+            <p id="dca-sync-advice" class="text-rose-700 dark:text-rose-300 leading-relaxed">
+              依據金字塔建倉原則，目前處於浮額清洗去槓桿期（評分 37 分），現階段「嚴禁動用第 2、第 3 梯次資金」，僅適合啟動【第 1 梯次超跌試單（預計動用 NT$ 200,000 / 20%）】，其餘 80% 資金務必保留在現金避風港，靜待模型評分跳升至 60 分（築底）與 75 分（止跌確立）再順勢展開後續梯次！
+            </p>
+          </div>
+        </div>
+
+        <!-- 4 欄部位風險與資本配置 KPI -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">總投資目標額</div>
+            <div id="dca-kpi-invested" class="text-xl font-black tabular-nums text-slate-900 dark:text-white">NT$ 900,000</div>
+            <div id="dca-kpi-invested-pct" class="text-[10px] text-indigo-600 dark:text-indigo-400 font-semibold">佔總資金 90.0%</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">安全防禦流動資金</div>
+            <div id="dca-kpi-cash" class="text-xl font-black tabular-nums text-emerald-600 dark:text-emerald-400">NT$ 100,000</div>
+            <div id="dca-kpi-cash-pct" class="text-[10px] text-emerald-600 dark:text-emerald-400 font-semibold">保留現金 10.0%</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">目前建議動用 (第1梯次)</div>
+            <div id="dca-kpi-t1" class="text-xl font-black tabular-nums text-amber-600 dark:text-amber-400">NT$ 200,000</div>
+            <div class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">超跌小額試水溫 (20%)</div>
+          </div>
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">最大潛在停損風險</div>
+            <div id="dca-kpi-maxloss" class="text-xl font-black tabular-nums text-rose-600 dark:text-rose-400">NT$ 28,450</div>
+            <div id="dca-kpi-maxloss-pct" class="text-[10px] text-slate-500 dark:text-slate-400 font-semibold">僅佔總資本 2.85% (安全)</div>
+          </div>
+        </div>
+
+        <!-- 三梯次金字塔分批建倉矩陣 (Tiers 1, 2, 3) -->
+        <div class="space-y-4" id="dca-tiers-container">
+          <!-- 動態由 JS 渲染 3 個梯次卡片與表格 -->
+        </div>
+
+      </div>
+
       <!-- 8. 國際總經與美股 AI 巨頭聯動監控 -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
         <div class="pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -5909,6 +6053,9 @@
       // 渲染五大底部模型歷史勝率回測模組
       renderTaiwanBacktestLab(currentBtScore, currentBtCase);
 
+      // 渲染金字塔分批建倉與部位試算器
+      renderTaiwanDcaCalculator();
+
       lucide.createIcons();
     }
 
@@ -6087,6 +6234,354 @@
           renderTaiwanBacktestLab(currentBtScore, btn.dataset.case);
         });
       });
+    }
+
+    let dcaState = {
+      totalCapital: 1000000,
+      strategy: 'balanced', // 'balanced', 'defensive', 'aggressive'
+      selectedStocks: ['tsmc', '0050', 'honhai', 'quanta'],
+      stocksMeta: {
+        'tsmc': { name: '台積電', code: '2330', close: 2000.0, support: 1950.0, inval: 1850.0, weight: 0.35 },
+        '0050': { name: '元大台灣50', code: '0050', close: 84.45, support: 79.0, inval: 75.0, weight: 0.35 },
+        '00981a': { name: '主動統一前沿', code: '00981A', close: 18.58, support: 17.0, inval: 15.5, weight: 0.15 },
+        'honhai': { name: '鴻海', code: '2317', close: 210.0, support: 198.0, inval: 185.0, weight: 0.15 },
+        'quanta': { name: '廣達', code: '2382', close: 252.0, support: 238.0, inval: 220.0, weight: 0.15 },
+        'wistron': { name: '緯創', code: '3231', close: 147.0, support: 136.0, inval: 125.0, weight: 0.10 }
+      }
+    };
+
+    function syncDcaStocksFromData() {
+      if (TW_BOTTOM_DATA && TW_BOTTOM_DATA.focus_stocks) {
+        TW_BOTTOM_DATA.focus_stocks.forEach(s => {
+          if (dcaState.stocksMeta[s.key]) {
+            if (s.close) dcaState.stocksMeta[s.key].close = s.close;
+          }
+        });
+      }
+    }
+
+    function renderTaiwanDcaCalculator() {
+      syncDcaStocksFromData();
+      const cap = dcaState.totalCapital;
+      const strat = dcaState.strategy;
+      const DATA = TW_BOTTOM_DATA || {};
+      const modelScore = (DATA.model_score && DATA.model_score.total_score) !== undefined ? DATA.model_score.total_score : 37;
+
+      // 策略參數
+      const stratConfig = {
+        balanced: { name: '穩健型', cashPct: 0.10, t1Pct: 0.20, t2Pct: 0.30, t3Pct: 0.40 },
+        defensive: { name: '保守型', cashPct: 0.25, t1Pct: 0.15, t2Pct: 0.25, t3Pct: 0.35 },
+        aggressive: { name: '積極型', cashPct: 0.05, t1Pct: 0.25, t2Pct: 0.35, t3Pct: 0.35 }
+      }[strat] || { name: '穩健型', cashPct: 0.10, t1Pct: 0.20, t2Pct: 0.30, t3Pct: 0.40 };
+
+      // 更新可動用金額顯示
+      const capDisplay = document.getElementById('dca-capital-display');
+      if (capDisplay) capDisplay.textContent = `NT$ ${Number(cap).toLocaleString()}`;
+      const capInput = document.getElementById('dca-capital-input');
+      if (capInput && Number(capInput.value) !== cap) capInput.value = cap;
+
+      // 更新快捷金額按鈕樣式
+      document.querySelectorAll('.dca-cap-btn').forEach(btn => {
+        if (Number(btn.dataset.val) === cap) {
+          btn.className = 'dca-cap-btn px-2 py-0.5 rounded text-[11px] font-bold bg-indigo-600 text-white shadow-sm transition-colors';
+        } else {
+          btn.className = 'dca-cap-btn px-2 py-0.5 rounded text-[11px] font-medium border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors';
+        }
+      });
+
+      // 更新策略卡片樣式
+      document.querySelectorAll('.dca-strat-card').forEach(card => {
+        const isAct = card.dataset.strategy === strat;
+        if (isAct) {
+          card.className = 'dca-strat-card p-2.5 rounded-lg border-2 border-indigo-600 bg-indigo-50/50 dark:bg-indigo-950/30 cursor-pointer transition-all space-y-1';
+          const icon = card.querySelector('i');
+          if (icon) icon.setAttribute('data-lucide', 'check-circle');
+        } else {
+          card.className = 'dca-strat-card p-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 cursor-pointer transition-all space-y-1 hover:border-indigo-500';
+          const icon = card.querySelector('i');
+          if (icon) icon.setAttribute('data-lucide', 'circle');
+        }
+      });
+
+      // 渲染標的核取方塊
+      const chkContainer = document.getElementById('dca-stocks-checklist');
+      if (chkContainer) {
+        chkContainer.innerHTML = Object.entries(dcaState.stocksMeta).map(([k, s]) => {
+          const isChecked = dcaState.selectedStocks.includes(k);
+          return `
+            <label class="flex items-center gap-2 p-2 rounded-lg border transition-all cursor-pointer ${isChecked ? 'border-indigo-500/80 bg-indigo-50/40 dark:bg-indigo-950/20 text-indigo-700 dark:text-indigo-300' : 'border-slate-200 dark:border-slate-700/60 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400'}">
+              <input type="checkbox" data-stock="${k}" class="dca-stock-checkbox accent-indigo-600 rounded" ${isChecked ? 'checked' : ''} />
+              <div class="leading-tight">
+                <div class="text-[11px] font-bold">${s.name}</div>
+                <div class="text-[10px] text-slate-500 dark:text-slate-400 font-mono">$${s.close.toFixed(1)}</div>
+              </div>
+            </label>
+          `;
+        }).join('');
+
+        // 綁定核取事件
+        chkContainer.querySelectorAll('.dca-stock-checkbox').forEach(chk => {
+          chk.addEventListener('change', e => {
+            const stk = e.target.dataset.stock;
+            if (e.target.checked) {
+              if (!dcaState.selectedStocks.includes(stk)) dcaState.selectedStocks.push(stk);
+            } else {
+              dcaState.selectedStocks = dcaState.selectedStocks.filter(x => x !== stk);
+              if (dcaState.selectedStocks.length === 0) dcaState.selectedStocks = ['tsmc'];
+            }
+            renderTaiwanDcaCalculator();
+          });
+        });
+      }
+
+      // 金額試算
+      const cashAmount = Math.round(cap * stratConfig.cashPct);
+      const investGoal = cap - cashAmount;
+      const t1Cap = Math.round(cap * stratConfig.t1Pct);
+      const t2Cap = Math.round(cap * stratConfig.t2Pct);
+      const t3Cap = Math.round(cap * stratConfig.t3Pct);
+
+      // KPI 更新
+      const kpiInvested = document.getElementById('dca-kpi-invested');
+      const kpiInvestedPct = document.getElementById('dca-kpi-invested-pct');
+      if (kpiInvested) kpiInvested.textContent = `NT$ ${investGoal.toLocaleString()}`;
+      if (kpiInvestedPct) kpiInvestedPct.textContent = `佔總資金 ${((investGoal/cap)*100).toFixed(1)}%`;
+
+      const kpiCash = document.getElementById('dca-kpi-cash');
+      const kpiCashPct = document.getElementById('dca-kpi-cash-pct');
+      if (kpiCash) kpiCash.textContent = `NT$ ${cashAmount.toLocaleString()}`;
+      if (kpiCashPct) kpiCashPct.textContent = `保留現金 ${(stratConfig.cashPct*100).toFixed(1)}%`;
+
+      const kpiT1 = document.getElementById('dca-kpi-t1');
+      if (kpiT1) kpiT1.textContent = `NT$ ${t1Cap.toLocaleString()}`;
+
+      // 試算三梯次股票股數
+      const sel = dcaState.selectedStocks.map(k => ({ key: k, ...dcaState.stocksMeta[k] }));
+      const totWeight = sel.reduce((acc, s) => acc + s.weight, 0) || 1;
+
+      // 梯次定義
+      const tiersDef = [
+        {
+          num: 1,
+          name: '第 1 梯次：恐慌超跌試單',
+          badge: '恐慌急跌負乖離',
+          trigger: '目前階段 (評分 37~40 分 · 急跌負乖離折價區)',
+          capAmount: t1Cap,
+          pctStr: `${(stratConfig.t1Pct*100).toFixed(0)}%`,
+          isCurrentActive: modelScore < 60,
+          colorClass: 'amber',
+          priceFactor: 0.98,
+          advice: '【目前建議執行】利用恐慌去槓桿急殺，限價分批試水溫，保留絕大部分資金防守。'
+        },
+        {
+          num: 2,
+          name: '第 2 梯次：築底確立買點',
+          badge: '模型突破 60 分',
+          trigger: '模型評分跨越 60 分 (融資清洗完畢、站回 5MA)',
+          capAmount: t2Cap,
+          pctStr: `${(stratConfig.t2Pct*100).toFixed(0)}%`,
+          isCurrentActive: modelScore >= 60 && modelScore < 75,
+          colorClass: 'indigo',
+          priceFactor: 1.00,
+          advice: '【等待觸發】目前評分 37 分尚未達標，待融資斷頭清洗沉澱、大盤站回 5MA 時啟動。'
+        },
+        {
+          num: 3,
+          name: '第 3 梯次：止跌反轉順勢點',
+          badge: '模型突破 75 分',
+          trigger: '模型評分跨越 75 分 (站回 10/20MA、期貨空單大減)',
+          capAmount: t3Cap,
+          pctStr: `${(stratConfig.t3Pct*100).toFixed(0)}%`,
+          isCurrentActive: modelScore >= 75,
+          colorClass: 'emerald',
+          priceFactor: 1.02,
+          advice: '【等待觸發】目前評分 37 分尚未達標，待外資期貨空單大額回補、多項趨勢條件確立時加碼。'
+        }
+      ];
+
+      // 計算各梯次
+      const tierCalcs = [];
+      const stockCum = {};
+      sel.forEach(s => stockCum[s.key] = { shares: 0, cost: 0 });
+
+      tiersDef.forEach(t => {
+        const items = sel.map(s => {
+          const w = s.weight / totWeight;
+          const b = Math.round(t.capAmount * w);
+          const p = Math.round(s.close * t.priceFactor * 10) / 10;
+          const sh = Math.max(1, Math.floor(b / p));
+          const c = Math.round(sh * p);
+
+          stockCum[s.key].shares += sh;
+          stockCum[s.key].cost += c;
+          const avg = stockCum[s.key].shares > 0 ? (stockCum[s.key].cost / stockCum[s.key].shares) : p;
+
+          return {
+            key: s.key,
+            name: s.name,
+            code: s.code,
+            price: p,
+            shares: sh,
+            cost: c,
+            cumShares: stockCum[s.key].shares,
+            cumAvg: avg
+          };
+        });
+        tierCalcs.push({ ...t, items });
+      });
+
+      // 計算最大停損金額
+      let totalMaxLoss = 0;
+      sel.forEach(s => {
+        const cum = stockCum[s.key];
+        if (cum && cum.shares > 0) {
+          const avg = cum.cost / cum.shares;
+          const loss = Math.max(0, cum.shares * (avg - s.inval));
+          totalMaxLoss += loss;
+        }
+      });
+
+      const maxLossEl = document.getElementById('dca-kpi-maxloss');
+      const maxLossPctEl = document.getElementById('dca-kpi-maxloss-pct');
+      if (maxLossEl) maxLossEl.textContent = `NT$ ${Math.round(totalMaxLoss).toLocaleString()}`;
+      if (maxLossPctEl) maxLossPctEl.textContent = `僅佔總資本 ${((totalMaxLoss / cap) * 100).toFixed(2)}% (安全)`;
+
+      // 渲染三梯次 HTML
+      const tiersContainer = document.getElementById('dca-tiers-container');
+      if (tiersContainer) {
+        tiersContainer.innerHTML = tierCalcs.map(t => {
+          const isAct = t.isCurrentActive;
+          return `
+            <div class="rounded-xl border ${isAct ? 'border-indigo-500/80 bg-indigo-50/20 dark:bg-indigo-950/20' : 'border-slate-200 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900/60'} p-4 space-y-3 transition-all">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2.5 border-b border-slate-200/70 dark:border-slate-800">
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-6 rounded-full flex items-center justify-center text-xs font-black ${isAct ? 'bg-indigo-600 text-white' : 'bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400'}">${t.num}</span>
+                  <div>
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                      ${t.name}
+                      <span class="text-[10px] px-2 py-0.5 rounded font-bold ${isAct ? 'bg-amber-500/20 text-amber-600 dark:text-amber-400' : 'bg-slate-100 dark:bg-slate-800 text-slate-500'}">${t.badge}</span>
+                    </h3>
+                    <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">${t.trigger}</div>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <div class="text-sm font-black text-indigo-600 dark:text-indigo-400 tabular-nums">NT$ ${t.capAmount.toLocaleString()} (${t.pctStr})</div>
+                  <div class="text-[10px] font-semibold ${isAct ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}">${isAct ? '● 目前建議執行階段' : '○ 等待模型訊號確立'}</div>
+                </div>
+              </div>
+
+              <!-- 標的明細表格 -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr class="border-b border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400 text-[11px]">
+                      <th class="py-1.5 font-semibold">投資標的</th>
+                      <th class="py-1.5 font-semibold text-right">建議掛單價</th>
+                      <th class="py-1.5 font-semibold text-right">本梯建議股數</th>
+                      <th class="py-1.5 font-semibold text-right">本梯預算花費</th>
+                      <th class="py-1.5 font-semibold text-right">累計持股均價</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-slate-100 dark:divide-slate-800 tabular-nums">
+                    ${t.items.map(it => `
+                      <tr class="hover:bg-slate-100/50 dark:hover:bg-slate-800/40">
+                        <td class="py-2">
+                          <span class="font-bold text-slate-800 dark:text-slate-200">${it.name}</span>
+                          <span class="text-[10px] text-slate-400 font-mono ml-1">(${it.code})</span>
+                        </td>
+                        <td class="py-2 text-right font-medium text-slate-700 dark:text-slate-300">NT$ ${it.price.toFixed(1)}</td>
+                        <td class="py-2 text-right font-bold text-indigo-600 dark:text-indigo-400">
+                          ${it.shares >= 1000 ? `${Math.floor(it.shares/1000)}張 ${it.shares%1000 > 0 ? (it.shares%1000)+'股' : ''}` : `${it.shares} 股`}
+                        </td>
+                        <td class="py-2 text-right font-medium text-slate-800 dark:text-slate-200">NT$ ${it.cost.toLocaleString()}</td>
+                        <td class="py-2 text-right font-semibold text-emerald-600 dark:text-emerald-400">NT$ ${it.cumAvg.toFixed(1)}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      lucide.createIcons();
+    }
+
+    function initTaiwanDcaEvents() {
+      // 金額輸入變動
+      const capInput = document.getElementById('dca-capital-input');
+      if (capInput) {
+        capInput.addEventListener('input', e => {
+          const v = Number(e.target.value);
+          if (v > 0) {
+            dcaState.totalCapital = v;
+            renderTaiwanDcaCalculator();
+          }
+        });
+      }
+
+      // 快捷金額按鈕
+      document.querySelectorAll('.dca-cap-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          dcaState.totalCapital = Number(btn.dataset.val);
+          renderTaiwanDcaCalculator();
+        });
+      });
+
+      // 策略卡片切換
+      document.querySelectorAll('.dca-strat-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const s = card.dataset.strategy;
+          dcaState.strategy = s;
+          if (s === 'defensive') {
+            dcaState.selectedStocks = ['tsmc', '0050'];
+          } else if (s === 'aggressive') {
+            dcaState.selectedStocks = ['tsmc', 'honhai', 'quanta', 'wistron'];
+          } else {
+            dcaState.selectedStocks = ['tsmc', '0050', 'honhai', 'quanta'];
+          }
+          renderTaiwanDcaCalculator();
+        });
+      });
+
+      // 一鍵複製下單備忘錄
+      const copyBtn = document.getElementById('dca-copy-plan-btn');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+          const cap = dcaState.totalCapital;
+          const strat = dcaState.strategy;
+          const sel = dcaState.selectedStocks.map(k => ({ key: k, ...dcaState.stocksMeta[k] }));
+          const totWeight = sel.reduce((acc, s) => acc + s.weight, 0) || 1;
+
+          let text = `=== MacroPulse 台股金字塔分批建倉計劃 ===\n`;
+          text += `資金總額: NT$ ${Number(cap).toLocaleString()} | 策略偏好: ${strat === 'balanced' ? '穩健型 (保留 10% 現金)' : strat === 'defensive' ? '保守型 (保留 25% 現金)' : '積極型 (保留 5% 現金)'}\n`;
+          text += `目前模型評分: 37 分 (恐慌殺盤階段 - 依紀律僅執行第 1 梯次)\n\n`;
+
+          text += `【第 1 梯次 (恐慌超跌試單 - 動用 NT$ ${(cap * (strat === 'defensive' ? 0.15 : strat === 'aggressive' ? 0.25 : 0.20)).toLocaleString()})】\n`;
+          sel.forEach(s => {
+            const w = s.weight / totWeight;
+            const b = Math.round(cap * (strat === 'defensive' ? 0.15 : strat === 'aggressive' ? 0.25 : 0.20) * w);
+            const p = Math.round(s.close * 0.98 * 10) / 10;
+            const sh = Math.max(1, Math.floor(b / p));
+            text += `- ${s.name} (${s.code}): 建議限價 NT$ ${p}，下單 ${sh >= 1000 ? Math.floor(sh/1000) + '張 ' + (sh%1000 > 0 ? (sh%1000)+'股' : '') : sh + '股'} (約 NT$ ${(sh*p).toLocaleString()})\n`;
+          });
+
+          text += `\n【第 2 梯次 (築底確立買點 - 模型評分 ≥60 分再執行)】\n`;
+          text += `【第 3 梯次 (止跌反轉加碼 - 模型評分 ≥75 分再執行)】\n`;
+          text += `\n【風險控管與停損防線】\n`;
+          sel.forEach(s => {
+            text += `- ${s.name}: 失效停損點 NT$ ${s.inval}\n`;
+          });
+          text += `==========================================`;
+
+          navigator.clipboard.writeText(text).then(() => {
+            showToast('已成功複製「金字塔分批下單備忘錄」到剪貼簿！');
+          }).catch(() => {
+            showToast('複製失敗，請手動選取複製');
+          });
+        });
+      }
     }
 
 
@@ -8204,6 +8699,7 @@
 
       // 台股專屬分頁按鈕事件
       initTaiwanBacktestEvents();
+      initTaiwanDcaEvents();
       const twRefresh = document.getElementById('tw-refresh-btn');
       if (twRefresh) {
         twRefresh.addEventListener('click', () => loadTaiwanBottomData(true));
