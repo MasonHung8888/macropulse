@@ -7664,11 +7664,11 @@
         }
       });
 
-      const base2026 = 95 + 82 + 75 + 105;
-      const adjustedTotal = Math.round(base2026 * (1 + delta / 100));
+      const base2026B = 95 + 82 + 75 + 105; // $357 Billion
+      const adjustedB = Math.round(base2026B * (1 + delta / 100));
       const kpiTotal = document.getElementById('csp-kpi-total-capex');
       if (kpiTotal) {
-        kpiTotal.textContent = `$${adjustedTotal.toLocaleString()} 億美元`;
+        kpiTotal.textContent = `$${(adjustedB * 10).toLocaleString()} 億美元 ($${adjustedB}B)`;
       }
 
       const canvas = document.getElementById('cspCapexChart');
