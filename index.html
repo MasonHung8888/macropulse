@@ -3242,6 +3242,210 @@
           </div>
         </div>
       </div>
+    
+      <!-- 全球大宗商品超級週期 ＆ 銅金比/金銀比通膨景氣傳導儀 (Commodity Supercycle & Macro Transmission Radar) -->
+      <div id="commodity-supercycle-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+        <!-- 標題列 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
+                <i data-lucide="gem" class="w-5 h-5 text-amber-500"></i> 全球大宗商品超級週期 ＆ 銅金比/金銀比通膨景氣傳導儀
+              </h2>
+              <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/20">
+                實質資產領先指標
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              追蹤「銅金比」(全球製造業與 10Y 美債殖利率先行晴雨表)、「金銀比」(避險與補漲訊號)、「油金比」與「商品/美股比率」，拆解大宗原物料對通膨與央行的實質傳導
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
+              Commodity Transmission Engine
+            </span>
+          </div>
+        </div>
+
+        <!-- 4 大核心宏觀比率 KPI 卡片 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <!-- 1. 銅金比 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span>銅金比 (Copper/Gold × 1000)</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold">美債先行</span>
+              </div>
+              <div id="ratio-coppergold-val" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-slate-900 dark:text-white">1.23</div>
+              <div id="ratio-coppergold-sub" class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5 font-medium">溫和擴張 (領先 10Y 美債)</div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+              銅反映實體工業與電網需求，黃金反映實質利率；兩者比值與美國 10 年期公債殖利率高度正相關。
+            </div>
+          </div>
+
+          <!-- 2. 金銀比 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span>金銀比 (Gold/Silver GSR)</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold">均值 65</span>
+              </div>
+              <div id="ratio-goldsilver-val" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-amber-500">121.0</div>
+              <div id="ratio-goldsilver-sub" class="text-[11px] text-amber-600 dark:text-amber-400 mt-0.5 font-medium">歷史極高位 (白銀嚴重低估)</div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+              當 GSR 突破 85 時，代表市場處於極度恐慌避險；歷史上多次觸發白銀等工業金屬的爆發性補漲。
+            </div>
+          </div>
+
+          <!-- 3. 油金比 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span>油金比 (Gold/Oil 桶/盎司)</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] bg-blue-500/10 text-blue-600 dark:text-blue-400 font-bold">均值 20桶</span>
+              </div>
+              <div id="ratio-goldoil-val" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-blue-500">45.5 桶</div>
+              <div id="ratio-goldoil-sub" class="text-[11px] text-blue-600 dark:text-blue-400 mt-0.5 font-medium">原油相對於黃金深幅折價</div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+              1 盎司黃金可購買 45 桶原油（長期均值約 18~22 桶），能源商品購買力定錨面臨強勁修復向上彈性。
+            </div>
+          </div>
+
+          <!-- 4. 商品 / 標普比率 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span>商品 / 標普 500 (CRB / SPX)</span>
+                <span class="px-1.5 py-0.5 rounded text-[10px] bg-rose-500/10 text-rose-600 dark:text-rose-400 font-bold">50年低點</span>
+              </div>
+              <div id="ratio-crbspx-val" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-rose-500">0.041</div>
+              <div id="ratio-crbspx-sub" class="text-[11px] text-rose-600 dark:text-rose-400 mt-0.5 font-medium">實質資產世紀估值窪地</div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+              實體原物料相對美股金融資產處於半世紀以來最便宜水平，預示長線實物資產超級週期抗通膨潛力。
+            </div>
+          </div>
+        </div>
+
+        <!-- 雙軸圖表與傳導分析區 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-1">
+          <!-- 左側 8 欄: Chart.js 雙軸走勢圖與模式切換 -->
+          <div class="lg:col-span-8 space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span id="commodity-chart-title" class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                  <i data-lucide="line-chart" class="w-4 h-4 text-amber-500"></i> 銅金比 (Copper/Gold) vs 美國 10 年期公債殖利率
+                </span>
+              </div>
+              <!-- 4 個圖表切換按鈕 -->
+              <div class="flex flex-wrap gap-1 text-xs">
+                <button type="button" data-cratio="COPPER_GOLD" class="cratio-btn px-2.5 py-1 rounded-lg font-medium bg-amber-500 text-slate-900 font-semibold transition-colors">
+                  銅金比 vs 美債 10Y
+                </button>
+                <button type="button" data-cratio="GOLD_SILVER" class="cratio-btn px-2.5 py-1 rounded-lg font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                  金銀比 (GSR)
+                </button>
+                <button type="button" data-cratio="GOLD_OIL" class="cratio-btn px-2.5 py-1 rounded-lg font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                  油金比 vs 原油
+                </button>
+                <button type="button" data-cratio="CRB_SPX" class="cratio-btn px-2.5 py-1 rounded-lg font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                  CRB / S&amp;P 500
+                </button>
+              </div>
+            </div>
+
+            <!-- 圖表 Canvas -->
+            <div class="relative h-72 sm:h-80 bg-slate-50/50 dark:bg-slate-800/30 rounded-xl p-3 border border-slate-200/60 dark:border-slate-800">
+              <canvas id="commodityRatioChart"></canvas>
+            </div>
+
+            <!-- 圖表解讀與一鍵載入至工具箱主雙軸圖 -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1 text-xs">
+              <span id="commodity-ratio-desc" class="text-slate-500 dark:text-slate-400">
+                銅金比 (Doctor Copper vs Gold) 與美國 10 年期公債殖利率呈現高達 82% 統計正相關，為掌握實質成長與通膨預期的核心羅盤。
+              </span>
+              <button id="load-commodity-to-main-btn" type="button" class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-medium shadow-sm transition-colors">
+                <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i> 載入至上方雙軸圖深入對比
+              </button>
+            </div>
+          </div>
+
+          <!-- 右側 4 欄: 原物料通膨與政策傳導矩陣 (Transmission Matrix) -->
+          <div class="lg:col-span-4 space-y-3 bg-slate-50/70 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                  <i data-lucide="network" class="w-4 h-4 text-indigo-500"></i> 原物料對實體通膨傳導矩陣
+                </span>
+                <span class="text-[10px] font-semibold text-slate-400">宏觀定價路徑</span>
+              </div>
+
+              <div class="space-y-2 mt-3 text-xs">
+                <!-- 能源 -->
+                <div class="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-1">
+                  <div class="flex items-center justify-between font-bold">
+                    <span class="flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                      <span class="w-2 h-2 rounded-full bg-rose-500"></span> 1. 能源 (原油/天然氣)
+                    </span>
+                    <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-600 dark:text-rose-400">CPI 敏感度: 極高</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    傳導鏈：原油 ➔ 交通物流/化學原料 ➔ 整體 CPI。直接決定美國通膨預期定錨與央行升降息節奏。
+                  </p>
+                </div>
+
+                <!-- 工業金屬 -->
+                <div class="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-1">
+                  <div class="flex items-center justify-between font-bold">
+                    <span class="flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                      <span class="w-2 h-2 rounded-full bg-amber-500"></span> 2. 工業金屬 (銅/鋁/鎳)
+                    </span>
+                    <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400">PPI 領先 2~3M</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    傳導鏈：銅/金屬 ➔ AI 資料中心電力排線/電網基建 ➔ 製造業 PPI。領先反映全球 CapEx 資本擴張。
+                  </p>
+                </div>
+
+                <!-- 貴金屬 -->
+                <div class="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-1">
+                  <div class="flex items-center justify-between font-bold">
+                    <span class="flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                      <span class="w-2 h-2 rounded-full bg-yellow-500"></span> 3. 貴金屬 (黃金/白銀)
+                    </span>
+                    <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-yellow-500/15 text-yellow-600 dark:text-yellow-400">抗信用貨幣稀釋</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    傳導鏈：實質負利率/全球央行去美元化儲備 ➔ 黃金/白銀。為對抗主權債務擴張與法幣貶值的核心錨定。
+                  </p>
+                </div>
+
+                <!-- 農產品 -->
+                <div class="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 space-y-1">
+                  <div class="flex items-center justify-between font-bold">
+                    <span class="flex items-center gap-1.5 text-slate-800 dark:text-slate-200">
+                      <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 4. 軟商品與農產
+                    </span>
+                    <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">民生剛需黏性</span>
+                  </div>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                    傳導鏈：黃豆/小麥/化肥 ➔ 畜牧飼料/食品 ➔ 核心服務通膨與薪資螺旋 (Wage-Price Spiral)。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 底部警語與指引 -->
+            <div class="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-800 dark:text-amber-300 leading-relaxed">
+              💡 <strong>機構配置洞見：</strong>歷史數據顯示，當大宗商品對標普比率處於歷史後 10% 分位時，實質資產在隨後 3~5 年創造正 Alpha 的機率高達 86%。
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- TAB 4: BACKTEST -->
@@ -3970,6 +4174,21 @@
         name: 'WTI 原油價格 (USD/bbl)',
         unit: 'USD',
         data: [70.2,73.5,71.8,69.4,67.8,68.5,72.1,75.4,78.9,84.2,86.5,85.0,83.4,82.1,84.0,85.5,87.2,88.0,89.5,91.0,92.4,88.6,84.7,81.9]
+      },
+      copper: {
+        name: '銅期貨價格 (USD/lb)',
+        unit: 'USD',
+        data: [4.15,4.22,4.28,4.35,4.42,4.55,4.60,4.48,4.38,4.45,4.52,4.60,4.55,4.48,4.42,4.48,4.55,4.62,4.68,4.60,4.55,4.48,4.52,4.58]
+      },
+      silver: {
+        name: '白銀期貨價格 (USD/oz)',
+        unit: 'USD',
+        data: [31.2,31.8,32.5,33.0,32.8,33.5,34.0,33.2,32.5,31.8,31.0,30.5,30.2,29.8,30.5,31.2,32.0,32.8,32.2,31.5,30.8,30.2,30.5,30.8]
+      },
+      crb: {
+        name: 'CRB 大宗商品指數',
+        unit: 'Index',
+        data: [280.5,283.2,285.0,282.4,279.8,281.5,286.0,289.4,292.0,295.5,298.0,294.2,290.8,288.5,289.0,291.5,294.0,296.5,293.0,289.5,286.0,282.5,284.0,285.2]
       }
     };
 
@@ -4616,6 +4835,7 @@
       calendar: { tab: 'tech', techCategory: 'ALL', techQuery: '', techView: 'cards', region: 'ALL', impact: 'ALL' },
       trader: { cat: 'ALL', quad: 'ALL', query: '', optionsContract: 'weekly', divergenceFilter: 'ALL' },
       stressTest: { scenario: 'stagflation', alloc: { stock: 60, bond: 25, gold: 10, cash: 5 } },
+      commodity: { activeRatio: 'COPPER_GOLD' },
       heatmap: { market: 'SP500', tf: 'd1', sector: 'ALL' },
       builder: {
         name: '自編台股動能基本面指數',
@@ -5298,7 +5518,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null, stressTest: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null, stressTest: null, commodityRatio: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -9912,6 +10132,7 @@
           const rVal = parseFloat(cell.dataset.r);
           state.corr.selectedPair = [rK, cK];
           renderCorrelationMatrix();
+      renderCommoditySupercycleSection();
           updatePairInspector(rK, cK, rVal);
         });
       });
@@ -10013,7 +10234,282 @@
     }
 
 
-    function renderToolbox() {
+
+    // --- 3.50 Commodity Supercycle & Macro Transmission Radar ---
+    function renderCommoditySupercycleSection() {
+      const container = document.getElementById('commodity-supercycle-section');
+      if (!container) return;
+
+      const activeRatio = (state.commodity && state.commodity.activeRatio) || 'COPPER_GOLD';
+
+      const coppers = SERIES_DB.copper ? SERIES_DB.copper.data : [];
+      const golds = SERIES_DB.gold ? SERIES_DB.gold.data : [];
+      const silvers = SERIES_DB.silver ? SERIES_DB.silver.data : [];
+      const wtis = SERIES_DB.wti ? SERIES_DB.wti.data : [];
+      const crbs = SERIES_DB.crb ? SERIES_DB.crb.data : [];
+      const sps = SERIES_DB.sp500 ? SERIES_DB.sp500.data : [];
+      const us10ys = SERIES_DB.us_10y ? SERIES_DB.us_10y.data : (SERIES_DB.us10y ? SERIES_DB.us10y.data : []);
+
+      // Calculate latest KPI values
+      const lastIdx = MONTHS.length - 1;
+      const curCopper = coppers[lastIdx] || 4.58;
+      const curGold = golds[lastIdx] || 3728;
+      const curSilver = silvers[lastIdx] || 30.8;
+      const curWti = wtis[lastIdx] || 81.9;
+      const curCrb = crbs[lastIdx] || 285.2;
+      const curSp = sps[lastIdx] || 6910;
+
+      const cgVal = (curCopper / curGold) * 1000;
+      const gsVal = curGold / curSilver;
+      const goVal = curGold / curWti;
+      const csVal = curCrb / curSp;
+
+      const cgEl = document.getElementById('ratio-coppergold-val');
+      const gsEl = document.getElementById('ratio-goldsilver-val');
+      const goEl = document.getElementById('ratio-goldoil-val');
+      const csEl = document.getElementById('ratio-crbspx-val');
+
+      if (cgEl) cgEl.textContent = cgVal.toFixed(2);
+      if (gsEl) gsEl.textContent = gsVal.toFixed(1);
+      if (goEl) goEl.textContent = `${goVal.toFixed(1)} 桶`;
+      if (csEl) csEl.textContent = csVal.toFixed(3);
+
+      // Highlight active button
+      document.querySelectorAll('.cratio-btn').forEach(btn => {
+        if (btn.dataset.cratio === activeRatio) {
+          btn.className = 'cratio-btn px-2.5 py-1 rounded-lg font-semibold bg-amber-500 text-slate-900 transition-colors shadow-sm';
+        } else {
+          btn.className = 'cratio-btn px-2.5 py-1 rounded-lg font-medium bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors';
+        }
+      });
+
+      // Update Chart Title and Description
+      const titleEl = document.getElementById('commodity-chart-title');
+      const descEl = document.getElementById('commodity-ratio-desc');
+
+      if (activeRatio === 'COPPER_GOLD') {
+        if (titleEl) titleEl.innerHTML = '<i data-lucide="line-chart" class="w-4 h-4 text-amber-500"></i> 銅金比 (Copper/Gold × 1000) vs 美國 10 年期公債殖利率 (%)';
+        if (descEl) descEl.textContent = '銅金比 (Doctor Copper vs Gold) 與美國 10 年期公債殖利率呈現高達 82% 統計正相關，為掌握實質成長與通膨預期的核心羅盤。';
+      } else if (activeRatio === 'GOLD_SILVER') {
+        if (titleEl) titleEl.innerHTML = '<i data-lucide="line-chart" class="w-4 h-4 text-amber-500"></i> 金銀比 (Gold/Silver GSR) 走勢與歷史均值 (65) 臨界線';
+        if (descEl) descEl.textContent = '金銀比 (GSR) 衡量市場極端避險恐慌度。歷史均值為 65；當 GSR 突破 85 時，通常預示白銀與有色金屬迎來爆發性補漲均值回歸。';
+      } else if (activeRatio === 'GOLD_OIL') {
+        if (titleEl) titleEl.innerHTML = '<i data-lucide="line-chart" class="w-4 h-4 text-amber-500"></i> 油金比 (Gold/Oil Ratio, 桶/盎司) vs WTI 原油價格 (USD)';
+        if (descEl) descEl.textContent = '油金比代表 1 盎司黃金可購買的原油桶數（長期均值約 18~22 桶）。目前比率高達 45 桶，能源商品相對於黃金深幅折價。';
+      } else if (activeRatio === 'CRB_SPX') {
+        if (titleEl) titleEl.innerHTML = '<i data-lucide="line-chart" class="w-4 h-4 text-amber-500"></i> CRB 大宗商品指數 / 標普 500 比率 (CRB / SPX)';
+        if (descEl) descEl.textContent = '大宗商品相對標普 500 處於 50 年估值世紀低點。歷史上此類估值極端偏離往往引發為期數年的實質資產超級週期 (Supercycle)。';
+      }
+
+      // Render Chart
+      renderCommodityRatioChart(activeRatio, coppers, golds, silvers, wtis, crbs, sps, us10ys);
+      lucide.createIcons();
+    }
+
+    function renderCommodityRatioChart(activeRatio, coppers, golds, silvers, wtis, crbs, sps, us10ys) {
+      const canvas = document.getElementById('commodityRatioChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.commodityRatio) {
+        charts.commodityRatio.destroy();
+        charts.commodityRatio = null;
+      }
+
+      const labels = MONTHS;
+      let datasets = [];
+      let y1Config = { display: false };
+
+      if (activeRatio === 'COPPER_GOLD') {
+        const cgData = coppers.map((c, i) => (c / (golds[i] || 2640)) * 1000);
+        const us10Data = us10ys.map(u => u || 4.5);
+
+        datasets = [
+          {
+            label: '銅金比 (×1000)',
+            data: cgData,
+            borderColor: '#f59e0b',
+            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+            yAxisID: 'y',
+            tension: 0.25,
+            fill: true,
+            borderWidth: 2.5,
+            pointRadius: 2.5
+          },
+          {
+            label: '10Y 美債殖利率 (%)',
+            data: us10Data,
+            borderColor: '#3b82f6',
+            borderDash: [4, 4],
+            yAxisID: 'y1',
+            tension: 0.25,
+            fill: false,
+            borderWidth: 2,
+            pointRadius: 2
+          }
+        ];
+        y1Config = {
+          display: true,
+          position: 'right',
+          grid: { drawOnChartArea: false },
+          ticks: { color: textColor(), callback: v => v + '%' },
+          title: { display: true, text: '美債 10Y (%)', color: textColor() }
+        };
+      } else if (activeRatio === 'GOLD_SILVER') {
+        const gsData = golds.map((g, i) => g / (silvers[i] || 30));
+        datasets = [
+          {
+            label: '金銀比 (GSR)',
+            data: gsData,
+            borderColor: '#f59e0b',
+            backgroundColor: 'rgba(245, 158, 11, 0.15)',
+            tension: 0.25,
+            fill: true,
+            borderWidth: 2.5,
+            pointRadius: 3
+          },
+          {
+            label: '歷史均值基準 (65)',
+            data: labels.map(() => 65),
+            borderColor: '#10b981',
+            borderDash: [6, 4],
+            fill: false,
+            pointRadius: 0,
+            borderWidth: 1.5
+          },
+          {
+            label: '極度恐慌高點警戒 (85)',
+            data: labels.map(() => 85),
+            borderColor: '#ef4444',
+            borderDash: [4, 4],
+            fill: false,
+            pointRadius: 0,
+            borderWidth: 1.5
+          }
+        ];
+      } else if (activeRatio === 'GOLD_OIL') {
+        const goData = golds.map((g, i) => g / (wtis[i] || 75));
+        datasets = [
+          {
+            label: '油金比 (桶/盎司)',
+            data: goData,
+            borderColor: '#3b82f6',
+            backgroundColor: 'rgba(59, 130, 246, 0.15)',
+            yAxisID: 'y',
+            tension: 0.25,
+            fill: true,
+            borderWidth: 2.5,
+            pointRadius: 3
+          },
+          {
+            label: 'WTI 原油價格 ($/bbl)',
+            data: wtis,
+            borderColor: '#ef4444',
+            borderDash: [4, 4],
+            yAxisID: 'y1',
+            tension: 0.25,
+            fill: false,
+            borderWidth: 2,
+            pointRadius: 2
+          }
+        ];
+        y1Config = {
+          display: true,
+          position: 'right',
+          grid: { drawOnChartArea: false },
+          ticks: { color: textColor(), callback: v => '$' + v },
+          title: { display: true, text: 'WTI 原油 ($)', color: textColor() }
+        };
+      } else if (activeRatio === 'CRB_SPX') {
+        const csData = crbs.map((c, i) => c / (sps[i] || 6000));
+        datasets = [
+          {
+            label: 'CRB / S&P 500 比率',
+            data: csData,
+            borderColor: '#a855f7',
+            backgroundColor: 'rgba(168, 85, 247, 0.15)',
+            tension: 0.25,
+            fill: true,
+            borderWidth: 2.5,
+            pointRadius: 3
+          }
+        ];
+      }
+
+      charts.commodityRatio = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: datasets
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  return `${c.dataset.label}: ${Number(c.raw).toFixed(3)}`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: gridColor() },
+              ticks: { color: textColor(), maxTicksLimit: 12 }
+            },
+            y: {
+              grid: { color: gridColor() },
+              ticks: { color: textColor() }
+            },
+            y1: y1Config
+          }
+        }
+      });
+    }
+
+    function initCommodityEvents() {
+      document.querySelectorAll('.cratio-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.commodity.activeRatio = btn.dataset.cratio;
+          renderCommoditySupercycleSection();
+        });
+      });
+
+      const loadBtn = document.getElementById('load-commodity-to-main-btn');
+      if (loadBtn) {
+        loadBtn.addEventListener('click', () => {
+          const act = (state.commodity && state.commodity.activeRatio) || 'COPPER_GOLD';
+          if (act === 'COPPER_GOLD') {
+            state.toolbox.left = 'copper';
+            state.toolbox.right = 'us10y';
+          } else if (act === 'GOLD_SILVER') {
+            state.toolbox.left = 'gold';
+            state.toolbox.right = 'silver';
+          } else if (act === 'GOLD_OIL') {
+            state.toolbox.left = 'gold';
+            state.toolbox.right = 'wti';
+          } else if (act === 'CRB_SPX') {
+            state.toolbox.left = 'crb';
+            state.toolbox.right = 'sp500';
+          }
+
+          const selL = document.getElementById('series-left');
+          const selR = document.getElementById('series-right');
+          if (selL) selL.value = state.toolbox.left;
+          if (selR) selR.value = state.toolbox.right;
+
+          renderToolbox();
+          const targetEl = document.getElementById('toolboxChart');
+          if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          showToast(`已載入 ${state.toolbox.left} vs ${state.toolbox.right} 至上方雙軸工具箱！`);
+        });
+      }
+    }
+
+        function renderToolbox() {
       document.querySelectorAll('.range-btn').forEach(btn => {
         const active = Number(btn.dataset.range) === state.toolbox.range;
         btn.className = `range-btn py-2 rounded-lg text-xs font-medium border transition-colors ${
@@ -10044,6 +10540,7 @@
       document.getElementById('toolbox-chart-title').textContent = `${sL.name} vs ${sR.name}`;
       document.getElementById('toolbox-corr-badge').textContent = `區間相關係數 r = ${corr}`;
       renderCorrelationMatrix();
+      renderCommoditySupercycleSection();
 
       const ctx = document.getElementById('toolboxChart').getContext('2d');
       if (charts.toolbox) charts.toolbox.destroy();
@@ -11750,12 +12247,14 @@
         btnRet.addEventListener('click', () => {
           state.corr.mode = 'returns';
           renderCorrelationMatrix();
+      renderCommoditySupercycleSection();
         });
       }
       if (btnLev) {
         btnLev.addEventListener('click', () => {
           state.corr.mode = 'levels';
           renderCorrelationMatrix();
+      renderCommoditySupercycleSection();
         });
       }
       const win24 = document.getElementById('corr-win-24');
@@ -11764,12 +12263,14 @@
         win24.addEventListener('click', () => {
           state.corr.window = '24';
           renderCorrelationMatrix();
+      renderCommoditySupercycleSection();
         });
       }
       if (win12) {
         win12.addEventListener('click', () => {
           state.corr.window = '12';
           renderCorrelationMatrix();
+      renderCommoditySupercycleSection();
         });
       }
       const jumpCorrBtn = document.getElementById('jump-to-corr-matrix-btn');
@@ -12041,6 +12542,8 @@
       initHistoryModalEvents();
       initStressTestEvents();
       renderStressTestSimulator();
+      initCommodityEvents();
+      renderCommoditySupercycleSection();
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
       renderTaiwanRadarQuickCards();
