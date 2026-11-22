@@ -1860,17 +1860,28 @@
 
       </div>
 
-      <!-- 8. 國際總經與美股 AI 巨頭聯動監控 -->
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
-        <div class="pb-3 border-b border-slate-100 dark:border-slate-800">
-          <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
-            <i data-lucide="globe" class="w-5 h-5 text-indigo-500"></i> 國際總體經濟與美股 AI 巨頭聯動監控
-          </h2>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
-            全球利率、美股巨頭 AI 資本支出（CapEx）與出口管制對台股硬體代工之傳導剖析
-          </p>
+      <!-- 8. 國際總經與美股 AI 巨頭聯動監控 & 四大 CSP 資本支出傳導模型 -->
+      <div id="csp-capex-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-indigo-500 text-white animate-pulse">AI 總經傳導</span>
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
+                <i data-lucide="cloud-lightning" class="w-5 h-5 text-indigo-500"></i> 美股四大 CSP 巨頭 AI 資本支出 ＆ 台灣伺服器代工營收領先模型
+              </h2>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              追蹤微軟 (MSFT)、Google (GOOGL)、Meta、亞馬遜 (AMZN) 2023~2027 年 AI 資本支出規模，精算資金傳導至台積電、鴻海、廣達、緯創之營收與 EPS 敏感度
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2.5 py-1 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold border border-indigo-500/20">
+              2026E 總支出 $3,570 億美元 (+19.4%)
+            </span>
+          </div>
         </div>
 
+        <!-- 4 欄國際總經與美股指標 KPI -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-3.5">
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('macro', 'us10y')">
             <div class="flex items-center justify-between">
@@ -1892,7 +1903,7 @@
 
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1 cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('macro', 'nvda')">
             <div class="flex items-center justify-between">
-              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">NVIDIA (NVDA) 最新股價走勢</span>
+              <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">NVIDIA (NVDA) 最新走勢</span>
               <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
             </div>
             <div class="text-xl font-bold tabular-nums text-emerald-600 dark:text-emerald-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">$182.50</div>
@@ -1900,18 +1911,148 @@
           </div>
 
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-1">
-            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美科技巨頭 AI 資本支出 (CapEx)</div>
-            <div class="text-xl font-bold tabular-nums text-indigo-600 dark:text-indigo-400">&gt; $3,200 億美元</div>
-            <div class="text-[11px] text-slate-500 dark:text-slate-300">Microsoft/Google/Meta 續調升支出</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美四大巨頭 AI 資本支出總額</div>
+            <div id="csp-kpi-total-capex" class="text-xl font-bold tabular-nums text-indigo-600 dark:text-indigo-400">$3,570 億美元</div>
+            <div class="text-[11px] text-emerald-600 dark:text-emerald-400">年增 +19.4% · 歷史級擴張週期</div>
           </div>
         </div>
 
+        <!-- 四大 CSP 資本支出長條堆疊圖表 -->
+        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200/80 dark:border-slate-700/60 space-y-3">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                <i data-lucide="bar-chart-3" class="w-4 h-4 text-indigo-500"></i> 四大雲端巨頭 (Hyperscalers) 歷年 AI 資本支出 (2023~2027E, $ 億美元)
+              </span>
+            </div>
+            <div class="flex items-center gap-2.5 text-[11px] flex-wrap">
+              <span class="flex items-center gap-1 text-sky-600 dark:text-sky-400 font-semibold">
+                <span class="w-2.5 h-2.5 rounded-sm bg-[#0ea5e9] inline-block"></span> Microsoft ($95B)
+              </span>
+              <span class="flex items-center gap-1 text-rose-600 dark:text-rose-400 font-semibold">
+                <span class="w-2.5 h-2.5 rounded-sm bg-[#f43f5e] inline-block"></span> Google ($82B)
+              </span>
+              <span class="flex items-center gap-1 text-blue-600 dark:text-blue-400 font-semibold">
+                <span class="w-2.5 h-2.5 rounded-sm bg-[#3b82f6] inline-block"></span> Meta ($75B)
+              </span>
+              <span class="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-semibold">
+                <span class="w-2.5 h-2.5 rounded-sm bg-[#f59e0b] inline-block"></span> Amazon ($105B)
+              </span>
+            </div>
+          </div>
+
+          <div class="relative h-60 sm:h-64 w-full">
+            <canvas id="cspCapexChart"></canvas>
+          </div>
+        </div>
+
+        <!-- 伺服器 BOM 表硬體價值拆解與台廠關鍵地位 -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-indigo-500"></i> 1. 晶圓先進製程
+              </span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">BOM 32%</span>
+            </div>
+            <div class="font-semibold text-slate-800 dark:text-slate-200">台積電 (2330) 獨家壟斷</div>
+            <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed">
+              Blackwell B200/GB200 全數採用台積電 4NP 與 CoWoS-L 封裝，市佔率近 100%，產能滿載至 2027。
+            </p>
+          </div>
+
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                <i data-lucide="server" class="w-3.5 h-3.5 text-blue-500"></i> 2. 伺服器機櫃組裝
+              </span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-600 dark:text-blue-400">BOM 40%</span>
+            </div>
+            <div class="font-semibold text-slate-800 dark:text-slate-200">鴻海 (2317) ＆ 廣達 (2382)</div>
+            <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed">
+              鴻海預計奪下約 40% NVL72 整機櫃代工份額，廣達穩居 30% 第二大代工，緯穎/緯創主打 ASIC 伺服器。
+            </p>
+          </div>
+
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                <i data-lucide="droplet" class="w-3.5 h-3.5 text-cyan-500"></i> 3. 水冷散熱架構
+              </span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-600 dark:text-cyan-400">BOM 12%</span>
+            </div>
+            <div class="font-semibold text-slate-800 dark:text-slate-200">奇鋐 (3017) ＆ 雙鴻 (3324)</div>
+            <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed">
+              GB200 功耗達 120kW 必須全面導入液冷。水冷板 (Cold Plate)、CDU 與分歧管台廠市佔率超過 75%。
+            </p>
+          </div>
+
+          <div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-slate-900 dark:text-white flex items-center gap-1">
+                <i data-lucide="network" class="w-3.5 h-3.5 text-emerald-500"></i> 4. 高速交換與電源
+              </span>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">BOM 16%</span>
+            </div>
+            <div class="font-semibold text-slate-800 dark:text-slate-200">智邦 (2345) ＆ 台達電 (2308)</div>
+            <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed">
+              800G 與 1.6T 高速交換機不可或缺；台達電在高瓦數 AI 伺服器電源供應器全球市佔超過 50%。
+            </p>
+          </div>
+        </div>
+
+        <!-- CapEx 敏感度試算滑桿與台股 EPS 傳導模擬器 -->
+        <div class="p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-200/80 dark:border-indigo-800/60 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-xs uppercase font-black px-2 py-0.5 rounded bg-indigo-600 text-white">動態模擬器</span>
+                <span class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <i data-lucide="sliders" class="w-4 h-4 text-indigo-500"></i> 2026 美股四大巨頭 CapEx 支出敏感度 ➔ 台股 EPS 傳導模擬
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                拉動滑桿調整四大巨頭資本支出上修/下修幅度，即時精算台灣主要 AI 權值龍頭之營收與每股盈餘 (EPS) 彈性
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-bold text-slate-600 dark:text-slate-300">CapEx 調整幅度：</span>
+              <span id="capex-delta-val" class="text-xl font-black text-indigo-600 dark:text-indigo-400 tabular-nums">0% (基準)</span>
+            </div>
+          </div>
+
+          <!-- Slider & Quick Preset Chips -->
+          <div class="space-y-2">
+            <input id="capex-sensitivity-slider" type="range" min="-20" max="30" step="5" value="0" class="w-full accent-indigo-600 cursor-pointer" />
+            <div class="flex justify-between text-[10px] text-slate-400 font-mono px-0.5">
+              <span>-20% (悲觀衰退)</span>
+              <span>-10%</span>
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">0% (市場共識 $3,570億)</span>
+              <span>+10%</span>
+              <span>+20%</span>
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">+30% (超級循環 $4,640億)</span>
+            </div>
+            <div class="flex items-center gap-1.5 flex-wrap pt-1" id="capex-quick-btns">
+              <button type="button" data-val="-10" class="capex-quick-btn px-2.5 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors">下修 -10% (支出放緩)</button>
+              <button type="button" data-val="0" class="capex-quick-btn px-2.5 py-1 text-xs rounded-lg font-bold bg-indigo-600 text-white shadow-sm transition-colors">0% (基準共識 $3,570億)</button>
+              <button type="button" data-val="15" class="capex-quick-btn px-2.5 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors">上修 +15% (樂觀擴張)</button>
+              <button type="button" data-val="25" class="capex-quick-btn px-2.5 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors">上修 +25% (超級週期)</button>
+            </div>
+          </div>
+
+          <!-- 4 檔標的動態傳導試算卡片 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="capex-simulation-cards">
+            <!-- 動態由 JS 渲染台積電、鴻海、廣達、緯創之營收與 EPS 模擬 -->
+          </div>
+        </div>
+
+        <!-- 產業解讀總結 -->
         <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/50 space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
           <div class="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-            <i data-lucide="info" class="w-4 h-4 text-indigo-500"></i> 總經與產業深度解讀：
+            <i data-lucide="info" class="w-4 h-4 text-indigo-500"></i> 總經與 AI 資本支出連動解讀：
           </div>
           <p>
-            當前台股暴跌主因為「融資籌碼多殺多與長端利率高檔引發的短期流動性衝擊」，並非「AI 實體訂單或產業趨勢逆轉」。微軟、Meta、Alphabet 與亞馬遜最新法說會均重申 2026 年資本支出維持強勁雙位數擴張，台積電先進製程產能滿載至 2027 年。短期的恐慌性折價恰恰為長線資金創造了以合理甚至低估本益比買入全球頂尖 AI 硬體供應鏈的絕佳戰略窗口。
+            四大雲端巨頭（微軟、Google、Meta、亞馬遜）最新財報與法說會均重申「AI 基礎設施資本支出不足的風險，遠高於過度投資的風險」。2026 年四大巨頭總資本支出預估將突破 <strong>$3,570 億美元（約合新台幣 11.5 兆元）</strong>，硬體代工訂單全數流向台灣先進製程與機櫃代工鏈。這證實當前市場波動屬於「長端利率與融資籌碼清洗」，實質基本面獲利動能絲毫未損。
           </p>
         </div>
       </div>
@@ -4859,7 +5000,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -6919,6 +7060,9 @@
       // 渲染金字塔分批建倉與部位試算器
       renderTaiwanDcaCalculator();
 
+      // 渲染四大 CSP 巨頭 AI 資本支出傳導模型
+      renderTaiwanCspCapexModel();
+
       lucide.createIcons();
     }
 
@@ -7446,6 +7590,221 @@
           });
         });
       }
+    }
+
+    let currentCapexDelta = 0;
+
+    const CSP_CAPEX_DATA = {
+      years: ['2023', '2024', '2025', '2026E', '2027E'],
+      msft: [32, 55, 78, 95, 110],
+      googl: [32, 51, 68, 82, 95],
+      meta: [28, 40, 62, 75, 88],
+      amzn: [48, 72, 91, 105, 120]
+    };
+
+    const CSP_STOCKS_SENSITIVITY = [
+      {
+        id: 'tsmc',
+        name: '台積電 (2330)',
+        role: '晶圓代工與 CoWoS 封裝獨佔',
+        baseEps: 72.5,
+        revPer10Pct: 820,
+        epsPer10Pct: 3.80,
+        note: 'B200/GB200 先進製程市佔 99%+，產能滿載至 2027'
+      },
+      {
+        id: 'honhai',
+        name: '鴻海 (2317)',
+        role: 'GB200 NVL72 整機櫃代工龍頭',
+        baseEps: 16.2,
+        revPer10Pct: 1450,
+        epsPer10Pct: 1.15,
+        note: '全球 NVL72 市佔預估約 40%，垂直整合水冷與散熱'
+      },
+      {
+        id: 'quanta',
+        name: '廣達 (2382)',
+        role: 'Google / AWS / Meta 三棲主力',
+        baseEps: 18.8,
+        revPer10Pct: 720,
+        epsPer10Pct: 1.45,
+        note: '三大 CSP 白牌 AI 伺服器首選，市佔率約 30%'
+      },
+      {
+        id: 'wistron',
+        name: '緯創 (3231)',
+        role: 'NVIDIA GPU 基板 (Baseboard) 主力',
+        baseEps: 9.2,
+        revPer10Pct: 460,
+        epsPer10Pct: 0.75,
+        note: '囊括 NVIDIA B200 運算模組基板高份額，子公司緯穎專精 ASIC'
+      }
+    ];
+
+    function renderTaiwanCspCapexModel(deltaPct) {
+      if (deltaPct !== undefined) currentCapexDelta = Number(deltaPct);
+      const delta = currentCapexDelta;
+
+      const deltaEl = document.getElementById('capex-delta-val');
+      if (deltaEl) {
+        const sign = delta > 0 ? '+' : '';
+        const stage = delta > 20 ? '(超級循環)' : delta > 0 ? '(樂觀擴張)' : delta < 0 ? '(支出放緩)' : '(基準共識)';
+        deltaEl.textContent = `${sign}${delta}% ${stage}`;
+        deltaEl.className = `text-xl font-black tabular-nums ${delta > 0 ? 'text-emerald-600 dark:text-emerald-400' : delta < 0 ? 'text-rose-600 dark:text-rose-400' : 'text-indigo-600 dark:text-indigo-400'}`;
+      }
+
+      const slider = document.getElementById('capex-sensitivity-slider');
+      if (slider && Number(slider.value) !== delta) slider.value = delta;
+
+      document.querySelectorAll('.capex-quick-btn').forEach(btn => {
+        if (Number(btn.dataset.val) === delta) {
+          btn.className = 'capex-quick-btn px-2.5 py-1 text-xs rounded-lg font-bold bg-indigo-600 text-white shadow-sm transition-colors';
+        } else {
+          btn.className = 'capex-quick-btn px-2.5 py-1 text-xs rounded-lg border border-slate-200 dark:border-slate-700 hover:border-indigo-500 text-slate-600 dark:text-slate-300 transition-colors';
+        }
+      });
+
+      const base2026 = 95 + 82 + 75 + 105;
+      const adjustedTotal = Math.round(base2026 * (1 + delta / 100));
+      const kpiTotal = document.getElementById('csp-kpi-total-capex');
+      if (kpiTotal) {
+        kpiTotal.textContent = `$${adjustedTotal.toLocaleString()} 億美元`;
+      }
+
+      const canvas = document.getElementById('cspCapexChart');
+      if (canvas) {
+        if (charts.cspCapex) {
+          charts.cspCapex.destroy();
+          charts.cspCapex = null;
+        }
+
+        const isDark = document.documentElement.classList.contains('dark');
+        const gridColor = isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.06)';
+        const textColor = isDark ? '#94a3b8' : '#64748b';
+
+        const msftAdj = [...CSP_CAPEX_DATA.msft];
+        const googlAdj = [...CSP_CAPEX_DATA.googl];
+        const metaAdj = [...CSP_CAPEX_DATA.meta];
+        const amznAdj = [...CSP_CAPEX_DATA.amzn];
+
+        msftAdj[3] = Math.round(msftAdj[3] * (1 + delta / 100));
+        googlAdj[3] = Math.round(googlAdj[3] * (1 + delta / 100));
+        metaAdj[3] = Math.round(metaAdj[3] * (1 + delta / 100));
+        amznAdj[3] = Math.round(amznAdj[3] * (1 + delta / 100));
+
+        const ctx = canvas.getContext('2d');
+        charts.cspCapex = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: CSP_CAPEX_DATA.years,
+            datasets: [
+              { label: 'Microsoft ($B)', data: msftAdj, backgroundColor: '#0ea5e9', borderRadius: 2 },
+              { label: 'Google ($B)', data: googlAdj, backgroundColor: '#f43f5e', borderRadius: 2 },
+              { label: 'Meta ($B)', data: metaAdj, backgroundColor: '#3b82f6', borderRadius: 2 },
+              { label: 'Amazon ($B)', data: amznAdj, backgroundColor: '#f59e0b', borderRadius: 2 }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { mode: 'index', intersect: false },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                titleColor: isDark ? '#f8fafc' : '#0f172a',
+                bodyColor: isDark ? '#cbd5e1' : '#334155',
+                borderColor: isDark ? '#334155' : '#e2e8f0',
+                borderWidth: 1,
+                callbacks: {
+                  footer: function(items) {
+                    const total = items.reduce((s, it) => s + it.raw, 0);
+                    return `四大巨頭總計: $${total.toLocaleString()} 億美元`;
+                  }
+                }
+              }
+            },
+            scales: {
+              x: {
+                stacked: true,
+                grid: { display: false },
+                ticks: { color: textColor, font: { weight: 'bold' } }
+              },
+              y: {
+                stacked: true,
+                grid: { color: gridColor },
+                ticks: {
+                  color: textColor,
+                  callback: v => `$${v}B`
+                }
+              }
+            }
+          }
+        });
+      }
+
+      const cardsContainer = document.getElementById('capex-simulation-cards');
+      if (cardsContainer) {
+        cardsContainer.innerHTML = CSP_STOCKS_SENSITIVITY.map(stk => {
+          const revDelta = Math.round(stk.revPer10Pct * (delta / 10));
+          const epsDelta = Number((stk.epsPer10Pct * (delta / 10)).toFixed(2));
+          const simulatedEps = (stk.baseEps + epsDelta).toFixed(1);
+          const revSign = revDelta >= 0 ? '+' : '';
+          const epsSign = epsDelta >= 0 ? '+' : '';
+          const badgeCls = delta > 0 ? 'text-emerald-600 dark:text-emerald-400' : delta < 0 ? 'text-rose-600 dark:text-rose-400' : 'text-slate-600 dark:text-slate-300';
+
+          return `
+            <div class="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 space-y-2 shadow-sm transition-all hover:border-indigo-500">
+              <div class="flex items-center justify-between">
+                <div>
+                  <div class="font-bold text-sm text-slate-900 dark:text-white">${stk.name}</div>
+                  <div class="text-[10px] text-indigo-600 dark:text-indigo-400 font-medium">${stk.role}</div>
+                </div>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 font-mono text-slate-500">
+                  基準 NT$ ${stk.baseEps}
+                </span>
+              </div>
+
+              <div class="pt-1 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-2">
+                <div>
+                  <div class="text-[10px] text-slate-400">營收潛在彈性</div>
+                  <div class="text-sm font-bold tabular-nums ${badgeCls}">
+                    ${revSign}${revDelta.toLocaleString()} 億
+                  </div>
+                </div>
+                <div>
+                  <div class="text-[10px] text-slate-400">2026E 模擬 EPS</div>
+                  <div class="text-sm font-black tabular-nums text-indigo-600 dark:text-indigo-400">
+                    NT$ ${simulatedEps}
+                    <span class="text-[10px] font-normal ${badgeCls}">(${epsSign}${epsDelta})</span>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-[10px] text-slate-500 dark:text-slate-400 leading-tight pt-1">
+                ${stk.note}
+              </p>
+            </div>
+          `;
+        }).join('');
+      }
+
+      lucide.createIcons();
+    }
+
+    function initTaiwanCspEvents() {
+      const slider = document.getElementById('capex-sensitivity-slider');
+      if (slider) {
+        slider.addEventListener('input', e => {
+          renderTaiwanCspCapexModel(e.target.value);
+        });
+      }
+
+      document.querySelectorAll('.capex-quick-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          renderTaiwanCspCapexModel(btn.dataset.val);
+        });
+      });
     }
 
 
@@ -10303,6 +10662,7 @@
       // 台股專屬分頁按鈕事件
       initTaiwanBacktestEvents();
       initTaiwanDcaEvents();
+      initTaiwanCspEvents();
       const twRefresh = document.getElementById('tw-refresh-btn');
       if (twRefresh) {
         twRefresh.addEventListener('click', () => loadTaiwanBottomData(true));
