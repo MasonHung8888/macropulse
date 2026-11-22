@@ -5992,8 +5992,8 @@
               <td class="p-3 text-right tabular-nums ${d.dist_ma20_pct < 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}">${d.dist_ma20_pct !== undefined ? (d.dist_ma20_pct >= 0 ? '+' : '') + d.dist_ma20_pct.toFixed(1) + '%' : '—'}</td>
               <td class="p-3 text-right tabular-nums ${d.dist_ma60_pct < 0 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}">${d.dist_ma60_pct !== undefined ? (d.dist_ma60_pct >= 0 ? '+' : '') + d.dist_ma60_pct.toFixed(1) + '%' : '—'}</td>
               <td class="p-3 text-center">
-                <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${d.close && d.ma60 && d.close < d.ma60 ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'}">
-                  ${d.close && d.ma60 ? (d.close < d.ma60 ? '跌破季線' : '站穩季線') : '觀察中'}
+                <span class="px-2 py-0.5 rounded text-[10px] font-semibold ${(d.dist_ma60_pct !== undefined ? d.dist_ma60_pct < 0 : (d.close && d.ma60 ? d.close < d.ma60 : false)) ? 'bg-rose-500/15 text-rose-600 dark:text-rose-400' : 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400'}">
+                  ${(d.dist_ma60_pct !== undefined) ? (d.dist_ma60_pct < 0 ? '跌破季線' : '站穩季線') : (d.close && d.ma60 ? (d.close < d.ma60 ? '跌破季線' : '站穩季線') : '觀察中')}
                 </span>
               </td>
               <td class="p-3 text-slate-500 dark:text-slate-400 text-xs">${item.extra}</td>

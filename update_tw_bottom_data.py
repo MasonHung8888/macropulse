@@ -951,6 +951,10 @@ def main():
                 scaled_closes = [round(c * ratio, 2) for c in raw_closes]
                 scaled_ma20 = [round(m * ratio, 2) if m is not None else None for m in raw_hist.get("ma20", [])]
                 scaled_ma60 = [round(m * ratio, 2) if m is not None else None for m in raw_hist.get("ma60", [])]
+                if g.get("ma5"): twse_indices[idx_key]["ma5"] = round(g.get("ma5") * ratio, 2)
+                if g.get("ma10"): twse_indices[idx_key]["ma10"] = round(g.get("ma10") * ratio, 2)
+                if g.get("ma20"): twse_indices[idx_key]["ma20"] = round(g.get("ma20") * ratio, 2)
+                if g.get("ma60"): twse_indices[idx_key]["ma60"] = round(g.get("ma60") * ratio, 2)
                 twse_indices[idx_key]["history"] = {
                     "dates": raw_hist.get("dates", []),
                     "closes": scaled_closes,
@@ -987,6 +991,10 @@ def main():
             scaled_closes = [round(c * ratio, 2) for c in raw_closes]
             scaled_ma20 = [round(m * ratio, 2) if m is not None else None for m in raw_hist.get("ma20", [])]
             scaled_ma60 = [round(m * ratio, 2) if m is not None else None for m in raw_hist.get("ma60", [])]
+            if g.get("ma5"): tpex_data["ma5"] = round(g.get("ma5") * ratio, 2)
+            if g.get("ma10"): tpex_data["ma10"] = round(g.get("ma10") * ratio, 2)
+            if g.get("ma20"): tpex_data["ma20"] = round(g.get("ma20") * ratio, 2)
+            if g.get("ma60"): tpex_data["ma60"] = round(g.get("ma60") * ratio, 2)
             tpex_data["history"] = {
                 "dates": raw_hist.get("dates", []),
                 "closes": scaled_closes,
