@@ -505,7 +505,194 @@
         </div>
       </div>
 
-      <!-- 聯準會降息路徑期貨定價 (FedWatch Rate Path Tracker) -->
+
+      <!-- 美國公債殖利率動態期限結構 ＆ 紐約 Fed ACM 期限溢價量化雷達 (US Treasury Term Structure & ACM Term Premium Radar) -->
+      <div id="treasury-term-structure-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+        <!-- 標題列 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-blue-600 text-white animate-pulse">全天候定價之錨</span>
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
+                <i data-lucide="trending-up" class="w-5 h-5 text-indigo-500"></i> 美國公債殖利率動態期限結構 ＆ 紐約 Fed ACM 期限溢價量化雷達
+              </h2>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              追蹤美國財政部 1M~30Y 完整公債殖利率期限結構形態（當前 vs 1個月前 vs 1年前極端倒掛），並以紐約聯準會 ACM 模型拆解「純利率預期」與「長債期限溢價 (Term Premium)」
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-bold border border-indigo-500/20">
+              US Treasury &amp; NY Fed ACM Model
+            </span>
+          </div>
+        </div>
+
+        <!-- 4 欄核心 KPI 卡片 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+          <!-- 1. 10Y-2Y 利差 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span>10Y - 2Y 關鍵利差</span>
+                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">倒掛已解除</span>
+              </div>
+              <div id="curve-spread-10y2y" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400">+0.21%</div>
+              <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5 font-medium">+21 bps · 邁向正常向上陡峭</div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+              10年期殖利率重回2年期之上，歷史上倒掛解除後通常預告衰退期結束或景氣週期重新擴張。
+            </div>
+          </div>
+
+          <!-- 2. 10Y-3M 利差 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span>10Y - 3M 借貸利差 (Fed最看重)</span>
+                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-500/15 text-blue-600 dark:text-blue-400">收斂即將翻正</span>
+              </div>
+              <div id="curve-spread-10y3m" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-blue-600 dark:text-blue-400">-0.15%</div>
+              <div class="text-[11px] text-blue-600 dark:text-blue-400 mt-0.5 font-medium">-15 bps · 自 -180 bps 歷史極值修復</div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+              銀行實體借短貸長之盈利利差核心指標，即將翻正代表商業銀行信貸緊縮風險已顯著降溫。
+            </div>
+          </div>
+
+          <!-- 3. ACM 10Y 期限溢價 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span>紐約 Fed 10Y 期限溢價 (ACM)</span>
+                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400">由負轉正</span>
+              </div>
+              <div id="curve-acm-premium" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-amber-500">+0.28%</div>
+              <div class="text-[11px] text-amber-600 dark:text-amber-400 mt-0.5 font-medium">發債供給過剩 · 風險補償提升</div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+              衡量投資人持有長天期公債的超額風險溢酬；轉正反映財政部發債膨脹與通膨不確定性補償。
+            </div>
+          </div>
+
+          <!-- 4. 曲線幾何形態判定 -->
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
+                <span>曲線形態判定 (Curve Regime)</span>
+                <span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">結構形態</span>
+              </div>
+              <div id="curve-regime-val" class="text-xl sm:text-2xl font-extrabold tabular-nums mt-1 text-slate-900 dark:text-white">熊市陡峭化</div>
+              <div class="text-[11px] text-indigo-500 mt-0.5 font-medium">長端殖利率上升快於短端</div>
+            </div>
+            <div class="mt-2.5 pt-2 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400 leading-tight">
+              受長端期限溢價抬升驅動，長債承壓但反映經濟成長並非通縮式硬著陸，科技權值股維持韌性。
+            </div>
+          </div>
+        </div>
+
+        <!-- 期限結構走勢圖與四種曲線配置指引 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-1">
+          <!-- 左側 8 欄: Chart.js 期限結構幾何曲線 (1M~30Y) -->
+          <div class="lg:col-span-8 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                <i data-lucide="line-chart" class="w-4 h-4 text-indigo-500"></i> 美國公債殖利率完整期限結構形態 (1M ~ 30Y Yield Curve)
+              </span>
+              <span class="text-[11px] text-slate-400">實線: 最新 ｜ 虛線: 1個月前 ｜ 紅虛線: 1年前極端倒掛</span>
+            </div>
+
+            <!-- 圖表 Canvas -->
+            <div class="relative h-72 sm:h-80 bg-slate-50/50 dark:bg-slate-800/30 rounded-xl p-3 border border-slate-200/60 dark:border-slate-800">
+              <canvas id="treasuryYieldCurveChart"></canvas>
+            </div>
+
+            <!-- 底部量化解讀 -->
+            <div class="p-3 rounded-lg bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-200/70 dark:border-indigo-800/50 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              💡 <strong>期限結構幾何密碼：</strong>當前殖利率曲線已由「2023-2024 年倒 U 型深幅倒掛（短端 5.5% 壓過長端 4.2%）」全面修復為「短端降息回落至 4.4%~4.6%、長端 4.4%~4.7% 的正常向上傾斜形態」，宣告全球金融市場正式走出最長殖利率倒掛週期。
+            </div>
+          </div>
+
+          <!-- 右側 4 欄: 四大曲線形態與跨資產戰術配置矩陣 -->
+          <div class="lg:col-span-4 space-y-3 bg-slate-50/70 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-200/70 dark:border-slate-700/60 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-700">
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                  <i data-lucide="layers" class="w-4 h-4 text-indigo-500"></i> 4 大曲線形態與資產配置勝率
+                </span>
+                <span class="text-[10px] font-semibold text-slate-400">Macro Allocation</span>
+              </div>
+
+              <div class="space-y-2 mt-3 text-xs">
+                <!-- 1. 熊陡 -->
+                <div class="p-2.5 rounded-lg bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-200/60 dark:border-indigo-800/50 space-y-1">
+                  <div class="flex items-center justify-between font-bold">
+                    <span class="text-indigo-700 dark:text-indigo-300 flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-indigo-500"></span> 1. 熊市陡峭化 (當前階段)
+                    </span>
+                    <span class="text-[10px] font-semibold text-indigo-600 dark:text-indigo-400 font-mono">長端上移</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                    成因：通膨預期抬頭或國債發債過剩。<br>
+                    <strong>最佳配置：</strong>減碼超長天期公債 (TLT)，配置超短天期國庫券 (SGOV)、能源大宗與高定價權科技龍頭。
+                  </p>
+                </div>
+
+                <!-- 2. 牛陡 -->
+                <div class="p-2.5 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/60 dark:border-emerald-800/50 space-y-1">
+                  <div class="flex items-center justify-between font-bold">
+                    <span class="text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 2. 牛市陡峭化 (Bull Steepener)
+                    </span>
+                    <span class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 font-mono">降息急行</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                    成因：聯準會快速降息，短端利率雪崩。<br>
+                    <strong>最佳配置：</strong>做多成長型科技股 (QQQ)、新興市場股權與實體黃金。
+                  </p>
+                </div>
+
+                <!-- 3. 熊平 -->
+                <div class="p-2.5 rounded-lg bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200/60 dark:border-amber-800/50 space-y-1">
+                  <div class="flex items-center justify-between font-bold">
+                    <span class="text-amber-700 dark:text-amber-300 flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-amber-500"></span> 3. 熊市平坦化 (Bear Flattener)
+                    </span>
+                    <span class="text-[10px] font-semibold text-amber-600 dark:text-amber-400 font-mono">升息打通膨</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                    成因：央行強硬升息壓制短端。<br>
+                    <strong>最佳配置：</strong>現金定存與超短票 (BIL)，規避高槓桿與房地產板塊。
+                  </p>
+                </div>
+
+                <!-- 4. 倒掛 -->
+                <div class="p-2.5 rounded-lg bg-rose-50/60 dark:bg-rose-950/20 border border-rose-200/60 dark:border-rose-800/50 space-y-1">
+                  <div class="flex items-center justify-between font-bold">
+                    <span class="text-rose-700 dark:text-rose-300 flex items-center gap-1.5">
+                      <span class="w-2 h-2 rounded-full bg-rose-500"></span> 4. 深度倒掛 (Inverted Curve)
+                    </span>
+                    <span class="text-[10px] font-semibold text-rose-600 dark:text-rose-400 font-mono">衰退信號</span>
+                  </div>
+                  <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+                    成因：市場預期未來經濟衰退，避險狂掃長債。<br>
+                    <strong>最佳配置：</strong>鎖定高評級中長債資本利得，降低週期性股票曝險。
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 底部聯動按鈕 -->
+            <div class="pt-2">
+              <button id="open-curve-in-toolbox-btn" type="button" class="w-full py-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold shadow-sm transition-colors flex items-center justify-center gap-1.5">
+                <i data-lucide="line-chart" class="w-3.5 h-3.5"></i> 在研究工具箱對比 10Y-2Y 利差 vs S&amp;P 500
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            <!-- 聯準會降息路徑期貨定價 (FedWatch Rate Path Tracker) -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
@@ -6070,7 +6257,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null, stressTest: null, commodityRatio: null, usdtwdFlow: null, retailSentiment: null, semiconductorCycle: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null, stressTest: null, commodityRatio: null, usdtwdFlow: null, retailSentiment: null, semiconductorCycle: null, treasuryTermStructure: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -9156,7 +9343,130 @@
       `).join('');
     }
 
-    function renderDashboard() {
+
+    // --- 3.54 US Treasury Term Structure & ACM Term Premium Radar ---
+    const TREASURY_CURVE_DATA = {
+      tenors: ['1M', '3M', '6M', '1Y', '2Y', '3Y', '5Y', '7Y', '10Y', '20Y', '30Y'],
+      currentYields: [4.62, 4.58, 4.48, 4.35, 4.22, 4.25, 4.32, 4.40, 4.43, 4.65, 4.68],
+      monthAgoYields: [4.82, 4.78, 4.65, 4.52, 4.38, 4.35, 4.38, 4.45, 4.48, 4.72, 4.75],
+      yearAgoInverted: [5.50, 5.48, 5.42, 5.25, 5.02, 4.68, 4.42, 4.35, 4.25, 4.48, 4.42]
+    };
+
+    function renderTreasuryTermStructureSection() {
+      const container = document.getElementById('treasury-term-structure-section');
+      if (!container) return;
+
+      const tenors = TREASURY_CURVE_DATA.tenors;
+      const cur = TREASURY_CURVE_DATA.currentYields;
+      const m1 = TREASURY_CURVE_DATA.monthAgoYields;
+      const y1 = TREASURY_CURVE_DATA.yearAgoInverted;
+
+      renderTreasuryYieldCurveChart(tenors, cur, m1, y1);
+      lucide.createIcons();
+    }
+
+    function renderTreasuryYieldCurveChart(tenors, cur, m1, y1) {
+      const canvas = document.getElementById('treasuryYieldCurveChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.treasuryTermStructure) {
+        charts.treasuryTermStructure.destroy();
+        charts.treasuryTermStructure = null;
+      }
+
+      charts.treasuryTermStructure = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: tenors,
+          datasets: [
+            {
+              label: '當前最新殖利率曲線 (%)',
+              data: cur,
+              borderColor: '#3b82f6',
+              backgroundColor: 'rgba(59, 130, 246, 0.1)',
+              pointBackgroundColor: '#3b82f6',
+              borderWidth: 3,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              tension: 0.3,
+              fill: true
+            },
+            {
+              label: '1 個月前曲線 (%)',
+              data: m1,
+              borderColor: '#94a3b8',
+              backgroundColor: 'transparent',
+              pointBackgroundColor: '#94a3b8',
+              borderDash: [4, 4],
+              borderWidth: 2,
+              pointRadius: 2.5,
+              tension: 0.3,
+              fill: false
+            },
+            {
+              label: '1 年前極端倒掛曲線 (%)',
+              data: y1,
+              borderColor: '#f43f5e',
+              backgroundColor: 'transparent',
+              pointBackgroundColor: '#f43f5e',
+              borderDash: [5, 4],
+              borderWidth: 2,
+              pointRadius: 2.5,
+              tension: 0.3,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          plugins: {
+            legend: { labels: { color: textColor() } },
+            tooltip: {
+              callbacks: {
+                label: function(c) {
+                  return `${c.dataset.label}: ${Number(c.raw).toFixed(2)}%`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: gridColor() },
+              ticks: { color: textColor() },
+              title: { display: true, text: '公債到期期限 (Tenor)', color: textColor() }
+            },
+            y: {
+              min: 3.8,
+              max: 5.8,
+              grid: { color: gridColor() },
+              ticks: { color: textColor(), callback: v => v.toFixed(1) + '%' },
+              title: { display: true, text: '殖利率 (%)', color: textColor() }
+            }
+          }
+        }
+      });
+    }
+
+    function initTreasuryTermStructureEvents() {
+      const btn = document.getElementById('open-curve-in-toolbox-btn');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          state.toolbox.left = 'spread10y2y';
+          state.toolbox.right = 'sp500';
+          const selL = document.getElementById('series-left');
+          const selR = document.getElementById('series-right');
+          if (selL) selL.value = 'spread10y2y';
+          if (selR) selR.value = 'sp500';
+          switchTab('toolbox');
+          renderToolbox();
+          showToast('已將「10Y-2Y 利差 vs S&P 500」載入研究工具箱！');
+        });
+      }
+    }
+
+        function renderDashboard() {
       renderTrajectory();
       renderMmIndicators();
       renderTop5();
@@ -9256,6 +9566,7 @@
       renderTipsBreakevenChart();
       renderGlobalCbChart();
       renderStressTestSimulator();
+      renderTreasuryTermStructureSection();
     }
 
 
@@ -13543,6 +13854,8 @@
       renderRetailSmartMoneySection();
       initSemiconductorCycleEvents();
       renderSemiconductorCycleSection();
+      initTreasuryTermStructureEvents();
+      renderTreasuryTermStructureSection();
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
       renderTaiwanRadarQuickCards();
