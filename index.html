@@ -2720,8 +2720,11 @@
           </p>
         </div>
         <div class="flex items-center gap-2">
-          <span class="text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex items-center gap-1.5">
-            <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-500"></i> 基準日期：2026-11-20
+          <span class="text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 flex flex-wrap items-center gap-1.5">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-500"></i>
+            <span id="cal-live-date-pill" class="font-bold text-indigo-600 dark:text-indigo-400">即時日期：載入中...</span>
+            <span class="opacity-40">｜</span>
+            <span id="cal-market-ref-pill" class="text-slate-500 dark:text-slate-400">市場數據基準日：2026-11-20 (週五收盤結算)</span>
           </span>
         </div>
       </div>
@@ -3250,7 +3253,7 @@
       { date: '2027-01-28', region: 'US', flag: '🇺🇸', event: '聯準會 (FOMC) 2027 首場利率決議', impact: 'HIGH', note: '全球流動性開局風向球，更新全年降息次數預期' }
     ];
 
-    const TECH_EARNINGS_DATA = [
+    let TECH_EARNINGS_DATA = [
       {
         ticker: 'NVDA',
         name: '輝達 (NVIDIA)',
@@ -9152,9 +9155,39 @@
     }
 
     function getDaysDiff(targetDateStr) {
-      const base = new Date('2026-11-20T00:00:00');
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      const todayStr = `${y}-${m}-${d}`;
+      const base = new Date(todayStr + 'T00:00:00');
       const target = new Date(targetDateStr + 'T00:00:00');
-      return Math.ceil((target - base) / (1000 * 60 * 60 * 24));
+      return Math.round((target - base) / (1000 * 60 * 60 * 24));
+    }
+
+    function updateCalendarLiveHeader() {
+      const now = new Date();
+      const y = now.getFullYear();
+      const m = String(now.getMonth() + 1).padStart(2, '0');
+      const d = String(now.getDate()).padStart(2, '0');
+      const pill = document.getElementById('cal-live-date-pill');
+      if (pill) pill.textContent = `即時日期：${y}-${m}-${d}`;
+    }
+
+    async function loadTechEarningsData() {
+      try {
+        const res = await fetch('tech_earnings_data.json?t=' + Date.now());
+        if (res.ok) {
+          const json = await res.json();
+          if (json && Array.isArray(json.data) && json.data.length > 0) {
+            TECH_EARNINGS_DATA = json.data;
+            if (state.activeTab === 'calendar') renderCalendar();
+            renderTaiwanRadarQuickCards();
+          }
+        }
+      } catch (e) {
+        console.warn('載入 tech_earnings_data.json 失敗，保留預設結構', e);
+      }
     }
 
     function formatCountdownBadge(targetDateStr) {
@@ -9238,6 +9271,7 @@
     }
 
     function renderCalendar() {
+      updateCalendarLiveHeader();
       const isTech = state.calendar.tab === 'tech';
       const techBtn = document.getElementById('cal-track-tech-btn');
       const macroBtn = document.getElementById('cal-track-macro-btn');
@@ -9917,6 +9951,7 @@
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
       renderTaiwanRadarQuickCards();
+      loadTechEarningsData();
       const hashTab = (window.location.hash || '').slice(1);
       const validTabs = ['dashboard', 'taiwan', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'calendar', 'mydash', 'import'];
       const initialTab = validTabs.includes(hashTab) ? hashTab : 'dashboard';

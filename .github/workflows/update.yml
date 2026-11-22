@@ -27,10 +27,11 @@ jobs:
         run: |
           python update_macro_data.py
           python update_tw_bottom_data.py
+          python update_tech_earnings.py
       - name: Commit updated JSON
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add macro_live_data.json tw_bottom_data.json tw_bottom_prev.json
-          git diff --staged --quiet || git commit -m "chore: auto-update macro and taiwan bottom data"
+          git add macro_live_data.json tw_bottom_data.json tw_bottom_prev.json tech_earnings_data.json
+          git diff --staged --quiet || git commit -m "chore: auto-update macro, taiwan bottom and tech earnings data"
           git push
