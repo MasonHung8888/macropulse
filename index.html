@@ -1102,6 +1102,211 @@
           </div>
         </div>
       </div>
+    
+      <!-- 全球多資產極端壓力測試 ＆ 4 大黑天鵝情境模擬器 (Global Macro Stress Testing & Tail-Risk Portfolio Simulator) -->
+      <div id="macro-stress-test-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+        <!-- 標題列 -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 class="font-bold text-base sm:text-lg flex items-center gap-2">
+                <i data-lucide="activity" class="w-5 h-5 text-rose-500"></i> 全球多資產極端壓力測試 ＆ 4 大黑天鵝情境模擬器
+              </h2>
+              <span id="stress-scenario-badge" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/20">
+                1970s 停滯性通膨 2.0
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+              根據歷史極端黑天鵝與量化宏觀假設，即時評估你的投資組合在極端尾部風險下的預期損益、99% VaR 最大回撤與機構對沖指引
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="px-2.5 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium">
+              壓力測試引擎 (Tail-Risk VaR)
+            </span>
+          </div>
+        </div>
+
+        <!-- 4 大黑天鵝情境選擇卡片 -->
+        <div>
+          <div class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2 flex items-center justify-between">
+            <span>選擇極端總經情境 (Macro Stress Scenario)</span>
+            <span class="text-[11px] text-slate-400 font-normal">點擊切換測試情境</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <button type="button" data-scenario="stagflation" class="stress-scenario-card text-left p-3.5 rounded-xl border transition-all duration-200 ring-2 ring-rose-500 bg-rose-50/50 dark:bg-rose-950/20 border-rose-300 dark:border-rose-800">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <i data-lucide="flame" class="w-4 h-4 text-rose-500"></i> 停滯性通膨 2.0
+                </span>
+                <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-600 dark:text-rose-400">高通膨+升息</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">原油 $125+，核心 CPI 4.8%，Fed 鷹派重新升息 +100bp，股債雙殺。</p>
+            </button>
+
+            <button type="button" data-scenario="ai_boom" class="stress-scenario-card text-left p-3.5 rounded-xl border transition-all duration-200 border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 bg-slate-50/50 dark:bg-slate-800/40">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <i data-lucide="rocket" class="w-4 h-4 text-emerald-500"></i> AI 超級繁榮週期
+                </span>
+                <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">科技戴維斯雙擊</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">CSP CapEx 加碼 +35%，晶片產能超載 98%+，科技與台股噴發。</p>
+            </button>
+
+            <button type="button" data-scenario="credit_crunch" class="stress-scenario-card text-left p-3.5 rounded-xl border transition-all duration-200 border-slate-200 dark:border-slate-800 hover:border-rose-500/50 bg-slate-50/50 dark:bg-slate-800/40">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <i data-lucide="zap-off" class="w-4 h-4 text-rose-500"></i> 流動性休克與去槓桿
+                </span>
+                <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-rose-500/15 text-rose-600 dark:text-rose-400">信用斷裂踩踏</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">垃圾債利差飆破 850bp，金融踩踏，股市重挫、長債大漲避險。</p>
+            </button>
+
+            <button type="button" data-scenario="tariff_war" class="stress-scenario-card text-left p-3.5 rounded-xl border transition-all duration-200 border-slate-200 dark:border-slate-800 hover:border-amber-500/50 bg-slate-50/50 dark:bg-slate-800/40">
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <i data-lucide="shield-alert" class="w-4 h-4 text-amber-500"></i> 地緣關稅與科技禁令
+                </span>
+                <span class="text-[10px] font-semibold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400">貿易封鎖分割</span>
+              </div>
+              <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">全球關稅提高至 25%，成熟晶片與稀土管制，供應鏈毛利遭吞噬。</p>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 大 KPI 預估衝擊卡片 -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">預期投資組合淨損益 (P&amp;L)</div>
+            <div id="stress-pnl-val" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-rose-600 dark:text-rose-400">-11.49%</div>
+            <div id="stress-pnl-sub" class="text-[11px] text-rose-500 mt-0.5 font-medium">以 100 萬美元計：約 -$114,900</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">99% 極端情境最大回撤 (VaR)</div>
+            <div id="stress-mdd-val" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-rose-600 dark:text-rose-400">-16.66%</div>
+            <div id="stress-mdd-sub" class="text-[11px] text-slate-400 mt-0.5">極端歷史厚尾風險壓力</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">資產抗震防禦評級</div>
+            <div id="stress-grade-val" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-amber-500">B- (中度承壓)</div>
+            <div id="stress-grade-sub" class="text-[11px] text-slate-400 mt-0.5">防禦緩衝：黃金 + 現金</div>
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
+            <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">主要損益驅動因子</div>
+            <div id="stress-driver-val" class="text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-rose-500">股票 (-11.1%)</div>
+            <div id="stress-driver-sub" class="text-[11px] text-emerald-500 mt-0.5">抗震緩衝：黃金 (+2.45%)</div>
+          </div>
+        </div>
+
+        <!-- 投資組合配置調整區與損益貢獻圖 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-1">
+          <!-- 左側 5 欄: 資產配置權重滑桿與預設 -->
+          <div class="lg:col-span-5 space-y-4 bg-slate-50/60 dark:bg-slate-800/40 p-4 rounded-xl border border-slate-200/70 dark:border-slate-700/60">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                <i data-lucide="sliders" class="w-4 h-4 text-indigo-500"></i> 自訂投資組合資產權重
+              </span>
+              <span id="stress-alloc-total-badge" class="text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">
+                合計: 100%
+              </span>
+            </div>
+
+            <!-- 預設按鈕 -->
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" data-preset="classic6040" class="stress-preset-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-200/80 dark:bg-slate-700 hover:bg-indigo-500 hover:text-white transition-colors">
+                60/40 經典股債
+              </button>
+              <button type="button" data-preset="allWeather" class="stress-preset-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-200/80 dark:bg-slate-700 hover:bg-indigo-500 hover:text-white transition-colors">
+                橋水全天候
+              </button>
+              <button type="button" data-preset="growth" class="stress-preset-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-200/80 dark:bg-slate-700 hover:bg-indigo-500 hover:text-white transition-colors">
+                積極成長型
+              </button>
+              <button type="button" data-preset="defensive" class="stress-preset-btn px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-200/80 dark:bg-slate-700 hover:bg-indigo-500 hover:text-white transition-colors">
+                保守防禦型
+              </button>
+            </div>
+
+            <!-- 4 個資產滑桿 -->
+            <div class="space-y-3 pt-1">
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span> 股票與科技股 (Equity / Tech)
+                  </span>
+                  <span id="stress-val-stock" class="font-bold text-blue-600 dark:text-blue-400 tabular-nums">60%</span>
+                </div>
+                <input id="stress-slider-stock" type="range" min="0" max="100" value="60" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-500" />
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 inline-block"></span> 長期公債與固定收益 (Bonds)
+                  </span>
+                  <span id="stress-val-bond" class="font-bold text-indigo-600 dark:text-indigo-400 tabular-nums">25%</span>
+                </div>
+                <input id="stress-slider-bond" type="range" min="0" max="100" value="25" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-500" />
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> 黃金與抗通膨原物料 (Gold &amp; Commodities)
+                  </span>
+                  <span id="stress-val-gold" class="font-bold text-amber-600 dark:text-amber-400 tabular-nums">10%</span>
+                </div>
+                <input id="stress-slider-gold" type="range" min="0" max="100" value="10" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-amber-500" />
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs mb-1">
+                  <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-1">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span> 美元現金與超短期美債 (Cash &amp; Bills)
+                  </span>
+                  <span id="stress-val-cash" class="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">5%</span>
+                </div>
+                <input id="stress-slider-cash" type="range" min="0" max="100" value="5" class="w-full h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
+              </div>
+            </div>
+
+            <!-- 當前情境總經條件小卡 -->
+            <div class="pt-2 border-t border-slate-200 dark:border-slate-700">
+              <span class="text-[11px] font-bold text-slate-700 dark:text-slate-300 block mb-1.5">當前情境關鍵總經假設：</span>
+              <div id="stress-macro-conditions" class="grid grid-cols-2 gap-2 text-xs"></div>
+            </div>
+          </div>
+
+          <!-- 右側 7 欄: Chart.js 各資產損益貢獻圖 與 量化對沖指南 -->
+          <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                  <i data-lucide="bar-chart-2" class="w-4 h-4 text-blue-500"></i> 各資產損益貢獻度 (Asset P&amp;L Contribution %)
+                </span>
+                <span class="text-[11px] text-slate-400">綠色正貢獻 ｜ 紅色負拖累 ｜ 紫色整體淨損益</span>
+              </div>
+              <div class="relative h-56 sm:h-60">
+                <canvas id="stressTestChart"></canvas>
+              </div>
+            </div>
+
+            <!-- 機構級動態避險與對沖策略 (Actionable Hedging Advice) -->
+            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 space-y-2">
+              <div class="flex items-center justify-between pb-1 border-b border-slate-200/60 dark:border-slate-700/60">
+                <span class="text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-emerald-500"></i> 機構級量化避險與對沖操作策略
+                </span>
+                <span id="stress-hedge-scenario-title" class="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">停滯性通膨 2.0 防禦清單</span>
+              </div>
+              <div id="stress-hedging-tactics" class="space-y-1.5 text-xs"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
 
     <!-- TAB TAIWAN: 台股底部判斷與 AI 供應鏈買點監控系統 -->
@@ -4410,6 +4615,7 @@
       etf: { category: 'ALL', query: '', selected: ['SMH', 'SOXQ'] },
       calendar: { tab: 'tech', techCategory: 'ALL', techQuery: '', techView: 'cards', region: 'ALL', impact: 'ALL' },
       trader: { cat: 'ALL', quad: 'ALL', query: '', optionsContract: 'weekly', divergenceFilter: 'ALL' },
+      stressTest: { scenario: 'stagflation', alloc: { stock: 60, bond: 25, gold: 10, cash: 5 } },
       heatmap: { market: 'SP500', tf: 'd1', sector: 'ALL' },
       builder: {
         name: '自編台股動能基本面指數',
@@ -5092,7 +5298,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null, stressTest: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -6070,6 +6276,7 @@
       renderBuffettChart();
       renderTipsBreakevenChart();
       renderGlobalCbChart();
+      renderStressTestSimulator();
       renderNdcChart();
       renderExportOrdersChart();
       if (state.activeTab === 'dashboard') renderDashboard();
@@ -8157,6 +8364,7 @@
       renderBuffettChart();
       renderTipsBreakevenChart();
       renderGlobalCbChart();
+      renderStressTestSimulator();
     }
 
     function renderMoneyTab() {
@@ -9191,7 +9399,422 @@
       });
     }
 
-    function populateToolboxSelects() {
+
+    // --- 3.49 Global Macro Stress Testing & Tail-Risk Simulator ---
+    const STRESS_SCENARIOS = {
+      stagflation: {
+        id: 'stagflation',
+        name: '1970s 停滯性通膨 2.0 (Stagflation Shock)',
+        icon: 'flame',
+        badge: '高通膨+升息',
+        badgeColor: 'rose',
+        desc: '原油飆破 $125+，核心通膨回彈至 4.8%，Fed 重新升息 +100bp，股票與長債雙殺。',
+        macroConditions: [
+          { label: '布蘭特原油', val: '$125/桶 (+65%)', color: 'rose' },
+          { label: '美國核心 CPI', val: '4.8% (預期反彈)', color: 'rose' },
+          { label: 'Fed 終點利率', val: '5.75% (+100bp)', color: 'amber' },
+          { label: '10Y 美債殖利率', val: '5.20% (飆升)', color: 'rose' }
+        ],
+        assetReturns: { stock: -18.5, bond: -12.4, gold: 24.5, cash: 5.2 },
+        maxDrawdownMultiplier: 1.45,
+        hedgingTactics: [
+          { title: '加碼實體資產與上游原物料', desc: '配置實體黃金、大宗商品指數基金 (DBC) 與上游能源特許龍頭，抗衡法幣購買力稀釋。' },
+          { title: '壓縮債券存續期間至超短債', desc: '大幅降低長天期美債 (TLT) 曝險，轉進 3-6 個月超短天期國庫券 (SGOV/BIL) 鎖定 5%+ 無風險現金殖利率。' },
+          { title: '布局抗通膨債券 (TIPS) 與價外 Put', desc: '配置 10 年期 TIPS 獲取物價指數補償，同時買入標普 500 遠月 10% 價外認售權證 (OOTM Put) 規避本益比下修風險。' }
+        ]
+      },
+      ai_boom: {
+        id: 'ai_boom',
+        name: 'AI 超級景氣繁榮 (AI Supercycle Boom)',
+        icon: 'rocket',
+        badge: '科技戴維斯雙擊',
+        badgeColor: 'emerald',
+        desc: '美股四大 CSP 巨頭 AI CapEx 加碼 +35%+，算力供應鏈訂單能見度直達 2028 年，科技股迎來盈利與估值戴維斯雙擊。',
+        macroConditions: [
+          { label: '四大 CSP 資本支出', val: '$4,800 億 (+35%)', color: 'emerald' },
+          { label: '台美半導體產能利用率', val: '98%+ (超載全滿)', color: 'emerald' },
+          { label: '美國 GDP 成長率', val: '3.6% (強勁擴張)', color: 'blue' },
+          { label: '市場風險偏好', val: '極度貪婪 (82/100)', color: 'emerald' }
+        ],
+        assetReturns: { stock: 28.5, bond: -3.5, gold: 6.0, cash: 1.5 },
+        maxDrawdownMultiplier: 0.6,
+        hedgingTactics: [
+          { title: '加碼科技龍頭與台股半導體供應鏈', desc: '集中配置台積電 (2330)、輝達 (NVDA)、伺服器 ODM 龍頭 (廣達、鴻海)，捕捉 CapEx 傳導最大超額報酬。' },
+          { title: '降低固定收益長債配置', desc: '景氣過熱容易延後降息時程，應降低長天期無息/低息債券權重，將資金轉為高貝塔成長型股權。' },
+          { title: '動態追蹤 CSP 自由現金流邊際', desc: '使用 MacroPulse CSP CapEx 雷達監控雲端巨頭資本支出是否轉化為雲服務營收，設定獲利回撤 10% 移動停利點。' }
+        ]
+      },
+      credit_crunch: {
+        id: 'credit_crunch',
+        name: '全球信貸收縮與流動性休克 (Credit Freeze & Liquidity Crunch)',
+        icon: 'zap-off',
+        badge: '信用斷裂踩踏',
+        badgeColor: 'rose',
+        desc: '歐美商用不動產或高收益債爆雷，垃圾債信用利差飆破 850bp，金融中介機構惜貸，全球槓桿資金踩踏去槓桿。',
+        macroConditions: [
+          { label: '高收益債信用利差', val: '860 bps (極度緊張)', color: 'rose' },
+          { label: 'Fed 貼現窗口借款', val: '$2,500 億 (緊急救市)', color: 'amber' },
+          { label: 'VIX 恐慌指數', val: '45.2 (恐慌峰值)', color: 'rose' },
+          { label: '10Y 美債殖利率', val: '3.20% (避險狂買)', color: 'blue' }
+        ],
+        assetReturns: { stock: -26.5, bond: 11.5, gold: 14.2, cash: 8.5 },
+        maxDrawdownMultiplier: 1.65,
+        hedgingTactics: [
+          { title: '保留充沛美元流動性 (Cash is King)', desc: '在流動性休克初期現金為王，持有美元活期與隔夜回購資產，等待市場斷頭賣壓砸出超級黃金坑。' },
+          { title: '長天期最高評級公債作為核心防禦', desc: '配置美國 20 年期以上國債 (TLT)，當央行被迫開啟緊急降息救市時，長債將產生巨大的資本利得緩衝。' },
+          { title: '全面清除信用劣質資產與高槓桿標的', desc: '立刻出清非投資級垃圾債 (HYG)、槓桿貸款及高負債成長股，避開信用違約與債務重組暴風圈。' }
+        ]
+      },
+      tariff_war: {
+        id: 'tariff_war',
+        name: '地緣關稅貿易戰與科技禁令 (Tariff Shock & Tech Embargo)',
+        icon: 'shield-alert',
+        badge: '貿易封鎖分割',
+        badgeColor: 'amber',
+        desc: '全球主要貿易國互相加徵 25% 懲罰性關稅，成熟晶片與關鍵稀土納入國安禁令，跨國供應鏈面臨重組高成本與利潤侵蝕。',
+        macroConditions: [
+          { label: '平均貿易關稅稅率', val: '25.0% (大幅提高)', color: 'amber' },
+          { label: '全球海運運價指數', val: 'SCFI +85% (航線繞道)', color: 'rose' },
+          { label: '跨國製造業毛利率', val: '-4.2% (成本轉嫁滯後)', color: 'rose' },
+          { label: '美元指數 (DXY)', val: '108.5 (避險走強)', color: 'emerald' }
+        ],
+        assetReturns: { stock: -14.0, bond: 4.0, gold: 18.0, cash: 3.0 },
+        maxDrawdownMultiplier: 1.25,
+        hedgingTactics: [
+          { title: '轉進具地緣產能移轉能力的跨國巨頭', desc: '優先持有在美、日、歐已建置先進在地產能的半導體與組裝廠（如台積電、鴻海海外廠），受關稅懲罰最小。' },
+          { title: '加碼地緣避險資產（黃金與國防航太）', desc: '增持實體黃金以對抗多極化貨幣體系風險，並配置不受全球貿易週期影響的國防航太與本土公用事業。' },
+          { title: '降低外貿依存度高的中小型出口代工股', desc: '規避缺乏全球議價能力、依賴單一出口市場的中小型供應鏈廠商，避免毛利遭關稅直接吞噬。' }
+        ]
+      }
+    };
+
+    const STRESS_PRESETS = {
+      classic6040: { name: '60/40 經典股債', stock: 60, bond: 40, gold: 0, cash: 0 },
+      allWeather: { name: '橋水全天候', stock: 30, bond: 55, gold: 15, cash: 0 },
+      growth: { name: '積極成長型', stock: 75, bond: 15, gold: 5, cash: 5 },
+      defensive: { name: '保守防禦型', stock: 20, bond: 40, gold: 20, cash: 20 }
+    };
+
+    function renderStressTestSimulator() {
+      const container = document.getElementById('macro-stress-test-section');
+      if (!container) return;
+
+      const scKey = (state.stressTest && state.stressTest.scenario) || 'stagflation';
+      const scenario = STRESS_SCENARIOS[scKey] || STRESS_SCENARIOS.stagflation;
+      const alloc = (state.stressTest && state.stressTest.alloc) || { stock: 60, bond: 25, gold: 10, cash: 5 };
+
+      // Calculate normalized weights
+      const rawSum = (Number(alloc.stock) || 0) + (Number(alloc.bond) || 0) + (Number(alloc.gold) || 0) + (Number(alloc.cash) || 0);
+      const safeSum = rawSum > 0 ? rawSum : 100;
+      const wStock = (Number(alloc.stock) || 0) / safeSum;
+      const wBond = (Number(alloc.bond) || 0) / safeSum;
+      const wGold = (Number(alloc.gold) || 0) / safeSum;
+      const wCash = (Number(alloc.cash) || 0) / safeSum;
+
+      // Asset Returns
+      const retStock = scenario.assetReturns.stock;
+      const retBond = scenario.assetReturns.bond;
+      const retGold = scenario.assetReturns.gold;
+      const retCash = scenario.assetReturns.cash;
+
+      // Contributions
+      const cStock = wStock * retStock;
+      const cBond = wBond * retBond;
+      const cGold = wGold * retGold;
+      const cCash = wCash * retCash;
+      const rPortfolio = cStock + cBond + cGold + cCash;
+
+      // Update badge & title
+      const badgeEl = document.getElementById('stress-scenario-badge');
+      if (badgeEl) {
+        badgeEl.textContent = scenario.name.split(' (')[0];
+        badgeEl.className = `text-xs font-semibold px-2.5 py-0.5 rounded-full border ${
+          scenario.badgeColor === 'emerald' ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/20' :
+          scenario.badgeColor === 'amber' ? 'bg-amber-500/15 text-amber-600 dark:text-amber-400 border-amber-500/20' :
+          'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/20'
+        }`;
+      }
+
+      // Update scenario card ring
+      document.querySelectorAll('.stress-scenario-card').forEach(card => {
+        const cKey = card.dataset.scenario;
+        if (cKey === scKey) {
+          card.classList.remove('border-slate-200', 'dark:border-slate-800');
+          card.classList.add('ring-2', 'ring-rose-500', 'bg-rose-50/50', 'dark:bg-rose-950/20', 'border-rose-300', 'dark:border-rose-800');
+        } else {
+          card.classList.remove('ring-2', 'ring-rose-500', 'bg-rose-50/50', 'dark:bg-rose-950/20', 'border-rose-300', 'dark:border-rose-800');
+          card.classList.add('border-slate-200', 'dark:border-slate-800');
+        }
+      });
+
+      // Update KPI Cards
+      const pnlEl = document.getElementById('stress-pnl-val');
+      const pnlSubEl = document.getElementById('stress-pnl-sub');
+      if (pnlEl) {
+        pnlEl.textContent = (rPortfolio >= 0 ? '+' : '') + rPortfolio.toFixed(2) + '%';
+        pnlEl.className = `text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 ${rPortfolio >= 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`;
+      }
+      if (pnlSubEl) {
+        const dollarDelta = (1000000 * (rPortfolio / 100));
+        pnlSubEl.textContent = `以 100 萬美元計：約 ${dollarDelta >= 0 ? '+$' : '-$'}${Math.abs(Math.round(dollarDelta)).toLocaleString()}`;
+        pnlSubEl.className = `text-[11px] mt-0.5 font-medium ${rPortfolio >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+      }
+
+      // Max Drawdown (VaR 99%)
+      const mddEl = document.getElementById('stress-mdd-val');
+      const mddSubEl = document.getElementById('stress-mdd-sub');
+      let mdd = rPortfolio < 0 ? (rPortfolio * scenario.maxDrawdownMultiplier) : -(scenario.maxDrawdownMultiplier * 4.5);
+      if (mddEl) {
+        mddEl.textContent = mdd.toFixed(2) + '%';
+        mddEl.className = `text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 ${mdd < -15 ? 'text-rose-600 dark:text-rose-400' : mdd < -8 ? 'text-amber-500' : 'text-emerald-500'}`;
+      }
+
+      // Resilience Grade
+      const gradeEl = document.getElementById('stress-grade-val');
+      const gradeSubEl = document.getElementById('stress-grade-sub');
+      let grade = 'B (一般防禦)';
+      let gradeColor = 'text-amber-500';
+      if (rPortfolio >= 5.0) { grade = 'A+ (極度強韌)'; gradeColor = 'text-emerald-500'; }
+      else if (rPortfolio >= 0.0) { grade = 'A (抗跌保本)'; gradeColor = 'text-emerald-500'; }
+      else if (rPortfolio >= -8.0) { grade = 'B+ (溫和承壓)'; gradeColor = 'text-blue-500'; }
+      else if (rPortfolio >= -15.0) { grade = 'B- (中度承壓)'; gradeColor = 'text-amber-500'; }
+      else { grade = 'C (高脆弱性)'; gradeColor = 'text-rose-500'; }
+
+      if (gradeEl) {
+        gradeEl.textContent = grade;
+        gradeEl.className = `text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 ${gradeColor}`;
+      }
+      if (gradeSubEl) {
+        const safeAlloc = (wGold + wCash) * 100;
+        gradeSubEl.textContent = `防禦部位 (金+現金)：${safeAlloc.toFixed(0)}%`;
+      }
+
+      // Driver
+      const driverEl = document.getElementById('stress-driver-val');
+      const driverSubEl = document.getElementById('stress-driver-sub');
+      const items = [
+        { name: '股票', c: cStock },
+        { name: '長債', c: cBond },
+        { name: '黃金', c: cGold },
+        { name: '現金', c: cCash }
+      ];
+      items.sort((a, b) => a.c - b.c); // min first
+      const worst = items[0];
+      const best = items[items.length - 1];
+
+      if (driverEl) {
+        if (worst.c < 0) {
+          driverEl.textContent = `${worst.name} (${worst.c.toFixed(1)}%)`;
+          driverEl.className = 'text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-rose-500';
+        } else {
+          driverEl.textContent = `${best.name} (+${best.c.toFixed(1)}%)`;
+          driverEl.className = 'text-2xl sm:text-3xl font-extrabold tabular-nums mt-1 text-emerald-500';
+        }
+      }
+      if (driverSubEl) {
+        if (best.c > 0) {
+          driverSubEl.textContent = `抗震緩衝：${best.name} (+${best.c.toFixed(1)}%)`;
+          driverSubEl.className = 'text-[11px] text-emerald-500 mt-0.5 font-medium';
+        } else {
+          driverSubEl.textContent = `跌幅次大：${items[1].name} (${items[1].c.toFixed(1)}%)`;
+          driverSubEl.className = 'text-[11px] text-slate-400 mt-0.5 font-medium';
+        }
+      }
+
+      // Update Slider numbers
+      const stockValEl = document.getElementById('stress-val-stock');
+      const bondValEl = document.getElementById('stress-val-bond');
+      const goldValEl = document.getElementById('stress-val-gold');
+      const cashValEl = document.getElementById('stress-val-cash');
+      if (stockValEl) stockValEl.textContent = `${alloc.stock}% (實質 ${(wStock * 100).toFixed(0)}%)`;
+      if (bondValEl) bondValEl.textContent = `${alloc.bond}% (實質 ${(wBond * 100).toFixed(0)}%)`;
+      if (goldValEl) goldValEl.textContent = `${alloc.gold}% (實質 ${(wGold * 100).toFixed(0)}%)`;
+      if (cashValEl) cashValEl.textContent = `${alloc.cash}% (實質 ${(wCash * 100).toFixed(0)}%)`;
+
+      const sumBadge = document.getElementById('stress-alloc-total-badge');
+      if (sumBadge) {
+        if (rawSum === 100) {
+          sumBadge.textContent = '合計: 100% (完美平衡)';
+          sumBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400';
+        } else {
+          sumBadge.textContent = `合計: ${rawSum}% (自動以 100% 標準化)`;
+          sumBadge.className = 'text-[11px] font-bold px-2 py-0.5 rounded bg-amber-500/15 text-amber-600 dark:text-amber-400';
+        }
+      }
+
+      // Render Macro Conditions
+      const condContainer = document.getElementById('stress-macro-conditions');
+      if (condContainer) {
+        condContainer.innerHTML = scenario.macroConditions.map(mc => `
+          <div class="p-2 rounded-lg bg-white/70 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-700/50 flex flex-col justify-between">
+            <span class="text-[10px] text-slate-500 dark:text-slate-400">${mc.label}</span>
+            <span class="font-bold text-xs mt-0.5 text-slate-800 dark:text-slate-200">${mc.val}</span>
+          </div>
+        `).join('');
+      }
+
+      // Render Hedging Tactics
+      const hedgeTitle = document.getElementById('stress-hedge-scenario-title');
+      if (hedgeTitle) hedgeTitle.textContent = `${scenario.name.split(' (')[0]} 機構避險方針`;
+
+      const hedgeContainer = document.getElementById('stress-hedging-tactics');
+      if (hedgeContainer) {
+        hedgeContainer.innerHTML = scenario.hedgingTactics.map((ht, idx) => `
+          <div class="flex items-start gap-2 p-2 rounded-lg bg-white/80 dark:bg-slate-900/60 border border-slate-200/50 dark:border-slate-700/50">
+            <span class="flex items-center justify-center w-4 h-4 rounded-full bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 font-bold text-[10px] shrink-0 mt-0.5">${idx + 1}</span>
+            <div>
+              <div class="font-semibold text-xs text-slate-800 dark:text-slate-200">${ht.title}</div>
+              <div class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mt-0.5">${ht.desc}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Chart
+      renderStressTestChart(cStock, cBond, cGold, cCash, rPortfolio, retStock, retBond, retGold, retCash, wStock, wBond, wGold, wCash);
+      lucide.createIcons();
+    }
+
+    function renderStressTestChart(cStock, cBond, cGold, cCash, rPortfolio, retStock, retBond, retGold, retCash, wStock, wBond, wGold, wCash) {
+      const canvas = document.getElementById('stressTestChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.stressTest) {
+        charts.stressTest.destroy();
+        charts.stressTest = null;
+      }
+
+      const labels = ['股票部位', '長期公債', '黃金原物料', '美元現金', '★ 組合淨總損益'];
+      const data = [cStock, cBond, cGold, cCash, rPortfolio];
+
+      const barColors = data.map((val, idx) => {
+        if (idx === 4) {
+          return val >= 0 ? 'rgba(99, 102, 241, 0.9)' : 'rgba(244, 63, 94, 0.9)'; // indigo / rose for total
+        }
+        return val >= 0 ? 'rgba(16, 185, 129, 0.85)' : 'rgba(239, 68, 68, 0.85)'; // emerald / red
+      });
+
+      const borderColors = data.map((val, idx) => {
+        if (idx === 4) {
+          return val >= 0 ? '#4f46e5' : '#e11d48';
+        }
+        return val >= 0 ? '#059669' : '#dc2626';
+      });
+
+      charts.stressTest = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: '損益貢獻度 (%)',
+            data: data,
+            backgroundColor: barColors,
+            borderColor: borderColors,
+            borderWidth: 1.5,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  const val = context.raw;
+                  const idx = context.dataIndex;
+                  if (idx === 0) return `貢獻度: ${val.toFixed(2)}% (情境報酬: ${retStock}% ｜ 權重: ${(wStock * 100).toFixed(0)}%)`;
+                  if (idx === 1) return `貢獻度: ${val.toFixed(2)}% (情境報酬: ${retBond}% ｜ 權重: ${(wBond * 100).toFixed(0)}%)`;
+                  if (idx === 2) return `貢獻度: ${val.toFixed(2)}% (情境報酬: ${retGold}% ｜ 權重: ${(wGold * 100).toFixed(0)}%)`;
+                  if (idx === 3) return `貢獻度: ${val.toFixed(2)}% (情境報酬: ${retCash}% ｜ 權重: ${(wCash * 100).toFixed(0)}%)`;
+                  return `組合淨損益: ${val.toFixed(2)}% (全資產加權合計)`;
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              grid: { color: gridColor() },
+              ticks: {
+                color: textColor(),
+                callback: function(v) { return v + '%'; }
+              }
+            },
+            y: {
+              grid: { display: false },
+              ticks: {
+                color: textColor(),
+                font: function(context) {
+                  if (context.index === 4) return { weight: 'bold', size: 12 };
+                  return { size: 11 };
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function initStressTestEvents() {
+      // Scenario clicks
+      document.querySelectorAll('.stress-scenario-card').forEach(card => {
+        card.addEventListener('click', () => {
+          state.stressTest.scenario = card.dataset.scenario;
+          renderStressTestSimulator();
+        });
+      });
+
+      // Presets
+      document.querySelectorAll('.stress-preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const pKey = btn.dataset.preset;
+          const p = STRESS_PRESETS[pKey];
+          if (!p) return;
+          state.stressTest.alloc = { stock: p.stock, bond: p.bond, gold: p.gold, cash: p.cash };
+          document.getElementById('stress-slider-stock').value = p.stock;
+          document.getElementById('stress-slider-bond').value = p.bond;
+          document.getElementById('stress-slider-gold').value = p.gold;
+          document.getElementById('stress-slider-cash').value = p.cash;
+          renderStressTestSimulator();
+          showToast(`已套用「${p.name}」資產配置！`);
+        });
+      });
+
+      // Sliders
+      const sStock = document.getElementById('stress-slider-stock');
+      const sBond = document.getElementById('stress-slider-bond');
+      const sGold = document.getElementById('stress-slider-gold');
+      const sCash = document.getElementById('stress-slider-cash');
+
+      if (sStock) {
+        sStock.addEventListener('input', e => {
+          state.stressTest.alloc.stock = Number(e.target.value);
+          renderStressTestSimulator();
+        });
+      }
+      if (sBond) {
+        sBond.addEventListener('input', e => {
+          state.stressTest.alloc.bond = Number(e.target.value);
+          renderStressTestSimulator();
+        });
+      }
+      if (sGold) {
+        sGold.addEventListener('input', e => {
+          state.stressTest.alloc.gold = Number(e.target.value);
+          renderStressTestSimulator();
+        });
+      }
+      if (sCash) {
+        sCash.addEventListener('input', e => {
+          state.stressTest.alloc.cash = Number(e.target.value);
+          renderStressTestSimulator();
+        });
+      }
+    }
+
+        function populateToolboxSelects() {
       const leftEl = document.getElementById('series-left');
       const rightEl = document.getElementById('series-right');
       const keys = Object.keys(SERIES_DB);
@@ -11416,6 +12039,8 @@
 
       // History Modal Events
       initHistoryModalEvents();
+      initStressTestEvents();
+      renderStressTestSimulator();
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
       renderTaiwanRadarQuickCards();
