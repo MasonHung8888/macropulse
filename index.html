@@ -1761,6 +1761,32 @@
 
         </div>
 
+        <!-- 試算器量化機制與自動連動說明卡 (Live Quantitative Mechanism) -->
+        <div class="p-4 rounded-xl bg-indigo-50/60 dark:bg-indigo-950/20 border border-indigo-200/70 dark:border-indigo-800/50 space-y-2 text-xs">
+          <div class="flex items-center gap-2 font-bold text-indigo-950 dark:text-indigo-200">
+            <i data-lucide="info" class="w-4 h-4 text-indigo-600 dark:text-indigo-400"></i>
+            <span>試算器運作機制與每日自動連動特色 (How It Works)</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-slate-600 dark:text-slate-300 leading-relaxed pt-1">
+            <div class="flex items-start gap-1.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">1.</span>
+              <span><strong>TWSE 官方日線即時連動：</strong>標的現價（台積電、0050、鴻海、廣達等）非靜態數值，每日盤後全自動自證交所與官方資料庫同步最新收盤行情。</span>
+            </div>
+            <div class="flex items-start gap-1.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">2.</span>
+              <span><strong>動態重算股數與均價：</strong>當股價每日浮動時，各梯次掛單建議價（折價 2% / 平價 / 追價）與可買進股數（精確至零股）自動即時重新精算。</span>
+            </div>
+            <div class="flex items-start gap-1.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">3.</span>
+              <span><strong>五大底部模型評分門檻鎖定：</strong>評分 &lt; 60 分時強制鎖定第 2/3 梯次（防止接掉下來的刀子），達 60 分（築底）與 75 分（止跌翻多）時自動聯動解鎖。</span>
+            </div>
+            <div class="flex items-start gap-1.5">
+              <span class="text-indigo-600 dark:text-indigo-400 font-bold">4.</span>
+              <span><strong>機構級嚴格停損安全網：</strong>根據各標的「結構失效停損線」即時試算，嚴格將三梯次全部建立後的組合最大潛在虧損限制在總資本 2%~4% 安全界線內。</span>
+            </div>
+          </div>
+        </div>
+
         <!-- 模型聯動策略指引橫幅 -->
         <div id="dca-sync-banner" class="p-3.5 rounded-xl border border-rose-500/30 bg-rose-500/10 text-xs flex items-start gap-2.5">
           <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-500 shrink-0 mt-0.5"></i>
@@ -6573,6 +6599,7 @@
           sel.forEach(s => {
             text += `- ${s.name}: 失效停損點 NT$ ${s.inval}\n`;
           });
+          text += `\n* 註：股價與梯次股數為 TWSE 官方每日日線數據動態即時連動試算\n`;
           text += `==========================================`;
 
           navigator.clipboard.writeText(text).then(() => {
