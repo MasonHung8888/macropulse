@@ -140,10 +140,10 @@
       <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台股 TAIEX</span><span id="tk-taiex-val" class="font-semibold tabular-nums">—</span><span id="tk-taiex-chg" class="text-slate-400">—</span></div>
       <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">台灣 M1B / M2</span><span id="tk-m1b-m2" class="font-semibold tabular-nums">—</span></div>
       <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">S&amp;P 500</span><span id="tk-sp500-val" class="font-semibold tabular-nums">—</span><span id="tk-sp500-chg" class="text-slate-400">—</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">NASDAQ</span><span id="tk-nasdaq-val" class="font-semibold tabular-nums">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">NASDAQ</span><span id="tk-nasdaq-val" class="font-semibold tabular-nums">—</span><span id="tk-nasdaq-chg" class="text-slate-400">—</span></div>
       <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">美債 10Y</span><span id="tk-us10y-val" class="font-semibold tabular-nums">—</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">黃金</span><span id="tk-gold-val" class="font-semibold tabular-nums">—</span></div>
-      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">WTI</span><span id="tk-wti-val" class="font-semibold tabular-nums">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">黃金</span><span id="tk-gold-val" class="font-semibold tabular-nums">—</span><span id="tk-gold-chg" class="text-slate-400">—</span></div>
+      <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">WTI</span><span id="tk-wti-val" class="font-semibold tabular-nums">—</span><span id="tk-wti-chg" class="text-slate-400">—</span></div>
       <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">USD/TWD</span><span id="tk-twd" class="font-semibold tabular-nums">—</span></div>
       <div class="flex items-center gap-1.5"><span class="text-slate-500 dark:text-slate-400">BTC</span><span id="tk-btc" class="font-semibold tabular-nums">—</span></div>
       <span id="live-status-pill" class="ml-auto text-xs px-2 py-0.5 rounded-full bg-slate-500/15 text-slate-500 dark:text-slate-400 font-medium">載入資料中…</span>
@@ -4317,19 +4317,34 @@
         }
         if (sn.nasdaq) {
           const elV = document.getElementById('tk-nasdaq-val');
+          const elC = document.getElementById('tk-nasdaq-chg');
           if (elV) elV.textContent = sn.nasdaq.price.toLocaleString('en-US');
           if (elV) elV.title = `${sn.nasdaq.source || 'Yahoo Finance 延遲日線'}｜資料日 ${sn.nasdaq.as_of || '未標示'}`;
+          if (elC && sn.nasdaq.d1 !== undefined) {
+            elC.textContent = (sn.nasdaq.d1 > 0 ? '+' : '') + sn.nasdaq.d1 + '%';
+            elC.className = sn.nasdaq.d1 >= 0 ? 'text-emerald-500' : 'text-rose-500';
+          }
         }
         if (sn.nikkei) updTrader('日本-日經Nikkei 225', sn.nikkei.price.toLocaleString('en-US'), sn.nikkei);
         if (sn.wti) {
           updTrader('NYMEX-WTI西德州原油期貨價格', sn.wti.price, sn.wti);
           const elV = document.getElementById('tk-wti-val');
+          const elC = document.getElementById('tk-wti-chg');
           if (elV) elV.textContent = '$' + sn.wti.price;
+          if (elC && sn.wti.d1 !== undefined) {
+            elC.textContent = (sn.wti.d1 > 0 ? '+' : '') + sn.wti.d1 + '%';
+            elC.className = sn.wti.d1 >= 0 ? 'text-emerald-500' : 'text-rose-500';
+          }
         }
         if (sn.gold) {
           updTrader('NYMEX-黃金期貨價格', sn.gold.price.toLocaleString('en-US'), sn.gold);
           const elV = document.getElementById('tk-gold-val');
+          const elC = document.getElementById('tk-gold-chg');
           if (elV) elV.textContent = '$' + sn.gold.price.toLocaleString('en-US');
+          if (elC && sn.gold.d1 !== undefined) {
+            elC.textContent = (sn.gold.d1 > 0 ? '+' : '') + sn.gold.d1 + '%';
+            elC.className = sn.gold.d1 >= 0 ? 'text-emerald-500' : 'text-rose-500';
+          }
         }
         if (sn.copper) updTrader('NYMEX-銅期貨價格', sn.copper.price, sn.copper);
         if (sn.vix) updTrader('CBOE-VIX波動率指數[VIX]', sn.vix.price, sn.vix);
