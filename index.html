@@ -3222,9 +3222,6 @@
       }
     };
 
-    // 不讓舊版示範序列進入研究、回測或匯出功能。
-    Object.keys(SERIES_DB).forEach(key => delete SERIES_DB[key]);
-
     const ETF_DB = [
       { ticker: 'SMH', name: 'VanEck 半導體 ETF', category: '半導體', fee: '0.35%', desc: '全球半導體供應鏈龍頭集中配置（Nvidia、台積電 ADR、ASML），規模約 $22B' },
       { ticker: 'SOXQ', name: 'Invesco PHLX 半導體 ETF', category: '半導體', fee: '0.19%', desc: '追蹤費城半導體指數 (SOX)，31 檔成分股，同類型中內扣費用率較低' },
@@ -4648,6 +4645,10 @@
           SERIES_DB.us_10y = SERIES_DB.us10y;
         }
         populateToolboxSelects();
+        if (typeof renderBuilderControls === 'function') renderBuilderControls();
+        if (state.activeTab === 'builder' && typeof renderBuilderChart === 'function') renderBuilderChart();
+        if (state.activeTab === 'backtest' && typeof renderBacktest === 'function') renderBacktest();
+        if (state.activeTab === 'toolbox' && typeof renderToolbox === 'function') renderToolbox();
       }
 
       // C. 台灣央行 (CBC) 官方 M1B / M2 貨幣數據
@@ -5530,6 +5531,9 @@
       if (state.activeTab === 'heatmap') renderHeatmap();
       if (state.activeTab === 'toolbox') renderToolbox();
       if (state.activeTab === 'trader') renderTraderTab();
+      if (state.activeTab === 'builder') renderBuilderTab();
+      if (state.activeTab === 'backtest') renderBacktest();
+      if (state.activeTab === 'calendar') renderCalendar();
       return count;
     }
 
@@ -8703,8 +8707,11 @@
     }
 
     function renderBacktest() {
-      const indData = SERIES_DB[state.backtest.indicator].data;
-      const assetData = SERIES_DB[state.backtest.asset].data;
+      const indObj = SERIES_DB[state.backtest.indicator];
+      const assetObj = SERIES_DB[state.backtest.asset];
+      if (!indObj || !indObj.data || !assetObj || !assetObj.data) return;
+      const indData = indObj.data;
+      const assetData = assetObj.data;
       const th = Number(state.backtest.threshold);
       const op = state.backtest.operator;
 
@@ -8951,7 +8958,8 @@
       const len = MONTHS.length;
       const totalAbsW = state.builder.slots.reduce((s, x) => s + Math.abs(x.weight), 0) || 1;
       const zSeriesList = state.builder.slots.map(slot => {
-        const raw = SERIES_DB[slot.key].data.slice(-len);
+        const item = SERIES_DB[slot.key];
+        const raw = (item && Array.isArray(item.data)) ? item.data.slice(-len) : new Array(len).fill(0);
         return { weight: slot.weight, z: transformSeries(raw, 'zscore') };
       });
 
@@ -8971,29 +8979,37 @@
       const isUp = latest >= prevAvg;
 
       const latestEl = document.getElementById('bld-latest-val');
-      latestEl.textContent = (latest > 0 ? '+' : '') + latest.toFixed(2);
-      latestEl.className = `text-2xl font-bold tabular-nums mt-1 ${isHigh ? 'text-emerald-500' : 'text-rose-500'}`;
+      if (latestEl) {
+        latestEl.textContent = (latest > 0 ? '+' : '') + latest.toFixed(2);
+        latestEl.className = `text-2xl font-bold tabular-nums mt-1 ${isHigh ? 'text-emerald-500' : 'text-rose-500'}`;
+      }
 
       const quadBadge = document.getElementById('bld-quad-badge');
-      if (isHigh && isUp) {
-        quadBadge.textContent = '數值高・趨勢向上 (最佳)';
-        quadBadge.className = 'text-sm font-bold mt-2 text-emerald-500';
-      } else if (isHigh && !isUp) {
-        quadBadge.textContent = '數值高・趨勢向下 (留意轉折)';
-        quadBadge.className = 'text-sm font-bold mt-2 text-amber-500';
-      } else if (!isHigh && isUp) {
-        quadBadge.textContent = '數值低・趨勢向上 (築底回升)';
-        quadBadge.className = 'text-sm font-bold mt-2 text-blue-500';
-      } else {
-        quadBadge.textContent = '數值低・趨勢向下 (最弱勢)';
-        quadBadge.className = 'text-sm font-bold mt-2 text-rose-500';
+      if (quadBadge) {
+        if (isHigh && isUp) {
+          quadBadge.textContent = '數值高・趨勢向上 (最佳)';
+          quadBadge.className = 'text-sm font-bold mt-2 text-emerald-500';
+        } else if (isHigh && !isUp) {
+          quadBadge.textContent = '數值高・趨勢向下 (留意轉折)';
+          quadBadge.className = 'text-sm font-bold mt-2 text-amber-500';
+        } else if (!isHigh && isUp) {
+          quadBadge.textContent = '數值低・趨勢向上 (築底回升)';
+          quadBadge.className = 'text-sm font-bold mt-2 text-blue-500';
+        } else {
+          quadBadge.textContent = '數值低・趨勢向下 (最弱勢)';
+          quadBadge.className = 'text-sm font-bold mt-2 text-rose-500';
+        }
       }
 
       const benchSeries = SERIES_DB[state.builder.bench];
-      const benchData = benchSeries.data.slice(-len);
-      document.getElementById('bld-corr-val').textContent = pearsonCorr(composite, benchData);
+      const benchData = (benchSeries && Array.isArray(benchSeries.data)) ? benchSeries.data.slice(-len) : new Array(len).fill(0);
+      const benchName = benchSeries ? benchSeries.name : '對照標的';
+      const corrEl = document.getElementById('bld-corr-val');
+      if (corrEl) corrEl.textContent = pearsonCorr(composite, benchData);
 
-      const ctx = document.getElementById('builderChart').getContext('2d');
+      const chartCanvas = document.getElementById('builderChart');
+      if (!chartCanvas) return;
+      const ctx = chartCanvas.getContext('2d');
       if (charts.builder) charts.builder.destroy();
       charts.builder = new Chart(ctx, {
         data: {
@@ -9009,7 +9025,7 @@
             },
             {
               type: 'line',
-              label: `${benchSeries.name} (右軸)`,
+              label: `${benchName} (右軸)`,
               data: benchData,
               yAxisID: 'y1',
               borderColor: '#3b82f6',
