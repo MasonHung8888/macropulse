@@ -54134,5 +54134,229 @@
         }
       }
     }
+  },
+  "options_max_pain": {
+    "updated_at": "2026-11-20 15:30:00",
+    "underlying_close": 36033.29,
+    "weekly": {
+      "contract_name": "2026年11月第4週 (TXO 11W4)",
+      "settlement_date": "2026-11-25",
+      "days_to_settle": 3,
+      "max_pain_strike": 36500,
+      "pain_gap": 466.71,
+      "pain_gap_pct": 1.3,
+      "pcr_ratio": 0.889,
+      "pcr_stage": "偏多支撐",
+      "total_call_oi": 169200,
+      "total_put_oi": 150350,
+      "max_call_oi_strike": 37500,
+      "max_call_oi_vol": 33800,
+      "max_put_oi_strike": 35000,
+      "max_put_oi_vol": 28650,
+      "second_call_oi_strike": 37000,
+      "second_call_oi_vol": 31200,
+      "second_put_oi_strike": 35500,
+      "second_put_oi_vol": 24200,
+      "estimated_box_low": 35000,
+      "estimated_box_high": 37500,
+      "box_probability": 84.2,
+      "pin_rate_historical": 73.1,
+      "strikes_data": [
+        {
+          "strike": 34000,
+          "call_oi": 1200,
+          "put_oi": 15200,
+          "call_change": -350,
+          "put_change": 1600,
+          "total_payout_million": 11875.0
+        },
+        {
+          "strike": 34500,
+          "call_oi": 2500,
+          "put_oi": 19500,
+          "call_change": -120,
+          "put_change": 2200,
+          "total_payout_million": 8526.2
+        },
+        {
+          "strike": 35000,
+          "call_oi": 5100,
+          "put_oi": 28650,
+          "call_change": 280,
+          "put_change": 4300,
+          "total_payout_million": 5727.5
+        },
+        {
+          "strike": 35500,
+          "call_oi": 8400,
+          "put_oi": 24200,
+          "call_change": 650,
+          "put_change": 2800,
+          "total_payout_million": 3772.5
+        },
+        {
+          "strike": 36000,
+          "call_oi": 13500,
+          "put_oi": 22800,
+          "call_change": 1200,
+          "put_change": 1900,
+          "total_payout_million": 2632.5
+        },
+        {
+          "strike": 36500,
+          "call_oi": 28400,
+          "put_oi": 19500,
+          "call_change": 3800,
+          "put_change": -1200,
+          "total_payout_million": 2400.0
+        },
+        {
+          "strike": 37000,
+          "call_oi": 31200,
+          "put_oi": 11200,
+          "call_change": 4600,
+          "put_change": -2400,
+          "total_payout_million": 3365.0
+        },
+        {
+          "strike": 37500,
+          "call_oi": 33800,
+          "put_oi": 5800,
+          "call_change": 6100,
+          "put_change": -1100,
+          "total_payout_million": 5390.0
+        },
+        {
+          "strike": 38000,
+          "call_oi": 26900,
+          "put_oi": 2400,
+          "call_change": 2100,
+          "put_change": -750,
+          "total_payout_million": 8405.0
+        },
+        {
+          "strike": 38500,
+          "call_oi": 18200,
+          "put_oi": 1100,
+          "call_change": 980,
+          "put_change": -260,
+          "total_payout_million": 12152.5
+        }
+      ]
+    },
+    "monthly": {
+      "contract_name": "2026年12月主約 (TXO 12月)",
+      "settlement_date": "2026-12-16",
+      "days_to_settle": 24,
+      "max_pain_strike": 36500,
+      "pain_gap": 466.71,
+      "pain_gap_pct": 1.3,
+      "pcr_ratio": 0.849,
+      "pcr_stage": "偏多防禦",
+      "total_call_oi": 278600,
+      "total_put_oi": 236600,
+      "max_call_oi_strike": 38000,
+      "max_call_oi_vol": 46200,
+      "max_put_oi_strike": 35000,
+      "max_put_oi_vol": 42100,
+      "second_call_oi_strike": 37500,
+      "second_call_oi_vol": 44500,
+      "second_put_oi_strike": 35500,
+      "second_put_oi_vol": 36500,
+      "estimated_box_low": 34500,
+      "estimated_box_high": 38000,
+      "box_probability": 79.5,
+      "pin_rate_historical": 69.4,
+      "strikes_data": [
+        {
+          "strike": 34000,
+          "call_oi": 3500,
+          "put_oi": 26400,
+          "call_change": -200,
+          "put_change": 2100,
+          "total_payout_million": 18825.0
+        },
+        {
+          "strike": 34500,
+          "call_oi": 6200,
+          "put_oi": 34800,
+          "call_change": 120,
+          "put_change": 3400,
+          "total_payout_million": 13657.5
+        },
+        {
+          "strike": 35000,
+          "call_oi": 10500,
+          "put_oi": 42100,
+          "call_change": 580,
+          "put_change": 4800,
+          "total_payout_million": 9515.0
+        },
+        {
+          "strike": 35500,
+          "call_oi": 15800,
+          "put_oi": 36500,
+          "call_change": 980,
+          "put_change": 3200,
+          "total_payout_million": 6687.5
+        },
+        {
+          "strike": 36000,
+          "call_oi": 22400,
+          "put_oi": 31200,
+          "call_change": 1450,
+          "put_change": 1900,
+          "total_payout_million": 5167.5
+        },
+        {
+          "strike": 36500,
+          "call_oi": 31200,
+          "put_oi": 27800,
+          "call_change": 2800,
+          "put_change": 900,
+          "total_payout_million": 4987.5
+        },
+        {
+          "strike": 37000,
+          "call_oi": 41800,
+          "put_oi": 18900,
+          "call_change": 4200,
+          "put_change": -1100,
+          "total_payout_million": 6282.5
+        },
+        {
+          "strike": 37500,
+          "call_oi": 44500,
+          "put_oi": 9500,
+          "call_change": 4900,
+          "put_change": -1800,
+          "total_payout_million": 9095.0
+        },
+        {
+          "strike": 38000,
+          "call_oi": 46200,
+          "put_oi": 5200,
+          "call_change": 5100,
+          "put_change": -900,
+          "total_payout_million": 13257.5
+        },
+        {
+          "strike": 38500,
+          "call_oi": 34100,
+          "put_oi": 2800,
+          "call_change": 2600,
+          "put_change": -500,
+          "total_payout_million": 18705.0
+        },
+        {
+          "strike": 39000,
+          "call_oi": 22400,
+          "put_oi": 1400,
+          "call_change": 1400,
+          "put_change": -200,
+          "total_payout_million": 25075.0
+        }
+      ]
+    }
   }
 }
