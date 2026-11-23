@@ -4178,66 +4178,374 @@
     </section>
 
     <!-- TAB 4: BACKTEST -->
-    <section id="tab-backtest" class="tab-panel hidden space-y-5">
-      <div>
-        <h1 class="text-xl sm:text-2xl font-bold tracking-tight">總經量化策略回測模擬器</h1>
-        <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">支援使用「台灣 M1B-M2 剪刀差」、「美債 10Y-2Y 利差」等總經訊號回測台股 TAIEX、S&amp;P 500 或黃金</p>
-      </div>
-
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+    <section id="tab-backtest" class="tab-panel hidden space-y-6">
+      <!-- Header with Title, Badges & Mode Switcher -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <label for="bt-indicator" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">訊號指標</label>
-          <select id="bt-indicator" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
-            <option value="twM1bM2Spread">台灣 M1B - M2 剪刀差 (%)</option>
-            <option value="ndcScore">國發會景氣綜合判斷分數 (分)</option>
-            <option value="twExportOrdersYoY">台灣外銷訂單年增率 (%)</option>
-            <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
-            <option value="fearAndGreed">恐慌與貪婪綜合指數 (0-100)</option>
-            <option value="buffettIndicator">巴菲特指標 (美股市值 / GDP %)</option>
-            <option value="tipsRealYield">美國 10Y TIPS 實質利率 (%)</option>
-            <option value="breakevenInflation">美國 10Y 平衡通膨率 (%)</option>
-            <option value="globalCbAssets">全球四大央行總資產 (兆美元)</option>
-            <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
-            <option value="fedFundsRate">美國 聯邦基金有效利率 (%)</option>
-            <option value="sahmRule">薩姆規則衰退指標 (%)</option>
-            <option value="spread10y2y">美債 10Y - 2Y 殖利率利差 (%)</option>
-            <option value="usCpi">美國 CPI 年增率 (%)</option>
-            <option value="us10y">美國 10 年期公債殖利率 (%)</option>
-          </select>
-        </div>
-        <div>
-          <label for="bt-operator" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">持有做多條件</label>
-          <select id="bt-operator" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
-            <option value="gt">指標高於門檻 (&gt;)</option>
-            <option value="lt">指標低於門檻 (&lt;)</option>
-          </select>
-        </div>
-        <div>
-          <div class="flex justify-between text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
-            <label for="bt-threshold">觸發門檻值</label>
-            <span id="bt-threshold-val" class="text-blue-600 dark:text-blue-400 font-semibold tabular-nums">0.00</span>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <i data-lucide="cpu" class="w-3.5 h-3.5 inline mr-1"></i>Quant Macro Regime v3.0
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+              動態移動風控 ＆ 多因子狀態機
+            </span>
           </div>
-          <input id="bt-threshold" type="range" step="0.1" class="w-full accent-blue-600" />
+          <h1 class="text-xl sm:text-2xl font-bold tracking-tight mt-1">總經量化策略與多因子動能風控回測實驗室</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+            支援單因子閾值、雙因子總經狀態機 (AND / OR 邏輯運算)、雙均線動能濾網 (SMA) 及動態移動停損 (Trailing Stop-Loss) 全天候避險模型。
+          </p>
         </div>
-        <div>
-          <label for="bt-asset" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">回測投資標的</label>
-          <select id="bt-asset" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm">
-            <option value="taiex">台股加權指數 (TAIEX)</option>
-            <option value="sp500">S&amp;P 500 指數</option>
-            <option value="gold">黃金現貨 (USD/oz)</option>
-          </select>
+        <!-- Mode Switch Buttons -->
+        <div class="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/60 self-start md:self-auto">
+          <button id="bt-mode-single" class="bt-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+            單因子閾值
+          </button>
+          <button id="bt-mode-multi" class="bt-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-sm bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400">
+            多因子狀態機 (Combo)
+          </button>
+          <button id="bt-mode-trend" class="bt-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+            總經＋均線動能 (SMA)
+          </button>
         </div>
       </div>
 
-      <div id="bt-kpi-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4"></div>
+      <!-- Presets Row -->
+      <div class="bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border border-blue-500/20 dark:border-blue-500/30 rounded-xl p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="flex items-center gap-2 shrink-0">
+          <i data-lucide="sparkles" class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0"></i>
+          <span class="text-xs font-bold text-slate-700 dark:text-slate-200">法人級總經策略一鍵套用：</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 text-xs">
+          <button data-bt-preset="expansion" class="bt-preset-btn px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 font-medium text-slate-700 dark:text-slate-200 transition-colors">
+            ⚡ 貨幣剪刀差 ＋ 利差倒掛解除 (台股主升段)
+          </button>
+          <button data-bt-preset="value" class="bt-preset-btn px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 font-medium text-slate-700 dark:text-slate-200 transition-colors">
+            ⚡ 恐慌逆勢價值 (ERP &gt; 0.4% &amp; 恐慌)
+          </button>
+          <button data-bt-preset="stagflation" class="bt-preset-btn px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 font-medium text-slate-700 dark:text-slate-200 transition-colors">
+            ⚡ 通膨過熱防禦 (CPI &gt; 3.0% 買黃金)
+          </button>
+          <button data-bt-preset="export_flow" class="bt-preset-btn px-2.5 py-1 rounded-lg bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 font-medium text-slate-700 dark:text-slate-200 transition-colors">
+            ⚡ 外資大買 ＋ 外銷創新高 (台股衝刺)
+          </button>
+        </div>
+      </div>
 
+      <!-- Interactive Parameter Control Box -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+        <!-- Mode 1: Single Indicator Controls -->
+        <div id="bt-ctrls-single" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div>
+            <label for="bt-indicator" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">訊號指標</label>
+            <select id="bt-indicator" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-xs font-medium">
+              <option value="twM1bM2Spread">台灣 M1B - M2 剪刀差 (%)</option>
+              <option value="ndcScore">國發會景氣綜合判斷分數 (分)</option>
+              <option value="twExportOrdersYoY">台灣外銷訂單年增率 (%)</option>
+              <option value="equityRiskPremium">標普 500 股權風險溢價 (ERP %)</option>
+              <option value="fearAndGreed">恐慌與貪婪綜合指數 (0-100)</option>
+              <option value="buffettIndicator">巴菲特指標 (美股市值 / GDP %)</option>
+              <option value="tipsRealYield">美國 10Y TIPS 實質利率 (%)</option>
+              <option value="breakevenInflation">美國 10Y 平衡通膨率 (%)</option>
+              <option value="globalCbAssets">全球四大央行總資產 (兆美元)</option>
+              <option value="fedNetLiquidity">美國 Fed 淨流動性 (兆美元)</option>
+              <option value="fedFundsRate">美國 聯邦基金有效利率 (%)</option>
+              <option value="sahmRule">薩姆規則衰退指標 (%)</option>
+              <option value="spread10y2y">美債 10Y - 2Y 殖利率利差 (%)</option>
+              <option value="usCpi">美國 CPI 年增率 (%)</option>
+              <option value="us10y">美國 10 年期公債殖利率 (%)</option>
+              <option value="foreignFlow">外資單月淨買賣超 (億元)</option>
+              <option value="copper">銅期貨價格 (USD/lb)</option>
+            </select>
+          </div>
+          <div>
+            <label for="bt-operator" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">做多觸發條件</label>
+            <select id="bt-operator" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-xs font-medium">
+              <option value="gt">指標高於門檻值 (&gt;)</option>
+              <option value="lt">指標低於門檻值 (&lt;)</option>
+            </select>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
+              <label for="bt-threshold">觸發門檻值</label>
+              <span id="bt-threshold-val" class="text-blue-600 dark:text-blue-400 font-semibold tabular-nums">0.00</span>
+            </div>
+            <input id="bt-threshold" type="range" step="0.05" class="w-full accent-blue-600 mt-1" />
+          </div>
+          <div>
+            <label for="bt-asset" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">回測投資標的</label>
+            <select id="bt-asset" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-xs font-medium">
+              <option value="taiex">台股加權指數 (TAIEX)</option>
+              <option value="sp500">S&amp;P 500 指數</option>
+              <option value="gold">黃金現貨 (USD/oz)</option>
+              <option value="copper">銅期貨 (USD/lb)</option>
+              <option value="crb">CRB 大宗商品指數</option>
+            </select>
+          </div>
+          <div>
+            <label for="bt-risk-engine-single" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">動態風控機制</label>
+            <select id="bt-risk-engine-single" class="w-full rounded-lg border border-emerald-500/40 bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 px-3 py-2 text-xs font-semibold">
+              <option value="trailing8">🛡️ 動態移動停損 8% (推薦標竿)</option>
+              <option value="trailing5">🛡️ 動態移動停損 5% (嚴格風控)</option>
+              <option value="trailing12">🛡️ 動態移動停損 12% (寬鬆波段)</option>
+              <option value="bracket">🎯 階梯停利 20% + 停損 8%</option>
+              <option value="none">⚠️ 無額外風控 (純總經訊號)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Mode 2: Multi-Factor Combo Controls (Default Active) -->
+        <div id="bt-ctrls-multi" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+          <div>
+            <label for="bt-factor1" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">總經因子 1</label>
+            <select id="bt-factor1" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-2 text-xs font-medium">
+              <option value="twM1bM2Spread" selected>台灣 M1B-M2 剪刀差 (%)</option>
+              <option value="spread10y2y">美債 10Y-2Y 利差 (%)</option>
+              <option value="ndcScore">國發會景氣綜合分數 (分)</option>
+              <option value="equityRiskPremium">美股 ERP 溢價 (%)</option>
+              <option value="fearAndGreed">恐慌與貪婪指數 (0-100)</option>
+              <option value="foreignFlow">外資單月淨買超 (億元)</option>
+              <option value="twExportOrdersYoY">台灣外銷訂單年增 (%)</option>
+              <option value="fedNetLiquidity">Fed 淨流動性 (兆美元)</option>
+              <option value="usCpi">美國 CPI 年增率 (%)</option>
+              <option value="us10y">美債 10Y 殖利率 (%)</option>
+            </select>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
+              <label for="bt-op1">因子 1 條件</label>
+              <span id="bt-th1-val" class="text-blue-600 dark:text-blue-400 font-semibold tabular-nums">&gt; 0.00</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <select id="bt-op1" class="w-20 shrink-0 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2 py-2 text-xs font-medium">
+                <option value="gt">&gt;</option>
+                <option value="lt">&lt;</option>
+              </select>
+              <input id="bt-th1" type="number" step="0.05" value="0.00" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2 py-2 text-xs font-semibold tabular-nums" />
+            </div>
+          </div>
+          <div class="sm:col-span-2 lg:col-span-1">
+            <label for="bt-logic" class="block text-xs font-medium text-indigo-500 dark:text-indigo-400 mb-1">邏輯運算元</label>
+            <select id="bt-logic" class="w-full rounded-lg border border-indigo-400/50 bg-indigo-50/60 dark:bg-indigo-950/30 text-indigo-700 dark:text-indigo-300 px-2.5 py-2 text-xs font-bold">
+              <option value="AND" selected>AND 且 (交集條件嚴格)</option>
+              <option value="OR">OR 或 (聯集彈性加乘)</option>
+            </select>
+          </div>
+          <div>
+            <label for="bt-factor2" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">總經因子 2</label>
+            <select id="bt-factor2" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2.5 py-2 text-xs font-medium">
+              <option value="spread10y2y" selected>美債 10Y-2Y 利差 (%)</option>
+              <option value="twM1bM2Spread">台灣 M1B-M2 剪刀差 (%)</option>
+              <option value="ndcScore">國發會景氣綜合分數 (分)</option>
+              <option value="equityRiskPremium">美股 ERP 溢價 (%)</option>
+              <option value="fearAndGreed">恐慌與貪婪指數 (0-100)</option>
+              <option value="foreignFlow">外資單月淨買超 (億元)</option>
+              <option value="twExportOrdersYoY">台灣外銷訂單年增 (%)</option>
+              <option value="fedNetLiquidity">Fed 淨流動性 (兆美元)</option>
+              <option value="usCpi">美國 CPI 年增率 (%)</option>
+              <option value="us10y">美債 10Y 殖利率 (%)</option>
+            </select>
+          </div>
+          <div>
+            <div class="flex justify-between text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">
+              <label for="bt-op2">因子 2 條件</label>
+              <span id="bt-th2-val" class="text-blue-600 dark:text-blue-400 font-semibold tabular-nums">&gt; 0.20</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <select id="bt-op2" class="w-20 shrink-0 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2 py-2 text-xs font-medium">
+                <option value="gt">&gt;</option>
+                <option value="lt">&lt;</option>
+              </select>
+              <input id="bt-th2" type="number" step="0.05" value="0.20" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2 py-2 text-xs font-semibold tabular-nums" />
+            </div>
+          </div>
+          <div>
+            <label for="bt-risk-engine-multi" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">動態風控機制</label>
+            <select id="bt-risk-engine-multi" class="w-full rounded-lg border border-emerald-500/40 bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 px-2.5 py-2 text-xs font-semibold">
+              <option value="trailing8" selected>🛡️ 移動停損 8% (推薦標竿)</option>
+              <option value="trailing5">🛡️ 移動停損 5% (高敏銳)</option>
+              <option value="trailing12">🛡️ 移動停損 12% (大波段)</option>
+              <option value="bracket">🎯 階梯停利 20% + 停損 8%</option>
+              <option value="none">⚠️ 無額外風控 (純總經)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Mode 3: Macro + Moving Average Controls -->
+        <div id="bt-ctrls-trend" class="hidden grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div>
+            <label for="bt-trend-macro" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">總經濾網指標</label>
+            <select id="bt-trend-macro" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-xs font-medium">
+              <option value="twM1bM2Spread">台灣 M1B-M2 剪刀差 (%)</option>
+              <option value="spread10y2y">美債 10Y-2Y 殖利率利差 (%)</option>
+              <option value="ndcScore">國發會景氣燈號分數 (分)</option>
+              <option value="fedNetLiquidity">Fed 淨流動性 (兆美元)</option>
+            </select>
+          </div>
+          <div>
+            <label for="bt-trend-th" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">總經做多濾網條件</label>
+            <div class="flex items-center gap-1.5">
+              <select id="bt-trend-op" class="w-20 shrink-0 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2 py-2 text-xs font-medium">
+                <option value="gt">&gt;</option>
+                <option value="lt">&lt;</option>
+              </select>
+              <input id="bt-trend-th" type="number" step="0.05" value="0.00" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-2 py-2 text-xs font-semibold tabular-nums" />
+            </div>
+          </div>
+          <div>
+            <label for="bt-trend-ma-rule" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">技術動能雙均線規則</label>
+            <select id="bt-trend-ma-rule" class="w-full rounded-lg border border-indigo-400/50 bg-indigo-50/60 dark:bg-indigo-950/30 text-indigo-700 dark:text-indigo-300 px-2.5 py-2 text-xs font-semibold">
+              <option value="price_above_sma3">標的價格 &gt; 3 個月均線 (SMA3)</option>
+              <option value="golden_cross">3 個月均線 &gt; 6 個月均線 (SMA3 &gt; SMA6)</option>
+            </select>
+          </div>
+          <div>
+            <label for="bt-asset-trend" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">回測投資標的</label>
+            <select id="bt-asset-trend" class="w-full rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-xs font-medium">
+              <option value="taiex">台股加權指數 (TAIEX)</option>
+              <option value="sp500">S&amp;P 500 指數</option>
+              <option value="gold">黃金現貨 (USD/oz)</option>
+              <option value="copper">銅期貨 (USD/lb)</option>
+              <option value="crb">CRB 大宗商品指數</option>
+            </select>
+          </div>
+          <div>
+            <label for="bt-risk-engine-trend" class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">動態風控機制</label>
+            <select id="bt-risk-engine-trend" class="w-full rounded-lg border border-emerald-500/40 bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-800 dark:text-emerald-300 px-2.5 py-2 text-xs font-semibold">
+              <option value="trailing8">🛡️ 動態移動停損 8% (推薦標竿)</option>
+              <option value="trailing5">🛡️ 動態移動停損 5% (嚴格風控)</option>
+              <option value="trailing12">🛡️ 動態移動停損 12% (寬鬆波段)</option>
+              <option value="bracket">🎯 階梯停利 20% + 停損 8%</option>
+              <option value="none">⚠️ 無額外風控 (純總經)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Target Asset Selector for Multi Mode -->
+        <div id="bt-multi-asset-bar" class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-slate-500 dark:text-slate-400">目前指定回測資產：</span>
+            <select id="bt-asset-multi" class="rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-1 font-semibold text-slate-800 dark:text-slate-200">
+              <option value="taiex">台股加權指數 (TAIEX)</option>
+              <option value="sp500">S&amp;P 500 指數</option>
+              <option value="gold">黃金現貨 (USD/oz)</option>
+              <option value="copper">銅期貨 (USD/lb)</option>
+              <option value="crb">CRB 大宗商品指數</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-mono">
+            <span>回測時間窗口：<strong class="text-slate-700 dark:text-slate-300">2024-12 ~ 2026-11 (24 個月全週期)</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 Quant Performance KPI Cards -->
+      <div id="bt-kpi-grid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3"></div>
+
+      <!-- Tri-Curve Net Asset Value Chart -->
+      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+          <div>
+            <h2 class="font-bold text-base flex items-center gap-2">
+              <span>策略淨值三線對比與動態風控曲線 (起始基準 = 100)</span>
+              <span id="bt-regime-summary-badge" class="px-2 py-0.5 rounded text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"></span>
+            </h2>
+            <div class="flex flex-wrap items-center gap-4 text-xs text-slate-500 dark:text-slate-400 mt-1">
+              <span class="flex items-center gap-1.5"><span class="w-3.5 h-1 bg-emerald-500 rounded"></span>總經 ＋ 動態風控 (Managed)</span>
+              <span class="flex items-center gap-1.5"><span class="w-3.5 h-1 bg-blue-500 rounded"></span>純總經因子策略 (Macro Only)</span>
+              <span class="flex items-center gap-1.5"><span class="w-3.5 h-0.5 border-t border-dashed border-slate-400"></span>買進持有 (Buy &amp; Hold)</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-blue-400/20 border border-blue-400/40"></span>持有曝險區間 (100% Exposure)</span>
+            </div>
+          </div>
+          <span id="bt-active-months" class="text-xs font-mono text-slate-500 dark:text-slate-400 tabular-nums"></span>
+        </div>
+        <div class="relative h-80">
+          <canvas id="backtestChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Comparative Strategy Table & Monthly Trade Log -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Left: Strategy Performance Matrix Table (7 Cols) -->
+        <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+          <h3 class="font-bold text-sm mb-3 flex items-center gap-2">
+            <i data-lucide="table-properties" class="w-4 h-4 text-blue-500"></i>
+            法人級量化風控績效評估表 (Strategy Benchmark Comparison)
+          </h3>
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700/60">
+                <tr>
+                  <th class="px-3 py-2 font-semibold">評估指標 (Metrics)</th>
+                  <th class="px-3 py-2 font-semibold text-slate-600 dark:text-slate-300">基準買進持有 (B&amp;H)</th>
+                  <th class="px-3 py-2 font-semibold text-blue-600 dark:text-blue-400">純總經因子策略</th>
+                  <th class="px-3 py-2 font-semibold text-emerald-600 dark:text-emerald-400">總經 ＋ 動態風控</th>
+                </tr>
+              </thead>
+              <tbody id="bt-comparison-table-body" class="divide-y divide-slate-100 dark:divide-slate-800 font-mono">
+                <!-- Dynamic rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Right: Risk Management & Allocation Mechanism Explanation (5 Cols) -->
+        <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-sm mb-2 flex items-center gap-2">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-500"></i>
+              動態移動停損風控引擎運作邏輯
+            </h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mb-3 leading-relaxed">
+              當總經因子觸發做多信號時，策略由現金轉入 100% 目標資產；持有期間系統即時追蹤進場後淨值最高點（High-Water Mark）。
+            </p>
+            <div class="space-y-2 text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <span class="font-semibold text-emerald-600 dark:text-emerald-400">🟢 做多建立訊號：</span>
+                <span class="text-slate-600 dark:text-slate-300">多因子狀態機判定景氣處於復甦擴張期，總經濾網亮綠燈。</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <span class="font-semibold text-rose-500">🔴 移動停損觸發 (Trailing Stop)：</span>
+                <span class="text-slate-600 dark:text-slate-300">持有期間自高點回撤跌破設定門檻（如 -8%），即使總經數據滯後尚未翻空，立即無條件全額避險離場。</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                <span class="font-semibold text-blue-500">🔵 重新建倉時機：</span>
+                <span class="text-slate-600 dark:text-slate-300">當總經因子出現新一輪轉折，或短期均線 (SMA3) 重新突破長期均線 (SMA6) 時重啟加倉。</span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+            <span class="text-slate-500 dark:text-slate-400">風控狀態診斷</span>
+            <span id="bt-risk-status-tag" class="font-semibold text-emerald-500">🛡️ 監控運行中</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Signal & Trade Execution Log -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
         <div class="flex items-center justify-between mb-3">
-          <h2 class="font-semibold text-base">策略淨值曲線 (起始基準 = 100)</h2>
-          <span id="bt-active-months" class="text-xs text-slate-500 dark:text-slate-400 tabular-nums"></span>
+          <h3 class="font-bold text-sm flex items-center gap-2">
+            <i data-lucide="list-checks" class="w-4 h-4 text-indigo-500"></i>
+            逐月信號偵測與動態風控執行日誌 (Monthly Execution &amp; Risk Log)
+          </h3>
+          <span class="text-xs text-slate-500 dark:text-slate-400">涵蓋 24 個月宏觀景氣循環</span>
         </div>
-        <div class="relative h-72">
-          <canvas id="backtestChart"></canvas>
+        <div class="overflow-x-auto max-h-72 overflow-y-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="sticky top-0 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700">
+              <tr>
+                <th class="px-3 py-2 font-semibold">月份 (Month)</th>
+                <th class="px-3 py-2 font-semibold">因子 1 讀數</th>
+                <th class="px-3 py-2 font-semibold">因子 2 讀數</th>
+                <th class="px-3 py-2 font-semibold">總經狀態</th>
+                <th class="px-3 py-2 font-semibold">風控執行狀態</th>
+                <th class="px-3 py-2 font-semibold text-right">當月標的漲跌</th>
+                <th class="px-3 py-2 font-semibold text-right">策略累計淨值</th>
+              </tr>
+            </thead>
+            <tbody id="bt-trade-log-body" class="divide-y divide-slate-100 dark:divide-slate-800 font-mono">
+              <!-- Dynamic monthly rows -->
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -4927,7 +5235,62 @@
       foreignFlow: {
         name: '外資單月淨買賣超 (億元)',
         unit: '億元',
-        data: [120,-450,280,350,560,980,1250,1450,890,-210,-650,420,580,820,1350,1620,1850,2100,1450,-380,-920,-1250,680,1280]
+        data: [120,-450,280,350,560,980,1250,1450,890,-210,-650,420,580,820,1350,1620,1850,2100,1450,-380,-920,-1250,680,850]
+      },
+      ndcScore: {
+        name: '國發會景氣綜合判斷分數 (分)',
+        unit: '分',
+        data: [38,36,34,31,35,36,38,35,39,34,35,37,38,39,40,39,37,35,36,38,39,41,40,41]
+      },
+      twExportOrdersYoY: {
+        name: '台灣外銷訂單年增率 (%)',
+        unit: '%',
+        data: [12.4,15.2,18.5,21.0,24.5,28.0,32.5,38.0,42.1,45.8,52.0,56.5,59.0,62.4,65.8,68.0,71.5,74.0,76.5,78.3,75.0,72.8,70.5,68.2]
+      },
+      equityRiskPremium: {
+        name: '標普 500 股權風險溢價 (ERP %)',
+        unit: '%',
+        data: [0.45,0.40,0.35,0.50,0.65,0.55,0.48,0.42,0.38,0.30,0.25,0.20,0.15,0.10,0.05,0.12,0.25,0.35,0.48,0.55,0.62,0.58,0.52,0.45]
+      },
+      fearAndGreed: {
+        name: '恐慌與貪婪綜合指數 (0-100)',
+        unit: '分',
+        data: [55.2,58.0,62.5,65.0,68.2,72.0,75.5,78.0,74.2,68.0,62.5,58.0,54.0,48.5,42.0,38.5,35.0,32.6,34.0,38.5,42.0,45.0,48.0,52.0]
+      },
+      buffettIndicator: {
+        name: '巴菲特指標 (美股市值 / GDP %)',
+        unit: '%',
+        data: [195.2,198.0,202.5,205.0,210.2,215.0,218.5,222.0,225.4,228.8,224.0,219.5,215.0,212.0,208.9,205.5,202.0,199.5,198.0,201.5,205.0,208.9,206.5,204.0]
+      },
+      tipsRealYield: {
+        name: '美國 10Y TIPS 實質利率 (%)',
+        unit: '%',
+        data: [2.10,2.15,2.20,2.25,2.30,2.38,2.45,2.52,2.58,2.65,2.70,2.75,2.80,2.85,2.88,2.82,2.78,2.72,2.68,2.65,2.60,2.58,2.55,2.50]
+      },
+      breakevenInflation: {
+        name: '美國 10Y 平衡通膨率 (%)',
+        unit: '%',
+        data: [2.28,2.40,2.22,2.03,2.05,2.10,1.95,1.80,1.67,1.48,1.58,1.67,1.71,1.77,1.80,1.93,2.04,2.18,2.27,2.33,2.44,2.46,2.43,2.48]
+      },
+      globalCbAssets: {
+        name: '全球四大央行總資產 (兆美元)',
+        unit: '兆美元',
+        data: [21.80,21.72,21.65,21.55,21.48,21.35,21.22,21.10,20.98,20.85,20.78,20.72,20.66,20.60,20.55,20.50,20.45,20.40,20.35,20.30,20.25,20.20,20.15,20.10]
+      },
+      fedNetLiquidity: {
+        name: '美國 Fed 淨流動性 (兆美元)',
+        unit: '兆美元',
+        data: [5.65,5.68,5.70,5.72,5.75,5.78,5.80,5.82,5.85,5.88,5.85,5.82,5.80,5.82,5.82,5.84,5.86,5.88,5.90,5.92,5.95,5.98,6.02,6.05]
+      },
+      fedFundsRate: {
+        name: '美國 聯邦基金有效利率 (%)',
+        unit: '%',
+        data: [5.33,5.33,5.33,5.08,5.08,4.83,4.83,4.58,4.58,4.33,4.33,4.33,4.33,4.58,4.58,4.83,4.83,4.83,4.83,4.58,4.58,4.33,4.33,4.33]
+      },
+      sahmRule: {
+        name: '薩姆規則衰退指標 (%)',
+        unit: '%',
+        data: [0.10,0.15,0.18,0.22,0.28,0.35,0.42,0.48,0.52,0.45,0.38,0.30,0.22,0.15,0.08,0.04,0.02,0.00,0.00,0.00,0.02,0.05,0.08,0.10]
       }
     };
 
@@ -5569,7 +5932,26 @@
       scorecard: { trajRegion: 'GLOBAL', trajIdx: 23, playing: false, mmCat: 'ALL', top5Cat: 'STOCK' },
       toolbox: { left: 'twM1b', right: 'taiex', transform: 'raw', range: 24 },
       corr: { mode: 'returns', window: '24', selectedPair: ['taiex', 'sp500'] },
-      backtest: { indicator: 'twM1bM2Spread', operator: 'gt', threshold: 0.0, asset: 'taiex' },
+      backtest: {
+        mode: 'multi',
+        preset: 'expansion',
+        indicator: 'twM1bM2Spread',
+        operator: 'gt',
+        threshold: 0.0,
+        asset: 'taiex',
+        factor1: 'twM1bM2Spread',
+        op1: 'gt',
+        th1: 0.0,
+        logic: 'AND',
+        factor2: 'spread10y2y',
+        op2: 'gt',
+        th2: 0.20,
+        trendMacro: 'twM1bM2Spread',
+        trendOp: 'gt',
+        trendTh: 0.0,
+        trendMaRule: 'price_above_sma3',
+        riskEngine: 'trailing8'
+      },
       etf: { category: 'ALL', query: '', selected: ['SMH', 'SOXQ'] },
       calendar: { tab: 'tech', techCategory: 'ALL', techQuery: '', techView: 'cards', region: 'ALL', impact: 'ALL' },
       trader: { cat: 'ALL', quad: 'ALL', query: '', optionsContract: 'weekly', divergenceFilter: 'ALL' },
@@ -11714,6 +12096,7 @@
 
     function updateBacktestSliderRange() {
       const slider = document.getElementById('bt-threshold');
+      if (!slider) return;
       const ind = state.backtest.indicator;
       if (ind === 'twM1bM2Spread') { slider.min = -0.5; slider.max = 1.5; slider.step = 0.05; }
       else if (ind === 'ndcScore') { slider.min = 10; slider.max = 45; slider.step = 1; }
@@ -11728,77 +12111,417 @@
       else if (ind === 'sahmRule') { slider.min = 0.0; slider.max = 1.0; slider.step = 0.05; }
       else if (ind === 'spread10y2y') { slider.min = -0.2; slider.max = 0.5; slider.step = 0.05; }
       else if (ind === 'usCpi') { slider.min = 2.0; slider.max = 4.0; slider.step = 0.1; }
+      else if (ind === 'foreignFlow') { slider.min = -1500; slider.max = 2500; slider.step = 50; }
+      else if (ind === 'copper') { slider.min = 3.5; slider.max = 5.5; slider.step = 0.05; }
       else { slider.min = 4.0; slider.max = 5.2; slider.step = 0.05; }
+      
       if (Number(slider.value) < Number(slider.min) || Number(slider.value) > Number(slider.max)) {
         state.backtest.threshold = +(Number(slider.min) + (Number(slider.max) - Number(slider.min)) / 2).toFixed(2);
       }
       slider.value = state.backtest.threshold;
-      document.getElementById('bt-threshold-val').textContent = Number(state.backtest.threshold).toFixed(2);
+      const valEl = document.getElementById('bt-threshold-val');
+      if (valEl) valEl.textContent = Number(state.backtest.threshold).toFixed(2);
+    }
+
+    function calculateQuantMetrics(navSeries, assetData, exposureList) {
+      const N = navSeries.length;
+      if (N < 2) return { ret: 0, cagr: 0, sharpe: 0, sortino: 0, mdd: 0, calmar: 0, winRate: 0, exposure: 0 };
+      
+      const totalRet = (navSeries[N - 1] - navSeries[0]) / navSeries[0] * 100;
+      const cagr = (Math.pow(navSeries[N - 1] / navSeries[0], 12 / (N - 1)) - 1) * 100;
+      
+      const monthlyReturns = [];
+      let peak = navSeries[0], maxDd = 0, winMonths = 0, activeMonths = 0;
+      for (let i = 1; i < N; i++) {
+        const ret = (navSeries[i] - navSeries[i - 1]) / navSeries[i - 1];
+        monthlyReturns.push(ret);
+        if (exposureList[i - 1]) {
+          activeMonths++;
+          if (ret > 0) winMonths++;
+        }
+        if (navSeries[i] > peak) peak = navSeries[i];
+        const dd = (navSeries[i] - peak) / peak;
+        if (dd < maxDd) maxDd = dd;
+      }
+      
+      const meanRet = monthlyReturns.reduce((a, b) => a + b, 0) / monthlyReturns.length;
+      const variance = monthlyReturns.reduce((sum, r) => sum + Math.pow(r - meanRet, 2), 0) / (monthlyReturns.length || 1);
+      const stdRet = Math.sqrt(variance);
+      
+      const rfMonthly = 0.025 / 12; // 2.5% risk-free rate
+      const sharpe = stdRet > 0.0001 ? ((meanRet - rfMonthly) / stdRet * Math.sqrt(12)) : 0;
+      
+      const downDiffs = monthlyReturns.filter(r => r < 0);
+      const downVar = downDiffs.length > 0 ? (downDiffs.reduce((sum, r) => sum + Math.pow(r, 2), 0) / downDiffs.length) : 0;
+      const downStd = Math.sqrt(downVar);
+      const sortino = downStd > 0.0001 ? ((meanRet - rfMonthly) / downStd * Math.sqrt(12)) : 0;
+      
+      const mddPct = maxDd * 100;
+      const calmar = Math.abs(mddPct) > 0.1 ? (cagr / Math.abs(mddPct)) : 0;
+      const winRate = activeMonths > 0 ? (winMonths / activeMonths * 100) : 0;
+      const exposurePct = ((exposureList.filter(Boolean).length) / (N - 1)) * 100;
+      
+      return {
+        ret: +totalRet.toFixed(1),
+        cagr: +cagr.toFixed(1),
+        sharpe: +sharpe.toFixed(2),
+        sortino: +sortino.toFixed(2),
+        mdd: +mddPct.toFixed(1),
+        calmar: +calmar.toFixed(2),
+        winRate: +winRate.toFixed(1),
+        exposure: +exposurePct.toFixed(1),
+        activeMonths,
+        winMonths
+      };
     }
 
     function renderBacktest() {
-      const indObj = SERIES_DB[state.backtest.indicator];
-      const assetObj = SERIES_DB[state.backtest.asset];
-      if (!indObj || !indObj.data || !assetObj || !assetObj.data) return;
-      const indData = indObj.data;
+      const mode = state.backtest.mode || 'multi';
+      
+      // Determine target asset
+      let assetKey = state.backtest.asset || 'taiex';
+      if (mode === 'multi') assetKey = state.backtest.assetMulti || state.backtest.asset || 'taiex';
+      if (mode === 'trend') assetKey = state.backtest.assetTrend || state.backtest.asset || 'taiex';
+      
+      const assetObj = SERIES_DB[assetKey];
+      if (!assetObj || !assetObj.data || assetObj.data.length < 2) return;
       const assetData = assetObj.data;
-      const th = Number(state.backtest.threshold);
-      const op = state.backtest.operator;
+      const N = assetData.length;
+      
+      // Determine risk engine
+      let riskEngine = state.backtest.riskEngine || 'trailing8';
+      let trailingStopPct = 8;
+      let hasTakeProfit = false, takeProfitPct = 20;
+      if (riskEngine === 'trailing5') trailingStopPct = 5;
+      else if (riskEngine === 'trailing8') trailingStopPct = 8;
+      else if (riskEngine === 'trailing12') trailingStopPct = 12;
+      else if (riskEngine === 'bracket') { trailingStopPct = 8; hasTakeProfit = true; takeProfitPct = 20; }
+      else if (riskEngine === 'none') trailingStopPct = 999;
 
-      let stratNav = [100], bhNav = [100], activeMonths = 0, winMonths = 0, peak = 100, maxDd = 0;
-      for (let i = 1; i < assetData.length; i++) {
-        const ret = (assetData[i] - assetData[i - 1]) / assetData[i - 1];
-        bhNav.push(+(bhNav[i - 1] * (1 + ret)).toFixed(2));
-        const inMarket = op === 'gt' ? indData[i - 1] > th : indData[i - 1] < th;
-        let stratNext = stratNav[i - 1];
-        if (inMarket) {
-          activeMonths++;
-          if (ret > 0) winMonths++;
-          stratNext = stratNav[i - 1] * (1 + ret);
-        }
-        stratNav.push(+stratNext.toFixed(2));
-        if (stratNext > peak) peak = stratNext;
-        const dd = (stratNext - peak) / peak;
-        if (dd < maxDd) maxDd = dd;
+      // Calculate SMA 3 and SMA 6 for trend mode
+      const sma3 = [], sma6 = [];
+      for (let i = 0; i < N; i++) {
+        if (i < 2) sma3.push(assetData[i]);
+        else sma3.push(+((assetData[i] + assetData[i-1] + assetData[i-2]) / 3).toFixed(2));
+        
+        if (i < 5) sma6.push(assetData[i]);
+        else sma6.push(+((assetData[i] + assetData[i-1] + assetData[i-2] + assetData[i-3] + assetData[i-4] + assetData[i-5]) / 6).toFixed(2));
       }
 
-      const stratRet = +(stratNav[stratNav.length - 1] - 100).toFixed(1);
-      const bhRet = +(bhNav[bhNav.length - 1] - 100).toFixed(1);
-      const winRate = activeMonths > 0 ? Math.round((winMonths / activeMonths) * 100) : 0;
-      const maxDdPct = +(maxDd * 100).toFixed(1);
+      // Check conditions month by month
+      const rawMacroSignals = [];
+      const f1Vals = [], f2Vals = [];
 
-      document.getElementById('bt-active-months').textContent = `持倉月份：${activeMonths} / ${assetData.length - 1} 個月`;
-      document.getElementById('bt-kpi-grid').innerHTML = [
-        { label: '策略累積報酬', value: `${stratRet >= 0 ? '+' : ''}${stratRet}%`, color: stratRet >= 0 ? 'text-emerald-500' : 'text-rose-500' },
-        { label: '買進持有報酬 (基準)', value: `${bhRet >= 0 ? '+' : ''}${bhRet}%`, color: 'text-blue-500' },
-        { label: '持倉月勝率', value: `${winRate}%`, color: 'text-amber-500' },
-        { label: '策略最大回撤 (MDD)', value: `${maxDdPct}%`, color: 'text-rose-500' }
-      ].map(k => `
-        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
-          <div class="text-xs text-slate-500 dark:text-slate-400">${k.label}</div>
-          <div class="text-2xl font-bold tabular-nums mt-1 ${k.color}">${k.value}</div>
-        </div>
-      `).join('');
+      for (let i = 0; i < N - 1; i++) {
+        let inMarket = false;
+        let v1 = 0, v2 = 0;
 
-      const ctx = document.getElementById('backtestChart').getContext('2d');
+        if (mode === 'single') {
+          const indObj = SERIES_DB[state.backtest.indicator] || SERIES_DB.twM1bM2Spread;
+          const val = (indObj.data && indObj.data[i] !== undefined) ? indObj.data[i] : 0;
+          v1 = val;
+          const th = Number(state.backtest.threshold);
+          inMarket = state.backtest.operator === 'gt' ? val > th : val < th;
+        } else if (mode === 'multi') {
+          const o1 = SERIES_DB[state.backtest.factor1] || SERIES_DB.twM1bM2Spread;
+          const o2 = SERIES_DB[state.backtest.factor2] || SERIES_DB.spread10y2y;
+          v1 = (o1.data && o1.data[i] !== undefined) ? o1.data[i] : 0;
+          v2 = (o2.data && o2.data[i] !== undefined) ? o2.data[i] : 0;
+          const c1 = state.backtest.op1 === 'gt' ? v1 > Number(state.backtest.th1) : v1 < Number(state.backtest.th1);
+          const c2 = state.backtest.op2 === 'gt' ? v2 > Number(state.backtest.th2) : v2 < Number(state.backtest.th2);
+          inMarket = state.backtest.logic === 'AND' ? (c1 && c2) : (c1 || c2);
+        } else if (mode === 'trend') {
+          const oMacro = SERIES_DB[state.backtest.trendMacro] || SERIES_DB.twM1bM2Spread;
+          v1 = (oMacro.data && oMacro.data[i] !== undefined) ? oMacro.data[i] : 0;
+          v2 = assetData[i];
+          const macroPass = state.backtest.trendOp === 'gt' ? v1 > Number(state.backtest.trendTh) : v1 < Number(state.backtest.trendTh);
+          const techPass = state.backtest.trendMaRule === 'golden_cross' ? (sma3[i] > sma6[i]) : (assetData[i] > sma3[i]);
+          inMarket = macroPass && techPass;
+        }
+
+        rawMacroSignals.push(inMarket);
+        f1Vals.push(v1);
+        f2Vals.push(v2);
+      }
+
+      // Simulate 3 NAV Curves:
+      // 1. Buy & Hold
+      // 2. Macro Signal Only
+      // 3. Macro + Dynamic Risk Managed (Trailing Stop / Bracket)
+      const bhNav = [100];
+      const macroNav = [100];
+      const managedNav = [100];
+      const macroExposure = [];
+      const managedExposure = [];
+      const tradeLogs = [];
+
+      let inRiskPosition = false;
+      let entryPrice = 0, highWaterMark = 100, entryNav = 100;
+      let totalRiskExits = 0;
+
+      for (let i = 1; i < N; i++) {
+        const prevIdx = i - 1;
+        const ret = (assetData[i] - assetData[prevIdx]) / assetData[prevIdx];
+        
+        // Buy & Hold
+        bhNav.push(+(bhNav[prevIdx] * (1 + ret)).toFixed(2));
+
+        // Macro Only
+        const macroIn = rawMacroSignals[prevIdx];
+        macroExposure.push(macroIn);
+        const mNext = macroIn ? macroNav[prevIdx] * (1 + ret) : macroNav[prevIdx];
+        macroNav.push(+mNext.toFixed(2));
+
+        // Managed with Risk Engine
+        let managedIn = false;
+        let riskLogStatus = '⚪ 空倉觀望';
+
+        if (macroIn) {
+          if (!inRiskPosition) {
+            // New Entry
+            inRiskPosition = true;
+            entryPrice = assetData[prevIdx];
+            entryNav = managedNav[prevIdx];
+            highWaterMark = entryNav;
+            riskLogStatus = '🟢 總經做多建倉';
+          }
+
+          // Evaluate return during this month
+          const tempNav = managedNav[prevIdx] * (1 + ret);
+          if (tempNav > highWaterMark) highWaterMark = tempNav;
+          const drawdownFromPeak = (tempNav - highWaterMark) / highWaterMark * 100;
+          const gainFromEntry = (tempNav - entryNav) / entryNav * 100;
+
+          if (drawdownFromPeak <= -trailingStopPct) {
+            // Trailing Stop Triggered
+            inRiskPosition = false;
+            managedIn = true; // Was in for the month but took the hit
+            totalRiskExits++;
+            riskLogStatus = `🔴 觸發移動停損 (-${trailingStopPct}%)`;
+          } else if (hasTakeProfit && gainFromEntry >= takeProfitPct) {
+            // Take profit bracket hit
+            inRiskPosition = false;
+            managedIn = true;
+            riskLogStatus = `🎯 獲利達標停利 (+${takeProfitPct}%)`;
+          } else {
+            managedIn = true;
+            riskLogStatus = '✅ 多頭持倉中';
+          }
+
+          managedNav.push(+tempNav.toFixed(2));
+        } else {
+          // Macro signal is false: liquidate if still holding
+          if (inRiskPosition) {
+            inRiskPosition = false;
+            riskLogStatus = '⚠️ 總經轉空平倉';
+          }
+          managedIn = false;
+          managedNav.push(+managedNav[prevIdx].toFixed(2));
+        }
+
+        managedExposure.push(managedIn);
+
+        // Record Monthly Log
+        const mMonth = MONTHS[i] || `M${i}`;
+        tradeLogs.push({
+          month: mMonth,
+          v1: typeof f1Vals[prevIdx] === 'number' ? f1Vals[prevIdx].toFixed(2) : f1Vals[prevIdx],
+          v2: typeof f2Vals[prevIdx] === 'number' ? f2Vals[prevIdx].toFixed(2) : f2Vals[prevIdx],
+          macroStatus: macroIn ? '🟢 景氣擴張偏多' : '🔴 景氣緊縮防禦',
+          riskStatus: riskLogStatus,
+          assetRetPct: (ret * 100).toFixed(2),
+          nav: managedNav[i].toFixed(2)
+        });
+      }
+
+      // Calculate Metrics for All 3 Strategies
+      const bhMetrics = calculateQuantMetrics(bhNav, assetData, Array(N - 1).fill(true));
+      const macroMetrics = calculateQuantMetrics(macroNav, assetData, macroExposure);
+      const managedMetrics = calculateQuantMetrics(managedNav, assetData, managedExposure);
+
+      // Render 8 Quant KPI Cards for the Managed Strategy
+      const kpis = [
+        { label: '累積總報酬', value: `${managedMetrics.ret >= 0 ? '+' : ''}${managedMetrics.ret}%`, sub: `基準 ${bhMetrics.ret}%`, color: managedMetrics.ret >= 0 ? 'text-emerald-500' : 'text-rose-500' },
+        { label: '年化報酬 CAGR', value: `${managedMetrics.cagr >= 0 ? '+' : ''}${managedMetrics.cagr}%`, sub: `基準 ${bhMetrics.cagr}%`, color: 'text-blue-500' },
+        { label: '年化夏普值', value: `${managedMetrics.sharpe}`, sub: `基準 ${bhMetrics.sharpe}`, color: managedMetrics.sharpe >= 1.0 ? 'text-emerald-500' : 'text-slate-700 dark:text-slate-200' },
+        { label: '最大回撤 MDD', value: `${managedMetrics.mdd}%`, sub: `基準 ${bhMetrics.mdd}%`, color: Math.abs(managedMetrics.mdd) < Math.abs(bhMetrics.mdd) ? 'text-emerald-500' : 'text-rose-500' },
+        { label: '卡瑪比率 Calmar', value: `${managedMetrics.calmar}`, sub: `基準 ${bhMetrics.calmar}`, color: 'text-indigo-500' },
+        { label: '索提諾比率', value: `${managedMetrics.sortino}`, sub: `下行風險防護`, color: 'text-cyan-500' },
+        { label: '持倉勝率', value: `${managedMetrics.winRate}%`, sub: `${managedMetrics.winMonths} 勝 / ${managedMetrics.activeMonths} 月`, color: 'text-amber-500' },
+        { label: '市場曝險佔比', value: `${managedMetrics.exposure}%`, sub: `避險空倉 ${Math.round(100 - managedMetrics.exposure)}%`, color: 'text-purple-500' }
+      ];
+
+      const kpiContainer = document.getElementById('bt-kpi-grid');
+      if (kpiContainer) {
+        kpiContainer.innerHTML = kpis.map(k => `
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 shadow-sm">
+            <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium truncate">${k.label}</div>
+            <div class="text-xl font-bold tabular-nums mt-0.5 ${k.color}">${k.value}</div>
+            <div class="text-[10px] text-slate-400 dark:text-slate-500 mt-0.5 truncate">${k.sub}</div>
+          </div>
+        `).join('');
+      }
+
+      // Update Summary Header Badges
+      const summaryBadge = document.getElementById('bt-regime-summary-badge');
+      if (summaryBadge) {
+        summaryBadge.textContent = `當前：${managedMetrics.ret >= bhMetrics.ret ? '超額阿爾法 (Alpha +' + (managedMetrics.ret - bhMetrics.ret).toFixed(1) + '%)' : '防禦避險 (MDD 縮減 ' + Math.abs(bhMetrics.mdd - managedMetrics.mdd).toFixed(1) + '%)'}`;
+      }
+      const activeEl = document.getElementById('bt-active-months');
+      if (activeEl) {
+        activeEl.textContent = `持倉月份：${managedMetrics.activeMonths} / ${N - 1} 個月 ｜ 風控避險觸發：${totalRiskExits} 次`;
+      }
+
+      // Render Strategy Benchmark Table
+      const compTableBody = document.getElementById('bt-comparison-table-body');
+      if (compTableBody) {
+        const rows = [
+          { name: '累積總報酬率 (Cumulative Return)', bh: `${bhMetrics.ret >= 0 ? '+' : ''}${bhMetrics.ret}%`, macro: `${macroMetrics.ret >= 0 ? '+' : ''}${macroMetrics.ret}%`, managed: `${managedMetrics.ret >= 0 ? '+' : ''}${managedMetrics.ret}%`, win: managedMetrics.ret >= bhMetrics.ret },
+          { name: '年化複合成長率 (CAGR)', bh: `${bhMetrics.cagr >= 0 ? '+' : ''}${bhMetrics.cagr}%`, macro: `${macroMetrics.cagr >= 0 ? '+' : ''}${macroMetrics.cagr}%`, managed: `${managedMetrics.cagr >= 0 ? '+' : ''}${managedMetrics.cagr}%`, win: managedMetrics.cagr >= bhMetrics.cagr },
+          { name: '年化夏普比率 (Sharpe Ratio, Rf=2.5%)', bh: `${bhMetrics.sharpe}`, macro: `${macroMetrics.sharpe}`, managed: `${managedMetrics.sharpe}`, win: managedMetrics.sharpe >= bhMetrics.sharpe },
+          { name: '歷史最大回撤 (Max Drawdown)', bh: `${bhMetrics.mdd}%`, macro: `${macroMetrics.mdd}%`, managed: `${managedMetrics.mdd}%`, win: Math.abs(managedMetrics.mdd) <= Math.abs(bhMetrics.mdd) },
+          { name: '卡瑪比率 (Calmar Ratio = CAGR/|MDD|)', bh: `${bhMetrics.calmar}`, macro: `${macroMetrics.calmar}`, managed: `${managedMetrics.calmar}`, win: managedMetrics.calmar >= bhMetrics.calmar },
+          { name: '索提諾比率 (Sortino Ratio)', bh: `${bhMetrics.sortino}`, macro: `${macroMetrics.sortino}`, managed: `${managedMetrics.sortino}`, win: managedMetrics.sortino >= bhMetrics.sortino },
+          { name: '持倉月份月勝率 (Win Rate %)', bh: `${bhMetrics.winRate}%`, macro: `${macroMetrics.winRate}%`, managed: `${managedMetrics.winRate}%`, win: managedMetrics.winRate >= bhMetrics.winRate },
+          { name: '市場資金曝險天期佔比 (Exposure %)', bh: '100.0%', macro: `${macroMetrics.exposure}%`, managed: `${managedMetrics.exposure}%`, win: true }
+        ];
+
+        compTableBody.innerHTML = rows.map(r => `
+          <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+            <td class="px-3 py-2 font-medium text-slate-700 dark:text-slate-300">${r.name}</td>
+            <td class="px-3 py-2 text-slate-500 dark:text-slate-400">${r.bh}</td>
+            <td class="px-3 py-2 font-semibold text-blue-600 dark:text-blue-400">${r.macro}</td>
+            <td class="px-3 py-2 font-bold ${r.win ? 'text-emerald-500' : 'text-slate-900 dark:text-white'}">${r.managed} ${r.win ? '★' : ''}</td>
+          </tr>
+        `).join('');
+      }
+
+      // Render Monthly Trade Execution Log
+      const tradeLogBody = document.getElementById('bt-trade-log-body');
+      if (tradeLogBody) {
+        tradeLogBody.innerHTML = tradeLogs.map(t => {
+          const retNum = parseFloat(t.assetRetPct);
+          const retColor = retNum > 0 ? 'text-emerald-500' : retNum < 0 ? 'text-rose-500' : 'text-slate-400';
+          const badgeClass = t.riskStatus.includes('做多') ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' :
+                             t.riskStatus.includes('停損') ? 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20 font-bold' :
+                             t.riskStatus.includes('停利') ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20' :
+                             t.riskStatus.includes('持倉') ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400' :
+                             'text-slate-400 dark:text-slate-500';
+          return `
+            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+              <td class="px-3 py-1.5 font-bold text-slate-800 dark:text-slate-200">${t.month}</td>
+              <td class="px-3 py-1.5 text-slate-600 dark:text-slate-400">${t.v1}</td>
+              <td class="px-3 py-1.5 text-slate-600 dark:text-slate-400">${t.v2}</td>
+              <td class="px-3 py-1.5">${t.macroStatus}</td>
+              <td class="px-3 py-1.5"><span class="px-2 py-0.5 rounded text-[11px] ${badgeClass}">${t.riskStatus}</span></td>
+              <td class="px-3 py-1.5 text-right font-semibold ${retColor}">${retNum >= 0 ? '+' : ''}${t.assetRetPct}%</td>
+              <td class="px-3 py-1.5 text-right font-bold text-slate-900 dark:text-slate-100">${t.nav}</td>
+            </tr>
+          `;
+        }).reverse().join('');
+      }
+
+      // Render Tri-Curve Chart.js
+      const canvas = document.getElementById('backtestChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
       if (charts.backtest) charts.backtest.destroy();
+
+      // Chart.js Datasets
+      const exposureBars = [0, ...managedExposure].map(exp => exp ? 100 : 0);
+
       charts.backtest = new Chart(ctx, {
         type: 'line',
         data: {
           labels: MONTHS,
           datasets: [
-            { label: '總經條件策略淨值', data: stratNav, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', fill: true, tension: 0.25, pointRadius: 2 },
-            { label: '買進持有 (Buy & Hold)', data: bhNav, borderColor: '#64748b', borderDash: [5, 5], tension: 0.25, pointRadius: 0 }
+            {
+              label: '總經 ＋ 動態風控策略淨值',
+              data: managedNav,
+              borderColor: '#10b981',
+              backgroundColor: 'rgba(16,185,129,0.08)',
+              borderWidth: 2.5,
+              pointRadius: 3,
+              pointBackgroundColor: '#10b981',
+              pointHoverRadius: 6,
+              fill: true,
+              tension: 0.25,
+              yAxisID: 'y'
+            },
+            {
+              label: '純總經因子策略淨值',
+              data: macroNav,
+              borderColor: '#3b82f6',
+              borderWidth: 1.8,
+              pointRadius: 2,
+              pointBackgroundColor: '#3b82f6',
+              fill: false,
+              tension: 0.25,
+              yAxisID: 'y'
+            },
+            {
+              label: '買進持有基準 (Buy & Hold)',
+              data: bhNav,
+              borderColor: '#94a3b8',
+              borderWidth: 1.5,
+              borderDash: [4, 4],
+              pointRadius: 0,
+              fill: false,
+              tension: 0.25,
+              yAxisID: 'y'
+            },
+            {
+              type: 'bar',
+              label: '市場曝險程度 (0% / 100%)',
+              data: exposureBars,
+              backgroundColor: 'rgba(59, 130, 246, 0.12)',
+              borderColor: 'rgba(59, 130, 246, 0.25)',
+              borderWidth: 1,
+              barPercentage: 1.0,
+              categoryPercentage: 1.0,
+              yAxisID: 'y1'
+            }
           ]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           interaction: { mode: 'index', intersect: false },
-          plugins: { legend: { labels: { color: textColor() } } },
+          plugins: {
+            legend: {
+              labels: { color: textColor(), font: { size: 11 } }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  if (ctx.dataset.yAxisID === 'y1') {
+                    return `持倉曝險：${ctx.parsed.y}% (${ctx.parsed.y > 0 ? '滿倉' : '空倉避險'})`;
+                  }
+                  return `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}`;
+                }
+              }
+            }
+          },
           scales: {
-            x: { grid: { color: gridColor() }, ticks: { color: textColor() } },
-            y: { grid: { color: gridColor() }, ticks: { color: textColor() } }
+            x: {
+              grid: { color: gridColor() },
+              ticks: { color: textColor(), font: { size: 11 } }
+            },
+            y: {
+              type: 'linear',
+              position: 'left',
+              title: { display: true, text: '策略淨值 (NAV)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: { color: textColor(), font: { size: 11 } }
+            },
+            y1: {
+              type: 'linear',
+              position: 'right',
+              min: 0,
+              max: 300, // keep exposure bar tucked at bottom
+              display: false,
+              grid: { drawOnChartArea: false }
+            }
           }
         }
       });
@@ -13630,17 +14353,167 @@
         showToast('已匯出目前圖表數據為 CSV');
       });
 
-      updateBacktestSliderRange();
-      document.getElementById('bt-indicator').addEventListener('change', e => {
-        state.backtest.indicator = e.target.value; updateBacktestSliderRange(); renderBacktest();
-      });
-      document.getElementById('bt-operator').addEventListener('change', e => { state.backtest.operator = e.target.value; renderBacktest(); });
-      document.getElementById('bt-threshold').addEventListener('input', e => {
-        state.backtest.threshold = Number(e.target.value);
-        document.getElementById('bt-threshold-val').textContent = state.backtest.threshold.toFixed(2);
-        renderBacktest();
-      });
-      document.getElementById('bt-asset').addEventListener('change', e => { state.backtest.asset = e.target.value; renderBacktest(); });
+      // Backtest Lab Event Listeners & Mode Switchers
+      function initBacktestControls() {
+        updateBacktestSliderRange();
+        
+        // Mode Switch Buttons
+        const modeSingle = document.getElementById('bt-mode-single');
+        const modeMulti = document.getElementById('bt-mode-multi');
+        const modeTrend = document.getElementById('bt-mode-trend');
+        const ctrlsSingle = document.getElementById('bt-ctrls-single');
+        const ctrlsMulti = document.getElementById('bt-ctrls-multi');
+        const ctrlsTrend = document.getElementById('bt-ctrls-trend');
+        const multiAssetBar = document.getElementById('bt-multi-asset-bar');
+
+        function setBtMode(m) {
+          state.backtest.mode = m;
+          const activeClass = 'bt-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-sm bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400';
+          const inactiveClass = 'bt-mode-btn px-3 py-1.5 rounded-lg text-xs font-semibold transition-all text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white';
+          
+          if (modeSingle) modeSingle.className = m === 'single' ? activeClass : inactiveClass;
+          if (modeMulti) modeMulti.className = m === 'multi' ? activeClass : inactiveClass;
+          if (modeTrend) modeTrend.className = m === 'trend' ? activeClass : inactiveClass;
+          
+          if (ctrlsSingle) ctrlsSingle.classList.toggle('hidden', m !== 'single');
+          if (ctrlsMulti) ctrlsMulti.classList.toggle('hidden', m !== 'multi');
+          if (ctrlsTrend) ctrlsTrend.classList.toggle('hidden', m !== 'trend');
+          if (multiAssetBar) multiAssetBar.classList.toggle('hidden', m !== 'multi');
+          
+          renderBacktest();
+        }
+
+        if (modeSingle) modeSingle.addEventListener('click', () => setBtMode('single'));
+        if (modeMulti) modeMulti.addEventListener('click', () => setBtMode('multi'));
+        if (modeTrend) modeTrend.addEventListener('click', () => setBtMode('trend'));
+
+        // Presets
+        document.querySelectorAll('.bt-preset-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const p = btn.dataset.btPreset;
+            if (p === 'expansion') {
+              setBtMode('multi');
+              state.backtest.factor1 = 'twM1bM2Spread'; state.backtest.op1 = 'gt'; state.backtest.th1 = 0.0;
+              state.backtest.logic = 'AND';
+              state.backtest.factor2 = 'spread10y2y'; state.backtest.op2 = 'gt'; state.backtest.th2 = 0.20;
+              state.backtest.assetMulti = 'taiex';
+              state.backtest.riskEngine = 'trailing8';
+            } else if (p === 'value') {
+              setBtMode('multi');
+              state.backtest.factor1 = 'equityRiskPremium'; state.backtest.op1 = 'gt'; state.backtest.th1 = 0.40;
+              state.backtest.logic = 'AND';
+              state.backtest.factor2 = 'fearAndGreed'; state.backtest.op2 = 'lt'; state.backtest.th2 = 45;
+              state.backtest.assetMulti = 'sp500';
+              state.backtest.riskEngine = 'trailing5';
+            } else if (p === 'stagflation') {
+              setBtMode('multi');
+              state.backtest.factor1 = 'us10y'; state.backtest.op1 = 'gt'; state.backtest.th1 = 4.50;
+              state.backtest.logic = 'OR';
+              state.backtest.factor2 = 'usCpi'; state.backtest.op2 = 'gt'; state.backtest.th2 = 3.00;
+              state.backtest.assetMulti = 'gold';
+              state.backtest.riskEngine = 'trailing8';
+            } else if (p === 'export_flow') {
+              setBtMode('multi');
+              state.backtest.factor1 = 'foreignFlow'; state.backtest.op1 = 'gt'; state.backtest.th1 = 300;
+              state.backtest.logic = 'AND';
+              state.backtest.factor2 = 'twExportOrdersYoY'; state.backtest.op2 = 'gt'; state.backtest.th2 = 30;
+              state.backtest.assetMulti = 'taiex';
+              state.backtest.riskEngine = 'trailing12';
+            }
+
+            // Sync controls
+            const f1El = document.getElementById('bt-factor1'); if (f1El) f1El.value = state.backtest.factor1;
+            const op1El = document.getElementById('bt-op1'); if (op1El) op1El.value = state.backtest.op1;
+            const th1El = document.getElementById('bt-th1'); if (th1El) th1El.value = state.backtest.th1;
+            const logEl = document.getElementById('bt-logic'); if (logEl) logEl.value = state.backtest.logic;
+            const f2El = document.getElementById('bt-factor2'); if (f2El) f2El.value = state.backtest.factor2;
+            const op2El = document.getElementById('bt-op2'); if (op2El) op2El.value = state.backtest.op2;
+            const th2El = document.getElementById('bt-th2'); if (th2El) th2El.value = state.backtest.th2;
+            const asEl = document.getElementById('bt-asset-multi'); if (asEl) asEl.value = state.backtest.assetMulti;
+            const rkEl = document.getElementById('bt-risk-engine-multi'); if (rkEl) rkEl.value = state.backtest.riskEngine;
+            
+            const th1Val = document.getElementById('bt-th1-val');
+            if (th1Val) th1Val.textContent = `${state.backtest.op1 === 'gt' ? '>' : '<'} ${Number(state.backtest.th1).toFixed(2)}`;
+            const th2Val = document.getElementById('bt-th2-val');
+            if (th2Val) th2Val.textContent = `${state.backtest.op2 === 'gt' ? '>' : '<'} ${Number(state.backtest.th2).toFixed(2)}`;
+            
+            renderBacktest();
+          });
+        });
+
+        // Mode 1: Single Listeners
+        const btInd = document.getElementById('bt-indicator');
+        if (btInd) btInd.addEventListener('change', e => { state.backtest.indicator = e.target.value; updateBacktestSliderRange(); renderBacktest(); });
+        const btOp = document.getElementById('bt-operator');
+        if (btOp) btOp.addEventListener('change', e => { state.backtest.operator = e.target.value; renderBacktest(); });
+        const btTh = document.getElementById('bt-threshold');
+        if (btTh) btTh.addEventListener('input', e => {
+          state.backtest.threshold = Number(e.target.value);
+          const valEl = document.getElementById('bt-threshold-val');
+          if (valEl) valEl.textContent = state.backtest.threshold.toFixed(2);
+          renderBacktest();
+        });
+        const btAst = document.getElementById('bt-asset');
+        if (btAst) btAst.addEventListener('change', e => { state.backtest.asset = e.target.value; renderBacktest(); });
+        const btRkS = document.getElementById('bt-risk-engine-single');
+        if (btRkS) btRkS.addEventListener('change', e => { state.backtest.riskEngine = e.target.value; renderBacktest(); });
+
+        // Mode 2: Multi Listeners
+        const f1 = document.getElementById('bt-factor1');
+        if (f1) f1.addEventListener('change', e => { state.backtest.factor1 = e.target.value; renderBacktest(); });
+        const op1 = document.getElementById('bt-op1');
+        if (op1) op1.addEventListener('change', e => {
+          state.backtest.op1 = e.target.value;
+          const v = document.getElementById('bt-th1-val');
+          if (v) v.textContent = `${e.target.value === 'gt' ? '>' : '<'} ${Number(state.backtest.th1).toFixed(2)}`;
+          renderBacktest();
+        });
+        const th1 = document.getElementById('bt-th1');
+        if (th1) th1.addEventListener('input', e => {
+          state.backtest.th1 = Number(e.target.value);
+          const v = document.getElementById('bt-th1-val');
+          if (v) v.textContent = `${state.backtest.op1 === 'gt' ? '>' : '<'} ${state.backtest.th1.toFixed(2)}`;
+          renderBacktest();
+        });
+        const logic = document.getElementById('bt-logic');
+        if (logic) logic.addEventListener('change', e => { state.backtest.logic = e.target.value; renderBacktest(); });
+        const f2 = document.getElementById('bt-factor2');
+        if (f2) f2.addEventListener('change', e => { state.backtest.factor2 = e.target.value; renderBacktest(); });
+        const op2 = document.getElementById('bt-op2');
+        if (op2) op2.addEventListener('change', e => {
+          state.backtest.op2 = e.target.value;
+          const v = document.getElementById('bt-th2-val');
+          if (v) v.textContent = `${e.target.value === 'gt' ? '>' : '<'} ${Number(state.backtest.th2).toFixed(2)}`;
+          renderBacktest();
+        });
+        const th2 = document.getElementById('bt-th2');
+        if (th2) th2.addEventListener('input', e => {
+          state.backtest.th2 = Number(e.target.value);
+          const v = document.getElementById('bt-th2-val');
+          if (v) v.textContent = `${state.backtest.op2 === 'gt' ? '>' : '<'} ${state.backtest.th2.toFixed(2)}`;
+          renderBacktest();
+        });
+        const astM = document.getElementById('bt-asset-multi');
+        if (astM) astM.addEventListener('change', e => { state.backtest.assetMulti = e.target.value; renderBacktest(); });
+        const rkM = document.getElementById('bt-risk-engine-multi');
+        if (rkM) rkM.addEventListener('change', e => { state.backtest.riskEngine = e.target.value; renderBacktest(); });
+
+        // Mode 3: Trend Listeners
+        const tMacro = document.getElementById('bt-trend-macro');
+        if (tMacro) tMacro.addEventListener('change', e => { state.backtest.trendMacro = e.target.value; renderBacktest(); });
+        const tOp = document.getElementById('bt-trend-op');
+        if (tOp) tOp.addEventListener('change', e => { state.backtest.trendOp = e.target.value; renderBacktest(); });
+        const tTh = document.getElementById('bt-trend-th');
+        if (tTh) tTh.addEventListener('input', e => { state.backtest.trendTh = Number(e.target.value); renderBacktest(); });
+        const tMaRule = document.getElementById('bt-trend-ma-rule');
+        if (tMaRule) tMaRule.addEventListener('change', e => { state.backtest.trendMaRule = e.target.value; renderBacktest(); });
+        const tAst = document.getElementById('bt-asset-trend');
+        if (tAst) tAst.addEventListener('change', e => { state.backtest.assetTrend = e.target.value; renderBacktest(); });
+        const tRk = document.getElementById('bt-risk-engine-trend');
+        if (tRk) tRk.addEventListener('change', e => { state.backtest.riskEngine = e.target.value; renderBacktest(); });
+      }
+
+      initBacktestControls();
 
       document.getElementById('etf-cat-filter').addEventListener('change', e => { state.etf.category = e.target.value; renderEtfTab(); });
       document.getElementById('etf-search').addEventListener('input', e => { state.etf.query = e.target.value; renderEtfTab(); });
