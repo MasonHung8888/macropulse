@@ -8932,6 +8932,8 @@
       if (lbl) lbl.textContent = '重新整理';
 
       if (bundleLoaded) {
+        const main = document.querySelector('main');
+        if (main) main.style.visibility = 'visible';
         if (state.activeTab === 'dashboard') renderTop5();
         if (state.activeTab === 'trader') renderTraderTab();
         if (manual) showToast(`已重新載入：${updatedSources.join('、')}。市場價格為延遲日線。`);
@@ -16489,6 +16491,8 @@
     // --- 6. Event Listeners & Init ---
     document.addEventListener('DOMContentLoaded', () => {
       // Truth mode：啟動畫面不得先渲染程式內建示範數值；只接受後續已驗證資料包。
+      const main = document.querySelector('main');
+      if (main) main.style.visibility = 'hidden';
       Object.values(COUNTRY_DATA).forEach(country => {
         country.regime = '等待已驗證資料';
         country.kpis = [];
@@ -16506,6 +16510,25 @@
       HEATMAP_DATA.SP500 = [];
       HEATMAP_DATA.TW = [];
       TECH_EARNINGS_DATA = [];
+
+      // 尚未接上可稽核資料源的模組直接隱藏，避免靜態版面數值被誤認為現況。
+      [
+        'tw-backtest-lab',
+        'tw-state-banks-section',
+        'txo-maxpain-section',
+        'quant-divergence-section',
+        'retail-smart-money-section',
+        'volatility-skew-radar-section',
+        'csp-capex-section',
+        'semiconductor-cycle-section',
+        'treasury-term-structure-section',
+        'cal-valuation-panel',
+      ].forEach(id => document.getElementById(id)?.classList.add('hidden'));
+      document.querySelectorAll('[data-tab="etf"]').forEach(el => el.remove());
+      document.getElementById('tab-etf')?.remove();
+      document.getElementById('cal-track-valuation-btn')?.remove();
+      document.getElementById('trajChart')?.closest('.bg-white, .dark\\:bg-slate-900')?.classList.add('hidden');
+      document.getElementById('erpChart')?.closest('.bg-white, .dark\\:bg-slate-900')?.classList.add('hidden');
       lucide.createIcons();
 
       document.querySelectorAll('.nav-btn').forEach(btn => {
