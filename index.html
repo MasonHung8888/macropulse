@@ -85,7 +85,7 @@
         <button data-tab="builder" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
           <i data-lucide="layers" class="w-4 h-4"></i>自編指數
         </button>
-        <button data-tab="etf" data-disabled="true" class="nav-btn hidden px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors items-center gap-1.5">
+        <button data-tab="etf" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
           <i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF
         </button>
         <button data-tab="calendar" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
@@ -124,7 +124,7 @@
       <button data-tab="toolbox" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="line-chart" class="w-4 h-4"></i>研究工具箱</button>
       <button data-tab="backtest" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="flask-conical" class="w-4 h-4"></i>量化回測</button>
       <button data-tab="builder" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="layers" class="w-4 h-4"></i>自編指數</button>
-      <button data-tab="etf" data-disabled="true" class="nav-btn hidden text-left px-3 py-2 rounded-lg text-sm font-medium items-center gap-2"><i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF</button>
+      <button data-tab="etf" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"><i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF</button>
       <button data-tab="calendar" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="calendar-days" class="w-4 h-4"></i>科技 ＆ 財經行事曆</button>
       <button data-tab="mydash" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="bookmark" class="w-4 h-4"></i>我的儀表板</button>
       <button data-tab="import" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="upload" class="w-4 h-4"></i>匯入數據</button>
@@ -15784,7 +15784,7 @@
       renderFearGreedRadar();
       loadTechEarningsData();
       const hashTab = (window.location.hash || '').slice(1);
-      const validTabs = ['dashboard', 'taiwan', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'calendar', 'mydash', 'import'];
+      const validTabs = ['dashboard', 'taiwan', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'calendar', 'etf', 'mydash', 'import'];
       const initialTab = validTabs.includes(hashTab) ? hashTab : 'dashboard';
       switchTab(initialTab);
       syncLivePublicData(false);
