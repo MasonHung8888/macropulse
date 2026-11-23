@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-23T22:15:36Z",
+  "updated_at": "2026-11-23T22:19:46Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1020,14 +1020,14 @@
       }
     },
     "taiex": {
-      "price": 36033.29,
-      "d1": -6.23,
-      "as_of": "2026-11-20",
-      "source": "Yahoo Finance daily close (may be delayed)",
+      "price": 36811.89,
+      "d1": 2.16,
+      "as_of": "2026-11-23",
+      "source": "TWSE official market index daily report",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 3
+        "age_days": 0
       }
     },
     "nikkei": {
@@ -1162,8 +1162,8 @@
       "realtime": false
     },
     "usdtwd": {
-      "price": 32.83,
-      "d1": -0.58,
+      "price": 32.84,
+      "d1": -0.55,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -2771,7 +2771,7 @@
         31.63,
         31.85,
         32.61,
-        32.83
+        32.84
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -3366,7 +3366,7 @@
     "TWD": 32.97
   },
   "crypto": {
-    "btc_price": 61213,
+    "btc_price": 61170,
     "stablecoin_market_cap_b": 243.7
   },
   "macro_indicators": {
@@ -4044,7 +4044,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-23T22:16:06Z",
+    "validated_at": "2026-11-23T22:20:15Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5802,7 +5802,7 @@
         0.45,
         1.0,
         -0.67,
-        0.44
+        0.43
       ],
       [
         0.5,
@@ -5820,7 +5820,7 @@
         -0.22,
         0.39,
         -0.13,
-        0.44,
+        0.43,
         -0.03,
         1.0
       ]
@@ -5831,7 +5831,7 @@
         0.93,
         0.91,
         0.66,
-        0.38,
+        0.37,
         0.26,
         -0.35,
         0.4
@@ -5852,7 +5852,7 @@
         1.0,
         0.62,
         0.27,
-        0.11,
+        0.1,
         -0.39,
         0.22
       ],
@@ -5867,7 +5867,7 @@
         0.47
       ],
       [
-        0.38,
+        0.37,
         0.39,
         0.27,
         0.73,
@@ -5879,7 +5879,7 @@
       [
         0.26,
         0.28,
-        0.11,
+        0.1,
         0.66,
         0.86,
         1.0,
@@ -6036,7 +6036,7 @@
         99.43,
         101.45,
         101.88,
-        104.34
+        104.35
       ],
       "usdtwd": [
         32.76,
@@ -6062,7 +6062,7 @@
         31.63,
         31.85,
         32.57,
-        32.83
+        32.84
       ],
       "gold": [
         2641.0,
