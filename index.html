@@ -6188,14 +6188,14 @@
         data: [38,36,34,31,35,36,38,35,39,34,35,37,38,39,40,39,37,35,36,38,39,41,40,41]
       },
       twExportOrdersYoY: {
-        name: '台灣外銷訂單年增率 (%)',
+        name: '台灣外銷訂單年增率 (%) [等待官方動態來源]',
         unit: '%',
-        data: [12.4,15.2,18.5,21.0,24.5,28.0,32.5,38.0,42.1,45.8,52.0,56.5,59.0,62.4,65.8,68.0,71.5,74.0,76.5,78.3,75.0,72.8,70.5,68.2]
+        data: []
       },
       equityRiskPremium: {
-        name: '標普 500 股權風險溢價 (ERP %)',
+        name: '標普 500 股權風險溢價 (ERP %) [等待可驗證 Forward P/E]',
         unit: '%',
-        data: [0.45,0.40,0.35,0.50,0.65,0.55,0.48,0.42,0.38,0.30,0.25,0.20,0.15,0.10,0.05,0.12,0.25,0.35,0.48,0.55,0.62,0.58,0.52,0.45]
+        data: []
       },
       fearAndGreed: {
         name: '恐慌與貪婪綜合指數 (0-100)',
@@ -8380,7 +8380,14 @@
 
         count++;
       } else {
-        populateExportOrdersDefaultIfEmpty();
+        const amtEl = document.getElementById('export-amount-val');
+        const yoyEl = document.getElementById('export-yoy-val');
+        const ytdEl = document.getElementById('export-ytd-val');
+        const badgeEl = document.getElementById('export-status-badge');
+        if (amtEl) amtEl.textContent = '尚未取得';
+        if (yoyEl) yoyEl.textContent = '—';
+        if (ytdEl) ytdEl.textContent = '—';
+        if (badgeEl) badgeEl.textContent = '等待經濟部可驗證資料';
       }
 
       // M. 聯準會降息路徑期貨定價 (FedWatch)
@@ -11617,7 +11624,6 @@
       });
       populateNdcDefaultIfEmpty();
       renderNdcChart();
-      populateExportOrdersDefaultIfEmpty();
       renderExportOrdersChart();
       renderTwFxFlowSection();
     }
