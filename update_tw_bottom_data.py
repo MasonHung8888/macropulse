@@ -121,15 +121,8 @@ def fetch_twse_indices(prev_data: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
         logging.info("已從前次快照平滑繼承 TWSE 指數數據")
         return prev_date, prev_indices
         
-    # 安全基準（以台股現狀為準）
-    fallback_indices = {
-        "taiex": {"name": "發行量加權股價指數", "close": 22800.0, "change": 0.0, "change_pct": 0.0},
-        "tw50": {"name": "臺灣50指數", "close": 18200.0, "change": 0.0, "change_pct": 0.0},
-        "semi": {"name": "半導體類指數", "close": 580.0, "change": 0.0, "change_pct": 0.0},
-        "elec": {"name": "電子工業類指數", "close": 1250.0, "change": 0.0, "change_pct": 0.0},
-        "elec_parts": {"name": "電子零組件類指數", "close": 240.0, "change": 0.0, "change_pct": 0.0},
-    }
-    return prev_date, fallback_indices
+    logging.error("TWSE 指數無即時資料且無前次真實快照；不建立預設指數")
+    return "", {}
 
 
 def fetch_tpex_index(prev_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -155,7 +148,8 @@ def fetch_tpex_index(prev_data: Dict[str, Any]) -> Dict[str, Any]:
     prev_tpex = prev_data.get("indices", {}).get("tpex")
     if prev_tpex:
         return prev_tpex
-    return {"name": "櫃買指數 TPEx", "close": 260.0, "change": 0.0, "change_pct": 0.0, "date": ""}
+    logging.error("TPEx 無即時資料且無前次真實快照；不建立預設指數")
+    return {}
 
 
 def fetch_twse_institutions(prev_data: Dict[str, Any]) -> Dict[str, Any]:
@@ -1337,7 +1331,8 @@ def update_tw_bottom_dataset(output_file: Optional[str] = None, prev_file: Optio
             tpex_data[fld] = g.get(fld)
         tpex_data["history"] = g.get("history", {})
         
-    state_banks, trust_targeting = build_state_banks_and_trust_data(twse_inst, twse_indices, prev_payload)
+    # 八大行庫與投信個股資料目前沒有直接來源端點；禁止用外資部位推估或靜態名單冒充觀測值。
+    state_banks, trust_targeting = {}, {}
 
     # 整合 16 個頂層 Key 的完整資料包 (維持 100% 舊版相容並擴充公股與投信模組)
     payload = {
@@ -1372,8 +1367,9 @@ def update_tw_bottom_dataset(output_file: Optional[str] = None, prev_file: Optio
             "stress_case": stress_case,
         },
         "today_conclusion": today_conclusion,
-        "backtest_data": build_backtest_data(),
-        "options_max_pain": build_options_max_pain(taiex_close),
+        # 回測統計與 TXO OI 尚未接上可重現的原始資料集；未驗證前不發布。
+        "backtest_data": {},
+        "options_max_pain": {},
         "state_owned_banks": state_banks,
         "trust_targeting": trust_targeting,
         "_quality_metadata": {

@@ -661,9 +661,16 @@ def update_earnings_dataset(output_file: Optional[str] = None) -> Dict[str, Any]
     today_tw_str = now_tw.strftime("%Y-%m-%d")
     
     updated_count = 0
+    verified_items: List[Dict[str, Any]] = []
     
     for item in working_data:
         ticker = item["ticker"]
+        verified = False
+        verified_date = None
+        verified_time = None
+        verified_eps = None
+        verified_revenue = None
+        verified_source = None
         # 處理台股代號 (如 "2330 / TSM" 抽取 "2330")
         tw_code_match = re.search(r"(\d{4})", ticker)
         tw_code = tw_code_match.group(1) if tw_code_match else None
@@ -683,6 +690,10 @@ def update_earnings_dataset(output_file: Optional[str] = None) -> Dict[str, Any]
                 item["_quality_metadata"]["source"] = "TWSE_MOPS_OFFICIAL"
                 item["_quality_metadata"]["verified_at"] = now_tw.strftime("%Y-%m-%d %H:%M:%S")
                 updated_count += 1
+                verified = True
+                verified_date = clean_d
+                verified_time = selected.get("time")
+                verified_source = "TWSE_MOPS_OFFICIAL"
                 logging.info(f"已動態同步 {ticker} 官方法說日程至 {clean_d}")
                 
         # 2. 美股標的嘗試透過 yfinance 更新 (B-01, B-02)
@@ -693,27 +704,55 @@ def update_earnings_dataset(output_file: Optional[str] = None) -> Dict[str, Any]
                     item["date"] = yf_res["date"]
                     item["_quality_metadata"]["status"] = "confirmed"
                     item["_quality_metadata"]["source"] = "YAHOO_FINANCE_LIVE"
+                    verified_date = yf_res["date"]
                 if yf_res.get("consensusEps"):
                     item["consensusEps"] = yf_res["consensusEps"]
+                    verified_eps = yf_res["consensusEps"]
                 if yf_res.get("consensusRev"):
                     item["consensusRev"] = yf_res["consensusRev"]
+                    verified_revenue = yf_res["consensusRev"]
                 item["_quality_metadata"]["verified_at"] = now_tw.strftime("%Y-%m-%d %H:%M:%S")
+                verified = True
+                verified_source = "YAHOO_FINANCE_LIVE"
                 logging.info(f"已動態同步 {ticker} 美股共識數據: {yf_res}")
-            else:
-                # 保留 baseline，並標註已驗證狀態
-                item["_quality_metadata"]["verified_at"] = now_tw.strftime("%Y-%m-%d")
+
+        if verified:
+            verified_items.append({
+                "ticker": item["ticker"],
+                "name": item["name"],
+                "category": item["category"],
+                "categoryLabel": item["categoryLabel"],
+                "flag": item["flag"],
+                "date": verified_date or "—",
+                "timeSlot": f"台股盤後 {verified_time}" if verified_time else "—",
+                "period": "—",
+                "consensusEps": verified_eps or "—",
+                "epsYoy": "—",
+                "consensusRev": verified_revenue or "—",
+                "revYoy": "—",
+                "badgeColor": "slate",
+                "focusPoints": [],
+                "marketImpact": "尚無可驗證的歷史統計來源",
+                "supplyChain": [],
+                "_quality_metadata": {
+                    "status": "confirmed",
+                    "source": verified_source,
+                    "verified_at": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
+                    "source_url": "https://mops.twse.com.tw/" if verified_source == "TWSE_MOPS_OFFICIAL" else "https://finance.yahoo.com/",
+                },
+            })
 
     # 構造符合 100% 舊版相容並具備品質中繼標籤的 Payload (B-03)
     payload = {
         "last_updated": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
         "timezone": "Asia/Taipei",
-        "total_count": len(working_data),
-        "data": working_data,
+        "total_count": len(verified_items),
+        "data": verified_items,
         "_quality_metadata": {
             "system_runtime": now_tw.strftime("%Y-%m-%d %H:%M:%S"),
             "data_source_status": {
                 "twse_mops": twse_status,
-                "us_consensus": "available"
+                "us_consensus": "available" if any(x["category"] == "US_AI" for x in verified_items) else "unavailable"
             },
             "schema_version": "2.0.0-verified",
             "updated_count": updated_count
@@ -723,7 +762,7 @@ def update_earnings_dataset(output_file: Optional[str] = None) -> Dict[str, Any]
     with open(target_output, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
         
-    logging.info(f"行事曆檔案成功寫入: {target_output} (共 {len(working_data)} 檔標的)")
+    logging.info(f"行事曆檔案成功寫入: {target_output} (共 {len(verified_items)} 筆已驗證資料)")
     return payload
 
 

@@ -8258,7 +8258,7 @@
 
         count++;
       } else {
-        populateFedLiquidityDefaultIfEmpty();
+        // 無可驗證來源時保持空白，不以內建快照替代。
       }
 
       // K. 薩姆規則衰退預警 ＆ 殖利率倒掛修復計
@@ -8322,7 +8322,7 @@
 
         count++;
       } else {
-        populateRecessionDefaultIfEmpty();
+        // 無可驗證來源時保持空白，不以內建快照替代。
       }
 
       // L. 台灣外銷訂單領先指標 (Export Orders)
@@ -8455,7 +8455,7 @@
 
         count++;
       } else {
-        populateFedWatchDefaultIfEmpty();
+        // 無可驗證來源時保持空白，不以內建快照替代。
       }
 
       // N. 恐慌與貪婪綜合指數 (Fear & Greed Index Equivalent)
@@ -8531,7 +8531,7 @@
 
         count++;
       } else {
-        populateFearGreedDefaultIfEmpty();
+        // 無可驗證來源時保持空白，不以內建快照替代。
       }
 
       // O. 巴菲特指標 (Buffett Indicator: 美股市值 / GDP 估值計)
@@ -8596,7 +8596,7 @@
 
         count++;
       } else {
-        populateBuffettDefaultIfEmpty();
+        // 無可驗證來源時保持空白，不以內建快照替代。
       }
 
       // P. 美國 10Y TIPS 實質利率與平衡通膨率 (Real Rates & Breakeven Inflation)
@@ -8665,7 +8665,7 @@
 
         count++;
       } else {
-        populateTipsDefaultIfEmpty();
+        // 無可驗證來源時保持空白，不以內建快照替代。
       }
 
       // Q. 全球四大央行總資產負債表水龍頭 (Global Central Bank Balance Sheet Tracker)
@@ -8722,7 +8722,7 @@
 
         count++;
       } else {
-        populateGlobalCbDefaultIfEmpty();
+        // 無可驗證來源時保持空白，不以內建快照替代。
       }
 
       if (payload.crypto && payload.crypto.btc_price) {
@@ -11622,7 +11622,6 @@
           }
         }
       });
-      populateNdcDefaultIfEmpty();
       renderNdcChart();
       renderExportOrdersChart();
       renderTwFxFlowSection();
@@ -15827,14 +15826,15 @@
         const res = await fetch('tech_earnings_data.json?t=' + Date.now());
         if (res.ok) {
           const json = await res.json();
-          if (json && Array.isArray(json.data) && json.data.length > 0) {
-            TECH_EARNINGS_DATA = json.data;
+          if (json && Array.isArray(json.data)) {
+            TECH_EARNINGS_DATA = json.data.filter(item => item?._quality_metadata?.status === 'confirmed');
             if (state.activeTab === 'calendar') renderCalendar();
             renderTaiwanRadarQuickCards();
           }
         }
       } catch (e) {
-        console.warn('載入 tech_earnings_data.json 失敗，保留預設結構', e);
+        TECH_EARNINGS_DATA = [];
+        console.warn('載入 tech_earnings_data.json 失敗；不顯示未驗證預設資料', e);
       }
     }
 
@@ -16488,6 +16488,24 @@
 
     // --- 6. Event Listeners & Init ---
     document.addEventListener('DOMContentLoaded', () => {
+      // Truth mode：啟動畫面不得先渲染程式內建示範數值；只接受後續已驗證資料包。
+      Object.values(COUNTRY_DATA).forEach(country => {
+        country.regime = '等待已驗證資料';
+        country.kpis = [];
+        country.insights = [];
+      });
+      Object.values(SERIES_DB).forEach(series => {
+        series.data = [];
+        series.labels = [];
+      });
+      ETF_DB.length = 0;
+      CALENDAR_EVENTS.length = 0;
+      TECH_VALUATION_DATA.length = 0;
+      MM_INDICATORS.length = 0;
+      Object.keys(TOP5_MOVERS).forEach(key => { TOP5_MOVERS[key] = []; });
+      HEATMAP_DATA.SP500 = [];
+      HEATMAP_DATA.TW = [];
+      TECH_EARNINGS_DATA = [];
       lucide.createIcons();
 
       document.querySelectorAll('.nav-btn').forEach(btn => {
