@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-23T07:35:26Z",
+  "updated_at": "2026-11-23T12:47:14Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -4203,7 +4203,13 @@
       }
     ],
     "source": "S&P Dow Jones & CBOE ^TNX",
-    "source_url": "https://finance.yahoo.com/quote/%5ETNX"
+    "source_url": "https://finance.yahoo.com/quote/%5ETNX",
+    "_quality_metadata": {
+      "model_type": "Earnings_Yield_Spread_Model",
+      "forward_pe_used": 22.4,
+      "benchmark": "S&P 500 Forward P/E vs 10Y US Treasury Yield",
+      "calculation": "Earnings_Yield (1/PE * 100) - US10Y"
+    }
   },
   "sources": {
     "twse": {
@@ -4258,7 +4264,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-23T07:35:58Z",
+    "validated_at": "2026-11-23T12:47:20Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -4491,7 +4497,14 @@
       }
     ],
     "source": "經濟部統計處 (Department of Statistics, MOEA)",
-    "source_url": "https://www.moea.gov.tw/Mns/dos/home/Home.aspx"
+    "source_url": "https://www.moea.gov.tw/Mns/dos/home/Home.aspx",
+    "_quality_metadata": {
+      "official_agency": "經濟部統計處",
+      "observation_month": "2026-10",
+      "data_status": "published_official",
+      "unit": "億美元 (USD 100M)",
+      "is_projected": false
+    }
   },
   "fed_liquidity": {
     "latest": {

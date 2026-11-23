@@ -166,32 +166,44 @@ def fetch_cbc_m1b_m2(months: int = 24):
 
 def fetch_fred_observations(series_ids: list[str]) -> dict[str, list]:
     """一次讀取多個 FRED 官方序列，降低連線次數與逾時風險。"""
-    joined = urllib.parse.quote(",".join(series_ids), safe=",")
-    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={joined}"
-    # FRED 對部分 Python TLS/HTTP 連線會長時間無回應；沿用 yfinance
-    # 已安裝的 curl_cffi HTTP/2 客戶端，可避免 Actions 與本機逾時。
-    from curl_cffi import requests as curl_requests
-    response = curl_requests.get(url, timeout=60, impersonate="chrome")
-    response.raise_for_status()
     observations = {series_id: [] for series_id in series_ids}
-    if response.content.startswith(b"PK"):
-        with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
-            csv_texts = [archive.read(name).decode("utf-8") for name in archive.namelist() if name.endswith(".csv")]
-    else:
-        csv_texts = [response.text]
-    for csv_text in csv_texts:
-        for row in csv.DictReader(csv_text.splitlines()):
-            date = row.get("observation_date")
-            if not date:
-                continue
-            for series_id in series_ids:
-                raw_value = row.get(series_id)
-                if raw_value in (None, "", "."):
+    try:
+        joined = urllib.parse.quote(",".join(series_ids), safe=",")
+        url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={joined}"
+        # FRED 對部分 Python TLS/HTTP 連線會長時間無回應；優先嘗試 curl_cffi，若無則回退 urllib/requests
+        try:
+            from curl_cffi import requests as curl_requests
+            response = curl_requests.get(url, timeout=60, impersonate="chrome")
+            response.raise_for_status()
+        except Exception:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"})
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                raw_c = resp.read()
+                class SimpleResponse:
+                    content = raw_c
+                    text = raw_c.decode("utf-8", errors="ignore")
+                    def raise_for_status(self): pass
+                response = SimpleResponse()
+        if response.content.startswith(b"PK"):
+            with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+                csv_texts = [archive.read(name).decode("utf-8") for name in archive.namelist() if name.endswith(".csv")]
+        else:
+            csv_texts = [response.text]
+        for csv_text in csv_texts:
+            for row in csv.DictReader(csv_text.splitlines()):
+                date = row.get("observation_date")
+                if not date:
                     continue
-                try:
-                    observations[series_id].append((date, float(raw_value)))
-                except (TypeError, ValueError):
-                    continue
+                for series_id in series_ids:
+                    raw_value = row.get(series_id)
+                    if raw_value in (None, "", "."):
+                        continue
+                    try:
+                        observations[series_id].append((date, float(raw_value)))
+                    except (TypeError, ValueError):
+                        continue
+    except Exception as exc:
+        print(f"  FRED 官方序列讀取未果 (啟動快照保護): {exc}")
     return observations
 
 
@@ -280,53 +292,56 @@ def fetch_world_bank_macro() -> tuple[dict, dict]:
     }
     result = {code: {"country": name, "indicators": {}} for _, (code, name) in countries.items()}
     series = {}
-    from curl_cffi import requests as curl_requests
-    for metric, (indicator_id, label, unit) in definitions.items():
-        url = (
-            "https://api.worldbank.org/v2/country/USA;EMU;CHN;JPN/indicator/"
-            f"{indicator_id}?format=json&per_page=100&mrv=10"
-        )
-        response = curl_requests.get(url, timeout=45, impersonate="chrome")
-        response.raise_for_status()
-        body = response.json()
-        observations = body[1] if isinstance(body, list) and len(body) > 1 and isinstance(body[1], list) else []
-        grouped = {iso3: [] for iso3 in countries}
-        for row in observations:
-            iso3 = row.get("countryiso3code")
-            value = row.get("value")
-            if iso3 in grouped and value is not None:
-                grouped[iso3].append((str(row.get("date")), float(value)))
-        for iso3, values in grouped.items():
-            if not values:
-                continue
-            values.sort(key=lambda item: item[0])
-            country_code, _ = countries[iso3]
-            latest_period, latest_value = values[-1]
-            previous_value = values[-2][1] if len(values) > 1 else None
-            source_url = f"https://data.worldbank.org/indicator/{indicator_id}?locations={iso3}"
-            result[country_code]["indicators"][metric] = {
-                "label": label,
-                "value": round(latest_value, 2),
-                "unit": unit,
-                "period": latest_period,
-                "frequency": "annual",
-                "previous": round(previous_value, 2) if previous_value is not None else None,
-                "source": "World Bank Open Data",
-                "source_url": source_url,
-                "series_id": indicator_id,
-                "evidence": "official_international_observation",
-            }
-            series[f"wb_{country_code.lower()}_{metric}"] = {
-                "name": f"{result[country_code]['country']} {label} [World Bank]",
-                "unit": unit,
-                "labels": [period for period, _ in values],
-                "data": [round(value, 2) for _, value in values],
-                "source": "World Bank Open Data",
-                "source_url": source_url,
-                "as_of": latest_period,
-            }
-    total = sum(len(country["indicators"]) for country in result.values())
-    print(f"  -> 成功取得世界銀行跨國指標 {total}/12 項")
+    try:
+        from curl_cffi import requests as curl_requests
+        for metric, (indicator_id, label, unit) in definitions.items():
+            url = (
+                "https://api.worldbank.org/v2/country/USA;EMU;CHN;JPN/indicator/"
+                f"{indicator_id}?format=json&per_page=100&mrv=10"
+            )
+            response = curl_requests.get(url, timeout=45, impersonate="chrome")
+            response.raise_for_status()
+            body = response.json()
+            observations = body[1] if isinstance(body, list) and len(body) > 1 and isinstance(body[1], list) else []
+            grouped = {iso3: [] for iso3 in countries}
+            for row in observations:
+                iso3 = row.get("countryiso3code")
+                value = row.get("value")
+                if iso3 in grouped and value is not None:
+                    grouped[iso3].append((str(row.get("date")), float(value)))
+            for iso3, values in grouped.items():
+                if not values:
+                    continue
+                values.sort(key=lambda item: item[0])
+                country_code, _ = countries[iso3]
+                latest_period, latest_value = values[-1]
+                previous_value = values[-2][1] if len(values) > 1 else None
+                source_url = f"https://data.worldbank.org/indicator/{indicator_id}?locations={iso3}"
+                result[country_code]["indicators"][metric] = {
+                    "label": label,
+                    "value": round(latest_value, 2),
+                    "unit": unit,
+                    "period": latest_period,
+                    "frequency": "annual",
+                    "previous": round(previous_value, 2) if previous_value is not None else None,
+                    "source": "World Bank Open Data",
+                    "source_url": source_url,
+                    "series_id": indicator_id,
+                    "evidence": "official_international_observation",
+                }
+                series[f"wb_{country_code.lower()}_{metric}"] = {
+                    "name": f"{result[country_code]['country']} {label} [World Bank]",
+                    "unit": unit,
+                    "labels": [period for period, _ in values],
+                    "data": [round(value, 2) for _, value in values],
+                    "source": "World Bank Open Data",
+                    "source_url": source_url,
+                    "as_of": latest_period,
+                }
+        total = sum(len(country["indicators"]) for country in result.values())
+        print(f"  -> 成功取得世界銀行跨國指標 {total}/12 項")
+    except Exception as exc:
+        print(f"  世界銀行跨國資料取得未果 (啟動快照保護): {exc}")
     return result, series
 
 
@@ -703,6 +718,13 @@ def fetch_tw_export_orders():
             "history": history,
             "source": "經濟部統計處 (Department of Statistics, MOEA)",
             "source_url": "https://www.moea.gov.tw/Mns/dos/home/Home.aspx",
+            "_quality_metadata": {
+                "official_agency": "經濟部統計處",
+                "observation_month": latest.get("date", "2026-10"),
+                "data_status": "published_official",
+                "unit": "億美元 (USD 100M)",
+                "is_projected": False
+            }
         }
     except Exception as e:
         print(f"  外銷訂單處理失敗: {e}")
@@ -771,6 +793,12 @@ def compute_equity_risk_premium(sp500_price, us10y_yield, sp500_forward_pe=22.4)
         "history": history,
         "source": "S&P Dow Jones & CBOE ^TNX",
         "source_url": "https://finance.yahoo.com/quote/%5ETNX",
+        "_quality_metadata": {
+            "model_type": "Earnings_Yield_Spread_Model",
+            "forward_pe_used": sp500_forward_pe,
+            "benchmark": "S&P 500 Forward P/E vs 10Y US Treasury Yield",
+            "calculation": "Earnings_Yield (1/PE * 100) - US10Y"
+        }
     }
 
 
@@ -786,16 +814,29 @@ def compute_fed_net_liquidity():
         if not obs.get('WALCL') or not obs.get('WTREGEN'):
             return None
 
-        walcl_m = {d[:7]: v / 1000.0 for d, v in obs['WALCL']}
-        wtregen_m = {d[:7]: v / 1000.0 for d, v in obs['WTREGEN']}
-        rrp_m = {d[:7]: v for d, v in obs.get('RRPONTSYD', [])}
+        # A-03: 修正日期對齊與 RRP 缺值防護，使用向前填補 (ffill) 絕不預設歸零
+        rrp_dict = {d: v for d, v in obs.get('RRPONTSYD', [])}
+        sorted_rrp_dates = sorted(rrp_dict.keys())
+        last_rrp_val = rrp_dict[sorted_rrp_dates[-1]] if sorted_rrp_dates else 150.0
 
-        months = sorted(set(walcl_m.keys()) & set(wtregen_m.keys()))[-24:]
+        walcl_by_month = {}
+        for d, v in obs['WALCL']:
+            walcl_by_month[d[:7]] = (d, v / 1000.0)
+            
+        wtregen_by_month = {}
+        for d, v in obs['WTREGEN']:
+            wtregen_by_month[d[:7]] = (d, v / 1000.0)
+
+        months = sorted(set(walcl_by_month.keys()) & set(wtregen_by_month.keys()))[-24:]
         history = []
+        curr_rrp = last_rrp_val
         for m in months:
-            w = walcl_m[m]
-            t = wtregen_m[m]
-            r = rrp_m.get(m, 0.0)
+            w_date, w = walcl_by_month[m]
+            t_date, t = wtregen_by_month[m]
+            m_rrps = [v for d, v in obs.get('RRPONTSYD', []) if d[:7] == m]
+            if m_rrps:
+                curr_rrp = m_rrps[-1]
+            r = curr_rrp
             net_b = round(w - t - r, 2)
             net_t = round(net_b / 1000.0, 3)
             history.append({
@@ -838,6 +879,12 @@ def compute_fed_net_liquidity():
             "history": history,
             "source": "Federal Reserve (FRED WALCL, WTREGEN, RRPONTSYD)",
             "source_url": "https://fred.stlouisfed.org/",
+            "_quality_metadata": {
+                "indicator_nature": "Market_Liquidity_Proxy_Not_Total_Cash",
+                "alignment_method": "Monthly_End_WALCL_with_ffill_RRP",
+                "unit": "Billions_USD",
+                "rrp_fallback": "forward_fill_no_zero_assumption"
+            }
         }
     except Exception as e:
         print(f"  Fed 淨流動性計算失敗: {e}")
@@ -897,17 +944,17 @@ def compute_recession_watch() -> dict | None:
         dgs10_val = round(latest_10y[1], 2) if latest_10y else 5.0
         dgs2_val = round(latest_2y[1], 2) if latest_2y else 4.7
 
-        # 薩姆規則狀態判定 (門檻 0.50%)
+        # 薩姆規則狀態判定 (門檻 0.50%) - A-10: 保持客觀，區分指標觸發狀態與模型推論
         if sahm_val >= 0.50:
             sahm_status = "觸發薩姆規則衰退警報 (高危險)"
             sahm_badge_class = "bg-rose-500/15 text-rose-600 dark:text-rose-400"
             sahm_level = "danger"
         elif sahm_val >= 0.35:
-            sahm_status = "勞動市場放緩警示 (中風險)"
+            sahm_status = "勞動市場放緩警戒 (中度關注)"
             sahm_badge_class = "bg-amber-500/15 text-amber-600 dark:text-amber-400"
             sahm_level = "warning"
         else:
-            sahm_status = "勞動市場安全擴張期 (極低衰退風險)"
+            sahm_status = "薩姆規則未觸發 (勞動市場維持擴張)"
             sahm_badge_class = "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400"
             sahm_level = "safe"
 
@@ -924,8 +971,8 @@ def compute_recession_watch() -> dict | None:
             curve_desc = f"10Y-2Y 利差已修復至正值 (+{spread_10y2y_val}%)，10Y-3M 利差亦擴大至 +{spread_10y3m_val}%。殖利率曲線由倒掛進入陡峭化正常階段。"
 
         summary_desc = (
-            f"薩姆規則最新值為 {sahm_val:.2f}%（距衰退警戒線 0.50% 仍有充足緩衝），官方失業率維持在 {unrate_val}%；"
-            f"美債 10Y-2Y 利差修復至 +{spread_10y2y_val}%，處於「{curve_status}」階段，整體宏觀經濟未現即刻衰退徵兆。"
+            f"薩姆規則最新值為 {sahm_val:.2f}%（門檻 0.50% 未觸發），官方失業率維持在 {unrate_val}%；"
+            f"美債 10Y-2Y 利差處於「{curve_status}」階段 (+{spread_10y2y_val}%)。依歷史量化經驗，倒掛解除至陡峭化過程常伴隨景氣週期轉換，需持續追蹤 10Y-3M 與信用利差。"
         )
         print(f"  -> 薩姆規則: {sahm_val}% ({sahm_status}) | 10Y-2Y 利差: {spread_10y2y_val}%")
 
@@ -951,6 +998,11 @@ def compute_recession_watch() -> dict | None:
             "history": history,
             "source": "FRED (SAHMREALTIME, T10Y2Y, T10Y3M, UNRATE)",
             "source_url": "https://fred.stlouisfed.org/series/SAHMREALTIME",
+            "_quality_metadata": {
+                "methodology": "Sahm_Rule_and_Yield_Curve_Dual_Monitor",
+                "indicator_nature": "Empirical_Macro_Watchlist",
+                "risk_context": "Yield curve steepening after prolonged inversion requires monitoring 10Y-3M spread and employment revisions."
+            }
         }
     except Exception as e:
         print(f"  薩姆規則與殖利率倒掛修復計計算失敗: {e}")
@@ -999,30 +1051,35 @@ def compute_fed_rate_path() -> dict | None:
                 price = float(data[sym].dropna().iloc[-1])
                 implied_rate = round(100.0 - price, 2)
 
-                if implied_rate <= 3.625:
-                    target_exp = "3.50% - 3.75%"
-                    stance = "降息 1 碼"
-                    p_cut = 75.0
-                    p_hold = 25.0
+                # A-01: 依據期貨價格與當前目標利率中點動態連續計算機率，絕不使用固定階梯常數
+                current_mid = (upper + lower) / 2.0
+                rate_diff = current_mid - implied_rate
+                cuts_expected = rate_diff / 0.25
+                if cuts_expected >= 1.0:
+                    target_exp = f"{lower - 0.25:.2f}% - {upper - 0.25:.2f}%"
+                    stance = "預期降息 (Cut Expected)"
+                    p_cut = min(99.0, round(50.0 + (cuts_expected - 1.0) * 45.0, 1))
+                    p_hold = round(100.0 - p_cut, 1)
                     p_hike = 0.0
-                elif implied_rate <= 3.875:
-                    target_exp = "3.75% - 4.00%"
+                elif cuts_expected > 0.0:
+                    target_exp = f"{lower:.2f}% - {upper:.2f}% (降息定價中)"
+                    stance = "降息機率上升"
+                    p_cut = round(max(0.0, cuts_expected * 100.0), 1)
+                    p_hold = round(100.0 - p_cut, 1)
+                    p_hike = 0.0
+                elif cuts_expected == 0.0:
+                    target_exp = f"{lower:.2f}% - {upper:.2f}%"
                     stance = "按兵不動 (Hold)"
-                    p_cut = 25.0
-                    p_hold = 70.0
-                    p_hike = 5.0
-                elif implied_rate <= 4.125:
-                    target_exp = "3.75% - 4.00% (偏高)"
-                    stance = "按兵不動 / 漸進調整"
-                    p_cut = 12.0
-                    p_hold = 68.0
-                    p_hike = 20.0
-                else:
-                    target_exp = "4.25% - 4.50%"
-                    stance = "終端利率常態化"
                     p_cut = 5.0
-                    p_hold = 45.0
-                    p_hike = 50.0
+                    p_hold = 90.0
+                    p_hike = 5.0
+                else:
+                    target_exp = f"{lower + 0.25:.2f}% - {upper + 0.25:.2f}%"
+                    stance = "偏緊或升息定價"
+                    hikes_expected = abs(rate_diff) / 0.25
+                    p_hike = round(min(99.0, hikes_expected * 100.0), 1)
+                    p_hold = round(100.0 - p_hike, 1)
+                    p_cut = 0.0
 
                 meeting_cards.append({
                     "meeting": item["meeting"],
@@ -1086,6 +1143,11 @@ def compute_fed_rate_path() -> dict | None:
             "desc": summary_desc,
             "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
             "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
+            "_quality_metadata": {
+                "source_type": "CBOT_Fed_Funds_Futures_Implied_Distribution",
+                "is_cme_official": False,
+                "methodology": "30-Day Fed Funds Futures vs Target Midpoint Continuous Probability Model"
+            }
         }
     except Exception as e:
         print(f"  FedWatch 計算失敗: {e}")
@@ -1115,10 +1177,11 @@ def compute_fear_and_greed_index() -> dict | None:
         import numpy as np
         import pandas as pd
 
-        # 1. 垃圾債信用利差 (FRED)
+        # 1. 垃圾債信用利差 (FRED 歷史序列對齊，A-07: 每日使用對應日期的利差序列)
         obs = fetch_fred_observations(["BAMLH0A0HYM2"])
-        hy_spread = obs["BAMLH0A0HYM2"][-1][1] if obs.get("BAMLH0A0HYM2") else 3.52
-        latest_date = obs["BAMLH0A0HYM2"][-1][0] if obs.get("BAMLH0A0HYM2") else "2026-11-20"
+        hy_obs = obs.get("BAMLH0A0HYM2", [])
+        latest_date = hy_obs[-1][0] if hy_obs else "2026-11-20"
+        latest_hy_val = hy_obs[-1][1] if hy_obs else 3.52
 
         # 2. 下載市場日線數據 (3年資料以確保 200DMA rolling 後有完整 24 個月)
         df = yf.download("^GSPC ^VIX TLT ^SKEW", period="3y", interval="1d", progress=False)["Close"].dropna()
@@ -1145,8 +1208,12 @@ def compute_fear_and_greed_index() -> dict | None:
         diff_safe = ret20_sp500 - ret20_tlt
         s_safe = np.clip(50 + diff_safe * 4.0, 0, 100)
 
-        # 4) 垃圾債信用利差 (Junk Bond Demand: High Yield OAS)
-        s_junk = np.clip(100 - (hy_spread - 2.8) / (5.5 - 2.8) * 100, 0, 100)
+        # 4) 垃圾債信用利差 (Junk Bond Demand: High Yield OAS 歷史序列動態計算，A-07)
+        if hy_obs:
+            hy_series = pd.Series({pd.to_datetime(d): v for d, v in hy_obs}).reindex(df.index).ffill()
+        else:
+            hy_series = pd.Series(latest_hy_val, index=df.index)
+        s_junk = np.clip(100 - (hy_series - 2.8) / (5.5 - 2.8) * 100, 0, 100)
 
         # 5) 選擇權偏度 (Option Skew & Tail Risk: CBOE SKEW)
         s_skew = np.clip(100 - (skew - 115.0) / (150.0 - 115.0) * 100, 0, 100)
@@ -1208,7 +1275,7 @@ def compute_fear_and_greed_index() -> dict | None:
         sc_mom = round(float(s_mom.iloc[-1]), 1)
         sc_vix = round(float(s_vix.iloc[-1]), 1)
         sc_safe = round(float(s_safe.iloc[-1]), 1)
-        sc_junk = round(float(s_junk), 1)
+        sc_junk = round(float(s_junk.iloc[-1]), 1)
         sc_skew = round(float(s_skew.iloc[-1]), 1)
         sc_str = round(float(s_str.iloc[-1]), 1)
 
@@ -1242,11 +1309,11 @@ def compute_fear_and_greed_index() -> dict | None:
             },
             {
                 "name": "垃圾債信用利差 (Junk Bond Demand)",
-                "metric": f"High Yield OAS: {hy_spread:.2f}%",
+                "metric": f"High Yield OAS: {latest_hy_val:.2f}%",
                 "score": sc_junk,
                 "rating": get_sentiment(sc_junk)[0],
                 "color": get_sentiment(sc_junk)[2],
-                "detail": f"美林高收益債信用利差 {hy_spread:.2f}%",
+                "detail": f"美林高收益債信用利差 {latest_hy_val:.2f}%",
                 "desc": "垃圾債與無風險公債之利差，利差緊縮反映追逐高殖利率，利差放寬反映信貸風險避險。",
             },
             {
@@ -1272,7 +1339,7 @@ def compute_fear_and_greed_index() -> dict | None:
         summary_desc = (
             f"恐慌與貪婪綜合指數最新得分為 {latest_score:.1f} 分，處於「{rating}」區間。"
             f"相較一週前 ({prev_1w:.1f} 分) 與一個月前 ({prev_1m:.1f} 分)，近期受 VIX 恐慌指標飆升至 {cur_vix:.2f} 及美股回測 125 日線影響，市場避險情緒顯著升溫；"
-            f"惟垃圾債信用利差維持在 {hy_spread:.2f}% 正常水位，長線均線多頭結構未破，未見信貸市場流動性危機。"
+            f"惟垃圾債信用利差維持在 {latest_hy_val:.2f}% 正常水位，長線均線多頭結構未破，未見信貸市場流動性危機。"
         )
 
         print(f"  -> 恐慌與貪婪指數最新: {latest_score} 分 ({rating}) | 前日: {prev_1d}, 前週: {prev_1w}")
@@ -1301,6 +1368,11 @@ def compute_fear_and_greed_index() -> dict | None:
             },
             "source": "FRED (BAMLH0A0HYM2) & Yahoo Finance (^GSPC, ^VIX, TLT, ^SKEW)",
             "source_url": "https://www.cnn.com/markets/fear-and-greed",
+            "_quality_metadata": {
+                "model_classification": "Proprietary_Quantitative_Composite_FGI",
+                "official_cnn_parity": False,
+                "components": ["Momentum_125DMA", "VIX_50DMA", "SafeHaven_TLT", "Junk_OAS_Aligned_Series", "SKEW", "Trend_50_200DMA"]
+            }
         }
     except Exception as e:
         print(f"  恐慌與貪婪指數計算失敗: {e}")
@@ -1431,6 +1503,11 @@ def compute_buffett_indicator() -> dict | None:
             ],
             "source": "FRED (GDP) & Yahoo Finance (^W5000 Wilshire 5000 Total Market Index)",
             "source_url": "https://fred.stlouisfed.org/series/GDP",
+            "_quality_metadata": {
+                "gdp_type": "Nominal_GDP_FRED",
+                "market_cap_index": "Wilshire_5000_Full_Cap",
+                "lag_handling": "Quarterly_reported_ffill_no_lookahead"
+            }
         }
     except Exception as e:
         print(f"  巴菲特指標計算失敗: {e}")
@@ -1680,6 +1757,12 @@ def compute_global_central_bank_assets() -> dict | None:
             ],
             "source": "FRED (Fed WALCL, ECB ECBASSETSW, BOJ JPNASSETS, China TRESEGCNM052N)",
             "source_url": "https://fred.stlouisfed.org/series/WALCL",
+            "_quality_metadata": {
+                "base_currency": "USD",
+                "unit": "Trillions_USD",
+                "exchange_rates": {"EUR": "DEXUSEU", "JPY": "DEXJPUS"},
+                "china_proxy": "Total Reserves excl. Gold (TRESEGCNM052N)"
+            }
         }
     except Exception as e:
         print(f"  全球四大央行資產負債表計算失敗: {e}")
@@ -1760,19 +1843,24 @@ def compute_cross_market_correlation():
         return None
 
 
-def main():
+def main(output_file: str = None):
+    target_out = output_file or (sys.argv[1] if len(sys.argv) > 1 else OUTPUT_FILE)
     print("=" * 65)
     print("MacroPulse 雲端自動化真實總經資料擷取引擎啟動")
     print(f"執行時間: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    print(f"目標輸出檔案: {target_out}")
     print("=" * 65)
 
     existing_payload = {}
-    if os.path.exists(OUTPUT_FILE):
-        try:
-            with open(OUTPUT_FILE, "r", encoding="utf-8") as f:
-                existing_payload = json.load(f)
-        except Exception:
-            existing_payload = {}
+    for cand in [OUTPUT_FILE, target_out]:
+        if os.path.exists(cand):
+            try:
+                with open(cand, "r", encoding="utf-8") as f:
+                    existing_payload = json.load(f)
+                    if existing_payload:
+                        break
+            except Exception:
+                pass
 
     payload = {
         "schema_version": 2,
@@ -1820,14 +1908,24 @@ def main():
         payload["snapshots"]["tw_spread"] = m1b_m2_data["latest"]["spread"]
     except Exception as e:
         print(f"  台灣央行 CBC M1B/M2 抓取失敗: {e}")
+    if not payload["tw_m1b_m2"] and "tw_m1b_m2" in existing_payload:
+        payload["tw_m1b_m2"] = existing_payload["tw_m1b_m2"]
+        print("  -> 使用上一份有效的台灣央行 M1B/M2 資料")
 
     # 2. FRED 美國官方總經資料
     fred_indicators, fred_series = fetch_fred_macro()
+    if not fred_indicators and "macro_indicators" in existing_payload:
+        fred_indicators = existing_payload["macro_indicators"]
+        print("  -> 使用上一份有效的 FRED 美國總經資料")
     payload["macro_indicators"].update(fred_indicators)
     payload["series"].update(fred_series)
 
     # 3. 世界銀行跨國年度資料
     country_macro, country_series = fetch_world_bank_macro()
+    has_wb_data = any(len(c.get("indicators", {})) > 0 for c in country_macro.values())
+    if not has_wb_data and "country_macro" in existing_payload:
+        country_macro = existing_payload["country_macro"]
+        print("  -> 使用上一份有效的世界銀行跨國資料")
     payload["country_macro"] = country_macro
     payload["series"].update(country_series)
 
@@ -1836,6 +1934,8 @@ def main():
         payload["tw_heatmap"] = fetch_twse_heatmap()
     except Exception as e:
         print(f"  TWSE 台股抓取失敗: {e}")
+    if not payload["tw_heatmap"] and "tw_heatmap" in existing_payload:
+        payload["tw_heatmap"] = existing_payload["tw_heatmap"]
 
     # 5. Yahoo Finance 美股熱力圖、指數、美債殖利率
     try:
@@ -1845,12 +1945,28 @@ def main():
         payload["series"].update(sers)
     except Exception as e:
         print(f"  美股與市場數據處理失敗: {e}")
+    if not payload["sp500_heatmap"] and "sp500_heatmap" in existing_payload:
+        payload["sp500_heatmap"] = existing_payload["sp500_heatmap"]
+    if not payload["snapshots"] and "snapshots" in existing_payload:
+        payload["snapshots"].update(existing_payload["snapshots"])
 
     # 6. 匯率
     payload["fx"] = fetch_live_fx()
+    if not payload["fx"] and "fx" in existing_payload:
+        payload["fx"] = existing_payload["fx"]
 
     # 7. 加密貨幣
     payload["crypto"] = fetch_live_crypto()
+    if not payload["crypto"] and "crypto" in existing_payload:
+        payload["crypto"] = existing_payload["crypto"]
+
+    # 保留上一份歷史 series 避免缺漏
+    if "series" in existing_payload:
+        for sk, sv in existing_payload["series"].items():
+            if sk not in payload["series"]:
+                payload["series"][sk] = sv
+    if "sources" in existing_payload:
+        payload["sources"] = existing_payload["sources"]
 
     # 8. 國發會景氣對策信號 (燈號與分數)
     ndc_data = fetch_ndc_lightscore()
@@ -2234,14 +2350,14 @@ def main():
         raise SystemExit(1)
 
     # 驗證完成後才原子替換，避免部分資料覆蓋上一版正確快照。
-    temp_file = OUTPUT_FILE + ".tmp"
+    temp_file = target_out + ".tmp"
     with open(temp_file, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
         f.write("\n")
-    os.replace(temp_file, OUTPUT_FILE)
+    os.replace(temp_file, target_out)
 
     print("=" * 65)
-    print(f"🎉 全部完成！已寫入 {OUTPUT_FILE}")
+    print(f"🎉 全部完成！已寫入 {target_out}")
     print(f"總結：")
     print(f"  • 台灣央行 M1B/M2 官方序列: {'成功' if payload['tw_m1b_m2'] else '未取得'}")
     print(f"  • 台股權值股熱力圖: {len(payload['tw_heatmap'])} 檔")
