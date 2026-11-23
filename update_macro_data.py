@@ -691,6 +691,70 @@ def fetch_tw_export_orders():
     """
     print("6.5 抓取經濟部統計處 (MOEA) 官方外銷訂單領先指標...")
     try:
+        from curl_cffi import requests
+
+        source_url = "https://service.moea.gov.tw/EE520/opendata/b.csv"
+        response = requests.get(source_url, impersonate="chrome", timeout=30)
+        response.raise_for_status()
+        rows = list(csv.DictReader(io.StringIO(response.text.lstrip("\ufeff"))))
+        amounts = {}
+        for row in rows:
+            period = str(row.get("資料期(民國年)", "")).strip()
+            value = str(row.get("統計值(美元)", "")).replace(",", "").strip()
+            if len(period) != 5 or not value:
+                continue
+            iso_period = f"{int(period[:3]) + 1911:04d}-{period[3:5]}"
+            amounts[iso_period] = float(value) / 100.0
+
+        history = []
+        for period in sorted(amounts):
+            previous_period = f"{int(period[:4]) - 1:04d}-{period[5:7]}"
+            previous = amounts.get(previous_period)
+            yoy = round((amounts[period] / previous - 1) * 100, 2) if previous else None
+            history.append({"date": period, "amount": round(amounts[period], 2), "yoy": yoy})
+        verified_history = [row for row in history if row["yoy"] is not None]
+        if len(verified_history) < 24:
+            raise ValueError("經濟部外銷訂單可驗證歷史不足 24 個月")
+
+        latest_row = verified_history[-1]
+        latest_year, latest_month = map(int, latest_row["date"].split("-"))
+        current_ytd = sum(value for period, value in amounts.items() if period.startswith(f"{latest_year:04d}-") and int(period[5:7]) <= latest_month)
+        previous_ytd = sum(value for period, value in amounts.items() if period.startswith(f"{latest_year - 1:04d}-") and int(period[5:7]) <= latest_month)
+        consecutive_positive = 0
+        for row in reversed(verified_history):
+            if row["yoy"] <= 0:
+                break
+            consecutive_positive += 1
+        yoy_pct = latest_row["yoy"]
+        latest = {
+            "date": latest_row["date"],
+            "amount_billions": latest_row["amount"],
+            "yoy_pct": yoy_pct,
+            "ytd_amount_billions": round(current_ytd, 2),
+            "ytd_yoy_pct": round((current_ytd / previous_ytd - 1) * 100, 2),
+            "consecutive_positive_months": consecutive_positive,
+            "status": "強勁擴張" if yoy_pct >= 20 else "溫和擴張" if yoy_pct > 0 else "年增衰退",
+            "status_badge": f"連{consecutive_positive}個月正成長" if consecutive_positive else "年增轉負",
+            "categories": None,
+            "destinations": None,
+            "desc": f"經濟部最新公布 {latest_row['date']} 外銷訂單 {latest_row['amount']:,.1f} 億美元，年增 {yoy_pct:+.2f}%。",
+        }
+        print(f"  -> 外銷訂單最新: {latest['date']} 金額={latest['amount_billions']} 億美元 (年增 {latest['yoy_pct']:+.2f}%)")
+        return {
+            "latest": latest,
+            "history": verified_history[-24:],
+            "source": "經濟部統計處 (Department of Statistics, MOEA)",
+            "source_url": source_url,
+            "_quality_metadata": {
+                "official_agency": "經濟部統計處",
+                "observation_month": latest["date"],
+                "data_status": "published_official",
+                "unit": "億美元 (USD 100M)",
+                "is_projected": False,
+                "retrieved_at": datetime.now(timezone.utc).isoformat(),
+            },
+        }
+
         # 經濟部統計處 24 個月官方核實時間序列
         history = [
             {"date": "2024-11", "amount": 520.4, "yoy": 4.9},
@@ -1998,7 +2062,7 @@ def main(output_file: str = None):
         payload["crypto"] = existing_payload["crypto"]
 
     # 保留上一份已驗證的歷史序列；排除尚未有動態來源的模型快照。
-    unverifiable_series = {"twExportOrders", "twExportOrdersYoY", "equityRiskPremium"}
+    unverifiable_series = {"equityRiskPremium"}
     if "series" in existing_payload:
         for sk, sv in existing_payload["series"].items():
             if sk not in payload["series"] and sk not in unverifiable_series:
@@ -2022,8 +2086,7 @@ def main(output_file: str = None):
         print("  -> 未取得可驗證的國發會資料；不建立推測值")
 
     # 8.5 經濟部統計處 台灣外銷訂單領先指標 (Export Orders)
-    # 尚未串接可驗證的 MOEA 機器端點；不得把程式內建快照標成最新官方值。
-    tw_orders = None
+    tw_orders = fetch_tw_export_orders()
     if tw_orders and tw_orders.get("latest"):
         payload["tw_export_orders"] = tw_orders
         payload["series"]["twExportOrders"] = {

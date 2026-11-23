@@ -18,13 +18,24 @@ macro = load("macro_live_data.json")
 if macro.get("data_quality", {}).get("status") != "valid":
     errors.append("macro_live_data.json did not pass its quality gate")
 
-for key in ("tw_export_orders", "equity_risk_premium"):
+for key in ("equity_risk_premium",):
     if macro.get(key):
         errors.append(f"{key} must remain empty until a verifiable live source is implemented")
 
-for key in ("twExportOrders", "twExportOrdersYoY", "equityRiskPremium"):
+for key in ("equityRiskPremium",):
     if key in macro.get("series", {}):
         errors.append(f"unverified series leaked into macro bundle: {key}")
+
+orders = macro.get("tw_export_orders", {})
+orders_meta = orders.get("_quality_metadata", {})
+orders_latest = orders.get("latest", {})
+orders_history = orders.get("history", [])
+if orders_meta.get("data_status") != "published_official" or orders_meta.get("is_projected") is not False:
+    errors.append("Taiwan export orders are not published official observations")
+if not str(orders.get("source_url", "")).endswith("/opendata/b.csv"):
+    errors.append("Taiwan export orders do not use the MOEA open-data CSV")
+if len(orders_history) < 24 or orders_latest.get("date") != orders_meta.get("observation_month"):
+    errors.append("Taiwan export orders lack aligned 24-month official history")
 
 for key, indicator in macro.get("macro_indicators", {}).items():
     if not indicator.get("source_url") or not indicator.get("period"):

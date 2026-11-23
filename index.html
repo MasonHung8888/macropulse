@@ -8363,7 +8363,7 @@
         }
 
         if (COUNTRY_DATA.TW && COUNTRY_DATA.TW.insights) {
-          COUNTRY_DATA.TW.insights.push(`台灣 10 月外銷訂單達 $${exp.amount_billions} 億美元（年增 +${exp.yoy_pct}%，連 ${exp.consecutive_positive_months} 紅），AI 與高階半導體拉動台股出口領先動能續創歷史新高。`);
+          COUNTRY_DATA.TW.insights.push(`經濟部 ${exp.date} 外銷訂單為 $${exp.amount_billions} 億美元（年增 ${exp.yoy_pct >= 0 ? '+' : ''}${exp.yoy_pct}%，連續 ${exp.consecutive_positive_months} 個月正成長）。`);
         }
 
         let item = TRADER_ITEMS.find(x => x.name === '台股-外銷訂單年增率');
@@ -8371,7 +8371,7 @@
           item = { cat: '總經數據', sub: '台灣', name: '台股-外銷訂單年增率', quad: 'HIGH_UP', vars: 'MOEA Export Orders' };
           TRADER_ITEMS.push(item);
         }
-        item.val = `+${exp.yoy_pct}%`;
+        item.val = `${exp.yoy_pct >= 0 ? '+' : ''}${exp.yoy_pct}%`;
         item.date = exp.date || dateStr;
         item.desc = `經濟部最新外銷訂單總額 $${exp.amount_billions} 億美元。${exp.desc}`;
         item.dataStatus = 'verified';
