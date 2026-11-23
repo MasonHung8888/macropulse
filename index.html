@@ -8790,6 +8790,18 @@
           }
         }
       } catch (e) { /* ignore when opened as standalone preview without macro_live_data.json */ }
+
+      // 已驗證資料包是正式站唯一資料入口；成功後不再用瀏覽器端跨網域請求覆蓋。
+      if (bundleLoaded) {
+        const main = document.querySelector('main');
+        if (main) main.style.visibility = 'visible';
+        btn.disabled = false;
+        if (lbl) lbl.textContent = '重新整理';
+        if (state.activeTab === 'dashboard') renderTop5();
+        if (state.activeTab === 'trader') renderTraderTab();
+        if (manual) showToast('已重新載入通過完整性檢查的市場資料包。市場價格為延遲日線。');
+        return;
+      }
       const todayStr = new Date().toISOString().slice(0, 10);
 
       // 1) Live FX via Frankfurter (ECB) & Open ER-API (for TWD)
