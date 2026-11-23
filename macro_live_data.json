@@ -977,7 +977,63 @@
     "global_cb_boj": 3.92,
     "global_cb_china": 3.48,
     "global_cb_yoy": -4.2,
-    "global_cb_rating": "有序縮表緊縮"
+    "global_cb_rating": "有序縮表緊縮",
+    "vix9d": {
+      "price": 40.72,
+      "d1": 128.5,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (^VIX9D)",
+      "realtime": false
+    },
+    "vix3m": {
+      "price": 30.94,
+      "d1": 50.0,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (^VIX3M)",
+      "realtime": false
+    },
+    "vix6m": {
+      "price": 29.54,
+      "d1": 34.1,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (^VIX6M)",
+      "realtime": false
+    },
+    "skew": {
+      "price": 138.84,
+      "d1": -5.6,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (^SKEW)",
+      "realtime": false
+    },
+    "move": {
+      "price": 106.31,
+      "d1": 1.2,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (^MOVE)",
+      "realtime": false
+    },
+    "vxn": {
+      "price": 45.25,
+      "d1": 22.4,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (^VXN)",
+      "realtime": false
+    },
+    "ovx": {
+      "price": 54.12,
+      "d1": 8.5,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (^OVX)",
+      "realtime": false
+    },
+    "gvz": {
+      "price": 34.8,
+      "d1": -2.1,
+      "as_of": "2026-11-20",
+      "source": "Yahoo Finance daily close (^GVZ)",
+      "realtime": false
+    }
   },
   "series": {
     "twM1b": {
