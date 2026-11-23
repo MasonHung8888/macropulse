@@ -30,6 +30,20 @@ for key, indicator in macro.get("macro_indicators", {}).items():
     if not indicator.get("source_url") or not indicator.get("period"):
         errors.append(f"macro indicator lacks source/date: {key}")
 
+for market_key in ("tw_heatmap", "sp500_heatmap"):
+    heatmap = macro.get(market_key, [])
+    dates = {row.get("as_of") for row in heatmap if row.get("as_of")}
+    if not heatmap or len(dates) != 1:
+        errors.append(f"{market_key} must contain rows from exactly one observation date")
+    for row in heatmap:
+        ticker = row.get("ticker", "unknown")
+        if not row.get("as_of") or not row.get("source") or not row.get("size_basis"):
+            errors.append(f"{market_key}.{ticker} lacks date/source/size provenance")
+        if not isinstance(row.get("cap"), (int, float)) or row["cap"] <= 0:
+            errors.append(f"{market_key}.{ticker} has an invalid traded-value size")
+        if not isinstance(row.get("d1"), (int, float)):
+            errors.append(f"{market_key}.{ticker} lacks a valid 1D return")
+
 tw = load("tw_bottom_data.json")
 for key in ("backtest_data", "options_max_pain", "state_owned_banks", "trust_targeting"):
     if tw.get(key):

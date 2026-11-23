@@ -346,6 +346,17 @@ def fetch_world_bank_macro() -> tuple[dict, dict]:
 
 
 # 2. 抓取 TWSE 臺灣證券交易所台股 28 檔權值股收盤
+def roc_date_to_iso(value: str) -> str | None:
+    """將 TWSE 民國年 YYYYMMDD 日期轉為 ISO 日期。"""
+    digits = re.sub(r"\D", "", str(value or ""))
+    if len(digits) != 7:
+        return None
+    try:
+        return f"{int(digits[:3]) + 1911:04d}-{digits[3:5]}-{digits[5:7]}"
+    except ValueError:
+        return None
+
+
 def fetch_twse_heatmap() -> list:
     print("4/7 抓取 TWSE 收盤價，並以歷史日線計算 1W / YTD...")
     raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL", timeout=20)
@@ -359,24 +370,30 @@ def fetch_twse_heatmap() -> list:
     except Exception as exc:
         print(f"  台股歷史日線取得失敗：{exc}")
     result = []
-    for sector, code, name, cap in TW_WATCHLIST:
+    for sector, code, name, _legacy_weight in TW_WATCHLIST:
         row = by_code.get(code)
-        pct = 0.0
-        price = 0.0
+        pct = None
+        price = None
+        traded_value = None
+        as_of = None
         if row:
             try:
                 price = float(row.get("ClosingPrice", "0").replace(",", ""))
                 chg = float(row.get("Change", "0").replace(",", ""))
+                traded_value = float(row.get("TradeValue", "0").replace(",", ""))
+                as_of = roc_date_to_iso(row.get("Date"))
                 prev_p = price - chg
                 if prev_p > 0:
                     pct = round((chg / prev_p) * 100, 2)
             except (ValueError, ZeroDivisionError):
-                pct = 0.0
+                pass
         w1 = ytd = None
         try:
             symbol = f"{code}.TW"
             df = history[symbol] if history is not None and symbol in history else None
             closes = df["Close"].dropna() if df is not None and not df.empty else []
+            if as_of and len(closes):
+                closes = closes[closes.index.strftime("%Y-%m-%d") <= as_of]
             if len(closes) >= 2:
                 latest = float(closes.iloc[-1])
                 prev_1w = float(closes.iloc[-6]) if len(closes) >= 6 else float(closes.iloc[0])
@@ -388,11 +405,13 @@ def fetch_twse_heatmap() -> list:
             "sector": sector,
             "ticker": code,
             "name": name,
-            "cap": cap,
+            "cap": traded_value,
             "price": price,
             "d1": pct,
             "w1": w1,
             "ytd": ytd,
+            "as_of": as_of,
+            "size_basis": "TWSE daily traded value (TWD)",
             "source": "TWSE daily close; Yahoo Finance historical returns",
             "realtime": False,
         })
@@ -418,7 +437,7 @@ def fetch_us_market_data():
     ticker_str = " ".join(all_tickers)
     try:
         data = yf.download(ticker_str, period="ytd", interval="1d", group_by="ticker", auto_adjust=True, progress=False)
-        for sector, ticker, name, cap in SP500_WATCHLIST:
+        for sector, ticker, name, _legacy_weight in SP500_WATCHLIST:
             try:
                 df = data[ticker] if ticker in data else None
                 if df is not None and not df.empty and "Close" in df:
@@ -431,15 +450,21 @@ def fetch_us_market_data():
                         d1 = round((latest - prev_1d) / prev_1d * 100, 2)
                         w1 = round((latest - prev_1w) / prev_1w * 100, 2)
                         ytd = round((latest - first_ytd) / first_ytd * 100, 2)
+                        latest_index = closes.index[-1]
+                        volume = float(df.loc[latest_index, "Volume"])
+                        traded_value = latest * volume
                         sp500_heatmap.append({
                             "sector": sector,
                             "ticker": ticker,
                             "name": name,
-                            "cap": cap,
+                            "cap": round(traded_value, 2),
                             "price": round(latest, 2),
                             "d1": d1,
                             "w1": w1,
                             "ytd": ytd,
+                            "as_of": latest_index.strftime("%Y-%m-%d"),
+                            "size_basis": "Yahoo Finance daily traded value (USD)",
+                            "source": "Yahoo Finance adjusted daily history",
                         })
             except Exception:
                 continue
@@ -2181,6 +2206,17 @@ def main(output_file: str = None):
         errors.append(f"台股 1W/YTD 歷史資料不足：{tw_history_count}/{len(TW_WATCHLIST)}")
     if len(payload["sp500_heatmap"]) != len(SP500_WATCHLIST):
         errors.append(f"美股熱力圖缺漏：{len(payload['sp500_heatmap'])}/{len(SP500_WATCHLIST)}")
+    for market_name, heatmap in (("台股", payload["tw_heatmap"]), ("美股", payload["sp500_heatmap"])):
+        heatmap_dates = {row.get("as_of") for row in heatmap if row.get("as_of")}
+        if len(heatmap_dates) != 1:
+            errors.append(f"{market_name}熱力圖資料日不一致：{sorted(heatmap_dates)}")
+        for row in heatmap:
+            if not row.get("as_of") or not row.get("source") or not row.get("size_basis"):
+                errors.append(f"{market_name}熱力圖 {row.get('ticker')} 缺少日期或來源")
+            if not isinstance(row.get("cap"), (int, float)) or row["cap"] <= 0:
+                errors.append(f"{market_name}熱力圖 {row.get('ticker')} 成交金額無效：{row.get('cap')}")
+            if not isinstance(row.get("d1"), (int, float)):
+                errors.append(f"{market_name}熱力圖 {row.get('ticker')} 1D 報酬無效：{row.get('d1')}")
     if missing_snapshots:
         errors.append("市場快照缺漏：" + ", ".join(missing_snapshots))
     if len(payload["macro_indicators"]) < 8:

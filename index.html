@@ -3312,7 +3312,7 @@
           <h1 class="text-xl sm:text-2xl font-bold tracking-tight flex items-center gap-2">
             <i data-lucide="grid-2x2" class="w-6 h-6 text-rose-500"></i> 市場熱力圖（Finviz 風格 Treemap）
           </h1>
-          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">依產業板塊與相對顯示權重繪製方塊大小，顏色深淺代表漲跌幅，點擊任一個股可檢視詳細數據</p>
+          <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">方塊大小依各市場資料日的個股成交金額繪製，顏色深淺代表漲跌幅；點擊個股可查看資料日與來源</p>
         </div>
         <div class="flex flex-wrap items-center gap-2">
           <div class="inline-flex rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden text-xs font-medium">
@@ -15709,6 +15709,18 @@
       return '#dc2626';
     }
 
+    function heatmapPeriodLabel(timeframe) {
+      if (timeframe === 'd1') return '1D 一日表現';
+      if (timeframe === 'w1') return '1W 一週表現';
+      return 'YTD 年初至今';
+    }
+
+    function formatHeatmapReturn(value) {
+      const numericValue = Number(value);
+      if (!Number.isFinite(numericValue)) return '無資料';
+      return `${numericValue >= 0 ? '+' : ''}${numericValue.toFixed(2)}%`;
+    }
+
     function renderHeatmap() {
       document.querySelectorAll('.hm-mkt-btn').forEach(btn => {
         const active = btn.dataset.hmMkt === state.heatmap.market;
@@ -15718,7 +15730,9 @@
       });
 
       const rawItems = HEATMAP_DATA[state.heatmap.market] || HEATMAP_DATA.SP500;
-      const sectors = [...new Set(rawItems.map(x => x.sector))];
+      const tf = state.heatmap.tf;
+      const availableItems = rawItems.filter(x => Number.isFinite(Number(x[tf])) && Number(x.cap) > 0);
+      const sectors = [...new Set(availableItems.map(x => x.sector))];
       const secSel = document.getElementById('hm-sector');
       const prevSec = state.heatmap.sector;
       secSel.innerHTML = `<option value="ALL">全部產業板塊 (${sectors.length})</option>` +
@@ -15727,8 +15741,8 @@
       state.heatmap.sector = secSel.value;
 
       const filtered = state.heatmap.sector === 'ALL'
-        ? rawItems
-        : rawItems.filter(x => x.sector === state.heatmap.sector);
+        ? availableItems
+        : availableItems.filter(x => x.sector === state.heatmap.sector);
 
       // Build hierarchy by sector
       const grouped = {};
@@ -15746,6 +15760,11 @@
       const height = container.clientHeight || 540;
       container.innerHTML = '';
 
+      if (!filtered.length) {
+        container.innerHTML = '<div class="p-8 text-center text-slate-400">目前來源無可驗證的該期間資料</div>';
+        return;
+      }
+
       if (typeof d3 === 'undefined') {
         container.innerHTML = '<div class="p-8 text-center text-slate-400">正在載入 Treemap 繪圖引擎...</div>';
         return;
@@ -15762,8 +15781,6 @@
         .paddingInner(2)
         .round(true)(root);
 
-      const tf = state.heatmap.tf;
-
       // Render Sector Headers
       (root.children || []).forEach(secNode => {
         const secEl = document.createElement('div');
@@ -15778,7 +15795,7 @@
       // Render Stock Leaves
       root.leaves().forEach(leaf => {
         const d = leaf.data;
-        const val = d[tf] !== undefined ? d[tf] : d.d1;
+        const val = Number(d[tf]);
         const w = Math.max(0, leaf.x1 - leaf.x0);
         const h = Math.max(0, leaf.y1 - leaf.y0);
         const cell = document.createElement('div');
@@ -15804,10 +15821,10 @@
           document.getElementById('tm-cat').textContent = `市場熱力圖 · ${d.sector}`;
           document.getElementById('tm-title').textContent = `${d.ticker} — ${d.name}`;
           document.getElementById('tm-value').textContent = `${val >= 0 ? '+' : ''}${val.toFixed(2)}%`;
-          document.getElementById('tm-date').textContent = tf === 'd1' ? '1D 一日表現' : tf === 'w1' ? '1W 一週表現' : 'YTD 年初至今';
+          document.getElementById('tm-date').textContent = `${heatmapPeriodLabel(tf)}｜資料日 ${d.as_of || '未提供'}`;
           document.getElementById('tm-quad').textContent = val >= 0 ? '當期強勢上漲' : '當期修正下跌';
-          document.getElementById('tm-desc').textContent = `相對市值權重指數：${d.cap}（方塊面積依權重等比例縮放）`;
-          document.getElementById('tm-vars').textContent = `1D: ${d.d1 >= 0 ? '+' : ''}${d.d1}% ｜ 1W: ${d.w1 >= 0 ? '+' : ''}${d.w1}% ｜ YTD: ${d.ytd >= 0 ? '+' : ''}${d.ytd}%`;
+          document.getElementById('tm-desc').textContent = `方塊面積依資料日成交金額縮放；來源：${d.source || '未提供'}`;
+          document.getElementById('tm-vars').textContent = `1D: ${formatHeatmapReturn(d.d1)} ｜ 1W: ${formatHeatmapReturn(d.w1)} ｜ YTD: ${formatHeatmapReturn(d.ytd)}`;
           document.getElementById('trader-modal').classList.remove('hidden');
         });
 
