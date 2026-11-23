@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-23T15:55:34Z",
+  "updated_at": "2026-11-23T19:20:48Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -515,11 +515,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "NVDA",
       "name": "Nvidia Corp",
-      "cap": 68671893743.94,
-      "price": 168.33,
-      "d1": 34.1,
-      "w1": 7.81,
-      "ytd": -10.66,
+      "cap": 100038946839.79,
+      "price": 164.93,
+      "d1": 31.38,
+      "w1": 5.63,
+      "ytd": -12.46,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -528,11 +528,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "AAPL",
       "name": "Apple Inc",
-      "cap": 5468887385.34,
-      "price": 349.76,
-      "d1": 2.1,
-      "w1": -0.86,
-      "ytd": 29.51,
+      "cap": 9621807550.05,
+      "price": 350.19,
+      "d1": 2.23,
+      "w1": -0.73,
+      "ytd": 29.67,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -541,11 +541,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "MSFT",
       "name": "Microsoft Corp",
-      "cap": 4441399505.32,
-      "price": 499.21,
-      "d1": 3.03,
-      "w1": -3.44,
-      "ytd": 6.43,
+      "cap": 7902811768.12,
+      "price": 496.58,
+      "d1": 2.49,
+      "w1": -3.95,
+      "ytd": 5.87,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -554,11 +554,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "AVGO",
       "name": "Broadcom Inc",
-      "cap": 4495260434.7,
-      "price": 308.24,
-      "d1": 1.26,
-      "w1": -7.55,
-      "ytd": -10.84,
+      "cap": 7993635900.81,
+      "price": 311.87,
+      "d1": 2.45,
+      "w1": -6.46,
+      "ytd": -9.79,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -567,11 +567,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "MU",
       "name": "Micron Tech",
-      "cap": 16048291072.39,
-      "price": 703.09,
-      "d1": 18.26,
-      "w1": -2.21,
-      "ytd": 123.07,
+      "cap": 26146654340.21,
+      "price": 709.57,
+      "d1": 19.35,
+      "w1": -1.31,
+      "ytd": 125.12,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -580,11 +580,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "AMD",
       "name": "Advanced Micro Devices",
-      "cap": 10022509727.54,
-      "price": 456.98,
-      "d1": 7.68,
-      "w1": -9.38,
-      "ytd": 104.49,
+      "cap": 15860739044.58,
+      "price": 452.27,
+      "d1": 6.57,
+      "w1": -10.31,
+      "ytd": 102.39,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -593,11 +593,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "INTC",
       "name": "Intel Corp",
-      "cap": 3136288680.15,
-      "price": 57.46,
-      "d1": 12.05,
-      "w1": 3.59,
-      "ytd": 45.91,
+      "cap": 5579487033.64,
+      "price": 58.52,
+      "d1": 14.12,
+      "w1": 5.5,
+      "ytd": 48.6,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -606,11 +606,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "QCOM",
       "name": "Qualcomm Inc",
-      "cap": 635485903.85,
-      "price": 163.54,
-      "d1": 9.07,
-      "w1": -2.96,
-      "ytd": -3.98,
+      "cap": 1199145318.33,
+      "price": 164.24,
+      "d1": 9.54,
+      "w1": -2.54,
+      "ytd": -3.57,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -619,11 +619,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "CRM",
       "name": "Salesforce Inc",
-      "cap": 261066730.61,
-      "price": 183.99,
-      "d1": 1.87,
-      "w1": -14.36,
-      "ytd": -26.96,
+      "cap": 529037244.81,
+      "price": 185.39,
+      "d1": 2.64,
+      "w1": -13.7,
+      "ytd": -26.4,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -632,11 +632,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "ORCL",
       "name": "Oracle Corp",
-      "cap": 2024509303.64,
-      "price": 114.27,
-      "d1": 12.93,
-      "w1": -4.05,
-      "ytd": -40.83,
+      "cap": 3026311066.84,
+      "price": 112.98,
+      "d1": 11.65,
+      "w1": -5.13,
+      "ytd": -41.5,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -645,11 +645,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "PLTR",
       "name": "Palantir Tech",
-      "cap": 1757379906.89,
-      "price": 157.7,
-      "d1": 9.9,
-      "w1": -1.68,
-      "ytd": -6.05,
+      "cap": 2904890690.44,
+      "price": 158.11,
+      "d1": 10.19,
+      "w1": -1.42,
+      "ytd": -5.81,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -658,11 +658,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "PANW",
       "name": "Palo Alto Networks",
-      "cap": 1130148012.31,
-      "price": 352.78,
-      "d1": 2.76,
-      "w1": 11.61,
-      "ytd": 96.68,
+      "cap": 2131362153.29,
+      "price": 354.57,
+      "d1": 3.28,
+      "w1": 12.17,
+      "ytd": 97.68,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -671,11 +671,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "CRWD",
       "name": "CrowdStrike",
-      "cap": 3433183969.14,
-      "price": 202.86,
-      "d1": -11.58,
-      "w1": -9.12,
-      "ytd": 78.9,
+      "cap": 6383672603.46,
+      "price": 205.29,
+      "d1": -10.52,
+      "w1": -8.03,
+      "ytd": 81.04,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -684,11 +684,11 @@
       "sector": "TECHNOLOGY",
       "ticker": "AMAT",
       "name": "Applied Materials",
-      "cap": 1292558404.9,
-      "price": 344.12,
-      "d1": 13.71,
-      "w1": -1.6,
-      "ytd": 28.64,
+      "cap": 2349708028.34,
+      "price": 344.53,
+      "d1": 13.85,
+      "w1": -1.48,
+      "ytd": 28.79,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -697,11 +697,11 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "GOOGL",
       "name": "Alphabet Inc",
-      "cap": 4492316963.71,
-      "price": 282.55,
-      "d1": 6.51,
-      "w1": -0.41,
-      "ytd": -10.17,
+      "cap": 7695348754.98,
+      "price": 283.57,
+      "d1": 6.89,
+      "w1": -0.05,
+      "ytd": -9.85,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -710,11 +710,11 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "META",
       "name": "Meta Platforms",
-      "cap": 3478935106.0,
-      "price": 592.75,
-      "d1": 5.69,
-      "w1": -5.37,
-      "ytd": -8.63,
+      "cap": 7098565810.84,
+      "price": 599.42,
+      "d1": 6.88,
+      "w1": -4.31,
+      "ytd": -7.6,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -723,11 +723,11 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "NFLX",
       "name": "Netflix Inc",
-      "cap": 654261079.32,
-      "price": 57.89,
-      "d1": 2.04,
-      "w1": -4.71,
-      "ytd": -36.38,
+      "cap": 1330217221.61,
+      "price": 58.15,
+      "d1": 2.5,
+      "w1": -4.28,
+      "ytd": -36.09,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -736,11 +736,11 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "DIS",
       "name": "Walt Disney Co",
-      "cap": 235091891.29,
-      "price": 119.75,
-      "d1": 1.5,
-      "w1": 0.88,
-      "ytd": 7.88,
+      "cap": 562785246.24,
+      "price": 119.78,
+      "d1": 1.53,
+      "w1": 0.91,
+      "ytd": 7.91,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -749,11 +749,11 @@
       "sector": "FINANCIAL",
       "ticker": "BRK-B",
       "name": "Berkshire Hathaway",
-      "cap": 818618834.88,
-      "price": 574.0,
-      "d1": 0.7,
-      "w1": -3.18,
-      "ytd": 15.53,
+      "cap": 1411484667.76,
+      "price": 572.83,
+      "d1": 0.5,
+      "w1": -3.38,
+      "ytd": 15.29,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -762,11 +762,11 @@
       "sector": "FINANCIAL",
       "ticker": "JPM",
       "name": "JPMorgan Chase",
-      "cap": 630008867.9,
-      "price": 319.05,
-      "d1": 2.74,
-      "w1": -5.67,
-      "ytd": -0.09,
+      "cap": 1220105068.89,
+      "price": 318.54,
+      "d1": 2.58,
+      "w1": -5.82,
+      "ytd": -0.25,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -775,11 +775,11 @@
       "sector": "FINANCIAL",
       "ticker": "V",
       "name": "Visa Inc",
-      "cap": 679185173.71,
-      "price": 410.77,
-      "d1": 2.21,
-      "w1": -3.68,
-      "ytd": 19.49,
+      "cap": 1249478905.71,
+      "price": 411.29,
+      "d1": 2.34,
+      "w1": -3.56,
+      "ytd": 19.64,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -788,11 +788,11 @@
       "sector": "FINANCIAL",
       "ticker": "MA",
       "name": "Mastercard Inc",
-      "cap": 471882870.1,
-      "price": 635.97,
-      "d1": 1.66,
-      "w1": -3.89,
-      "ytd": 13.66,
+      "cap": 1015053160.45,
+      "price": 638.54,
+      "d1": 2.07,
+      "w1": -3.5,
+      "ytd": 14.12,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -801,11 +801,11 @@
       "sector": "FINANCIAL",
       "ticker": "BAC",
       "name": "Bank of America",
-      "cap": 435280976.75,
-      "price": 48.38,
-      "d1": 2.86,
-      "w1": -3.38,
-      "ytd": -12.13,
+      "cap": 796135742.49,
+      "price": 48.42,
+      "d1": 2.92,
+      "w1": -3.32,
+      "ytd": -12.08,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -814,11 +814,11 @@
       "sector": "FINANCIAL",
       "ticker": "GS",
       "name": "Goldman Sachs",
-      "cap": 1005233229.33,
-      "price": 825.4,
-      "d1": 4.39,
-      "w1": -7.42,
-      "ytd": -8.41,
+      "cap": 1824178751.19,
+      "price": 827.16,
+      "d1": 4.61,
+      "w1": -7.22,
+      "ytd": -8.21,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -827,11 +827,11 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "AMZN",
       "name": "Amazon.com Inc",
-      "cap": 4934566927.5,
-      "price": 257.25,
-      "d1": 4.23,
-      "w1": -0.19,
-      "ytd": 13.58,
+      "cap": 8518668415.59,
+      "price": 257.72,
+      "d1": 4.42,
+      "w1": -0.01,
+      "ytd": 13.78,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -840,11 +840,11 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "TSLA",
       "name": "Tesla Inc",
-      "cap": 7416332866.94,
-      "price": 390.22,
-      "d1": 12.84,
-      "w1": 2.76,
-      "ytd": -10.92,
+      "cap": 11621662621.13,
+      "price": 388.77,
+      "d1": 12.42,
+      "w1": 2.38,
+      "ytd": -11.25,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -853,11 +853,11 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "HD",
       "name": "Home Depot",
-      "cap": 337602116.05,
-      "price": 347.52,
-      "d1": 2.5,
-      "w1": 0.0,
-      "ytd": 2.67,
+      "cap": 699521365.39,
+      "price": 346.64,
+      "d1": 2.24,
+      "w1": -0.25,
+      "ytd": 2.41,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -866,11 +866,11 @@
       "sector": "HEALTHCARE",
       "ticker": "LLY",
       "name": "Eli Lilly & Co",
-      "cap": 799642978.85,
-      "price": 1376.5,
-      "d1": 2.18,
-      "w1": -3.85,
-      "ytd": 28.18,
+      "cap": 2071718539.24,
+      "price": 1363.01,
+      "d1": 1.18,
+      "w1": -4.8,
+      "ytd": 26.93,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -879,11 +879,11 @@
       "sector": "HEALTHCARE",
       "ticker": "JNJ",
       "name": "Johnson & Johnson",
-      "cap": 541373845.69,
-      "price": 271.49,
-      "d1": 0.38,
-      "w1": -3.91,
-      "ytd": 33.04,
+      "cap": 1141061893.89,
+      "price": 271.54,
+      "d1": 0.4,
+      "w1": -3.9,
+      "ytd": 33.06,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -892,11 +892,11 @@
       "sector": "HEALTHCARE",
       "ticker": "UNH",
       "name": "UnitedHealth Group",
-      "cap": 1554296665.21,
-      "price": 329.78,
-      "d1": -2.96,
-      "w1": -19.96,
-      "ytd": -0.03,
+      "cap": 2938269841.95,
+      "price": 334.61,
+      "d1": -1.54,
+      "w1": -18.79,
+      "ytd": 1.43,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -905,11 +905,11 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "WMT",
       "name": "Walmart Inc",
-      "cap": 910402602.76,
-      "price": 128.46,
-      "d1": 0.39,
-      "w1": 0.04,
-      "ytd": 14.64,
+      "cap": 1587179594.75,
+      "price": 129.26,
+      "d1": 1.02,
+      "w1": 0.66,
+      "ytd": 15.36,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -918,11 +918,11 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "COST",
       "name": "Costco Wholesale",
-      "cap": 881938298.38,
-      "price": 1093.9,
-      "d1": -0.75,
-      "w1": -1.78,
-      "ytd": 28.77,
+      "cap": 1671133913.19,
+      "price": 1100.96,
+      "d1": -0.11,
+      "w1": -1.15,
+      "ytd": 29.6,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -931,11 +931,11 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "KO",
       "name": "Coca-Cola Co",
-      "cap": 758132166.38,
-      "price": 96.33,
-      "d1": -0.68,
-      "w1": -3.16,
-      "ytd": 42.08,
+      "cap": 1455456927.33,
+      "price": 96.12,
+      "d1": -0.9,
+      "w1": -3.38,
+      "ytd": 41.76,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -944,11 +944,11 @@
       "sector": "INDUSTRIALS",
       "ticker": "GE",
       "name": "GE Aerospace",
-      "cap": 406584519.43,
-      "price": 322.27,
-      "d1": 4.09,
-      "w1": -0.89,
-      "ytd": 0.9,
+      "cap": 752104537.19,
+      "price": 320.61,
+      "d1": 3.55,
+      "w1": -1.41,
+      "ytd": 0.38,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -957,11 +957,11 @@
       "sector": "INDUSTRIALS",
       "ticker": "CAT",
       "name": "Caterpillar Inc",
-      "cap": 694696084.53,
-      "price": 548.3,
-      "d1": 7.42,
-      "w1": -3.89,
-      "ytd": -7.59,
+      "cap": 1197159667.47,
+      "price": 547.65,
+      "d1": 7.29,
+      "w1": -4.0,
+      "ytd": -7.7,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -970,11 +970,11 @@
       "sector": "ENERGY",
       "ticker": "XOM",
       "name": "Exxon Mobil",
-      "cap": 416593589.91,
-      "price": 158.51,
-      "d1": -0.93,
-      "w1": -5.01,
-      "ytd": 32.66,
+      "cap": 985498511.27,
+      "price": 157.9,
+      "d1": -1.31,
+      "w1": -5.38,
+      "ytd": 32.15,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -983,11 +983,11 @@
       "sector": "ENERGY",
       "ticker": "CVX",
       "name": "Chevron Corp",
-      "cap": 446481734.09,
-      "price": 207.46,
-      "d1": -0.44,
-      "w1": -3.66,
-      "ytd": 37.92,
+      "cap": 880896228.84,
+      "price": 207.01,
+      "d1": -0.65,
+      "w1": -3.87,
+      "ytd": 37.63,
       "as_of": "2026-11-23",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
@@ -998,8 +998,8 @@
     "tw_m2": 7.24,
     "tw_spread": -0.04,
     "sp500": {
-      "price": 7254.62,
-      "d1": 4.98,
+      "price": 7253.72,
+      "d1": 4.97,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1009,8 +1009,8 @@
       }
     },
     "nasdaq": {
-      "price": 24161.95,
-      "d1": 6.83,
+      "price": 24148.86,
+      "d1": 6.77,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1020,14 +1020,14 @@
       }
     },
     "taiex": {
-      "price": 36811.89,
-      "d1": 2.16,
-      "as_of": "2026-11-23",
+      "price": 36033.29,
+      "d1": -6.23,
+      "as_of": "2026-11-20",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 3
       }
     },
     "nikkei": {
@@ -1038,8 +1038,8 @@
       "realtime": false
     },
     "gold": {
-      "price": 3671.2,
-      "d1": 4.43,
+      "price": 3652.5,
+      "d1": 3.9,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1049,8 +1049,8 @@
       }
     },
     "wti": {
-      "price": 80.51,
-      "d1": -4.13,
+      "price": 80.43,
+      "d1": -4.23,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1060,15 +1060,15 @@
       }
     },
     "copper": {
-      "price": 5.66,
-      "d1": 3.36,
+      "price": 5.63,
+      "d1": 2.87,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix": {
-      "price": 26.34,
-      "d1": -26.61,
+      "price": 26.57,
+      "d1": -25.97,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1078,22 +1078,22 @@
       }
     },
     "vix9d": {
-      "price": 28.47,
-      "d1": -30.08,
+      "price": 28.09,
+      "d1": -31.02,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix3m": {
-      "price": 24.98,
-      "d1": -19.26,
+      "price": 25.21,
+      "d1": -18.52,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix6m": {
-      "price": 25.3,
-      "d1": -14.35,
+      "price": 25.68,
+      "d1": -13.07,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -1106,69 +1106,69 @@
       "realtime": false
     },
     "move": {
-      "price": 104.63,
-      "d1": -1.58,
+      "price": 102.12,
+      "d1": -3.94,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vxn": {
-      "price": 34.75,
-      "d1": -23.2,
+      "price": 35.2,
+      "d1": -22.21,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "ovx": {
-      "price": 50.22,
-      "d1": -7.21,
+      "price": 49.33,
+      "d1": -8.85,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "gvz": {
-      "price": 30.72,
-      "d1": -11.72,
+      "price": 31.17,
+      "d1": -10.43,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us10y_tnx": {
-      "price": 4.96,
-      "d1": 0.9,
+      "price": 4.93,
+      "d1": 0.45,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us30y_tyx": {
-      "price": 5.32,
-      "d1": 0.4,
+      "price": 5.3,
+      "d1": 0.02,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us5y_fvx": {
-      "price": 4.78,
-      "d1": 1.6,
+      "price": 4.75,
+      "d1": 1.02,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "dxy": {
-      "price": 104.29,
-      "d1": 0.46,
+      "price": 104.41,
+      "d1": 0.57,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "usdtwd": {
-      "price": 32.81,
-      "d1": -0.65,
+      "price": 32.79,
+      "d1": -0.71,
       "as_of": "2026-11-23",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
-    "us10y": 4.96,
+    "us10y": 4.93,
     "spread10y5y": 0.18,
     "ndc_score": 41,
     "fed_net_liquidity": 5.824,
@@ -1180,7 +1180,7 @@
     "fed_target_lower": 3.75,
     "fedwatch_next_cut_prob": 0.0,
     "fedwatch_next_hold_prob": 22.0,
-    "fedwatch_terminal_rate": 4.57,
+    "fedwatch_terminal_rate": 4.55,
     "fear_and_greed": 31.3,
     "fear_and_greed_rating": "恐慌",
     "buffett_ratio": 208.9,
@@ -2381,7 +2381,7 @@
         7686.14,
         7651.54,
         7580.07,
-        7255.4
+        7253.72
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2439,7 +2439,7 @@
         26370.89,
         26861.06,
         25437.0,
-        24161.23
+        24148.86
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2547,7 +2547,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3671.2
+        3652.5
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2597,7 +2597,7 @@
         85.76,
         90.42,
         104.12,
-        80.51
+        80.43
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2655,7 +2655,7 @@
         4.76,
         5.29,
         4.93,
-        4.96
+        4.93
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2713,7 +2713,7 @@
         99.43,
         101.45,
         101.88,
-        104.29
+        104.41
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2771,7 +2771,7 @@
         31.63,
         31.85,
         32.61,
-        32.81
+        32.79
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -3366,8 +3366,8 @@
     "TWD": 32.97
   },
   "crypto": {
-    "btc_price": 62791,
-    "stablecoin_market_cap_b": 243.5
+    "btc_price": 61602,
+    "stablecoin_market_cap_b": 243.7
   },
   "macro_indicators": {
     "us_cpi_yoy": {
@@ -4044,7 +4044,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-23T15:56:16Z",
+    "validated_at": "2026-11-23T19:21:10Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -4083,10 +4083,10 @@
       "date": "2026-11",
       "total_assets_billions": 6741.45,
       "tga_billions": 916.61,
-      "rrp_billions": 0.4,
-      "net_liquidity_billions": 5824.44,
+      "rrp_billions": 0.35,
+      "net_liquidity_billions": 5824.49,
       "net_liquidity_trillions": 5.824,
-      "mom_change_billions": 82.91,
+      "mom_change_billions": 82.96,
       "mom_change_pct": 1.44,
       "regime": "流動性擴張注入中 (資金面偏多)",
       "regime_key": "expanding",
@@ -4282,8 +4282,8 @@
         "date": "2026-11",
         "total_assets_billions": 6741.45,
         "tga_billions": 916.61,
-        "rrp_billions": 0.4,
-        "net_liquidity_billions": 5824.44,
+        "rrp_billions": 0.35,
+        "net_liquidity_billions": 5824.49,
         "net_liquidity_trillions": 5.824
       }
     ],
@@ -4511,8 +4511,8 @@
     "terminal_rate": {
       "meeting": "2027-06",
       "label": "2027-06 FOMC",
-      "rate": 4.57,
-      "status_desc": "市場定價終端利率約 4.57%，反映長期中性利率預期抬升 (Higher for Longer)"
+      "rate": 4.55,
+      "status_desc": "市場定價終端利率約 4.55%，反映長期中性利率預期抬升 (Higher for Longer)"
     },
     "meetings": [
       {
@@ -4531,8 +4531,8 @@
         "meeting": "2027-01",
         "label": "2027-01 FOMC",
         "ticker": "ZQF27.CBT",
-        "price": 95.84,
-        "implied_rate": 4.16,
+        "price": 95.835,
+        "implied_rate": 4.17,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -4543,8 +4543,8 @@
         "meeting": "2027-03",
         "label": "2027-03 FOMC",
         "ticker": "ZQH27.CBT",
-        "price": 95.615,
-        "implied_rate": 4.39,
+        "price": 95.625,
+        "implied_rate": 4.38,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -4555,8 +4555,8 @@
         "meeting": "2027-06",
         "label": "2027-06 FOMC",
         "ticker": "ZQM27.CBT",
-        "price": 95.425,
-        "implied_rate": 4.57,
+        "price": 95.45,
+        "implied_rate": 4.55,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -4613,12 +4613,12 @@
       ],
       "forecast_rates": [
         4.07,
-        4.16,
-        4.39,
-        4.57
+        4.17,
+        4.38,
+        4.55
       ]
     },
-    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 22.0%，降息機率 0.0%；市場預期終端利率約 4.57%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
+    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 22.0%，降息機率 0.0%；市場預期終端利率約 4.55%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
     "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
     "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
     "_quality_metadata": {
@@ -5584,11 +5584,11 @@
         1.0,
         0.8,
         0.79,
-        -0.03,
-        -0.04,
-        -0.32,
-        0.26,
-        -0.13
+        -0.02,
+        -0.06,
+        -0.31,
+        0.27,
+        -0.11
       ],
       [
         0.8,
@@ -5597,7 +5597,7 @@
         -0.08,
         -0.2,
         -0.5,
-        0.18,
+        0.19,
         -0.14
       ],
       [
@@ -5606,34 +5606,34 @@
         1.0,
         0.13,
         -0.09,
-        -0.55,
+        -0.54,
         0.11,
         -0.14
       ],
       [
-        -0.03,
+        -0.02,
         -0.08,
         0.13,
         1.0,
-        0.34,
+        0.33,
         -0.0,
-        -0.36,
-        0.39
+        -0.35,
+        0.4
       ],
       [
-        -0.04,
+        -0.06,
         -0.2,
         -0.09,
-        0.34,
+        0.33,
         1.0,
         0.35,
         -0.56,
         0.12
       ],
       [
-        -0.32,
+        -0.31,
         -0.5,
-        -0.55,
+        -0.54,
         -0.0,
         0.35,
         1.0,
@@ -5641,23 +5641,23 @@
         0.2
       ],
       [
-        0.26,
-        0.18,
+        0.27,
+        0.19,
         0.11,
-        -0.36,
+        -0.35,
         -0.56,
         -0.19,
         1.0,
-        -0.18
+        -0.17
       ],
       [
-        -0.13,
+        -0.11,
         -0.14,
         -0.14,
-        0.39,
+        0.4,
         0.12,
         0.2,
-        -0.18,
+        -0.17,
         1.0
       ]
     ],
@@ -5666,7 +5666,7 @@
         1.0,
         0.94,
         0.92,
-        0.61,
+        0.6,
         -0.18,
         0.21,
         0.64,
@@ -5693,7 +5693,7 @@
         0.49
       ],
       [
-        0.61,
+        0.6,
         0.49,
         0.45,
         1.0,
@@ -5746,103 +5746,103 @@
     "matrix_returns_12m": [
       [
         1.0,
-        0.86,
-        0.82,
-        -0.15,
-        -0.52,
-        -0.69,
+        0.85,
+        0.81,
+        -0.13,
+        -0.53,
+        -0.67,
         0.49,
-        -0.21
+        -0.18
       ],
       [
-        0.86,
+        0.85,
         1.0,
         0.94,
         -0.09,
         -0.64,
         -0.68,
         0.37,
-        -0.23
+        -0.24
       ],
       [
-        0.82,
+        0.81,
         0.94,
         1.0,
         0.12,
         -0.47,
         -0.7,
-        0.25,
+        0.26,
         -0.22
       ],
       [
-        -0.15,
+        -0.13,
         -0.09,
         0.12,
         1.0,
-        0.08,
+        0.07,
         0.18,
-        -0.28,
-        0.37
+        -0.27,
+        0.38
       ],
       [
-        -0.52,
+        -0.53,
         -0.64,
         -0.47,
-        0.08,
+        0.07,
         1.0,
-        0.45,
-        -0.67,
-        -0.13
+        0.44,
+        -0.68,
+        -0.14
       ],
       [
-        -0.69,
+        -0.67,
         -0.68,
         -0.7,
         0.18,
-        0.45,
+        0.44,
         1.0,
         -0.67,
-        0.44
+        0.45
       ],
       [
         0.49,
         0.37,
-        0.25,
-        -0.28,
-        -0.67,
+        0.26,
+        -0.27,
+        -0.68,
         -0.67,
         1.0,
-        -0.05
+        -0.04
       ],
       [
-        -0.21,
-        -0.23,
+        -0.18,
+        -0.24,
         -0.22,
-        0.37,
-        -0.13,
-        0.44,
-        -0.05,
+        0.38,
+        -0.14,
+        0.45,
+        -0.04,
         1.0
       ]
     ],
     "matrix_levels_12m": [
       [
         1.0,
-        0.94,
+        0.93,
         0.91,
-        0.67,
-        0.4,
-        0.29,
-        -0.38,
+        0.66,
+        0.37,
+        0.27,
+        -0.36,
         0.4
       ],
       [
-        0.94,
+        0.93,
         1.0,
         0.96,
-        0.7,
+        0.71,
         0.4,
-        0.28,
+        0.29,
         -0.49,
         0.26
       ],
@@ -5850,48 +5850,48 @@
         0.91,
         0.96,
         1.0,
-        0.61,
+        0.62,
         0.28,
-        0.11,
-        -0.41,
+        0.12,
+        -0.4,
         0.22
       ],
       [
-        0.67,
-        0.7,
-        0.61,
+        0.66,
+        0.71,
+        0.62,
         1.0,
-        0.75,
-        0.67,
-        -0.73,
+        0.74,
+        0.66,
+        -0.72,
         0.47
       ],
       [
-        0.4,
+        0.37,
         0.4,
         0.28,
-        0.75,
+        0.74,
         1.0,
-        0.86,
-        -0.85,
+        0.85,
+        -0.86,
         0.3
       ],
       [
+        0.27,
         0.29,
-        0.28,
-        0.11,
-        0.67,
-        0.86,
+        0.12,
+        0.66,
+        0.85,
         1.0,
         -0.8,
-        0.47
+        0.48
       ],
       [
-        -0.38,
+        -0.36,
         -0.49,
-        -0.41,
-        -0.73,
-        -0.85,
+        -0.4,
+        -0.72,
+        -0.86,
         -0.8,
         1.0,
         -0.18
@@ -5902,7 +5902,7 @@
         0.22,
         0.47,
         0.3,
-        0.47,
+        0.48,
         -0.18,
         1.0
       ]
@@ -5932,7 +5932,7 @@
         46128.47,
         47940.13,
         45211.83,
-        36811.89
+        36033.29
       ],
       "sp500": [
         5881.63,
@@ -5958,7 +5958,7 @@
         7686.14,
         7651.54,
         7580.07,
-        7247.59
+        7255.18
       ],
       "nasdaq": [
         19310.79,
@@ -5984,7 +5984,7 @@
         26370.89,
         26861.06,
         25437.0,
-        24137.54
+        24155.4
       ],
       "us10y": [
         4.57,
@@ -6010,7 +6010,7 @@
         4.76,
         5.29,
         4.93,
-        4.96
+        4.93
       ],
       "dxy": [
         108.49,
@@ -6036,7 +6036,7 @@
         99.43,
         101.45,
         101.88,
-        104.28
+        104.4
       ],
       "usdtwd": [
         32.76,
@@ -6062,7 +6062,7 @@
         31.63,
         31.85,
         32.57,
-        32.81
+        32.79
       ],
       "gold": [
         2641.0,
@@ -6088,7 +6088,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3670.6
+        3653.9
       ],
       "wti": [
         71.72,
@@ -6114,7 +6114,7 @@
         85.76,
         90.42,
         104.12,
-        80.52
+        80.4
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",
