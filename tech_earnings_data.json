@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-23 20:19:52",
+  "last_updated": "2026-11-23 23:18:50",
   "timezone": "Asia/Taipei",
   "total_count": 16,
   "data": [
@@ -9,12 +9,12 @@
       "category": "US_AI",
       "categoryLabel": "美股 AI 巨頭",
       "flag": "🇺🇸",
-      "date": "2026-11-25",
+      "date": "2026-11-17",
       "timeSlot": "美東盤後 (AMC)",
       "period": "Q3 FY27 財報法說",
-      "consensusEps": "$0.85",
+      "consensusEps": "$2.88",
       "epsYoy": "+112%",
-      "consensusRev": "$38.2B",
+      "consensusRev": "$130.8B",
       "revYoy": "+111%",
       "badgeColor": "emerald",
       "focusPoints": [
@@ -32,12 +32,12 @@
       ],
       "_quality_metadata": {
         "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
+        "source": "YAHOO_FINANCE_LIVE",
         "fiscal_year": "FY2027",
         "fiscal_quarter": "Q3",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23"
+        "verified_at": "2026-11-23 23:18:50"
       }
     },
     {
@@ -150,12 +150,12 @@
       "category": "US_AI",
       "categoryLabel": "AI ASIC & 網通",
       "flag": "🇺🇸",
-      "date": "2026-12-10",
+      "date": "2026-12-09",
       "timeSlot": "美東盤後 (AMC)",
       "period": "Q4 FY26 財報法說",
-      "consensusEps": "$1.42",
+      "consensusEps": "$3.83",
       "epsYoy": "+31%",
-      "consensusRev": "$14.1B",
+      "consensusRev": "$34.9B",
       "revYoy": "+47%",
       "badgeColor": "purple",
       "focusPoints": [
@@ -172,12 +172,12 @@
       ],
       "_quality_metadata": {
         "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
+        "source": "YAHOO_FINANCE_LIVE",
         "fiscal_year": "FY2026",
         "fiscal_quarter": "Q4",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23"
+        "verified_at": "2026-11-23 23:18:50"
       }
     },
     {
@@ -328,12 +328,12 @@
       "category": "US_AI",
       "categoryLabel": "半導體微影設備",
       "flag": "🇳🇱",
-      "date": "2027-01-20",
+      "date": "2027-01-27",
       "timeSlot": "歐洲盤前 (BMO)",
       "period": "Q4 2026 財報法說",
-      "consensusEps": "€6.85",
+      "consensusEps": "$15.39",
       "epsYoy": "+32%",
-      "consensusRev": "€8.6B",
+      "consensusRev": "$14.8B",
       "revYoy": "+26%",
       "badgeColor": "sky",
       "focusPoints": [
@@ -349,12 +349,12 @@
       ],
       "_quality_metadata": {
         "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
+        "source": "YAHOO_FINANCE_LIVE",
         "fiscal_year": "2026",
         "fiscal_quarter": "Q4",
         "timezone": "Europe/Amsterdam",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23"
+        "verified_at": "2026-11-23 23:18:50"
       }
     },
     {
@@ -397,12 +397,12 @@
       "category": "US_AI",
       "categoryLabel": "AI 雲端與企業軟體",
       "flag": "🇺🇸",
-      "date": "2027-01-26",
+      "date": "2027-01-27",
       "timeSlot": "美東盤後 (AMC)",
       "period": "Q2 FY27 財報法說",
-      "consensusEps": "$3.35",
+      "consensusEps": "$4.86",
       "epsYoy": "+14%",
-      "consensusRev": "$69.8B",
+      "consensusRev": "$96.7B",
       "revYoy": "+13.5%",
       "badgeColor": "blue",
       "focusPoints": [
@@ -419,12 +419,12 @@
       ],
       "_quality_metadata": {
         "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
+        "source": "YAHOO_FINANCE_LIVE",
         "fiscal_year": "FY2027",
         "fiscal_quarter": "Q2",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23"
+        "verified_at": "2026-11-23 23:18:50"
       }
     },
     {
@@ -433,12 +433,12 @@
       "category": "US_AI",
       "categoryLabel": "搜尋、雲端與 TPU",
       "flag": "🇺🇸",
-      "date": "2027-01-28",
+      "date": "2026-10-28",
       "timeSlot": "美東盤後 (AMC)",
       "period": "Q4 2026 財報法說",
-      "consensusEps": "$2.15",
+      "consensusEps": "$3.25",
       "epsYoy": "+28%",
-      "consensusRev": "$94.2B",
+      "consensusRev": "$142.3B",
       "revYoy": "+14%",
       "badgeColor": "emerald",
       "focusPoints": [
@@ -455,12 +455,12 @@
       ],
       "_quality_metadata": {
         "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
+        "source": "YAHOO_FINANCE_LIVE",
         "fiscal_year": "2026",
         "fiscal_quarter": "Q4",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23"
+        "verified_at": "2026-11-23 23:18:50"
       }
     },
     {
@@ -469,12 +469,12 @@
       "category": "US_AI",
       "categoryLabel": "開源 AI 與數位廣告",
       "flag": "🇺🇸",
-      "date": "2027-01-28",
+      "date": "2027-01-27",
       "timeSlot": "美東盤後 (AMC)",
       "period": "Q4 2026 財報法說",
-      "consensusEps": "$6.20",
+      "consensusEps": "$8.72",
       "epsYoy": "+35%",
-      "consensusRev": "$46.5B",
+      "consensusRev": "$75.1B",
       "revYoy": "+21%",
       "badgeColor": "blue",
       "focusPoints": [
@@ -491,12 +491,12 @@
       ],
       "_quality_metadata": {
         "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
+        "source": "YAHOO_FINANCE_LIVE",
         "fiscal_year": "2026",
         "fiscal_quarter": "Q4",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23"
+        "verified_at": "2026-11-23 23:18:50"
       }
     },
     {
@@ -505,12 +505,12 @@
       "category": "US_AI",
       "categoryLabel": "消費電子與端側 AI",
       "flag": "🇺🇸",
-      "date": "2027-01-29",
+      "date": "2027-01-28",
       "timeSlot": "美東盤後 (AMC)",
       "period": "Q1 FY27 財報法說",
-      "consensusEps": "$2.42",
+      "consensusEps": "$2.91",
       "epsYoy": "+9%",
-      "consensusRev": "$124.5B",
+      "consensusRev": "$156.4B",
       "revYoy": "+6.8%",
       "badgeColor": "slate",
       "focusPoints": [
@@ -527,12 +527,12 @@
       ],
       "_quality_metadata": {
         "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
+        "source": "YAHOO_FINANCE_LIVE",
         "fiscal_year": "FY2027",
         "fiscal_quarter": "Q1",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23"
+        "verified_at": "2026-11-23 23:18:50"
       }
     },
     {
@@ -544,9 +544,9 @@
       "date": "2027-02-02",
       "timeSlot": "美東盤後 (AMC)",
       "period": "Q4 2026 財報法說",
-      "consensusEps": "$1.25",
+      "consensusEps": "$2.93",
       "epsYoy": "+62%",
-      "consensusRev": "$7.8B",
+      "consensusRev": "$17.1B",
       "revYoy": "+31%",
       "badgeColor": "rose",
       "focusPoints": [
@@ -563,17 +563,17 @@
       ],
       "_quality_metadata": {
         "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
+        "source": "YAHOO_FINANCE_LIVE",
         "fiscal_year": "2026",
         "fiscal_quarter": "Q4",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23"
+        "verified_at": "2026-11-23 23:18:50"
       }
     }
   ],
   "_quality_metadata": {
-    "system_runtime": "2026-11-23 20:19:52",
+    "system_runtime": "2026-11-23 23:18:50",
     "data_source_status": {
       "twse_mops": "stale",
       "us_consensus": "available"
