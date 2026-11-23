@@ -16524,9 +16524,11 @@
         'treasury-term-structure-section',
         'cal-valuation-panel',
       ].forEach(id => document.getElementById(id)?.classList.add('hidden'));
-      document.querySelectorAll('[data-tab="etf"]').forEach(el => el.remove());
-      document.getElementById('tab-etf')?.remove();
-      document.getElementById('cal-track-valuation-btn')?.remove();
+      document.querySelectorAll('[data-tab="etf"]').forEach(el => { el.style.display = 'none'; });
+      const etfPanel = document.getElementById('tab-etf');
+      if (etfPanel) etfPanel.style.display = 'none';
+      const valuationButton = document.getElementById('cal-track-valuation-btn');
+      if (valuationButton) valuationButton.style.display = 'none';
       document.getElementById('trajChart')?.closest('.bg-white, .dark\\:bg-slate-900')?.classList.add('hidden');
       document.getElementById('erpChart')?.closest('.bg-white, .dark\\:bg-slate-900')?.classList.add('hidden');
       lucide.createIcons();
