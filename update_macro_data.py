@@ -357,6 +357,21 @@ def roc_date_to_iso(value: str) -> str | None:
         return None
 
 
+def fetch_twse_taiex_snapshot() -> dict:
+    """從 TWSE 官方指數日報取得發行量加權股價指數。"""
+    raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/MI_INDEX", timeout=20)
+    rows = json.loads(raw)
+    row = next(item for item in rows if item.get("指數") == "發行量加權股價指數")
+    direction = -1 if row.get("漲跌") == "-" else 1
+    return {
+        "price": float(row["收盤指數"].replace(",", "")),
+        "d1": round(direction * float(row["漲跌百分比"].replace(",", "")), 2),
+        "as_of": roc_date_to_iso(row.get("日期")),
+        "source": "TWSE official market index daily report",
+        "realtime": False,
+    }
+
+
 def fetch_twse_heatmap() -> list:
     print("4/7 抓取 TWSE 收盤價，並以歷史日線計算 1W / YTD...")
     raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL", timeout=20)
@@ -1967,6 +1982,10 @@ def main(output_file: str = None):
         payload["sp500_heatmap"] = existing_payload["sp500_heatmap"]
     if not payload["snapshots"] and "snapshots" in existing_payload:
         payload["snapshots"].update(existing_payload["snapshots"])
+    try:
+        payload["snapshots"]["taiex"] = fetch_twse_taiex_snapshot()
+    except Exception as exc:
+        print(f"  TWSE 加權指數取得失敗：{exc}")
 
     # 6. 匯率
     payload["fx"] = fetch_live_fx()
@@ -2217,6 +2236,12 @@ def main(output_file: str = None):
                 errors.append(f"{market_name}熱力圖 {row.get('ticker')} 成交金額無效：{row.get('cap')}")
             if not isinstance(row.get("d1"), (int, float)):
                 errors.append(f"{market_name}熱力圖 {row.get('ticker')} 1D 報酬無效：{row.get('d1')}")
+    taiex_snapshot = payload["snapshots"].get("taiex", {})
+    tw_heatmap_dates = {row.get("as_of") for row in payload["tw_heatmap"]}
+    if taiex_snapshot.get("as_of") not in tw_heatmap_dates:
+        errors.append(f"TAIEX 與台股熱力圖資料日不一致：{taiex_snapshot.get('as_of')} / {sorted(tw_heatmap_dates)}")
+    if not str(taiex_snapshot.get("source", "")).startswith("TWSE official"):
+        errors.append("TAIEX 快照未使用 TWSE 官方來源")
     if missing_snapshots:
         errors.append("市場快照缺漏：" + ", ".join(missing_snapshots))
     if len(payload["macro_indicators"]) < 8:

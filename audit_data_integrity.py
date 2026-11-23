@@ -44,6 +44,13 @@ for market_key in ("tw_heatmap", "sp500_heatmap"):
         if not isinstance(row.get("d1"), (int, float)):
             errors.append(f"{market_key}.{ticker} lacks a valid 1D return")
 
+taiex = macro.get("snapshots", {}).get("taiex", {})
+tw_dates = {row.get("as_of") for row in macro.get("tw_heatmap", [])}
+if taiex.get("as_of") not in tw_dates:
+    errors.append("TAIEX snapshot date does not match the Taiwan heatmap")
+if not str(taiex.get("source", "")).startswith("TWSE official"):
+    errors.append("TAIEX snapshot is not sourced from TWSE official data")
+
 tw = load("tw_bottom_data.json")
 for key in ("backtest_data", "options_max_pain", "state_owned_banks", "trust_targeting"):
     if tw.get(key):
