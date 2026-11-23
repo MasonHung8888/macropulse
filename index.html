@@ -1523,13 +1523,13 @@
         <div class="flex items-center gap-2">
           <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-500 shrink-0"></i>
           <div>
-            <span class="font-bold">當前市場階段：<span id="tw-market-stage-badge">恐慌殺盤階段 (尚未確認止跌)</span></span>
-            <span class="ml-2 text-xs opacity-90 hidden sm:inline">加權指數 36,033.29 (-6.23%)，單日融資暴減 491.41 億元浮額極致去槓桿</span>
+            <span class="font-bold">當前市場階段：<span id="tw-market-stage-badge">止跌成立 (多項底部訊號確認)</span></span>
+            <span id="tw-banner-subtext" class="ml-2 text-xs opacity-90 hidden sm:inline">加權指數即時監測中</span>
           </div>
         </div>
         <div class="flex items-center gap-2 text-xs">
           <span class="font-semibold text-slate-600 dark:text-slate-300">五大訊號模型得分：</span>
-          <span id="tw-hero-score-val" class="font-black text-rose-600 dark:text-rose-400 text-base tabular-nums">37 / 100 分</span>
+          <span id="tw-hero-score-val" class="font-black text-rose-600 dark:text-rose-400 text-base tabular-nums">82 / 100 分</span>
         </div>
       </div>
 
@@ -1540,32 +1540,32 @@
             <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">台灣加權指數 TAIEX</span>
             <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 走勢</span>
           </div>
-          <div id="tw-kpi-taiex" class="text-2xl font-bold tabular-nums mt-1 text-rose-600 dark:text-rose-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">36,033.29</div>
-          <div class="text-[11px] text-rose-500 mt-0.5">-2,393.30 (-6.23%) · 距季線 -19.4%</div>
+          <div id="tw-kpi-taiex" class="text-2xl font-bold tabular-nums mt-1 text-slate-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">—</div>
+          <div id="tw-kpi-taiex-sub" class="text-[11px] text-slate-500 mt-0.5">即時行情更新中</div>
         </div>
         <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="document.getElementById('twRadarChart').scrollIntoView({behavior: 'smooth'})">
           <div class="flex items-center justify-between">
             <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">五大底部訊號模型得分</span>
             <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="gauge" class="w-3 h-3"></i> 雷達</span>
           </div>
-          <div id="tw-kpi-score" class="text-2xl font-bold tabular-nums mt-1 text-rose-600 dark:text-rose-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">37 / 100 分</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">高風險區間 (0~39) · 浮額清洗中</div>
+          <div id="tw-kpi-score" class="text-2xl font-bold tabular-nums mt-1 text-indigo-600 dark:text-indigo-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">—</div>
+          <div id="tw-kpi-score-sub" class="text-[11px] text-slate-500 mt-0.5">多因子模型評估中</div>
         </div>
         <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('flow', 'futures')">
           <div class="flex items-center justify-between">
             <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">外資期貨淨空單 (TAIFEX)</span>
             <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 詳情</span>
           </div>
-          <div id="tw-kpi-future" class="text-2xl font-bold tabular-nums mt-1 text-amber-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">-97,863 口</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">現貨 -95.1 億 (賣壓已大幅收斂)</div>
+          <div id="tw-kpi-future" class="text-2xl font-bold tabular-nums mt-1 text-amber-500 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">—</div>
+          <div id="tw-kpi-future-sub" class="text-[11px] text-slate-500 mt-0.5">外資籌碼監控中</div>
         </div>
         <div class="p-3.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm cursor-pointer hover:border-indigo-500/80 hover:shadow-md transition-all group" onclick="openItemHistoryModal('flow', 'margin')">
           <div class="flex items-center justify-between">
             <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">融資單日洗盤 (TWSE)</span>
             <span class="text-[10px] text-indigo-500 font-medium flex items-center gap-0.5"><i data-lucide="line-chart" class="w-3 h-3"></i> 詳情</span>
           </div>
-          <div id="tw-kpi-margin" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">-491.41 億</div>
-          <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">歷史級斷頭清洗 · 餘額 4,352億</div>
+          <div id="tw-kpi-margin" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">—</div>
+          <div id="tw-kpi-margin-sub" class="text-[11px] text-slate-500 mt-0.5">融資餘額統計中</div>
         </div>
       </div>
 
@@ -1624,36 +1624,36 @@
               <span class="text-xs px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 font-medium">客觀數據支持</span>
             </div>
             
-            <div class="space-y-3 divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+            <div class="space-y-3 divide-y divide-slate-100 dark:divide-slate-800 text-xs" id="tw-qna-container">
               <div class="pt-2 first:pt-0">
                 <div class="font-bold text-indigo-600 dark:text-indigo-400">Q1. 目前處於哪個市場階段？</div>
-                <div class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5">恐慌殺盤與融資斷頭期（多殺多慣性）</div>
-                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">單日大跌 -2,393 點 (-6.23%) 破所有短期均線，浮額清洗急凍。</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5" id="tw-qna-a1-title">市場階段評估中...</div>
+                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed" id="tw-qna-a1-desc">依據當前五大底部模型即時綜合判斷。</div>
               </div>
               <div class="pt-2">
                 <div class="font-bold text-indigo-600 dark:text-indigo-400">Q2. 是否已經接近可能的底部？</div>
-                <div class="font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">已出現「早期籌碼底部」訊號</div>
-                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">融資暴減 491 億創歷史紀錄，歷史經驗顯示領先大盤絕對低點約 3~7 天。</div>
+                <div class="font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5" id="tw-qna-a2-title">籌碼清洗訊號評估中...</div>
+                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed" id="tw-qna-a2-desc">根據全市場融資去槓桿與法人籌碼換手狀況解析。</div>
               </div>
               <div class="pt-2">
                 <div class="font-bold text-indigo-600 dark:text-indigo-400">Q3. 技術性反彈還是趨勢反轉？</div>
-                <div class="font-semibold text-amber-600 dark:text-amber-400 mt-0.5">尚未止跌，反彈先視為「跌深反抽」</div>
-                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">距 20MA (-15.6%) 負乖離大隨時反彈，需等量縮或站回 5MA 方具反轉條件。</div>
+                <div class="font-semibold text-amber-600 dark:text-amber-400 mt-0.5" id="tw-qna-a3-title">均線型態與成交量判定中...</div>
+                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed" id="tw-qna-a3-desc">比對短均線 5MA/10MA 扣抵與月季線乖離率。</div>
               </div>
               <div class="pt-2">
                 <div class="font-bold text-indigo-600 dark:text-indigo-400">Q4. 外資是否仍持續撤出台灣？</div>
-                <div class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5">現貨賣壓顯著收斂，但期貨避險沉重</div>
-                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">現貨賣超收斂至 -95.1 億，惟台指期淨空單仍高達 -97,863 口。</div>
+                <div class="font-semibold text-slate-800 dark:text-slate-200 mt-0.5" id="tw-qna-a4-title">外資期現貨與匯率對照中...</div>
+                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed" id="tw-qna-a4-desc">外資現貨買賣超與台指期淨未平倉避險淨空單。</div>
               </div>
               <div class="pt-2">
                 <div class="font-bold text-indigo-600 dark:text-indigo-400">Q5. 半導體及 AI 是否領先止跌？</div>
-                <div class="font-semibold text-sky-600 dark:text-sky-400 mt-0.5">半導體相對抗跌，具備初步支撐性</div>
-                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">半導體類跌 -5.82% 相對抗跌 +0.41%，台積電 2,000 元見防禦買盤。</div>
+                <div class="font-semibold text-sky-600 dark:text-sky-400 mt-0.5" id="tw-qna-a5-title">類股相對強度比較中...</div>
+                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed" id="tw-qna-a5-desc">半導體類指數 vs 加權指數相對漲跌強弱。</div>
               </div>
               <div class="pt-2">
                 <div class="font-bold text-indigo-600 dark:text-indigo-400">Q6. 核心標的是否出現分批買點？</div>
-                <div class="font-semibold text-indigo-600 dark:text-indigo-400 mt-0.5">適合啟動「第一梯次金字塔分批」</div>
-                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed">台積電本益比 20x、鴻海 13x、0050 回檔 -27.5%，可小量金字塔建倉。</div>
+                <div class="font-semibold text-indigo-600 dark:text-indigo-400 mt-0.5" id="tw-qna-a6-title">金字塔建倉規劃運算中...</div>
+                <div class="text-slate-500 dark:text-slate-400 mt-0.5 leading-relaxed" id="tw-qna-a6-desc">台積電、鴻海、廣達與 0050 估值與關鍵支撐。</div>
               </div>
             </div>
           </div>
@@ -9472,9 +9472,10 @@
       if (!sContainer || !stocks) return;
 
       const filtered = stocks.filter(s => {
-        if (TW_SELECTED_STK_CAT === 'SEMI') return s.code === '2330.TW';
-        if (TW_SELECTED_STK_CAT === 'SERVER') return s.code === '2317.TW' || s.code === '2382.TW' || s.code === '3231.TW';
-        if (TW_SELECTED_STK_CAT === 'ETF') return s.type.includes('ETF') || s.code.startsWith('00');
+        const c = String(s.code || '');
+        if (TW_SELECTED_STK_CAT === 'SEMI') return c.includes('2330');
+        if (TW_SELECTED_STK_CAT === 'SERVER') return c.includes('2317') || c.includes('2382') || c.includes('3231');
+        if (TW_SELECTED_STK_CAT === 'ETF') return (s.type && s.type.includes('ETF')) || c.startsWith('00');
         return true;
       });
 
@@ -9994,6 +9995,97 @@
       });
     }
 
+    function renderTaiwanQnaDiagnosis(DATA) {
+      if (!DATA) return;
+      const score = DATA.model_score || {};
+      const indices = DATA.indices || {};
+      const tw = indices.twse || {};
+      const taiex = tw.taiex || {};
+      const semi = tw.semi || {};
+      const inst = DATA.institutional_flow || {};
+      const fut = DATA.futures_oi || {};
+      const margin = DATA.margin_trading || {};
+      const stocks = DATA.focus_stocks || [];
+      const tsmc = stocks.find(s => String(s.code).includes('2330')) || {};
+      const etf0050 = stocks.find(s => String(s.code).includes('0050')) || {};
+
+      // Q1: 當前市場處於什麼階段？
+      const q1T = document.getElementById('tw-qna-a1-title');
+      const q1D = document.getElementById('tw-qna-a1-desc');
+      if (q1T) {
+        q1T.textContent = score.stage || '量化模型評估中';
+        q1T.className = `font-semibold mt-0.5 ${score.total_score >= 60 ? 'text-emerald-600 dark:text-emerald-400' : (score.total_score >= 40 ? 'text-amber-600 dark:text-amber-400' : 'text-rose-600 dark:text-rose-400')}`;
+      }
+      if (q1D) {
+        const pts = score.total_score !== undefined ? score.total_score : '—';
+        q1D.textContent = `五大訊號模型總分 ${pts} / 100 分。${score.total_score >= 60 ? '多項量化指標達標，處於具性價比之築底回升階段。' : '浮額清洗與技術均線尚未完全轉強，建議嚴控風險。'}`;
+      }
+
+      // Q2: 是否已經接近可能的底部？
+      const q2T = document.getElementById('tw-qna-a2-title');
+      const q2D = document.getElementById('tw-qna-a2-desc');
+      if (q2T) {
+        q2T.textContent = (margin.margin_diff < 0) ? '籌碼浮額清洗進行中' : '籌碼進入低檔換手震盪';
+      }
+      if (q2D) {
+        const mBal = margin.margin_balance ? margin.margin_balance.toFixed(1) : '—';
+        const mDiff = margin.margin_diff !== undefined ? (margin.margin_diff >= 0 ? '+' : '') + margin.margin_diff.toFixed(1) : '—';
+        q2D.textContent = `融資餘額 ${mBal} 億 (單日變動 ${mDiff} 億)，外資現貨 ${inst.foreign >= 0 ? '+' : ''}${inst.foreign || 0} 億。`;
+      }
+
+      // Q3: 技術性反彈還是趨勢反轉？
+      const q3T = document.getElementById('tw-qna-a3-title');
+      const q3D = document.getElementById('tw-qna-a3-desc');
+      if (q3T) {
+        const dist20 = taiex.dist_ma20_pct !== undefined ? taiex.dist_ma20_pct : 0;
+        q3T.textContent = dist20 >= 0 ? '站上月線，波段趨勢轉多' : (dist20 >= -5 ? '短線築底收斂，挑戰均線反壓' : '乖離偏大，短線處於跌深修復');
+      }
+      if (q3D) {
+        const dist20 = taiex.dist_ma20_pct !== undefined ? taiex.dist_ma20_pct.toFixed(1) + '%' : '—';
+        const dist60 = taiex.dist_ma60_pct !== undefined ? taiex.dist_ma60_pct.toFixed(1) + '%' : '—';
+        q3D.textContent = `加權距 20MA 乖離 ${dist20}、距 60MA 季線 ${dist60}，大盤量能: ${DATA.volume_analysis?.pattern || '沉澱整理中'}。`;
+      }
+
+      // Q4: 外資是否仍持續撤出台灣？
+      const q4T = document.getElementById('tw-qna-a4-title');
+      const q4D = document.getElementById('tw-qna-a4-desc');
+      if (q4T) {
+        const fNet = inst.foreign || 0;
+        q4T.textContent = fNet >= 0 ? '外資現貨轉為淨買超回補' : (fNet >= -100 ? '外資賣壓已顯著收斂' : '外資調節賣壓仍待去化');
+      }
+      if (q4D) {
+        const fNet = inst.foreign !== undefined ? (inst.foreign >= 0 ? '+' : '') + inst.foreign.toFixed(1) : '—';
+        const oi = fut.net_contracts !== undefined ? fut.net_contracts.toLocaleString() : '—';
+        q4D.textContent = `外資現貨單日 ${fNet} 億，台指期留倉淨部位 ${oi} 口。`;
+      }
+
+      // Q5: 半導體及 AI 是否領先止跌？
+      const q5T = document.getElementById('tw-qna-a5-title');
+      const q5D = document.getElementById('tw-qna-a5-desc');
+      if (q5T) {
+        const semiChg = semi.change_pct || 0;
+        const taiexChg = taiex.change_pct || 0;
+        q5T.textContent = semiChg >= taiexChg ? '半導體相對大盤強勢抗跌' : '半導體與大盤同步震盪整理';
+      }
+      if (q5D) {
+        const tPrice = tsmc.close ? tsmc.close.toFixed(0) + ' 元' : '—';
+        const t20 = tsmc.ma20 ? tsmc.ma20.toFixed(0) + ' 元' : '—';
+        q5D.textContent = `半導體指數單日 ${semi.change_pct >= 0 ? '+' : ''}${semi.change_pct || 0}%，台積電收盤 ${tPrice} (月線 20MA ${t20})。`;
+      }
+
+      // Q6: 核心標的是否出現分批買點？
+      const q6T = document.getElementById('tw-qna-a6-title');
+      const q6D = document.getElementById('tw-qna-a6-desc');
+      if (q6T) {
+        q6T.textContent = score.total_score >= 60 ? '適合執行「金字塔第一梯次分批布局」' : '逢回測關鍵防線分批定額，嚴禁追高';
+      }
+      if (q6D) {
+        const tClose = tsmc.close ? tsmc.close.toFixed(0) : '2030';
+        const eClose = etf0050.close ? etf0050.close.toFixed(1) : '87.0';
+        q6D.textContent = `台積電收盤 ${tClose} 元、0050 收盤 ${eClose} 元，建議參考各標的支撐位與三階買點規劃。`;
+      }
+    }
+
     function renderTaiwanTab() {
       if (!TW_BOTTOM_DATA) {
         loadTaiwanBottomData();
@@ -10131,12 +10223,17 @@
 
       const marginDiffEl = document.getElementById('tw-chip-margin-diff');
       if (marginDiffEl && margin.margin_diff !== undefined) {
-        marginDiffEl.textContent = `單日暴減 ${margin.margin_diff} 億 (去槓桿清洗)`;
+        const isRed = margin.margin_diff < 0;
+        marginDiffEl.textContent = isRed 
+          ? `單日減 ${Math.abs(margin.margin_diff).toFixed(2)} 億 (去槓桿清洗)`
+          : `單日增 ${margin.margin_diff.toFixed(2)} 億 (融資進場)`;
       }
       const vol = DATA.volume_analysis || {};
       const volEl = document.getElementById('tw-chip-vol-val');
-      if (volEl && vol.volume_amount_ntd_billion !== undefined) {
-        volEl.textContent = `${vol.volume_amount_ntd_billion.toLocaleString()} 億`;
+      if (volEl && vol.latest_amount_billion !== undefined) {
+        volEl.textContent = `${Number(vol.latest_amount_billion).toLocaleString('en-US')} 億`;
+      } else if (volEl && vol.volume_amount_ntd_billion !== undefined) {
+        volEl.textContent = `${Number(vol.volume_amount_ntd_billion).toLocaleString('en-US')} 億`;
       }
 
       const taiex = (DATA.indices && DATA.indices.twse && DATA.indices.twse.taiex) || {};
@@ -10144,6 +10241,38 @@
       if (kpiTaiex && taiex.close) {
         kpiTaiex.textContent = Number(taiex.close).toLocaleString('en-US');
       }
+
+      // 動態更新頂部橫幅與 KPI 卡片副標
+      const bannerSub = document.getElementById('tw-banner-subtext');
+      if (bannerSub && taiex.close) {
+        bannerSub.textContent = `加權指數 ${Number(taiex.close).toLocaleString('en-US')} (${taiex.change_pct >= 0 ? '+' : ''}${taiex.change_pct}%)，外資期貨淨空單 ${fut.net_contracts ? fut.net_contracts.toLocaleString() : '—'} 口，融資變動 ${margin.margin_diff >= 0 ? '+' : ''}${margin.margin_diff || 0} 億`;
+      }
+
+      const kpiTaiexSub = document.getElementById('tw-kpi-taiex-sub');
+      if (kpiTaiexSub && taiex.change_pct !== undefined) {
+        const chgPt = taiex.change !== undefined ? `${taiex.change >= 0 ? '+' : ''}${Number(taiex.change).toFixed(2)}` : '';
+        const d60 = taiex.dist_ma60_pct !== undefined ? ` · 距季線 ${taiex.dist_ma60_pct >= 0 ? '+' : ''}${taiex.dist_ma60_pct.toFixed(1)}%` : '';
+        kpiTaiexSub.textContent = `${chgPt} (${taiex.change_pct >= 0 ? '+' : ''}${taiex.change_pct.toFixed(2)}%)${d60}`;
+        kpiTaiexSub.className = `text-[11px] mt-0.5 ${taiex.change_pct >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+      }
+
+      const kpiScoreSub = document.getElementById('tw-kpi-score-sub');
+      if (kpiScoreSub && score.stage) {
+        kpiScoreSub.textContent = `${score.stage} · 變動 ${score.score_change >= 0 ? '+' : ''}${score.score_change || 0}分`;
+      }
+
+      const kpiFutSub = document.getElementById('tw-kpi-future-sub');
+      if (kpiFutSub && inst.foreign !== undefined) {
+        kpiFutSub.textContent = `現貨 ${inst.foreign >= 0 ? '+' : ''}${inst.foreign} 億 (${inst.foreign < 0 ? '外資調節' : '外資回補'})`;
+      }
+
+      const kpiMarginSub = document.getElementById('tw-kpi-margin-sub');
+      if (kpiMarginSub && margin.margin_balance !== undefined) {
+        kpiMarginSub.textContent = `融資餘額 ${margin.margin_balance.toFixed(1)} 億 (${margin.margin_diff < 0 ? '浮額清洗' : '融資攀升'})`;
+      }
+
+      // 渲染 Q1~Q6 核心目標快速診斷動態問答
+      renderTaiwanQnaDiagnosis(DATA);
 
       // 渲染近期關鍵 AI 財報法說預警雷達
       renderTaiwanRadarQuickCards();
