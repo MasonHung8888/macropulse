@@ -2087,6 +2087,12 @@ def main(output_file: str = None):
 
     # 8.5 經濟部統計處 台灣外銷訂單領先指標 (Export Orders)
     tw_orders = fetch_tw_export_orders()
+    if not tw_orders:
+        previous_orders = existing_payload.get("tw_export_orders", {})
+        previous_meta = previous_orders.get("_quality_metadata", {})
+        if previous_meta.get("data_status") == "published_official" and previous_meta.get("is_projected") is False:
+            tw_orders = previous_orders
+            print("  -> 經濟部來源暫時無法連線；保留上一份已驗證官方觀測")
     if tw_orders and tw_orders.get("latest"):
         payload["tw_export_orders"] = tw_orders
         payload["series"]["twExportOrders"] = {
