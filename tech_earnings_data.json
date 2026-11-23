@@ -1,7 +1,7 @@
 {
-  "last_updated": "2026-11-23 23:25:01",
+  "last_updated": "2026-11-23 23:31:39",
   "timezone": "Asia/Taipei",
-  "total_count": 16,
+  "total_count": 8,
   "data": [
     {
       "ticker": "NVDA",
@@ -10,138 +10,21 @@
       "categoryLabel": "美股 AI 巨頭",
       "flag": "🇺🇸",
       "date": "2026-11-17",
-      "timeSlot": "美東盤後 (AMC)",
-      "period": "Q3 FY27 財報法說",
+      "timeSlot": "—",
+      "period": "—",
       "consensusEps": "$2.88",
-      "epsYoy": "+112%",
+      "epsYoy": "—",
       "consensusRev": "$130.8B",
-      "revYoy": "+111%",
-      "badgeColor": "emerald",
-      "focusPoints": [
-        "Blackwell (B200 / GB200 NVL72) 晶片良率與 Q4 出貨放量進度",
-        "CSP 四大巨頭 (MSFT, GOOGL, META, AMZN) 2027 年 AI 資本支出指引",
-        "數據中心毛利率能否維持 75% 高水準及液冷機櫃供貨瓶頸緩解狀況"
-      ],
-      "marketImpact": "近 8 季歷史樣本：法說次日台股 AI 概念股平均波動 ±4.5%，台積電 ADR 連動度達 91%",
-      "supplyChain": [
-        "2330 台積電",
-        "2317 鴻海",
-        "2382 廣達",
-        "3017 奇鋐",
-        "6669 緯穎"
-      ],
+      "revYoy": "—",
+      "badgeColor": "slate",
+      "focusPoints": [],
+      "marketImpact": "尚無可驗證的歷史統計來源",
+      "supplyChain": [],
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "fiscal_year": "FY2027",
-        "fiscal_quarter": "Q3",
-        "timezone": "America/New_York",
-        "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:25:01"
-      }
-    },
-    {
-      "ticker": "2317",
-      "name": "鴻海 (Foxconn)",
-      "category": "TW_SUPPLY",
-      "categoryLabel": "AI 伺服器整機",
-      "flag": "🇹🇼",
-      "date": "2026-11-27",
-      "timeSlot": "台股盤後 15:00",
-      "period": "11 月營運展望法說",
-      "consensusEps": "NT$3.85",
-      "epsYoy": "+24%",
-      "consensusRev": "NT$1.85 兆",
-      "revYoy": "+18%",
-      "badgeColor": "blue",
-      "focusPoints": [
-        "GB200 NVL72 / NVL36 伺服器機櫃量產出貨規模與客戶驗收進度",
-        "墨西哥、美國及台灣水冷整機測試產能擴產利用率",
-        "伺服器與低軌衛星、電動車多元營收占比與毛利率走勢"
-      ],
-      "marketImpact": "近 8 季歷史樣本：法說次日鴻海股價平均波動 ±3.2%，加權指數連動度 72%",
-      "supplyChain": [
-        "2354 鴻準",
-        "6442 廣運",
-        "3017 奇鋐",
-        "2330 台積電"
-      ],
-      "_quality_metadata": {
-        "status": "confirmed",
-        "source": "TWSE_MOPS",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q3",
-        "timezone": "Asia/Taipei",
-        "sample_period": "2024Q1-2026Q2"
-      }
-    },
-    {
-      "ticker": "2382",
-      "name": "廣達 (Quanta)",
-      "category": "TW_SUPPLY",
-      "categoryLabel": "白牌 AI 伺服器",
-      "flag": "🇹🇼",
-      "date": "2026-11-28",
-      "timeSlot": "台股盤後 14:30",
-      "period": "Q3 季報營運展望會",
-      "consensusEps": "NT$4.20",
-      "epsYoy": "+38%",
-      "consensusRev": "NT$3,750 億",
-      "revYoy": "+42%",
-      "badgeColor": "indigo",
-      "focusPoints": [
-        "2026 全年與 2027 上半年 AI 伺服器營收占比是否突破 55%",
-        "水冷散熱方案 (CDU / 分歧管) 整合進度與自製率提升",
-        "CSP 雲端大廠客戶訂單能見度已延伸至 2027 年下半年"
-      ],
-      "marketImpact": "近 8 季歷史樣本：法說後 5 日股價平均上漲機率 68%，平均漲跌幅 ±5.1%",
-      "supplyChain": [
-        "3017 奇鋐",
-        "3324 雙鴻",
-        "2059 川湖",
-        "3231 緯創"
-      ],
-      "_quality_metadata": {
-        "status": "confirmed",
-        "source": "TWSE_MOPS",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q3",
-        "timezone": "Asia/Taipei",
-        "sample_period": "2024Q1-2026Q2"
-      }
-    },
-    {
-      "ticker": "3231",
-      "name": "緯創 (Wistron)",
-      "category": "TW_SUPPLY",
-      "categoryLabel": "GPU 基板龍頭",
-      "flag": "🇹🇼",
-      "date": "2026-12-08",
-      "timeSlot": "台股盤後 14:00",
-      "period": "12 月法說暨 2027 展望",
-      "consensusEps": "NT$1.85",
-      "epsYoy": "+48%",
-      "consensusRev": "NT$920 億",
-      "revYoy": "+28%",
-      "badgeColor": "cyan",
-      "focusPoints": [
-        "NVIDIA HGX / Blackwell B200 GPU 基板供貨份額穩定性",
-        "新竹與越南擴廠產能投產效益與車用、網通產品組合優化",
-        "營業利益率能否突破 4.2% 創歷史單季新高"
-      ],
-      "marketImpact": "近 8 季歷史樣本：次日股價平均振幅約 ±4.8%，與美股 AMD/NVDA 連動度 84%",
-      "supplyChain": [
-        "6669 緯穎",
-        "2330 台積電",
-        "3017 奇鋐"
-      ],
-      "_quality_metadata": {
-        "status": "confirmed",
-        "source": "TWSE_MOPS",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q3",
-        "timezone": "Asia/Taipei",
-        "sample_period": "2024Q1-2026Q2"
+        "verified_at": "2026-11-23 23:31:39",
+        "source_url": "https://finance.yahoo.com/"
       }
     },
     {
@@ -151,175 +34,21 @@
       "categoryLabel": "AI ASIC & 網通",
       "flag": "🇺🇸",
       "date": "2026-12-09",
-      "timeSlot": "美東盤後 (AMC)",
-      "period": "Q4 FY26 財報法說",
+      "timeSlot": "—",
+      "period": "—",
       "consensusEps": "$3.83",
-      "epsYoy": "+31%",
+      "epsYoy": "—",
       "consensusRev": "$34.9B",
-      "revYoy": "+47%",
-      "badgeColor": "purple",
-      "focusPoints": [
-        "Google TPU v6 及 Meta ASIC 自研處理器訂單放量能見度",
-        "800G / 1.6T Tomahawk 5 乙太網光互聯網路設備出貨成長",
-        "VMware 雲端軟體授權轉型訂閱制的年度經常性收入 (ARR) 增速"
-      ],
-      "marketImpact": "近 8 季歷史樣本：發布次日直接牽動台股智原 (3035)、世芯-KY (3661) 評價",
-      "supplyChain": [
-        "3661 世芯-KY",
-        "3035 智原",
-        "3443 創意",
-        "2330 台積電"
-      ],
+      "revYoy": "—",
+      "badgeColor": "slate",
+      "focusPoints": [],
+      "marketImpact": "尚無可驗證的歷史統計來源",
+      "supplyChain": [],
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "fiscal_year": "FY2026",
-        "fiscal_quarter": "Q4",
-        "timezone": "America/New_York",
-        "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:25:01"
-      }
-    },
-    {
-      "ticker": "6669",
-      "name": "緯穎 (Wiwynn)",
-      "category": "TW_SUPPLY",
-      "categoryLabel": "純白牌 AI 雲端",
-      "flag": "🇹🇼",
-      "date": "2026-12-15",
-      "timeSlot": "台股盤後 14:30",
-      "period": "營運展望交流會",
-      "consensusEps": "NT$38.50",
-      "epsYoy": "+78%",
-      "consensusRev": "NT$960 億",
-      "revYoy": "+85%",
-      "badgeColor": "violet",
-      "focusPoints": [
-        "Meta 與 AWS 兩大核心客戶 ASIC AI 伺服器專案拉貨節奏",
-        "全新液冷與沉浸式散熱架構機櫃在馬來西亞新廠的組裝產能",
-        "2027 年微軟 (MSFT) 專案比重拉升進度與毛利率展望"
-      ],
-      "marketImpact": "近 8 季歷史樣本：高價股指標，法說會後 3 日股價平均變動率達 ±6.5%",
-      "supplyChain": [
-        "2382 廣達",
-        "3231 緯創",
-        "3017 奇鋐",
-        "2059 川湖"
-      ],
-      "_quality_metadata": {
-        "status": "confirmed",
-        "source": "TWSE_MOPS",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q3",
-        "timezone": "Asia/Taipei",
-        "sample_period": "2024Q1-2026Q2"
-      }
-    },
-    {
-      "ticker": "3017",
-      "name": "奇鋐 (CCI)",
-      "category": "TW_SUPPLY",
-      "categoryLabel": "水冷板散熱模組",
-      "flag": "🇹🇼",
-      "date": "2026-12-18",
-      "timeSlot": "台股盤後 14:00",
-      "period": "法說會暨液冷展望",
-      "consensusEps": "NT$7.80",
-      "epsYoy": "+65%",
-      "consensusRev": "NT$210 億",
-      "revYoy": "+32%",
-      "badgeColor": "teal",
-      "focusPoints": [
-        "水冷板 (Cold Plate) 與歧管 (Manifold) 產能利用率及 CSP 認證份額",
-        "越南廠二期液冷散熱模組產線產能開出與良率表現",
-        "GB200 散熱系統整體單機價值 (ASP) 較前代 Hopper 提升 3~4 倍效益"
-      ],
-      "marketImpact": "近 8 季歷史樣本：散熱族群龍頭，高度帶動雙鴻 (3324)、高力 (8996) 走勢",
-      "supplyChain": [
-        "3324 雙鴻",
-        "8996 高力",
-        "2421 建準",
-        "2382 廣達"
-      ],
-      "_quality_metadata": {
-        "status": "confirmed",
-        "source": "TWSE_MOPS",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q3",
-        "timezone": "Asia/Taipei",
-        "sample_period": "2024Q1-2026Q2"
-      }
-    },
-    {
-      "ticker": "2059",
-      "name": "川湖 (King Slide)",
-      "category": "TW_SUPPLY",
-      "categoryLabel": "伺服器專利導軌",
-      "flag": "🇹🇼",
-      "date": "2026-12-22",
-      "timeSlot": "台股盤後 14:30",
-      "period": "營運法說暨導軌升級",
-      "consensusEps": "NT$16.20",
-      "epsYoy": "+55%",
-      "consensusRev": "NT$29.5 億",
-      "revYoy": "+48%",
-      "badgeColor": "amber",
-      "focusPoints": [
-        "Blackwell GB200 NVL72 專利導軌全球市占率 (預估高達 80% 以上)",
-        "美洲與歐洲 CSP 資料中心重型導軌規格升級帶動之 ASP 續增",
-        "全年毛利率能否穩定站上 68%~70% 的歷史超高區間"
-      ],
-      "marketImpact": "近 8 季歷史樣本：千金股指標，法說後法人籌碼調整靈敏，歷史上漲機率 73%",
-      "supplyChain": [
-        "2317 鴻海",
-        "2382 廣達",
-        "6669 緯穎",
-        "6213 聯茂"
-      ],
-      "_quality_metadata": {
-        "status": "confirmed",
-        "source": "TWSE_MOPS",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q3",
-        "timezone": "Asia/Taipei",
-        "sample_period": "2024Q1-2026Q2"
-      }
-    },
-    {
-      "ticker": "2330 / TSM",
-      "name": "台積電 (TSMC)",
-      "category": "TW_SUPPLY",
-      "categoryLabel": "晶圓代工與先進封裝",
-      "flag": "🇹🇼",
-      "date": "2027-01-14",
-      "timeSlot": "台股盤後 14:00 (台北時間)",
-      "period": "Q4 2026 財報法說暨全年成果",
-      "consensusEps": "NT$14.85 / ADR $2.30",
-      "epsYoy": "+45%",
-      "consensusRev": "NT$8,400 億",
-      "revYoy": "+34%",
-      "badgeColor": "rose",
-      "focusPoints": [
-        "2nm (N2 / N2P) 於新竹寶山與高雄廠量產時程與客戶投片量 (Apple/NVIDIA)",
-        "CoWoS 先進封裝月產能擴展至 7~8 萬片進度與 Panel-level 扇出型封裝",
-        "2027 年全年資本支出 (CapEx) 預算目標（市場預估 360~380 億美元）",
-        "海外晶圓廠 (美國、日本熊本、德國) 量產進度與毛利稀釋影響"
-      ],
-      "marketImpact": "近 12 季歷史樣本：佔台股加權指數約 35% 權重；法說後 5 日台股上漲機率 76%，平均波動 ±450 點",
-      "supplyChain": [
-        "3131 弘塑",
-        "3583 辛耘",
-        "3680 家登",
-        "6187 萬潤",
-        "2303 聯電"
-      ],
-      "_quality_metadata": {
-        "status": "confirmed",
-        "source": "COMPANY_IR_CALENDAR",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q4",
-        "timezone": "Asia/Taipei",
-        "sample_period": "2023Q1-2026Q3"
+        "verified_at": "2026-11-23 23:31:39",
+        "source_url": "https://finance.yahoo.com/"
       }
     },
     {
@@ -329,66 +58,21 @@
       "categoryLabel": "半導體微影設備",
       "flag": "🇳🇱",
       "date": "2027-01-27",
-      "timeSlot": "歐洲盤前 (BMO)",
-      "period": "Q4 2026 財報法說",
+      "timeSlot": "—",
+      "period": "—",
       "consensusEps": "$15.39",
-      "epsYoy": "+32%",
+      "epsYoy": "—",
       "consensusRev": "$14.8B",
-      "revYoy": "+26%",
-      "badgeColor": "sky",
-      "focusPoints": [
-        "High-NA EUV 設備交付與各大晶圓廠 (TSMC/Intel/Samsung) 裝機進度",
-        "2027 全年淨預訂額 (Net Bookings) 是否達到 350 億歐元高標",
-        "中國市場營收占比常態化調整進展與地緣政治管制評估"
-      ],
-      "marketImpact": "近 8 季歷史樣本：全球半導體景氣晴雨表，直接影響台積電設備供應鏈家登 (3680)、帆宣 (6196)",
-      "supplyChain": [
-        "3680 家登",
-        "6196 帆宣",
-        "2330 台積電"
-      ],
+      "revYoy": "—",
+      "badgeColor": "slate",
+      "focusPoints": [],
+      "marketImpact": "尚無可驗證的歷史統計來源",
+      "supplyChain": [],
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q4",
-        "timezone": "Europe/Amsterdam",
-        "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:25:01"
-      }
-    },
-    {
-      "ticker": "2454",
-      "name": "聯發科 (MediaTek)",
-      "category": "TW_SUPPLY",
-      "categoryLabel": "IC 設計 & Edge AI",
-      "flag": "🇹🇼",
-      "date": "2027-01-22",
-      "timeSlot": "台股盤後 15:00",
-      "period": "Q4 2026 法說暨 2027 展望",
-      "consensusEps": "NT$18.50",
-      "epsYoy": "+19%",
-      "consensusRev": "NT$1,420 億",
-      "revYoy": "+12%",
-      "badgeColor": "orange",
-      "focusPoints": [
-        "天璣 9500 旗艦 3nm 晶片在 Android 旗艦機型之採用率與市占率",
-        "與 Arm 合作之 AI PC 處理器與車用智慧座艙 Dimensity Auto 進度",
-        "CSP 雲端資料中心特製 AI ASIC 加速晶片合作專案能見度"
-      ],
-      "marketImpact": "近 8 季歷史樣本：IC 設計指標，牽動高價 IC 族群聯詠 (3034)、瑞昱 (2379) 表現",
-      "supplyChain": [
-        "2330 台積電",
-        "2449 京元電子",
-        "3711 日月光投控"
-      ],
-      "_quality_metadata": {
-        "status": "confirmed",
-        "source": "TWSE_MOPS",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q4",
-        "timezone": "Asia/Taipei",
-        "sample_period": "2024Q1-2026Q2"
+        "verified_at": "2026-11-23 23:31:39",
+        "source_url": "https://finance.yahoo.com/"
       }
     },
     {
@@ -398,33 +82,21 @@
       "categoryLabel": "AI 雲端與企業軟體",
       "flag": "🇺🇸",
       "date": "2027-01-27",
-      "timeSlot": "美東盤後 (AMC)",
-      "period": "Q2 FY27 財報法說",
+      "timeSlot": "—",
+      "period": "—",
       "consensusEps": "$4.86",
-      "epsYoy": "+14%",
+      "epsYoy": "—",
       "consensusRev": "$96.7B",
-      "revYoy": "+13.5%",
-      "badgeColor": "blue",
-      "focusPoints": [
-        "Azure 雲端智慧服務營收年增率（市場預估維持 30%~32% 高檔）",
-        "M365 Copilot 企業席次付費轉換率與自研 Maia AI 晶片上線比例",
-        "2027 季度 AI 算力基礎設施 CapEx 投入規模與自由現金流"
-      ],
-      "marketImpact": "近 8 季歷史樣本：影響加權指數 AI 雲端供應鏈整體評價與台股伺服器族群",
-      "supplyChain": [
-        "2382 廣達",
-        "6669 緯穎",
-        "2317 鴻海",
-        "3231 緯創"
-      ],
+      "revYoy": "—",
+      "badgeColor": "slate",
+      "focusPoints": [],
+      "marketImpact": "尚無可驗證的歷史統計來源",
+      "supplyChain": [],
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "fiscal_year": "FY2027",
-        "fiscal_quarter": "Q2",
-        "timezone": "America/New_York",
-        "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:25:01"
+        "verified_at": "2026-11-23 23:31:39",
+        "source_url": "https://finance.yahoo.com/"
       }
     },
     {
@@ -434,33 +106,21 @@
       "categoryLabel": "搜尋、雲端與 TPU",
       "flag": "🇺🇸",
       "date": "2026-10-28",
-      "timeSlot": "美東盤後 (AMC)",
-      "period": "Q4 2026 財報法說",
+      "timeSlot": "—",
+      "period": "—",
       "consensusEps": "$3.25",
-      "epsYoy": "+28%",
+      "epsYoy": "—",
       "consensusRev": "$142.3B",
-      "revYoy": "+14%",
-      "badgeColor": "emerald",
-      "focusPoints": [
-        "Google Cloud (GCP) 獲利率擴張及自研 TPU v6 / v7 降本增效成果",
-        "AI Overviews (搜尋 AI 摘要) 廣告變現點擊率與商業模式進展",
-        "Gemini 2.0 模型在企業端及 Android 裝置生態整合落地情況"
-      ],
-      "marketImpact": "近 8 季歷史樣本：直接影響台股世芯-KY (3661)、廣達 (2382)、台積電 (2330)",
-      "supplyChain": [
-        "3661 世芯-KY",
-        "2382 廣達",
-        "2330 台積電",
-        "3017 奇鋐"
-      ],
+      "revYoy": "—",
+      "badgeColor": "slate",
+      "focusPoints": [],
+      "marketImpact": "尚無可驗證的歷史統計來源",
+      "supplyChain": [],
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q4",
-        "timezone": "America/New_York",
-        "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:25:01"
+        "verified_at": "2026-11-23 23:31:39",
+        "source_url": "https://finance.yahoo.com/"
       }
     },
     {
@@ -470,33 +130,21 @@
       "categoryLabel": "開源 AI 與數位廣告",
       "flag": "🇺🇸",
       "date": "2027-01-27",
-      "timeSlot": "美東盤後 (AMC)",
-      "period": "Q4 2026 財報法說",
+      "timeSlot": "—",
+      "period": "—",
       "consensusEps": "$8.72",
-      "epsYoy": "+35%",
+      "epsYoy": "—",
       "consensusRev": "$75.1B",
-      "revYoy": "+21%",
-      "badgeColor": "blue",
-      "focusPoints": [
-        "2027 全年資本支出指引是否上調至 480~520 億美元區間",
-        "Llama 4 開源大模型開發生態與 AI 智慧眼鏡 (Ray-Ban Meta) 出貨量",
-        "AI 演算法推薦帶來之廣告轉化率 (ROAS) 提升與營業利潤率"
-      ],
-      "marketImpact": "近 8 季歷史樣本：Meta 為台灣伺服器代工廠最大買家之一，直接牽動緯穎、廣達營收",
-      "supplyChain": [
-        "6669 緯穎",
-        "2382 廣達",
-        "2059 川湖",
-        "3017 奇鋐"
-      ],
+      "revYoy": "—",
+      "badgeColor": "slate",
+      "focusPoints": [],
+      "marketImpact": "尚無可驗證的歷史統計來源",
+      "supplyChain": [],
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q4",
-        "timezone": "America/New_York",
-        "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:25:01"
+        "verified_at": "2026-11-23 23:31:39",
+        "source_url": "https://finance.yahoo.com/"
       }
     },
     {
@@ -506,33 +154,21 @@
       "categoryLabel": "消費電子與端側 AI",
       "flag": "🇺🇸",
       "date": "2027-01-28",
-      "timeSlot": "美東盤後 (AMC)",
-      "period": "Q1 FY27 財報法說",
+      "timeSlot": "—",
+      "period": "—",
       "consensusEps": "$2.91",
-      "epsYoy": "+9%",
+      "epsYoy": "—",
       "consensusRev": "$156.4B",
-      "revYoy": "+6.8%",
+      "revYoy": "—",
       "badgeColor": "slate",
-      "focusPoints": [
-        "Apple Intelligence 多語言版本上線後帶動之 iPhone 升級換機循環力道",
-        "大中華區市場營收是否止跌回升及印度製造供應鏈產能占比",
-        "服務營收 (Services) 毛利率表現與自研 M5 晶片導入進度"
-      ],
-      "marketImpact": "近 8 季歷史樣本：牽動台股蘋概股族群：台積電 (2330)、鴻海 (2317)、大立光 (3008)",
-      "supplyChain": [
-        "2330 台積電",
-        "2317 鴻海",
-        "3008 大立光",
-        "2354 鴻準"
-      ],
+      "focusPoints": [],
+      "marketImpact": "尚無可驗證的歷史統計來源",
+      "supplyChain": [],
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "fiscal_year": "FY2027",
-        "fiscal_quarter": "Q1",
-        "timezone": "America/New_York",
-        "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:25:01"
+        "verified_at": "2026-11-23 23:31:39",
+        "source_url": "https://finance.yahoo.com/"
       }
     },
     {
@@ -542,38 +178,26 @@
       "categoryLabel": "資料中心 GPU & x86",
       "flag": "🇺🇸",
       "date": "2027-02-02",
-      "timeSlot": "美東盤後 (AMC)",
-      "period": "Q4 2026 財報法說",
+      "timeSlot": "—",
+      "period": "—",
       "consensusEps": "$2.93",
-      "epsYoy": "+62%",
+      "epsYoy": "—",
       "consensusRev": "$17.1B",
-      "revYoy": "+31%",
-      "badgeColor": "rose",
-      "focusPoints": [
-        "MI325X / MI350 系列資料中心 AI 加速卡 2027 全年出貨營收預估 (目標 $60 億+)",
-        "伺服器 EPYC 處理器在雲端市場對 Intel x86 份額的蠶食速度",
-        "嵌入式與客戶端 PC (Ryzen AI) 庫存調整後之復甦強度"
-      ],
-      "marketImpact": "近 8 季歷史樣本：影響台股板卡與代工廠：健策 (3653)、祥碩 (5269)、廣達 (2382)",
-      "supplyChain": [
-        "3653 健策",
-        "5269 祥碩",
-        "2330 台積電",
-        "2382 廣達"
-      ],
+      "revYoy": "—",
+      "badgeColor": "slate",
+      "focusPoints": [],
+      "marketImpact": "尚無可驗證的歷史統計來源",
+      "supplyChain": [],
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "fiscal_year": "2026",
-        "fiscal_quarter": "Q4",
-        "timezone": "America/New_York",
-        "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:25:01"
+        "verified_at": "2026-11-23 23:31:39",
+        "source_url": "https://finance.yahoo.com/"
       }
     }
   ],
   "_quality_metadata": {
-    "system_runtime": "2026-11-23 23:25:01",
+    "system_runtime": "2026-11-23 23:31:39",
     "data_source_status": {
       "twse_mops": "stale",
       "us_consensus": "available"
