@@ -1,8 +1,7 @@
 name: Update Macro & Market Data
 on:
   schedule:
-    - cron: '37 6 * * *'   # 每天 UTC 06:37 (台灣 14:37 台股收盤後)
-    - cron: '37 22 * * *'  # 每天 UTC 22:37 (台灣隔日 06:37，預留美股收盤資料結算時間)
+    - cron: '17 * * * *'   # 每小時的第 17 分鐘執行一次 (避開整點伺服器排隊高峰)
   workflow_dispatch:
 
 permissions:
@@ -33,5 +32,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add macro_live_data.json tw_bottom_data.json tw_bottom_prev.json tech_earnings_data.json
-          git diff --staged --quiet || git commit -m "chore: auto-update macro, taiwan bottom and tech earnings data"
-          git push
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: auto-update macro, taiwan bottom and tech earnings data"
+            git pull --rebase origin main
+            git push
+          fi
