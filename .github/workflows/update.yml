@@ -1,7 +1,7 @@
 name: Update Macro & Market Data
 on:
   schedule:
-    - cron: '17 * * * *'   # 每小時的第 17 分鐘執行一次 (避開整點伺服器排隊高峰)
+    - cron: '17 */2 * * *' # 每 2 小時的第 17 分鐘執行一次 (台灣時間 00:17, 02:17, 04:17...)
   workflow_dispatch:
 
 permissions:
@@ -16,8 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
       - name: Install dependencies
