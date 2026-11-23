@@ -4771,6 +4771,9 @@
           <button id="cal-track-macro-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800">
             <i data-lucide="landmark" class="w-4 h-4"></i> 全球央行與重大總經時程 (12 項)
           </button>
+          <button id="cal-track-valuation-btn" type="button" class="px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white">
+            <i data-lucide="scale" class="w-4 h-4 text-emerald-500"></i> 科技巨頭估值安全邊際 ＆ PEG / Rule of 40 雷達 (16 檔)
+          </button>
         </div>
 
         <!-- Tech Calendar 控制區 (Filter Pills & Search & View Switcher) -->
@@ -4859,7 +4862,217 @@
           </div>
         </div>
       </div>
-    </section>
+    
+
+      <!-- Track 3 Container: Tech Valuation & Safety Margin Radar Panel -->
+      <div id="cal-valuation-panel" class="hidden space-y-6">
+        <!-- 4 Top Valuation Metric Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+              <span>科技巨頭中位數 Forward P/E</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400">溫和合理</span>
+            </div>
+            <div class="text-2xl font-bold text-slate-900 dark:text-white tabular-nums">22.5x</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">對比 5 年均值 24.2x (-7.0% 折價)</div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+              <span>AI 板塊中位數 PEG 比率</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">性價比優異</span>
+            </div>
+            <div class="text-2xl font-bold text-emerald-500 tabular-nums">1.08</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">PEG &lt; 1.2 標的達 11 / 16 檔</div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+              <span>Rule of 40 達標比率</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">強現金流護城河</span>
+            </div>
+            <div class="text-2xl font-bold text-indigo-500 tabular-nums">75.0%</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">營收 YoY + FCF Margin &gt; 40%</div>
+          </div>
+
+          <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+              <span>加權平均安全邊際 (Margin of Safety)</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">具防禦保護</span>
+            </div>
+            <div class="text-2xl font-bold text-emerald-500 tabular-nums">+14.6%</div>
+            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">DCF 內在公允價值加權折價</div>
+          </div>
+        </div>
+
+        <!-- Valuation Scatter Radar Chart & Interactive DCF Sensitivity Calculator -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+          <!-- Left: Scatter Chart (7 Cols) -->
+          <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+              <div>
+                <h2 class="font-bold text-base flex items-center gap-2">
+                  <i data-lucide="scatter-chart" class="w-4 h-4 text-indigo-500"></i>
+                  Rule of 40 vs Forward P/E 價值重力四象限雷達
+                </h2>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  橫軸：預估本益比 (P/E) ｜ 縱軸：Rule of 40 (營收成長率 + FCF 利潤率) ｜ 氣泡大小：企業市值
+                </p>
+              </div>
+              <span class="text-[11px] font-semibold px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                左上區 = 黃金性價比護城河
+              </span>
+            </div>
+            <div class="relative h-80">
+              <canvas id="techValuationChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Right: Interactive DCF Sensitivity Simulator (5 Cols) -->
+          <div class="lg:col-span-5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100 dark:border-slate-800">
+                <div>
+                  <h3 class="font-bold text-sm flex items-center gap-2">
+                    <i data-lucide="calculator" class="w-4 h-4 text-emerald-500"></i>
+                    法人級 DCF 內在價值敏感度試算器
+                  </h3>
+                  <div id="dcf-target-badge" class="text-xs text-indigo-600 dark:text-indigo-400 font-bold mt-0.5">目前標的：NVDA 輝達 (NVIDIA)</div>
+                </div>
+                <div id="dcf-safety-badge" class="px-2.5 py-1 rounded-lg text-xs font-black bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30">
+                  安全邊際 +15.2%
+                </div>
+              </div>
+
+              <!-- Sliders -->
+              <div class="space-y-3 text-xs">
+                <div>
+                  <div class="flex justify-between font-medium text-slate-500 dark:text-slate-400 mb-1">
+                    <label for="dcf-wacc-slider">加權平均資本成本 (WACC 折現率)</label>
+                    <span id="dcf-wacc-val" class="font-bold text-blue-600 dark:text-blue-400 tabular-nums">9.0%</span>
+                  </div>
+                  <input id="dcf-wacc-slider" type="range" min="7.0" max="12.0" step="0.25" value="9.0" class="w-full accent-blue-600" />
+                </div>
+
+                <div>
+                  <div class="flex justify-between font-medium text-slate-500 dark:text-slate-400 mb-1">
+                    <label for="dcf-tg-slider">終值永續成長率 (Terminal Growth Rate)</label>
+                    <span id="dcf-tg-val" class="font-bold text-emerald-600 dark:text-emerald-400 tabular-nums">2.5%</span>
+                  </div>
+                  <input id="dcf-tg-slider" type="range" min="1.5" max="3.5" step="0.1" value="2.5" class="w-full accent-emerald-600" />
+                </div>
+              </div>
+
+              <!-- Output cards -->
+              <div class="grid grid-cols-2 gap-3 mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                <div class="p-2.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+                  <div class="text-[11px] text-slate-500 dark:text-slate-400">當前現價</div>
+                  <div id="dcf-cur-price" class="text-lg font-bold text-slate-900 dark:text-white tabular-nums mt-0.5">$145.8</div>
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-500/30">
+                  <div class="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold">DCF 公允目標價</div>
+                  <div id="dcf-fair-price" class="text-lg font-black text-emerald-600 dark:text-emerald-400 tabular-nums mt-0.5">$168.0</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="text-[11px] text-slate-400 dark:text-slate-500 mt-4 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-2.5 rounded-lg border border-slate-200/60 dark:border-slate-700/60">
+              💡 <strong>操作建議：</strong>點擊下方表格任一科技巨頭，即可無縫載入該檔股票的現金流折現模型；若安全邊際 &gt; +15% 且 Rule of 40 &gt; 50%，評定為法人頂級買進標的。
+            </div>
+          </div>
+        </div>
+
+        <!-- 16 Tech Giants Valuation Scorecard Table -->
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 class="font-bold text-base flex items-center gap-2">
+                <i data-lucide="table-properties" class="w-4 h-4 text-blue-500"></i>
+                16 檔全球 AI 與台股供應鏈巨頭法人估值安全邊際計分卡
+              </h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                整合 Forward P/E、5年分位點、PEG、Rule of 40 拆解與公允估值安全邊際
+              </p>
+            </div>
+            <!-- Search & Filters -->
+            <div class="flex flex-wrap items-center gap-2 text-xs">
+              <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-lg">
+                <button data-val-sector="ALL" class="val-sector-btn px-2.5 py-1 rounded-md font-semibold transition-colors bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm">
+                  全部 (16)
+                </button>
+                <button data-val-sector="US_AI" class="val-sector-btn px-2.5 py-1 rounded-md font-medium transition-colors text-slate-600 dark:text-slate-300 hover:text-slate-900">
+                  美股 AI 巨頭 (8)
+                </button>
+                <button data-val-sector="TW_SUPPLY" class="val-sector-btn px-2.5 py-1 rounded-md font-medium transition-colors text-slate-600 dark:text-slate-300 hover:text-slate-900">
+                  台股硬體供應鏈 (8)
+                </button>
+              </div>
+              <input id="val-search-input" type="text" placeholder="搜尋代號、名稱..." class="rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-1.5 text-xs focus:ring-1 focus:ring-blue-500" />
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-50 dark:bg-slate-800/70 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-700 font-semibold">
+                <tr>
+                  <th class="px-3 py-2.5">標的代號 / 企業</th>
+                  <th class="px-3 py-2.5">現價 / 市值</th>
+                  <th class="px-3 py-2.5">預估本益比 (Fwd P/E)</th>
+                  <th class="px-3 py-2.5">PEG 比率</th>
+                  <th class="px-3 py-2.5">Rule of 40 (營收+FCF)</th>
+                  <th class="px-3 py-2.5">DCF 公允目標價</th>
+                  <th class="px-3 py-2.5">安全邊際 (Margin of Safety)</th>
+                  <th class="px-3 py-2.5">法人量化評級</th>
+                  <th class="px-3 py-2.5 text-center">敏感度試算</th>
+                </tr>
+              </thead>
+              <tbody id="tech-valuation-tbody" class="divide-y divide-slate-100 dark:divide-slate-800 font-mono">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 4 Key Institutional Valuation Principles Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+            <div class="font-bold text-xs text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 1. Rule of 40 護城河法則
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              科技業營收年增率 ＋ 自由現金流利率 (FCF Margin) &gt; 40% 即屬全球一級梯隊；超過 60% 者（如 NVDA、川湖、博通）享有持久估值溢價。
+            </p>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+            <div class="font-bold text-xs text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span> 2. PEG 估值重力校正
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              單看 P/E 容易錯殺高成長股。PEG = Forward P/E ÷ EPS 成長率；PEG &lt; 1.0 代表成長完全未被定價，具備極高性價比。
+            </p>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+            <div class="font-bold text-xs text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-indigo-500"></span> 3. FCF 現金流轉換品質
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              獲利可能因折舊攤提而失真，真金白銀的自由現金流 (FCF) 才是支撐 AI 研發、股票回購與發放股利的硬核底氣。
+            </p>
+          </div>
+
+          <div class="bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl p-4">
+            <div class="font-bold text-xs text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span> 4. 安全邊際防護網
+            </div>
+            <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              巴菲特與葛拉漢核心準則：買進價格至少需低於 DCF 內在公允價值 10%~20%，即使遇到黑天鵝降估值，也能立於不敗之地。
+            </p>
+          </div>
+        </div>
+      </div>
+</section>
 
     <!-- TAB 7: MY DASHBOARD -->
     <section id="tab-mydash" class="tab-panel hidden space-y-5">
@@ -5677,6 +5890,121 @@
         supplyChain: ['3653 健策', '5269 祥碩', '2330 台積電', '2382 廣達']
       }
     ];
+    const TECH_VALUATION_DATA = [
+      {
+        ticker: 'NVDA', name: '輝達 (NVIDIA)', sector: 'US_AI', flag: '🇺🇸',
+        price: 145.8, currency: '$', mktCap: '$3.58T', mktCapNum: 3580,
+        fwdPe: 34.2, histPe5y: 42.5, peg: 1.08, revYoY: 111.0, fcfMargin: 48.5,
+        ruleOf40: 159.5, fairValue: 168.0, safetyMargin: 15.2, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.0, terminalGrowth: 2.5
+      },
+      {
+        ticker: '2330', name: '台積電 (TSMC)', sector: 'TW_SUPPLY', flag: '🇹🇼',
+        price: 1080, currency: 'NT$', mktCap: 'NT$28.0T', mktCapNum: 980,
+        fwdPe: 21.5, histPe5y: 20.8, peg: 0.85, revYoY: 36.5, fcfMargin: 38.0,
+        ruleOf40: 74.5, fairValue: 1280.0, safetyMargin: 18.5, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 8.8, terminalGrowth: 2.5
+      },
+      {
+        ticker: 'MSFT', name: '微軟 (Microsoft)', sector: 'US_AI', flag: '🇺🇸',
+        price: 432.5, currency: '$', mktCap: '$3.22T', mktCapNum: 3220,
+        fwdPe: 31.0, histPe5y: 30.5, peg: 1.85, revYoY: 16.0, fcfMargin: 32.5,
+        ruleOf40: 48.5, fairValue: 450.0, safetyMargin: 4.0, rating: 'A', ratingBadge: 'bg-blue-500/15 text-blue-600 dark:text-blue-400',
+        wacc: 8.5, terminalGrowth: 2.5
+      },
+      {
+        ticker: 'GOOGL', name: 'Alphabet (Google)', sector: 'US_AI', flag: '🇺🇸',
+        price: 178.0, currency: '$', mktCap: '$2.21T', mktCapNum: 2210,
+        fwdPe: 20.4, histPe5y: 24.2, peg: 1.12, revYoY: 15.5, fcfMargin: 28.0,
+        ruleOf40: 43.5, fairValue: 215.0, safetyMargin: 20.8, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 8.5, terminalGrowth: 2.5
+      },
+      {
+        ticker: 'META', name: 'Meta Platforms', sector: 'US_AI', flag: '🇺🇸',
+        price: 585.0, currency: '$', mktCap: '$1.48T', mktCapNum: 1480,
+        fwdPe: 24.5, histPe5y: 23.0, peg: 1.15, revYoY: 21.5, fcfMargin: 36.0,
+        ruleOf40: 57.5, fairValue: 650.0, safetyMargin: 11.1, rating: 'A', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 8.8, terminalGrowth: 2.5
+      },
+      {
+        ticker: 'AAPL', name: '蘋果 (Apple)', sector: 'US_AI', flag: '🇺🇸',
+        price: 230.5, currency: '$', mktCap: '$3.49T', mktCapNum: 3490,
+        fwdPe: 30.2, histPe5y: 26.5, peg: 2.85, revYoY: 6.1, fcfMargin: 29.5,
+        ruleOf40: 35.6, fairValue: 210.0, safetyMargin: -8.9, rating: 'B', ratingBadge: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
+        wacc: 8.0, terminalGrowth: 2.5
+      },
+      {
+        ticker: 'AVGO', name: '博通 (Broadcom)', sector: 'US_AI', flag: '🇺🇸',
+        price: 165.0, currency: '$', mktCap: '$780B', mktCapNum: 780,
+        fwdPe: 28.5, histPe5y: 25.0, peg: 1.25, revYoY: 47.0, fcfMargin: 42.0,
+        ruleOf40: 89.0, fairValue: 185.0, safetyMargin: 12.1, rating: 'A', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.0, terminalGrowth: 2.5
+      },
+      {
+        ticker: 'AMD', name: '超微 (AMD)', sector: 'US_AI', flag: '🇺🇸',
+        price: 138.0, currency: '$', mktCap: '$224B', mktCapNum: 224,
+        fwdPe: 36.5, histPe5y: 35.0, peg: 1.38, revYoY: 18.0, fcfMargin: 22.0,
+        ruleOf40: 40.0, fairValue: 152.0, safetyMargin: 10.1, rating: 'A', ratingBadge: 'bg-blue-500/15 text-blue-600 dark:text-blue-400',
+        wacc: 9.5, terminalGrowth: 2.5
+      },
+      {
+        ticker: 'ASML', name: '艾司摩爾 (ASML)', sector: 'US_AI', flag: '🇳🇱',
+        price: 685.0, currency: '$', mktCap: '$272B', mktCapNum: 272,
+        fwdPe: 27.8, histPe5y: 34.0, peg: 1.45, revYoY: 14.5, fcfMargin: 31.0,
+        ruleOf40: 45.5, fairValue: 810.0, safetyMargin: 18.2, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 8.5, terminalGrowth: 2.5
+      },
+      {
+        ticker: '2317', name: '鴻海 (Foxconn)', sector: 'TW_SUPPLY', flag: '🇹🇼',
+        price: 208.0, currency: 'NT$', mktCap: 'NT$2.88T', mktCapNum: 88,
+        fwdPe: 13.8, histPe5y: 11.2, peg: 0.78, revYoY: 18.5, fcfMargin: 8.5,
+        ruleOf40: 27.0, fairValue: 245.0, safetyMargin: 17.8, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.0, terminalGrowth: 2.0
+      },
+      {
+        ticker: '2382', name: '廣達 (Quanta)', sector: 'TW_SUPPLY', flag: '🇹🇼',
+        price: 295.0, currency: 'NT$', mktCap: 'NT$1.14T', mktCapNum: 35,
+        fwdPe: 17.5, histPe5y: 14.2, peg: 0.88, revYoY: 32.0, fcfMargin: 11.2,
+        ruleOf40: 43.2, fairValue: 340.0, safetyMargin: 15.3, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.0, terminalGrowth: 2.0
+      },
+      {
+        ticker: '2454', name: '聯發科 (MediaTek)', sector: 'TW_SUPPLY', flag: '🇹🇼',
+        price: 1280.0, currency: 'NT$', mktCap: 'NT$2.05T', mktCapNum: 64,
+        fwdPe: 18.2, histPe5y: 16.5, peg: 1.15, revYoY: 22.0, fcfMargin: 24.5,
+        ruleOf40: 46.5, fairValue: 1460.0, safetyMargin: 14.1, rating: 'A', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.2, terminalGrowth: 2.0
+      },
+      {
+        ticker: '3017', name: '奇鋐 (CCI)', sector: 'TW_SUPPLY', flag: '🇹🇼',
+        price: 650.0, currency: 'NT$', mktCap: 'NT$252B', mktCapNum: 7.8,
+        fwdPe: 22.5, histPe5y: 18.0, peg: 0.82, revYoY: 42.5, fcfMargin: 14.8,
+        ruleOf40: 57.3, fairValue: 780.0, safetyMargin: 20.0, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.5, terminalGrowth: 2.0
+      },
+      {
+        ticker: '2059', name: '川湖 (King Slide)', sector: 'TW_SUPPLY', flag: '🇹🇼',
+        price: 1320.0, currency: 'NT$', mktCap: 'NT$126B', mktCapNum: 3.9,
+        fwdPe: 21.0, histPe5y: 19.5, peg: 0.72, revYoY: 48.0, fcfMargin: 45.0,
+        ruleOf40: 93.0, fairValue: 1650.0, safetyMargin: 25.0, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.5, terminalGrowth: 2.0
+      },
+      {
+        ticker: '6669', name: '緯穎 (Wiwynn)', sector: 'TW_SUPPLY', flag: '🇹🇼',
+        price: 2280.0, currency: 'NT$', mktCap: 'NT$398B', mktCapNum: 12.4,
+        fwdPe: 18.8, histPe5y: 16.0, peg: 0.65, revYoY: 55.0, fcfMargin: 12.0,
+        ruleOf40: 67.0, fairValue: 2850.0, safetyMargin: 25.0, rating: 'A+', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.5, terminalGrowth: 2.0
+      },
+      {
+        ticker: '3231', name: '緯創 (Wistron)', sector: 'TW_SUPPLY', flag: '🇹🇼',
+        price: 116.0, currency: 'NT$', mktCap: 'NT$336B', mktCapNum: 10.5,
+        fwdPe: 15.2, histPe5y: 13.0, peg: 0.85, revYoY: 25.0, fcfMargin: 9.5,
+        ruleOf40: 34.5, fairValue: 132.0, safetyMargin: 13.8, rating: 'A', ratingBadge: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+        wacc: 9.2, terminalGrowth: 2.0
+      }
+    ];
+
 
     const TRAJ_SERIES = {
       GLOBAL: [
@@ -5953,7 +6281,7 @@
         riskEngine: 'trailing8'
       },
       etf: { category: 'ALL', query: '', selected: ['SMH', 'SOXQ'] },
-      calendar: { tab: 'tech', techCategory: 'ALL', techQuery: '', techView: 'cards', region: 'ALL', impact: 'ALL' },
+      calendar: { tab: 'tech', techCategory: 'ALL', techQuery: '', techView: 'cards', region: 'ALL', valuationQuery: '', valuationSector: 'ALL', valuationSort: 'safetyMargin', selectedValuationTicker: 'NVDA', dcfWacc: 9.0, dcfTerminalGrowth: 2.5 },
       trader: { cat: 'ALL', quad: 'ALL', query: '', optionsContract: 'weekly', divergenceFilter: 'ALL' },
       stressTest: { scenario: 'stagflation', alloc: { stock: 60, bond: 25, gold: 10, cash: 5 } },
       commodity: { activeRatio: 'COPPER_GOLD' },
@@ -13869,34 +14197,224 @@
 
     function renderCalendar() {
       updateCalendarLiveHeader();
-      const isTech = state.calendar.tab === 'tech';
+      const tab = state.calendar.tab || 'tech';
       const techBtn = document.getElementById('cal-track-tech-btn');
       const macroBtn = document.getElementById('cal-track-macro-btn');
+      const valBtn = document.getElementById('cal-track-valuation-btn');
       const techControls = document.getElementById('cal-tech-controls');
       const macroControls = document.getElementById('cal-macro-controls');
       const techPanel = document.getElementById('cal-tech-panel');
       const macroPanel = document.getElementById('cal-macro-panel');
+      const valPanel = document.getElementById('cal-valuation-panel');
 
-      if (techBtn && macroBtn) {
-        if (isTech) {
-          techBtn.className = 'px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 bg-indigo-600 text-white shadow-sm';
-          macroBtn.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800';
-          if (techControls) techControls.classList.remove('hidden');
-          if (macroControls) macroControls.classList.add('hidden');
-          if (techPanel) techPanel.classList.remove('hidden');
-          if (macroPanel) macroPanel.classList.add('hidden');
-          renderTechEarningsCalendar();
-        } else {
-          techBtn.className = 'px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800';
-          macroBtn.className = 'px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 bg-indigo-600 text-white shadow-sm';
-          if (techControls) techControls.classList.add('hidden');
-          if (macroControls) macroControls.classList.remove('hidden');
-          if (techPanel) techPanel.classList.add('hidden');
-          if (macroPanel) macroPanel.classList.remove('hidden');
-          renderMacroCalendar();
-        }
-      }
+      const activeBtn = 'px-4 py-2 rounded-lg text-sm font-bold transition-all flex items-center gap-2 bg-indigo-600 text-white shadow-sm';
+      const inactiveBtn = 'px-4 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800';
+
+      if (techBtn) techBtn.className = tab === 'tech' ? activeBtn : inactiveBtn;
+      if (macroBtn) macroBtn.className = tab === 'macro' ? activeBtn : inactiveBtn;
+      if (valBtn) valBtn.className = tab === 'valuation' ? activeBtn : inactiveBtn;
+
+      if (techControls) techControls.classList.toggle('hidden', tab !== 'tech');
+      if (macroControls) macroControls.classList.toggle('hidden', tab !== 'macro');
+      if (techPanel) techPanel.classList.toggle('hidden', tab !== 'tech');
+      if (macroPanel) macroPanel.classList.toggle('hidden', tab !== 'macro');
+      if (valPanel) valPanel.classList.toggle('hidden', tab !== 'valuation');
+
+      if (tab === 'tech') renderTechEarningsCalendar();
+      else if (tab === 'macro') renderMacroCalendar();
+      else if (tab === 'valuation') renderValuationScorecard();
+
       lucide.createIcons();
+    }
+
+    function renderValuationScorecard() {
+      const q = (state.calendar.valuationQuery || '').trim().toLowerCase();
+      const sec = state.calendar.valuationSector || 'ALL';
+
+      const filtered = TECH_VALUATION_DATA.filter(item => {
+        const matchSector = sec === 'ALL' || item.sector === sec;
+        const matchQ = !q || item.ticker.toLowerCase().includes(q) || item.name.toLowerCase().includes(q);
+        return matchSector && matchQ;
+      });
+
+      // Render Table
+      const tbody = document.getElementById('tech-valuation-tbody');
+      if (tbody) {
+        tbody.innerHTML = filtered.map(item => {
+          const isSelected = item.ticker === state.calendar.selectedValuationTicker;
+          const rowBg = isSelected ? 'bg-indigo-500/10 dark:bg-indigo-500/15 font-semibold' : 'hover:bg-slate-50 dark:hover:bg-slate-800/40';
+          const safetyColor = item.safetyMargin > 15 ? 'text-emerald-500 font-bold' : item.safetyMargin >= 0 ? 'text-blue-500 font-semibold' : 'text-rose-500 font-bold';
+          const r40Color = item.ruleOf40 >= 60 ? 'text-emerald-500' : item.ruleOf40 >= 40 ? 'text-blue-500' : 'text-slate-400';
+
+          return `
+            <tr class="${rowBg} transition-colors cursor-pointer" onclick="selectValuationStock('${item.ticker}')">
+              <td class="px-3 py-2.5 font-bold text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
+                <span>${item.flag}</span>
+                <span class="text-indigo-600 dark:text-indigo-400">${item.ticker}</span>
+                <span class="text-slate-500 dark:text-slate-400 font-normal truncate max-w-[120px]">${item.name}</span>
+              </td>
+              <td class="px-3 py-2.5">
+                <div class="font-bold text-slate-900 dark:text-white tabular-nums">${item.currency}${item.price.toLocaleString()}</div>
+                <div class="text-[10px] text-slate-400 dark:text-slate-500">${item.mktCap}</div>
+              </td>
+              <td class="px-3 py-2.5">
+                <span class="font-bold tabular-nums">${item.fwdPe}x</span>
+                <span class="text-[10px] text-slate-400 ml-1">(5Y ${item.histPe5y}x)</span>
+              </td>
+              <td class="px-3 py-2.5 font-bold tabular-nums ${item.peg <= 1.0 ? 'text-emerald-500' : item.peg <= 1.5 ? 'text-blue-500' : 'text-amber-500'}">
+                ${item.peg}
+              </td>
+              <td class="px-3 py-2.5">
+                <div class="font-bold ${r40Color} tabular-nums">${item.ruleOf40}%</div>
+                <div class="text-[10px] text-slate-400">YoY +${item.revYoY}% | FCF ${item.fcfMargin}%</div>
+              </td>
+              <td class="px-3 py-2.5 font-bold text-slate-800 dark:text-slate-200 tabular-nums">
+                ${item.currency}${item.fairValue.toLocaleString()}
+              </td>
+              <td class="px-3 py-2.5 tabular-nums ${safetyColor}">
+                ${item.safetyMargin >= 0 ? '+' : ''}${item.safetyMargin}%
+              </td>
+              <td class="px-3 py-2.5">
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold ${item.ratingBadge}">${item.rating}</span>
+              </td>
+              <td class="px-3 py-2.5 text-center">
+                <button type="button" class="px-2 py-1 rounded bg-slate-100 dark:bg-slate-800 hover:bg-indigo-600 hover:text-white text-[11px] font-medium transition-colors" onclick="event.stopPropagation(); selectValuationStock('${item.ticker}')">
+                  試算
+                </button>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Render Scatter Chart
+      renderTechValuationScatter(filtered);
+
+      // Render DCF Calculator for current selected stock
+      updateDcfSimulator();
+    }
+
+    function selectValuationStock(ticker) {
+      state.calendar.selectedValuationTicker = ticker;
+      renderValuationScorecard();
+    }
+
+    function updateDcfSimulator() {
+      const ticker = state.calendar.selectedValuationTicker || 'NVDA';
+      const item = TECH_VALUATION_DATA.find(d => d.ticker === ticker) || TECH_VALUATION_DATA[0];
+      if (!item) return;
+
+      const userWacc = Number(state.calendar.dcfWacc || 9.0);
+      const userTg = Number(state.calendar.dcfTerminalGrowth || 2.5);
+
+      // Sensitivity Gordon Growth adjustment factor
+      const baseWacc = item.wacc || 9.0;
+      const baseTg = item.terminalGrowth || 2.5;
+      const waccDiff = baseWacc - userWacc;
+      const tgDiff = userTg - baseTg;
+      
+      const adjMultiplier = 1 + (waccDiff * 0.12) + (tgDiff * 0.08);
+      const fair = +(item.fairValue * adjMultiplier).toFixed(1);
+      const safety = +(((fair - item.price) / item.price) * 100).toFixed(1);
+
+      const targetEl = document.getElementById('dcf-target-badge');
+      if (targetEl) targetEl.textContent = `目前標的：${item.flag} ${item.ticker} ${item.name}`;
+
+      const curPriceEl = document.getElementById('dcf-cur-price');
+      if (curPriceEl) curPriceEl.textContent = `${item.currency}${item.price.toLocaleString()}`;
+
+      const fairPriceEl = document.getElementById('dcf-fair-price');
+      if (fairPriceEl) fairPriceEl.textContent = `${item.currency}${fair.toLocaleString()}`;
+
+      const safetyBadge = document.getElementById('dcf-safety-badge');
+      if (safetyBadge) {
+        safetyBadge.textContent = `安全邊際 ${safety >= 0 ? '+' : ''}${safety}%`;
+        safetyBadge.className = `px-2.5 py-1 rounded-lg text-xs font-black border ${
+          safety >= 15 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border-emerald-500/30' :
+          safety >= 0 ? 'bg-blue-500/15 text-blue-600 dark:text-blue-400 border-blue-500/30' :
+          'bg-rose-500/15 text-rose-600 dark:text-rose-400 border-rose-500/30'
+        }`;
+      }
+
+      const waccVal = document.getElementById('dcf-wacc-val');
+      if (waccVal) waccVal.textContent = `${userWacc.toFixed(2)}%`;
+      const tgVal = document.getElementById('dcf-tg-val');
+      if (tgVal) tgVal.textContent = `${userTg.toFixed(2)}%`;
+    }
+
+    function renderTechValuationScatter(items) {
+      const canvas = document.getElementById('techValuationChart');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (charts.techValuation) charts.techValuation.destroy();
+
+      const scatterData = items.map(d => ({
+        x: d.fwdPe,
+        y: d.ruleOf40,
+        raw: d
+      }));
+
+      const pointColors = items.map(d => {
+        if (d.safetyMargin >= 15) return '#10b981'; // emerald
+        if (d.safetyMargin >= 0) return '#3b82f6';  // blue
+        return '#f43f5e';                           // rose
+      });
+
+      charts.techValuation = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [{
+            label: '科技巨頭估值分佈',
+            data: scatterData,
+            backgroundColor: pointColors,
+            borderColor: '#ffffff',
+            borderWidth: 1.5,
+            pointRadius: ctx => {
+              const d = ctx.raw && ctx.raw.raw;
+              if (!d) return 6;
+              return Math.max(6, Math.min(16, Math.sqrt(d.mktCapNum) * 0.28 + 4));
+            },
+            pointHoverRadius: 10
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(ctx) {
+                  const d = ctx.raw.raw;
+                  return [
+                    `${d.flag} ${d.ticker} ${d.name}`,
+                    `預估 P/E: ${d.fwdPe}x (5Y: ${d.histPe5y}x)`,
+                    `Rule of 40: ${d.ruleOf40}% (YoY +${d.revYoY}%, FCF ${d.fcfMargin}%)`,
+                    `PEG 比率: ${d.peg} ｜ 安全邊際: ${d.safetyMargin >= 0 ? '+' : ''}${d.safetyMargin}%`,
+                    `現價: ${d.currency}${d.price} ｜ DCF 公允價: ${d.currency}${d.fairValue}`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: { display: true, text: '預估本益比 Forward P/E (倍數越低越便宜)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: { color: textColor() },
+              min: 10,
+              max: 42
+            },
+            y: {
+              title: { display: true, text: 'Rule of 40 得分 (營收 YoY% + FCF 利潤率%)', color: textColor() },
+              grid: { color: gridColor() },
+              ticks: { color: textColor() },
+              min: 15,
+              max: 170
+            }
+          }
+        }
+      });
     }
 
     function renderTechEarningsCalendar() {
@@ -14097,6 +14615,7 @@
     function initCalendarEvents() {
       const techBtn = document.getElementById('cal-track-tech-btn');
       const macroBtn = document.getElementById('cal-track-macro-btn');
+      const valBtn = document.getElementById('cal-track-valuation-btn');
       if (techBtn) {
         techBtn.addEventListener('click', () => {
           state.calendar.tab = 'tech';
@@ -14107,6 +14626,50 @@
         macroBtn.addEventListener('click', () => {
           state.calendar.tab = 'macro';
           renderCalendar();
+        });
+      }
+      if (valBtn) {
+        valBtn.addEventListener('click', () => {
+          state.calendar.tab = 'valuation';
+          renderCalendar();
+        });
+      }
+
+      // Valuation Sector Filter
+      document.querySelectorAll('.val-sector-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.calendar.valuationSector = btn.dataset.valSector;
+          document.querySelectorAll('.val-sector-btn').forEach(b => {
+            const active = b.dataset.valSector === state.calendar.valuationSector;
+            b.className = active ? 'val-sector-btn px-2.5 py-1 rounded-md font-semibold transition-colors bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm' :
+                                   'val-sector-btn px-2.5 py-1 rounded-md font-medium transition-colors text-slate-600 dark:text-slate-300 hover:text-slate-900';
+          });
+          renderValuationScorecard();
+        });
+      });
+
+      // Valuation Search
+      const valSearch = document.getElementById('val-search-input');
+      if (valSearch) {
+        valSearch.addEventListener('input', e => {
+          state.calendar.valuationQuery = e.target.value;
+          renderValuationScorecard();
+        });
+      }
+
+      // DCF Sliders
+      const waccSlider = document.getElementById('dcf-wacc-slider');
+      if (waccSlider) {
+        waccSlider.addEventListener('input', e => {
+          state.calendar.dcfWacc = Number(e.target.value);
+          updateDcfSimulator();
+        });
+      }
+      const tgSlider = document.getElementById('dcf-tg-slider');
+      if (tgSlider) {
+        tgSlider.addEventListener('input', e => {
+          state.calendar.dcfTerminalGrowth = Number(e.target.value);
+          updateDcfSimulator();
         });
       }
 
