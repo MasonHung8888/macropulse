@@ -619,23 +619,8 @@ def fetch_ndc_lightscore():
                 lt, code, desc = get_light(sc)
                 history_12.append({"date": ym, "score": sc, "light": lt, "color": code, "desc": desc})
 
-            baseline_history = [
-                {"date": "2024-10", "score": 32, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2024-11", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2024-12", "score": 38, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2025-01", "score": 36, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-02", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-03", "score": 31, "light": "綠燈", "color": "green", "desc": "景氣穩定"},
-                {"date": "2025-04", "score": 35, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-05", "score": 36, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-06", "score": 38, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2025-07", "score": 35, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-08", "score": 39, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2025-09", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-            ]
-            dates_in_12 = {x["date"] for x in history_12}
-            full_history = [x for x in baseline_history if x["date"] not in dates_in_12] + history_12
-            full_history.sort(key=lambda x: x["date"])
+            # 只採用本次官方 API 回傳的觀測，不把程式內建數字混成官方資料。
+            full_history = sorted(history_12, key=lambda x: x["date"])
 
             components = []
             for k, v in d.get("right", {}).items():
@@ -1968,78 +1953,33 @@ def main(output_file: str = None):
     if not payload["crypto"] and "crypto" in existing_payload:
         payload["crypto"] = existing_payload["crypto"]
 
-    # 保留上一份歷史 series 避免缺漏
+    # 保留上一份已驗證的歷史序列；排除尚未有動態來源的模型快照。
+    unverifiable_series = {"twExportOrders", "twExportOrdersYoY", "equityRiskPremium"}
     if "series" in existing_payload:
         for sk, sv in existing_payload["series"].items():
-            if sk not in payload["series"]:
+            if sk not in payload["series"] and sk not in unverifiable_series:
                 payload["series"][sk] = sv
     if "sources" in existing_payload:
         payload["sources"] = existing_payload["sources"]
 
     # 8. 國發會景氣對策信號 (燈號與分數)
     ndc_data = fetch_ndc_lightscore()
-    if not ndc_data and "ndc_indicators" in existing_payload and existing_payload["ndc_indicators"].get("latest"):
-        ndc_data = existing_payload["ndc_indicators"]
-        print("  -> 使用上一份有效的國發會官方景氣信號資料")
 
-    if not ndc_data:
-        ndc_data = {
-            "latest": {"date": "2026-09", "score": 41, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-            "history": [
-                {"date": "2024-10", "score": 32, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2024-11", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2024-12", "score": 38, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2025-01", "score": 36, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-02", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-03", "score": 31, "light": "綠燈", "color": "green", "desc": "景氣穩定"},
-                {"date": "2025-04", "score": 35, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-05", "score": 36, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-06", "score": 38, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2025-07", "score": 35, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-08", "score": 39, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2025-09", "score": 34, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-10", "score": 35, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-11", "score": 37, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2025-12", "score": 38, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2026-01", "score": 39, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2026-02", "score": 37, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2026-03", "score": 36, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2026-04", "score": 35, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2026-05", "score": 36, "light": "黃紅燈", "color": "yellow-red", "desc": "轉向熱絡"},
-                {"date": "2026-06", "score": 38, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2026-07", "score": 39, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2026-08", "score": 39, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-                {"date": "2026-09", "score": 41, "light": "紅燈", "color": "red", "desc": "景氣熱絡"},
-            ],
-            "components": [
-                {"name": "股價指數", "score": 5},
-                {"name": "批發、零售及餐飲業營業額", "score": 5},
-                {"name": "工業生產指數", "score": 5},
-                {"name": "製造業銷售量指數", "score": 5},
-                {"name": "機械及電機設備進口值", "score": 5},
-                {"name": "製造業營業氣候測驗點", "score": 4},
-                {"name": "貨幣總計數 M1B", "score": 3},
-                {"name": "工業及服務業加班工時", "score": 4},
-                {"name": "海關出口值", "score": 5},
-            ],
-            "source": "國家發展委員會 (NDC)",
-            "source_url": "https://index.ndc.gov.tw/n/zh_tw",
+    if ndc_data and ndc_data.get("latest") and ndc_data.get("history"):
+        payload["ndc_indicators"] = ndc_data
+        payload["series"]["ndcScore"] = {
+            "name": "台灣 景氣對策信號綜合分數 (9-45) [國發會官方]",
+            "unit": "分",
+            "labels": [d["date"] for d in ndc_data["history"]],
+            "data": [d["score"] for d in ndc_data["history"]],
         }
-
-    payload["ndc_indicators"] = ndc_data
-    payload["series"]["ndcScore"] = {
-        "name": "台灣 景氣對策信號綜合分數 (9-45) [國發會官方]",
-        "unit": "分",
-        "labels": [d["date"] for d in ndc_data["history"]],
-        "data": [d["score"] for d in ndc_data["history"]],
-    }
-    payload["snapshots"]["ndc_score"] = ndc_data["latest"]["score"]
+        payload["snapshots"]["ndc_score"] = ndc_data["latest"]["score"]
+    else:
+        print("  -> 未取得可驗證的國發會資料；不建立推測值")
 
     # 8.5 經濟部統計處 台灣外銷訂單領先指標 (Export Orders)
-    tw_orders = fetch_tw_export_orders()
-    if not tw_orders and "tw_export_orders" in existing_payload:
-        tw_orders = existing_payload["tw_export_orders"]
-        print("  -> 使用上一份有效的外銷訂單資料")
+    # 尚未串接可驗證的 MOEA 機器端點；不得把程式內建快照標成最新官方值。
+    tw_orders = None
     if tw_orders and tw_orders.get("latest"):
         payload["tw_export_orders"] = tw_orders
         payload["series"]["twExportOrders"] = {
@@ -2058,16 +1998,8 @@ def main(output_file: str = None):
         payload["snapshots"]["tw_export_orders_amount"] = tw_orders["latest"]["amount_billions"]
 
     # 9. 美股標普 500 股權風險溢價 (ERP)
-    us10y_yield = (
-        payload.get("snapshots", {}).get("us10y")
-        or payload.get("macro_indicators", {}).get("us_10y", {}).get("value")
-        or 4.98
-    )
-    sp500_price = (
-        payload.get("snapshots", {}).get("sp500", {}).get("price")
-        or 7145.34
-    )
-    erp_data = compute_equity_risk_premium(sp500_price, us10y_yield, sp500_forward_pe=22.4)
+    # Forward P/E 尚無可驗證的動態來源；不要用硬編碼假設產生「最新」ERP。
+    erp_data = None
     if erp_data:
         payload["equity_risk_premium"] = erp_data
         payload["series"]["equityRiskPremium"] = {

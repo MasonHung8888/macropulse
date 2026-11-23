@@ -15,20 +15,34 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
+    env:
+      PYTHONUNBUFFERED: '1'
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: '3.11'
+          cache: pip
       - name: Install dependencies
-        run: pip install yfinance requests pandas
-      - name: Run data updater
-        run: |
-          python update_macro_data.py
-          python update_tw_bottom_data.py
-          python update_tech_earnings.py
+        run: pip install --disable-pip-version-check -r requirements.txt
+      - name: Update macro and market data
+        id: macro
+        continue-on-error: true
+        timeout-minutes: 25
+        run: python update_macro_data.py
+      - name: Update Taiwan market data
+        id: taiwan
+        continue-on-error: true
+        timeout-minutes: 12
+        run: python update_tw_bottom_data.py
+      - name: Update technology earnings data
+        id: earnings
+        continue-on-error: true
+        timeout-minutes: 8
+        run: python update_tech_earnings.py
       - name: Commit updated JSON
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -38,3 +52,14 @@ jobs:
             git pull --rebase origin main
             git push
           fi
+      - name: Verify all data pipelines
+        if: always()
+        env:
+          MACRO_RESULT: ${{ steps.macro.outcome }}
+          TAIWAN_RESULT: ${{ steps.taiwan.outcome }}
+          EARNINGS_RESULT: ${{ steps.earnings.outcome }}
+        run: |
+          echo "macro=$MACRO_RESULT taiwan=$TAIWAN_RESULT earnings=$EARNINGS_RESULT"
+          test "$MACRO_RESULT" = success
+          test "$TAIWAN_RESULT" = success
+          test "$EARNINGS_RESULT" = success
