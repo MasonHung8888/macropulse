@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-23 23:18:50",
+  "last_updated": "2026-11-23 23:25:01",
   "timezone": "Asia/Taipei",
   "total_count": 16,
   "data": [
@@ -37,7 +37,7 @@
         "fiscal_quarter": "Q3",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:18:50"
+        "verified_at": "2026-11-23 23:25:01"
       }
     },
     {
@@ -177,7 +177,7 @@
         "fiscal_quarter": "Q4",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:18:50"
+        "verified_at": "2026-11-23 23:25:01"
       }
     },
     {
@@ -354,7 +354,7 @@
         "fiscal_quarter": "Q4",
         "timezone": "Europe/Amsterdam",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:18:50"
+        "verified_at": "2026-11-23 23:25:01"
       }
     },
     {
@@ -424,7 +424,7 @@
         "fiscal_quarter": "Q2",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:18:50"
+        "verified_at": "2026-11-23 23:25:01"
       }
     },
     {
@@ -460,7 +460,7 @@
         "fiscal_quarter": "Q4",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:18:50"
+        "verified_at": "2026-11-23 23:25:01"
       }
     },
     {
@@ -496,7 +496,7 @@
         "fiscal_quarter": "Q4",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:18:50"
+        "verified_at": "2026-11-23 23:25:01"
       }
     },
     {
@@ -532,7 +532,7 @@
         "fiscal_quarter": "Q1",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:18:50"
+        "verified_at": "2026-11-23 23:25:01"
       }
     },
     {
@@ -568,12 +568,12 @@
         "fiscal_quarter": "Q4",
         "timezone": "America/New_York",
         "sample_period": "2024Q1-2026Q2",
-        "verified_at": "2026-11-23 23:18:50"
+        "verified_at": "2026-11-23 23:25:01"
       }
     }
   ],
   "_quality_metadata": {
-    "system_runtime": "2026-11-23 23:18:50",
+    "system_runtime": "2026-11-23 23:25:01",
     "data_source_status": {
       "twse_mops": "stale",
       "us_consensus": "available"

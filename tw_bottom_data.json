@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-23T15:18:47Z",
+  "updated_at": "2026-11-23T15:24:58Z",
   "market_date": "20261123",
   "market_status": "築底階段 (訊號增加，具性價比)",
   "model_score": {
@@ -54227,7 +54227,7 @@
     }
   },
   "options_max_pain": {
-    "updated_at": "2026-11-23 15:18:47",
+    "updated_at": "2026-11-23 15:24:58",
     "underlying_close": 36811.89,
     "weekly": {
       "contract_name": "TXO 近週合約",
@@ -54709,6 +54709,6 @@
   "_quality_metadata": {
     "engine_version": "2.0-verified",
     "fallback_used": false,
-    "timestamp": "2026-11-23 15:18:47"
+    "timestamp": "2026-11-23 15:24:58"
   }
 }
