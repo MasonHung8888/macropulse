@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-24T13:47:24Z",
+  "updated_at": "2026-11-24T23:05:02Z",
   "market_date": "20261124",
   "market_status": "觀察階段 (初步止跌徵兆浮現)",
   "model_score": {
@@ -78,7 +78,7 @@
         "margin": 10
       }
     },
-    "score_change": -5
+    "score_change": 0
   },
   "indices": {
     "twse": {
@@ -36893,7 +36893,7 @@
         4535.05
       ],
       "diffs": [
-      -14.2,
+        -14.2,
         196.97
       ],
       "ma5": [
@@ -36907,15 +36907,18 @@
   "futures_oi": {
     "net_contracts": -103182,
     "net_amount_thousand": -832157862,
-    "date": "20261124",
+    "date": "20261125",
     "history": {
       "dates": [
-        "11/24"
+        "11/24",
+        "11/25"
       ],
       "closes": [
+        -103182,
         -103182
       ],
       "ma5": [
+        -103182,
         -103182
       ],
       "provenance": "official_observations",
@@ -38286,11 +38289,11 @@
       "change_pct": 0.0,
       "ma5": 5.37,
       "ma10": 5.4,
-      "ma20": 5.35,
+      "ma20": 5.34,
       "ma60": 5.4,
       "ma120": 5.25,
       "ma240": 5.07,
-      "dist_ma20_pct": -0.93,
+      "dist_ma20_pct": -0.75,
       "dist_ma60_pct": -1.85,
       "r5": -3.0,
       "r10": 0.89,
@@ -46036,7 +46039,7 @@
       "prev_close": 87.0,
       "change_pct": 3.02,
       "ma5": 89.95,
-      "ma10": 95.25,
+      "ma10": 95.26,
       "ma20": 98.58,
       "ma60": 106.46,
       "ma120": 105.29,
@@ -53865,6 +53868,6 @@
   "_quality_metadata": {
     "engine_version": "2.0-verified",
     "fallback_used": false,
-    "timestamp": "2026-11-24 13:47:24"
+    "timestamp": "2026-11-24 23:05:02"
   }
 }
