@@ -3082,23 +3082,23 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
           <div class="p-3.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/70 dark:border-emerald-800/50">
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">單月外銷訂單總額 (最新)</div>
-            <div id="export-amount-val" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400">$1,238.2 億</div>
-            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">創歷年單月歷史新高</div>
+            <div id="export-amount-val" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400">—</div>
+            <div class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">經濟部官方月資料</div>
           </div>
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">外銷訂單年增率 (YoY)</div>
-            <div id="export-yoy-val" class="text-2xl font-bold tabular-nums mt-1 text-rose-500">+78.3%</div>
-            <div class="text-[11px] text-slate-500 mt-0.5">連續 21 個月呈現正成長</div>
+            <div id="export-yoy-val" class="text-2xl font-bold tabular-nums mt-1 text-rose-500">—</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">由官方月金額計算</div>
           </div>
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">累計前 10 月總額 (YTD)</div>
-            <div id="export-ytd-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-800 dark:text-slate-200">$9,430.2 億</div>
-            <div class="text-[11px] text-slate-500 mt-0.5">累計年增 +58.6% (突破前高)</div>
+            <div id="export-ytd-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-800 dark:text-slate-200">—</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">同一官方序列累加</div>
           </div>
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">電子與資通訊合計佔比</div>
-            <div id="export-tech-share" class="text-2xl font-bold tabular-nums mt-1 text-indigo-500">81.3%</div>
-            <div class="text-[11px] text-slate-500 mt-0.5">AI 伺服器與半導體供應鏈主導</div>
+            <div id="export-tech-share" class="text-2xl font-bold tabular-nums mt-1 text-indigo-500">—</div>
+            <div class="text-[11px] text-slate-500 mt-0.5">官方總額 CSV 未提供分類</div>
           </div>
         </div>
 
@@ -3116,7 +3116,7 @@
 
           <div class="lg:col-span-4 flex flex-col justify-between space-y-3">
             <div>
-              <h3 class="text-xs font-bold text-slate-700 dark:text-slate-200 mb-2">主要接單貨品結構 (2026-10)</h3>
+              <h3 id="export-categories-title" class="text-xs font-bold text-slate-700 dark:text-slate-200 mb-2">主要接單貨品結構</h3>
               <div id="export-categories-grid" class="space-y-1.5 text-xs">
                 <!-- 動態由 JavaScript 生成產品結構 -->
               </div>
@@ -8340,9 +8340,12 @@
         if (amtEl) amtEl.textContent = `$${exp.amount_billions.toLocaleString()} 億`;
         if (yoyEl) yoyEl.textContent = `${exp.yoy_pct >= 0 ? '+' : ''}${exp.yoy_pct}%`;
         if (ytdEl) ytdEl.textContent = `$${exp.ytd_amount_billions.toLocaleString()} 億`;
-        if (shareEl && exp.categories) {
+        if (shareEl && exp.categories?.length) {
           const techShare = exp.categories.slice(0, 2).reduce((s, x) => s + x.share, 0);
           shareEl.textContent = `${techShare.toFixed(1)}%`;
+        } else if (shareEl) {
+          shareEl.textContent = '無可驗證分類資料';
+          shareEl.classList.replace('text-2xl', 'text-sm');
         }
         if (badgeEl) badgeEl.textContent = exp.status_badge || `連${exp.consecutive_positive_months}紅·創歷史新高`;
         if (kpiLabel) kpiLabel.textContent = `外銷訂單總額 (${exp.date}) [經濟部]`;
@@ -8350,7 +8353,9 @@
         if (kpiSub) kpiSub.textContent = `年增 +${exp.yoy_pct}% · 連${exp.consecutive_positive_months}紅`;
 
         const grid = document.getElementById('export-categories-grid');
-        if (grid && exp.categories) {
+        const categoriesTitle = document.getElementById('export-categories-title');
+        if (categoriesTitle) categoriesTitle.textContent = `主要接單貨品結構 (${exp.date})`;
+        if (grid && exp.categories?.length) {
           grid.innerHTML = exp.categories.map(c => `
             <div class="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
               <span class="text-slate-700 dark:text-slate-300 font-medium">${c.name}</span>
@@ -8360,6 +8365,8 @@
               </div>
             </div>
           `).join('');
+        } else if (grid) {
+          grid.innerHTML = '<div class="p-3 rounded-lg bg-slate-50 dark:bg-slate-800/60 text-slate-500">目前官方總額 CSV 未提供貨品分類，不以推測值填補。</div>';
         }
 
         if (COUNTRY_DATA.TW && COUNTRY_DATA.TW.insights) {
