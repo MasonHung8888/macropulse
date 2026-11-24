@@ -1677,7 +1677,7 @@
       </div>
 
       <!-- 4.5 五大底部訊號模型：歷史勝率回測與壓力測試實證 (Backtesting & Robustness Lab) -->
-      <div id="tw-backtest-lab" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+      <div id="tw-backtest-lab" class="hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
         
         <!-- Header -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -2033,7 +2033,7 @@
               台灣 M1B: 7.20% ｜ M2: 7.24% ｜ 剪刀差: <span class="text-rose-600 dark:text-rose-400 font-bold">-0.04%</span>。目前處於微幅偏緊狀態，靜待流動性由負轉正形成黃金交叉。
             </div>
           </div>
-          <div class="p-3 rounded-lg bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/80 dark:border-amber-800/60 space-y-1 text-xs cursor-pointer hover:border-amber-500 hover:shadow-md transition-all group" onclick="switchTab('trader'); setTimeout(() => document.getElementById('txo-maxpain-section')?.scrollIntoView({behavior: 'smooth'}), 120);">
+          <div class="hidden p-3 rounded-lg bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/80 dark:border-amber-800/60 space-y-1 text-xs cursor-pointer hover:border-amber-500 hover:shadow-md transition-all group" onclick="switchTab('trader'); setTimeout(() => document.getElementById('txo-maxpain-section')?.scrollIntoView({behavior: 'smooth'}), 120);">
             <div class="flex items-center justify-between">
               <span class="font-semibold text-amber-900 dark:text-amber-200 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">臺指選擇權最大痛點 (TXO)</span>
               <span class="text-[10px] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-0.5"><i data-lucide="layers" class="w-3 h-3"></i> 痛點雷達</span>
@@ -2046,7 +2046,7 @@
       </div>
 
       <!-- 6.2 八大公股行庫護盤勝率雷達 ＆ 投信季底作帳標的追蹤器 (State-Owned Banks & Investment Trust Radar) -->
-      <div id="tw-state-banks-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+      <div id="tw-state-banks-section" class="hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
           <div>
             <div class="flex items-center gap-2">
@@ -2273,7 +2273,7 @@
       </div>
 
       <!-- 7.5 金字塔分批建倉與部位試算器 (Pyramid DCA & Position Sizing Calculator) -->
-      <div id="tw-dca-calculator" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+      <div id="tw-dca-calculator" class="hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
         
         <!-- Header -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
@@ -2640,7 +2640,7 @@
       </div>
 
       <!-- 9. 三種市場情境與今日投資觀察結論 -->
-      <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+      <div id="tw-unverified-scenarios" class="hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
         <div class="pb-3 border-b border-slate-100 dark:border-slate-800">
           <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
             <i data-lucide="compass" class="w-5 h-5 text-indigo-500"></i> 三種市場情境推演與今日投資觀察結論
