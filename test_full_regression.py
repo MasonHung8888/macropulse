@@ -9,7 +9,7 @@ import json
 import os
 from validate_schema_compatibility import validate_pair
 
-BASE_DIR = "/Users/honghuanyuan/.gemini/antigravity/scratch/macropulse"
+BASE_DIR = os.environ.get("MACROPULSE_TEST_DIR", os.path.dirname(os.path.abspath(__file__)))
 
 def test_system_a():
     base = os.path.join(BASE_DIR, "macro_live_data.json")
@@ -49,15 +49,19 @@ def test_system_c():
         d = json.load(f)
     # C-01
     df = d["institutional_flow"]["history"]["daily_foreign"]
-    assert len(set(df)) > 1, "daily_foreign must not be all identical"
+    ih = d["institutional_flow"]["history"]
+    assert ih.get("provenance") == "official_observations", "institutional history must be source-backed"
+    assert len(df) == len(ih["dates"]), "institutional dates and values must align"
     # C-02
     mb = d["margin_trading"]["history"]["balances"]
     md = d["margin_trading"]["history"]["diffs"]
     assert len(mb) == len(md)
     # C-04
     assert d["indices"]["twse"]["taiex"]["close"] != 36033.29, "No fake 36,033 points"
-    # C-07
-    assert d["options_max_pain"]["weekly"]["max_pain_strike"] > 0
+    # C-07: max-pain is optional; absence is preferable to a fabricated strike.
+    omp = d.get("options_max_pain", {})
+    if omp.get("weekly"):
+        assert omp["weekly"].get("max_pain_strike", 0) > 0
     # C-08
     p_opt = int(d["scenarios"]["optimistic"]["probability"].replace("%", ""))
     p_base = int(d["scenarios"]["base_case"]["probability"].replace("%", ""))

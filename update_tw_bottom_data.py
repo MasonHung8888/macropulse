@@ -60,6 +60,38 @@ def safe_float(val: Any, default: float = 0.0) -> float:
         return default
 
 
+def append_verified_observation(
+    history: Dict[str, Any],
+    date_value: str,
+    value: Any,
+    value_key: str,
+    max_points: int = 15,
+) -> Tuple[List[str], List[Any]]:
+    """Only retain observations explicitly collected from the official source.
+
+    Older versions seeded charts with example arrays.  Those arrays have no
+    auditable observation-level provenance, so they must not be inherited.
+    """
+    dates: List[str] = []
+    values: List[Any] = []
+    if history.get("provenance") == "official_observations":
+        dates = list(history.get("dates", []))
+        values = list(history.get(value_key, []))
+        if len(dates) != len(values):
+            dates, values = [], []
+
+    if date_value and value is not None:
+        normalized_date = date_value
+        if len(date_value) == 8 and date_value.isdigit():
+            normalized_date = f"{date_value[4:6]}/{date_value[6:8]}"
+        if dates and dates[-1] == normalized_date:
+            values[-1] = value
+        else:
+            dates.append(normalized_date)
+            values.append(value)
+    return dates[-max_points:], values[-max_points:]
+
+
 def load_previous_snapshot(prev_file: str, output_file: str) -> Dict[str, Any]:
     """讀取前次已驗證真實資料作為基準與 Fallback (C-04, C-11)"""
     for candidate in [prev_file, output_file]:
@@ -195,22 +227,12 @@ def fetch_twse_institutions(prev_data: Dict[str, Any]) -> Dict[str, Any]:
         inst["total"] = prev_inst.get("total", 0.0)
         inst["date"] = prev_inst.get("date", "")
 
-    # C-01: 建立或繼承真實歷史序列，確保數值具備真實波動性，非同一重複數值
+    # C-01: 僅繼承可逐筆追溯的官方觀測；舊版範例數列不再使用。
     prev_hist = prev_inst.get("history", {})
-    dates = prev_hist.get("dates", [])
-    daily_foreign = prev_hist.get("daily_foreign", [])
-    
-    # 若先前的歷史全是一模一樣的值 (例如全為 -95.11)，以真實波動範例序列置換種子
-    is_all_identical = len(daily_foreign) > 3 and len(set(daily_foreign)) == 1
-    if not daily_foreign or is_all_identical or len(daily_foreign) < 10:
-        dates = ["11/02", "11/03", "11/04", "11/05", "11/06", "11/09", "11/10", "11/11", "11/12", "11/13", "11/16", "11/17", "11/18", "11/19", "11/20"]
-        daily_foreign = [-185.30, -95.11, 45.20, -120.65, 88.40, -250.15, 110.50, -95.11, 32.40, -145.80, 62.10, -115.30, -95.11, 48.60, -95.11]
-    
-    # 若有今天的新資料且日期不同，滑動加入
-    curr_mmdd = (datetime.now() + timedelta(hours=8)).strftime("%m/%d")
-    if live_success and dates and dates[-1] != curr_mmdd:
-        dates = dates[1:] + [curr_mmdd]
-        daily_foreign = daily_foreign[1:] + [inst["foreign"]]
+    dates, daily_foreign = append_verified_observation(
+        prev_hist, inst["date"] if live_success else "",
+        inst["foreign"] if live_success else None, "daily_foreign"
+    )
         
     # 動態累計累積買賣超
     accum_foreign = []
@@ -222,7 +244,9 @@ def fetch_twse_institutions(prev_data: Dict[str, Any]) -> Dict[str, Any]:
     inst["history"] = {
         "dates": dates,
         "daily_foreign": [round(x, 2) for x in daily_foreign],
-        "accum_foreign": accum_foreign
+        "accum_foreign": accum_foreign,
+        "provenance": "official_observations",
+        "source": "TWSE BFI82U"
     }
     return inst
 
@@ -261,29 +285,29 @@ def fetch_twse_margin(prev_data: Dict[str, Any]) -> Dict[str, Any]:
         
     prev_margin = prev_data.get("margin_trading", {})
     if not live_success and prev_margin:
-        margin_info["margin_balance"] = prev_margin.get("margin_balance", 4352.27)
-        margin_info["margin_prev"] = prev_margin.get("margin_prev", 4843.68)
-        margin_info["margin_diff"] = prev_margin.get("margin_diff", -491.41)
-        margin_info["short_balance"] = prev_margin.get("short_balance", 320000)
-        margin_info["short_prev"] = prev_margin.get("short_prev", 315000)
-        margin_info["short_diff"] = prev_margin.get("short_diff", 5000)
+        margin_info["margin_balance"] = prev_margin.get("margin_balance", 0.0)
+        margin_info["margin_prev"] = prev_margin.get("margin_prev", 0.0)
+        margin_info["margin_diff"] = prev_margin.get("margin_diff", 0.0)
+        margin_info["short_balance"] = prev_margin.get("short_balance", 0)
+        margin_info["short_prev"] = prev_margin.get("short_prev", 0)
+        margin_info["short_diff"] = prev_margin.get("short_diff", 0)
         margin_info["date"] = prev_margin.get("date", "")
 
     # C-02: 維護歷史餘額與動態計算差額及 5MA
     prev_hist = prev_margin.get("history", {})
-    dates = prev_hist.get("dates", ["11/02", "11/03", "11/04", "11/05", "11/06", "11/09", "11/10", "11/11", "11/12", "11/13", "11/16", "11/17", "11/18", "11/19", "11/20"])
-    balances = prev_hist.get("balances", [6226.99, 5997.74, 5969.46, 5764.09, 5340.53, 5399.16, 5366.79, 5411.58, 5334.75, 5365.99, 5244.98, 5087.21, 5080.27, 4843.68, 4352.27])
-    
-    curr_mmdd = (datetime.now() + timedelta(hours=8)).strftime("%m/%d")
-    if live_success and dates and dates[-1] != curr_mmdd and margin_info["margin_balance"] > 0:
-        dates = dates[1:] + [curr_mmdd]
-        balances = balances[1:] + [margin_info["margin_balance"]]
+    dates, balances = append_verified_observation(
+        prev_hist, margin_info["date"] if live_success else "",
+        margin_info["margin_balance"] if live_success and margin_info["margin_balance"] > 0 else None,
+        "balances"
+    )
         
     # 動態計算 diffs 與 ma5
     diffs = []
     for i in range(len(balances)):
         if i == 0:
-            diffs.append(round(margin_info.get("margin_diff", -7.69), 2))
+            prior_diffs = prev_hist.get("diffs", []) if prev_hist.get("provenance") == "official_observations" else []
+            first_diff = prior_diffs[0] if prior_diffs else margin_info.get("margin_diff", 0.0)
+            diffs.append(round(first_diff, 2))
         else:
             diffs.append(round(balances[i] - balances[i-1], 2))
             
@@ -296,7 +320,9 @@ def fetch_twse_margin(prev_data: Dict[str, Any]) -> Dict[str, Any]:
         "dates": dates,
         "balances": [round(b, 2) for b in balances],
         "diffs": diffs,
-        "ma5": ma5
+        "ma5": ma5,
+        "provenance": "official_observations",
+        "source": "TWSE MI_MARGN"
     }
     return margin_info
 
@@ -306,7 +332,7 @@ def fetch_taifex_oi(prev_data: Dict[str, Any]) -> Dict[str, Any]:
     抓取 TAIFEX 外資期貨未平倉部位 (C-03)。
     使用標準庫 HTMLParser 直接解析，零外部依賴。
     """
-    foreign_oi = {"net_contracts": -42500, "net_amount_thousand": -120000000}
+    foreign_oi = {"net_contracts": 0, "net_amount_thousand": 0, "date": ""}
     live_success = False
     
     try:
@@ -341,6 +367,7 @@ def fetch_taifex_oi(prev_data: Dict[str, Any]) -> Dict[str, Any]:
                 amount = int(safe_float(r[-1]))
                 foreign_oi["net_contracts"] = contracts
                 foreign_oi["net_amount_thousand"] = amount
+                foreign_oi["date"] = datetime.now(timezone(timedelta(hours=8))).strftime("%Y%m%d")
                 live_success = True
                 logging.info(f"TAIFEX 外資期貨未平倉連線成功: {contracts} 口")
                 break
@@ -354,13 +381,10 @@ def fetch_taifex_oi(prev_data: Dict[str, Any]) -> Dict[str, Any]:
 
     # C-03: 動態計算歷史序列 ma5
     prev_hist = prev_oi.get("history", {})
-    dates = prev_hist.get("dates", ["11/02", "11/03", "11/04", "11/05", "11/06", "11/09", "11/10", "11/11", "11/12", "11/13", "11/16", "11/17", "11/18", "11/19", "11/20"])
-    closes = prev_hist.get("closes", [-89379, -91812, -93647, -95651, -99930, -101771, -103473, -104271, -99573, -100870, -96787, -97896, -99438, -99219, -97863])
-    
-    curr_mmdd = (datetime.now() + timedelta(hours=8)).strftime("%m/%d")
-    if live_success and dates and dates[-1] != curr_mmdd:
-        dates = dates[1:] + [curr_mmdd]
-        closes = closes[1:] + [foreign_oi["net_contracts"]]
+    dates, closes = append_verified_observation(
+        prev_hist, foreign_oi.get("date", "") if live_success else "",
+        foreign_oi["net_contracts"] if live_success else None, "closes"
+    )
         
     ma5 = []
     for i in range(len(closes)):
@@ -370,7 +394,9 @@ def fetch_taifex_oi(prev_data: Dict[str, Any]) -> Dict[str, Any]:
     foreign_oi["history"] = {
         "dates": dates,
         "closes": closes,
-        "ma5": ma5
+        "ma5": ma5,
+        "provenance": "official_observations",
+        "source": "TAIFEX futContractsDate"
     }
     return foreign_oi
 
