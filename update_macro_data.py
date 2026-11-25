@@ -324,19 +324,38 @@ def fetch_corporate_bond_monitor() -> dict:
         "indices": indices,
         "history": history,
         "issues": [
-            {
-                "issuer": "CoreWeave", "maturity": "2031", "coupon": 9.75,
-                "market_yield": None, "spread_bps": None, "quote_status": "無公開每日報價",
-                "terms_source": "CoreWeave SEC filing",
-                "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000183/ex411.htm",
-            },
-            *[
-                {"issuer": issuer, "maturity": None, "coupon": None, "market_yield": None,
-                 "spread_bps": None, "quote_status": "待取得可驗證單券報價", "terms_source": None, "source_url": None}
-                for issuer in ("SoftBank", "Oracle", "SpaceX", "Broadcom", "NVIDIA", "Meta", "Alphabet", "Microsoft", "Amazon")
-            ],
+            {"issuer": "CoreWeave", "maturity": "2031", "coupon": 9.750, "currency": "USD", "identifier": None,
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "CoreWeave SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000183/ex411.htm"},
+            {"issuer": "SoftBank Group", "maturity": "2031-07-08", "coupon": 7.000, "currency": "USD", "identifier": None,
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "SoftBank Group bond disclosures", "source_url": "https://group.softbank/en/ir/stock/bond"},
+            {"issuer": "Oracle", "maturity": "2032-09-26", "coupon": 4.800, "currency": "USD", "identifier": "68389XDK8",
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "Oracle SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525220445/d31817dex41.htm"},
+            {"issuer": "SpaceX", "maturity": "2031-07-15", "coupon": 5.350, "currency": "USD", "identifier": None,
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "SpaceX investor relations", "source_url": "https://ir.spacex.com/updates/releases-details/2026/SpaceX-Announces-Pricing-of-25-Billion-Inaugural-Bond-Issuance-2026-33VwNgsx3O/default.aspx"},
+            {"issuer": "Broadcom", "maturity": "2031-11-15", "coupon": 5.150, "currency": "USD", "identifier": "11135FBY6",
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "Broadcom SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036124033072/ny20032136x6_ex4-2.htm"},
+            {"issuer": "NVIDIA", "maturity": "2031-06-15", "coupon": 4.500, "currency": "USD", "identifier": "67066GAR5",
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "NVIDIA SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000119312526275783/d48176dex42.htm"},
+            {"issuer": "Meta", "maturity": "2031", "coupon": 4.550, "currency": "USD", "identifier": None,
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "Meta SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526201738/d109954d424b2.htm"},
+            {"issuer": "Alphabet", "maturity": "2031-08-15", "coupon": 4.875, "currency": "USD", "identifier": "02079KCQ8",
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "Alphabet SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526342390/d171253dex46.htm"},
+            {"issuer": "Microsoft", "maturity": "2031", "coupon": 5.200, "currency": "USD", "identifier": None,
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "Microsoft SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526442618/d150456d424b2.htm"},
+            {"issuer": "Amazon", "maturity": "2031", "coupon": 4.800, "currency": "USD", "identifier": "023135EA0",
+             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
+             "terms_source": "Amazon SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm"},
         ],
-        "methodology": "指數殖利率與 OAS 為 FRED 發布的 ICE BofA 每日資料；單券 YTM 僅在取得具日期、可公開驗證的報價時顯示。",
+        "methodology": "票息、到期日與識別碼來自發行人或 SEC 官方文件；指數殖利率與 OAS 來自 FRED / ICE BofA。FINRA TRACE 單券成交殖利率需授權工作階段，未取得授權前不以截圖或估算值代替。",
     }
 
 
@@ -2402,9 +2421,17 @@ def main(output_file: str = None):
         if not item.get("source_url") or item.get("date") != bond_data.get("as_of"):
             errors.append(f"公司債 {item.get('key')} 缺少來源或資料日不一致")
     for issue in bond_data.get("issues", []):
+        if (issue.get("terms_status") != "verified" or not issue.get("maturity") or
+                not isinstance(issue.get("coupon"), (int, float)) or not issue.get("currency") or
+                not issue.get("source_url")):
+            errors.append(f"單券 {issue.get('issuer')} 發行條件不完整或未驗證")
         if issue.get("market_yield") is not None and (not issue.get("source_url") or not issue.get("quote_date")):
             errors.append(f"單券 {issue.get('issuer')} 有殖利率但缺少報價來源或日期")
     checks.append({"name": "Corporate bond index coverage", "passed": len(bond_keys & {"ig", "hy", "ccc"}), "required": 3})
+    verified_bond_terms = sum(issue.get("terms_status") == "verified" for issue in bond_data.get("issues", []))
+    checks.append({"name": "Corporate bond verified terms", "passed": verified_bond_terms, "required": 10})
+    if verified_bond_terms < 10:
+        errors.append(f"公司債單券發行條件缺漏：{verified_bond_terms}/10")
     macro_ranges = {
         "us_cpi_yoy": (-10, 30),
         "us_core_cpi_yoy": (-10, 30),

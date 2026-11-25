@@ -51,8 +51,14 @@ for item in bond_indices:
     if not isinstance(item.get("yield"), (int, float)) or not isinstance(item.get("oas_bps"), (int, float)):
         errors.append(f"corporate bond index lacks numeric yield/OAS: {item.get('key')}")
 for issue in bonds.get("issues", []):
+    if (issue.get("terms_status") != "verified" or not issue.get("maturity") or
+            not isinstance(issue.get("coupon"), (int, float)) or not issue.get("currency") or
+            not issue.get("source_url")):
+        errors.append(f"corporate bond terms incomplete or unverified: {issue.get('issuer')}")
     if issue.get("market_yield") is not None and (not issue.get("source_url") or not issue.get("quote_date")):
         errors.append(f"corporate bond quote lacks date/source: {issue.get('issuer')}")
+if len(bonds.get("issues", [])) != 10:
+    errors.append("corporate bond monitor must contain 10 verified issue rows")
 
 for market_key in ("tw_heatmap", "sp500_heatmap"):
     heatmap = macro.get(market_key, [])
