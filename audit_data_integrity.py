@@ -41,6 +41,19 @@ for key, indicator in macro.get("macro_indicators", {}).items():
     if not indicator.get("source_url") or not indicator.get("period"):
         errors.append(f"macro indicator lacks source/date: {key}")
 
+bonds = macro.get("corporate_bonds", {})
+bond_indices = bonds.get("indices", [])
+if {item.get("key") for item in bond_indices} != {"ig", "hy", "ccc"}:
+    errors.append("corporate bond monitor lacks IG/HY/CCC index coverage")
+for item in bond_indices:
+    if item.get("date") != bonds.get("as_of") or not item.get("source_url"):
+        errors.append(f"corporate bond index lacks aligned date/source: {item.get('key')}")
+    if not isinstance(item.get("yield"), (int, float)) or not isinstance(item.get("oas_bps"), (int, float)):
+        errors.append(f"corporate bond index lacks numeric yield/OAS: {item.get('key')}")
+for issue in bonds.get("issues", []):
+    if issue.get("market_yield") is not None and (not issue.get("source_url") or not issue.get("quote_date")):
+        errors.append(f"corporate bond quote lacks date/source: {issue.get('issuer')}")
+
 for market_key in ("tw_heatmap", "sp500_heatmap"):
     heatmap = macro.get(market_key, [])
     dates = {row.get("as_of") for row in heatmap if row.get("as_of")}

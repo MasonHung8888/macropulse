@@ -276,6 +276,70 @@ def fetch_fred_macro() -> tuple[dict, dict]:
     return indicators, series
 
 
+def fetch_corporate_bond_monitor() -> dict:
+    """取得 ICE BofA 公司債指數殖利率與利差；不以指數值冒充單一公司債報價。"""
+    print("  抓取 FRED / ICE BofA 公司債每日指標...")
+    definitions = {
+        "ig": {"name": "美國投資級公司債", "yield_id": "BAMLC0A0CMEY", "oas_id": "BAMLC0A0CM"},
+        "hy": {"name": "美國高收益公司債", "yield_id": "BAMLH0A0HYM2EY", "oas_id": "BAMLH0A0HYM2"},
+        "ccc": {"name": "美國 CCC 以下公司債", "yield_id": "BAMLH0A3HYCEY", "oas_id": "BAMLH0A3HYC"},
+    }
+    series_ids = [item[field] for item in definitions.values() for field in ("yield_id", "oas_id")]
+    observations = fetch_fred_observations(series_ids)
+    indices, history_maps, all_dates = [], {}, set()
+    for key, definition in definitions.items():
+        yield_rows = observations.get(definition["yield_id"], [])
+        oas_rows = observations.get(definition["oas_id"], [])
+        if not yield_rows:
+            continue
+        latest_date, latest_yield = yield_rows[-1]
+        latest_oas = oas_rows[-1][1] if oas_rows else None
+        indices.append({
+            "key": key,
+            "name": definition["name"],
+            "yield": round(latest_yield, 2),
+            "oas_bps": round(latest_oas * 100) if latest_oas is not None else None,
+            "date": latest_date,
+            "yield_series_id": definition["yield_id"],
+            "oas_series_id": definition["oas_id"],
+            "source": "ICE Data Indices, LLC via FRED",
+            "source_url": f"https://fred.stlouisfed.org/series/{definition['yield_id']}",
+        })
+        recent = yield_rows[-90:]
+        history_maps[key] = {date: round(value, 2) for date, value in recent}
+        all_dates.update(date for date, _ in recent)
+    if not indices:
+        return {}
+    labels = sorted(all_dates)
+    history = {"labels": labels}
+    for key in definitions:
+        values = history_maps.get(key, {})
+        history[key] = [values.get(date) for date in labels]
+    return {
+        "as_of": max(item["date"] for item in indices),
+        "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
+        "frequency": "daily_business_day",
+        "source": "ICE Data Indices, LLC via FRED",
+        "source_url": "https://fred.stlouisfed.org/categories/32348",
+        "indices": indices,
+        "history": history,
+        "issues": [
+            {
+                "issuer": "CoreWeave", "maturity": "2031", "coupon": 9.75,
+                "market_yield": None, "spread_bps": None, "quote_status": "無公開每日報價",
+                "terms_source": "CoreWeave SEC filing",
+                "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000183/ex411.htm",
+            },
+            *[
+                {"issuer": issuer, "maturity": None, "coupon": None, "market_yield": None,
+                 "spread_bps": None, "quote_status": "待取得可驗證單券報價", "terms_source": None, "source_url": None}
+                for issuer in ("SoftBank", "Oracle", "SpaceX", "Broadcom", "NVIDIA", "Meta", "Alphabet", "Microsoft", "Amazon")
+            ],
+        ],
+        "methodology": "指數殖利率與 OAS 為 FRED 發布的 ICE BofA 每日資料；單券 YTM 僅在取得具日期、可公開驗證的報價時顯示。",
+    }
+
+
 def fetch_world_bank_macro() -> tuple[dict, dict]:
     """取得跨國可比的世界銀行年度實績，保留最近非空正式值。"""
     print("3/7 抓取世界銀行跨國年度總經資料...")
@@ -1974,6 +2038,7 @@ def main(output_file: str = None):
         "country_macro": {},
         "ndc_indicators": {},
         "equity_risk_premium": {},
+        "corporate_bonds": {},
         "sources": {},
         "data_quality": {"status": "checking", "errors": [], "warnings": []},
     }
@@ -2016,6 +2081,12 @@ def main(output_file: str = None):
         print("  -> 使用上一份有效的 FRED 美國總經資料")
     payload["macro_indicators"].update(fred_indicators)
     payload["series"].update(fred_series)
+
+    corporate_bonds = fetch_corporate_bond_monitor()
+    if not corporate_bonds and existing_payload.get("corporate_bonds"):
+        corporate_bonds = existing_payload["corporate_bonds"]
+        print("  -> 使用上一份有效的公司債指標資料")
+    payload["corporate_bonds"] = corporate_bonds
 
     # 3. 世界銀行跨國年度資料
     country_macro, country_series = fetch_world_bank_macro()
@@ -2315,6 +2386,25 @@ def main(output_file: str = None):
         errors.append("市場快照缺漏：" + ", ".join(missing_snapshots))
     if len(payload["macro_indicators"]) < 8:
         errors.append(f"FRED 官方總經指標缺漏：{len(payload['macro_indicators'])}/10")
+    bond_data = payload.get("corporate_bonds", {})
+    bond_indices = bond_data.get("indices", [])
+    bond_keys = {item.get("key") for item in bond_indices}
+    bond_age = observation_age_days(bond_data.get("as_of", ""))
+    if bond_keys != {"ig", "hy", "ccc"}:
+        errors.append(f"公司債指數覆蓋不完整：{sorted(key for key in bond_keys if key)}")
+    if bond_age is None or bond_age < -1 or bond_age > 10:
+        errors.append(f"公司債指數資料過舊或日期異常：{bond_data.get('as_of')}")
+    for item in bond_indices:
+        if not isinstance(item.get("yield"), (int, float)) or not 0 < item["yield"] < 100:
+            errors.append(f"公司債 {item.get('key')} 殖利率無效：{item.get('yield')}")
+        if not isinstance(item.get("oas_bps"), (int, float)) or not 0 <= item["oas_bps"] < 10000:
+            errors.append(f"公司債 {item.get('key')} OAS 無效：{item.get('oas_bps')}")
+        if not item.get("source_url") or item.get("date") != bond_data.get("as_of"):
+            errors.append(f"公司債 {item.get('key')} 缺少來源或資料日不一致")
+    for issue in bond_data.get("issues", []):
+        if issue.get("market_yield") is not None and (not issue.get("source_url") or not issue.get("quote_date")):
+            errors.append(f"單券 {issue.get('issuer')} 有殖利率但缺少報價來源或日期")
+    checks.append({"name": "Corporate bond index coverage", "passed": len(bond_keys & {"ig", "hy", "ccc"}), "required": 3})
     macro_ranges = {
         "us_cpi_yoy": (-10, 30),
         "us_core_cpi_yoy": (-10, 30),
@@ -2403,6 +2493,7 @@ def main(output_file: str = None):
         "buffett_indicator": {"label": "FRED (GDP) & Yahoo Finance (^W5000)", "status": "ok" if payload.get("buffett_indicator") else "error"},
         "tips_breakeven": {"label": "FRED 10Y TIPS & Breakeven Inflation", "status": "ok" if payload.get("tips_breakeven") else "error"},
         "global_central_banks": {"label": "FRED G4 Central Banks (Fed, ECB, BOJ, PBOC)", "status": "ok" if payload.get("global_central_banks") else "error"},
+        "corporate_bonds": {"label": "ICE Data Indices via FRED", "status": "ok" if bond_keys == {"ig", "hy", "ccc"} else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
         "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
     }

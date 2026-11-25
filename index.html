@@ -692,6 +692,44 @@
         </div>
       </div>
 
+      <!-- 可稽核公司債殖利率與信用風險監控 -->
+      <section id="corporate-bond-section" class="hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-3 border-b border-slate-100 dark:border-slate-800">
+          <div>
+            <h2 class="font-bold text-base sm:text-lg flex items-center gap-2 text-slate-900 dark:text-white">
+              <i data-lucide="badge-dollar-sign" class="w-5 h-5 text-violet-500"></i> 美國公司債殖利率與信用風險監控
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">每日追蹤 ICE BofA 投資級、高收益與 CCC 公司債指數；單券 YTM 僅顯示可公開驗證的具日期報價。</p>
+          </div>
+          <div class="text-xs text-right">
+            <a id="corporate-bond-source" href="https://fred.stlouisfed.org/categories/32348" target="_blank" rel="noopener noreferrer" class="text-violet-600 dark:text-violet-400 hover:underline">ICE BofA via FRED</a>
+            <div id="corporate-bond-asof" class="text-slate-500 dark:text-slate-400 mt-1">資料日期 —</div>
+          </div>
+        </div>
+        <div id="corporate-bond-kpis" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-5">
+          <div class="xl:col-span-7">
+            <div class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-2">最近 90 個交易日殖利率趨勢</div>
+            <div class="relative h-72"><canvas id="corporateBondYieldChart"></canvas></div>
+          </div>
+          <div class="xl:col-span-5 min-w-0">
+            <div class="flex items-center justify-between mb-2">
+              <div class="text-xs font-semibold text-slate-700 dark:text-slate-300">公司別單券追蹤</div>
+              <span class="text-[10px] text-slate-400">— 代表沒有可驗證公開報價</span>
+            </div>
+            <div class="overflow-x-auto max-h-72 border border-slate-200 dark:border-slate-700 rounded-lg">
+              <table class="w-full text-xs whitespace-nowrap">
+                <thead class="sticky top-0 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                  <tr><th class="text-left p-2">公司</th><th class="text-right p-2">到期</th><th class="text-right p-2">票息</th><th class="text-right p-2">市場 YTM</th><th class="text-right p-2">利差</th></tr>
+                </thead>
+                <tbody id="corporate-bond-issues-body" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div id="corporate-bond-method" class="text-[11px] leading-relaxed text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60 rounded-lg p-3"></div>
+      </section>
+
             <!-- 聯準會降息路徑期貨定價 (FedWatch Rate Path Tracker) -->
       <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -7780,7 +7818,7 @@
       'dxy-sp500': '美元指數與美股大盤呈輕微負相關。過強的美元會侵蝕美國跨國企業（S&P 500 逾 40% 營收來自海外）的海外盈餘換算收益。'
     };
 
-    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null, stressTest: null, commodityRatio: null, usdtwdFlow: null, retailSentiment: null, semiconductorCycle: null, treasuryTermStructure: null, volTermStructure: null, crossAssetVol: null, foreignVsBanks: null };
+    let charts = { cycle: null, traj: null, m1bM2: null, toolbox: null, backtest: null, builder: null, ndc: null, erp: null, fedLiq: null, recession: null, exportOrders: null, fedWatch: null, fearGreed: null, buffett: null, tipsBreakeven: null, globalCb: null, twRadar: null, twDrawdown: null, histModal: null, optionsMaxPain: null, cspCapex: null, stressTest: null, commodityRatio: null, usdtwdFlow: null, retailSentiment: null, semiconductorCycle: null, treasuryTermStructure: null, corporateBonds: null, volTermStructure: null, crossAssetVol: null, foreignVsBanks: null };
     let trajTimer = null;
 
     // --- 4. Helpers ---
@@ -11262,6 +11300,65 @@
     }
 
 
+    function renderCorporateBondMonitor() {
+      const data = state.livePayload?.corporate_bonds;
+      const section = document.getElementById('corporate-bond-section');
+      if (!section || !data || !Array.isArray(data.indices) || data.indices.length === 0) {
+        section?.classList.add('hidden');
+        return;
+      }
+      section.classList.remove('hidden');
+      const asof = document.getElementById('corporate-bond-asof');
+      if (asof) asof.textContent = `資料日期 ${data.as_of || '—'}（美國交易日）`;
+      const source = document.getElementById('corporate-bond-source');
+      if (source && data.source_url) source.href = data.source_url;
+      const colors = { ig: 'blue', hy: 'amber', ccc: 'rose' };
+      const kpis = document.getElementById('corporate-bond-kpis');
+      if (kpis) kpis.innerHTML = data.indices.map(item => {
+        const color = colors[item.key] || 'slate';
+        const oas = Number.isFinite(item.oas_bps) ? `${item.oas_bps.toLocaleString('en-US')} bps` : '—';
+        return `<a href="${item.source_url}" target="_blank" rel="noopener noreferrer" class="block p-3.5 rounded-xl bg-${color}-50/60 dark:bg-${color}-950/20 border border-${color}-200/70 dark:border-${color}-800/50 hover:shadow-sm transition-shadow">
+          <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">${item.name}</div>
+          <div class="text-2xl font-extrabold tabular-nums mt-1 text-${color}-600 dark:text-${color}-400">${Number(item.yield).toFixed(2)}%</div>
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">OAS ${oas} · ${item.date}</div>
+        </a>`;
+      }).join('');
+      const tbody = document.getElementById('corporate-bond-issues-body');
+      if (tbody) tbody.innerHTML = (data.issues || []).map(item => {
+        const issuer = item.source_url ? `<a href="${item.source_url}" target="_blank" rel="noopener noreferrer" class="text-violet-600 dark:text-violet-400 hover:underline">${item.issuer}</a>` : item.issuer;
+        const coupon = Number.isFinite(item.coupon) ? `${Number(item.coupon).toFixed(3).replace(/0+$/, '').replace(/\.$/, '')}%` : '—';
+        const ytm = Number.isFinite(item.market_yield) ? `${Number(item.market_yield).toFixed(2)}%` : '—';
+        const spread = Number.isFinite(item.spread_bps) ? `${item.spread_bps} bps` : '—';
+        return `<tr title="${item.quote_status || ''}"><td class="p-2 font-medium">${issuer}</td><td class="p-2 text-right">${item.maturity || '—'}</td><td class="p-2 text-right tabular-nums">${coupon}</td><td class="p-2 text-right tabular-nums">${ytm}</td><td class="p-2 text-right tabular-nums">${spread}</td></tr>`;
+      }).join('');
+      const method = document.getElementById('corporate-bond-method');
+      if (method) method.textContent = data.methodology || '';
+      const canvas = document.getElementById('corporateBondYieldChart');
+      const history = data.history || {};
+      if (!canvas || !Array.isArray(history.labels) || history.labels.length === 0) return;
+      if (charts.corporateBonds) charts.corporateBonds.destroy();
+      charts.corporateBonds = new Chart(canvas.getContext('2d'), {
+        type: 'line',
+        data: {
+          labels: history.labels,
+          datasets: [
+            { label: '投資級', data: history.ig || [], borderColor: '#3b82f6', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, spanGaps: true, tension: 0.2 },
+            { label: '高收益', data: history.hy || [], borderColor: '#f59e0b', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, spanGaps: true, tension: 0.2 },
+            { label: 'CCC 以下', data: history.ccc || [], borderColor: '#f43f5e', backgroundColor: 'transparent', borderWidth: 2, pointRadius: 0, spanGaps: true, tension: 0.2 }
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+          plugins: { legend: { labels: { color: textColor() } }, tooltip: { callbacks: { label: c => `${c.dataset.label}: ${Number(c.raw).toFixed(2)}%` } } },
+          scales: {
+            x: { grid: { display: false }, ticks: { color: textColor(), maxTicksLimit: 8 } },
+            y: { grid: { color: gridColor() }, ticks: { color: textColor(), callback: v => `${v}%` }, title: { display: true, text: '有效殖利率 (%)', color: textColor() } }
+          }
+        }
+      });
+      lucide.createIcons();
+    }
+
     // --- 3.54 US Treasury Term Structure & ACM Term Premium Radar ---
     const TREASURY_CURVE_DATA = {
       tenors: ['1M', '3M', '6M', '1Y', '2Y', '3Y', '5Y', '7Y', '10Y', '20Y', '30Y'],
@@ -11385,6 +11482,7 @@
     }
 
         function renderDashboard() {
+      renderCorporateBondMonitor();
       renderTrajectory();
       renderMmIndicators();
       renderTop5();
