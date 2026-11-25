@@ -276,16 +276,76 @@ def fetch_fred_macro() -> tuple[dict, dict]:
     return indicators, series
 
 
+def fetch_markets_insider_bond_quote(isin: str, slug: str | None = None) -> dict | None:
+    """從 Markets Insider 公開債券頁面抓取最新收盤價格、年化殖利率 (YTM) 與報價日期。"""
+    try:
+        resolved_slug = slug
+        if not resolved_slug and isin:
+            suggest_url = (
+                "https://markets.businessinsider.com/ajax/SearchController_Suggest"
+                f"?max_results=5&query={urllib.parse.quote(isin)}"
+            )
+            suggest_body = fetch_url(suggest_url, timeout=12)
+            match = re.search(r'"([^"|]+-Bond-[^"|]+)\|', suggest_body)
+            if match:
+                resolved_slug = match.group(1)
+        if not resolved_slug:
+            return None
+        quote_url = f"https://markets.businessinsider.com/bonds/{resolved_slug}"
+        html = fetch_url(quote_url, timeout=15)
+        price_match = re.search(r'price-section__current-value[^>]*>\s*([0-9.,]+)\s*<', html)
+        yield_match = re.search(r'annual yield of\s*([0-9.,]+)\s*%', html, re.I)
+        add_match = re.search(
+            r'class="price-section__additionals"[^>]*>\s*<span>[^<]*</span>\s*<span>([^<]+)</span>\s*<span>([^<]*)</span>',
+            html,
+            re.S | re.I,
+        )
+        if not yield_match:
+            return None
+        market_yield = round(float(yield_match.group(1).replace(",", "")), 2)
+        market_price = round(float(price_match.group(1).replace(",", "")), 2) if price_match else None
+        quote_date = None
+        venue = ""
+        if add_match:
+            raw_date = add_match.group(1).strip()
+            venue = add_match.group(2).strip()
+            dm_dot = re.match(r'^(\d{1,2})\.(\d{1,2})\.(\d{4})$', raw_date)
+            dm_slash = re.match(r'^(\d{1,2})/(\d{1,2})/(\d{4})$', raw_date)
+            dm_iso = re.match(r'^(\d{4})-(\d{2})-(\d{2})$', raw_date)
+            if dm_dot:
+                quote_date = f"{dm_dot.group(3)}-{int(dm_dot.group(2)):02d}-{int(dm_dot.group(1)):02d}"
+            elif dm_slash:
+                quote_date = f"{dm_slash.group(3)}-{int(dm_slash.group(1)):02d}-{int(dm_slash.group(2)):02d}"
+            elif dm_iso:
+                quote_date = raw_date
+        if not quote_date:
+            return None
+        return {
+            "market_price": market_price,
+            "market_yield": market_yield,
+            "quote_date": quote_date,
+            "venue": venue,
+            "quote_url": quote_url,
+        }
+    except Exception as exc:
+        print(f"    債券 {isin} 報價抓取失敗：{exc}")
+        return None
+
+
 def fetch_corporate_bond_monitor() -> dict:
-    """取得 ICE BofA 公司債指數殖利率與利差；不以指數值冒充單一公司債報價。"""
-    print("  抓取 FRED / ICE BofA 公司債每日指標...")
+    """取得 ICE BofA 公司債指數與 10 檔指標公司債每日公開報價。"""
+    print("  抓取 FRED / ICE BofA 公司債每日指標與單券公開報價...")
     definitions = {
         "ig": {"name": "美國投資級公司債", "yield_id": "BAMLC0A0CMEY", "oas_id": "BAMLC0A0CM"},
         "hy": {"name": "美國高收益公司債", "yield_id": "BAMLH0A0HYM2EY", "oas_id": "BAMLH0A0HYM2"},
         "ccc": {"name": "美國 CCC 以下公司債", "yield_id": "BAMLH0A3HYCEY", "oas_id": "BAMLH0A3HYC"},
     }
-    series_ids = [item[field] for item in definitions.values() for field in ("yield_id", "oas_id")]
+    series_ids = [item[field] for item in definitions.values() for field in ("yield_id", "oas_id")] + ["DGS5", "DGS7"]
     observations = fetch_fred_observations(series_ids)
+    ust_5y_rows = observations.get("DGS5", [])
+    ust_7y_rows = observations.get("DGS7", [])
+    ust_5y = ust_5y_rows[-1][1] if ust_5y_rows else None
+    ust_7y = ust_7y_rows[-1][1] if ust_7y_rows else None
     indices, history_maps, all_dates = [], {}, set()
     for key, definition in definitions.items():
         yield_rows = observations.get(definition["yield_id"], [])
@@ -315,6 +375,75 @@ def fetch_corporate_bond_monitor() -> dict:
     for key in definitions:
         values = history_maps.get(key, {})
         history[key] = [values.get(date) for date in labels]
+
+    issue_specs = [
+        {"issuer": "CoreWeave", "maturity": "2031-10-01", "coupon": 9.750, "currency": "USD", "identifier": "21873SAG3",
+         "isin": "USU2069EAC40", "slug": "coreweave_incdl-notes_202626-31_regs-Bond-2031-usu2069eac40",
+         "terms_source": "CoreWeave SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000183/ex411.htm"},
+        {"issuer": "SoftBank Group", "maturity": "2031-07-08", "coupon": 7.000, "currency": "USD", "identifier": "XS2854422818",
+         "isin": "XS2854422818", "slug": "softbank_group_corpdl-notes_202424-31-Bond-2031-xs2854422818",
+         "terms_source": "SoftBank Group bond disclosures", "source_url": "https://group.softbank/en/ir/stock/bond"},
+        {"issuer": "Oracle", "maturity": "2032-09-26", "coupon": 4.800, "currency": "USD", "identifier": "68389XDK8",
+         "isin": "US68389XDK81", "slug": "oracle_corpdl-notes_202525-32-Bond-2032-us68389xdk81",
+         "terms_source": "Oracle SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525220445/d31817dex41.htm"},
+        {"issuer": "SpaceX", "maturity": "2031-07-15", "coupon": 5.350, "currency": "USD", "identifier": "84615QAA1",
+         "isin": "USU8531HAA87", "slug": "space_exploration_techs_corpdl-notes_202626-31_regs-Bond-2031-usu8531haa87",
+         "terms_source": "SpaceX investor relations", "source_url": "https://ir.spacex.com/updates/releases-details/2026/SpaceX-Announces-Pricing-of-25-Billion-Inaugural-Bond-Issuance-2026-33VwNgsx3O/default.aspx"},
+        {"issuer": "Broadcom", "maturity": "2031-11-15", "coupon": 5.150, "currency": "USD", "identifier": "11135FBY6",
+         "isin": "US11135FBY60", "slug": "broadcom_incdl-notes_202424-31-Bond-2031-us11135fby60",
+         "terms_source": "Broadcom SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036124033072/ny20032136x6_ex4-2.htm"},
+        {"issuer": "NVIDIA", "maturity": "2031-06-15", "coupon": 4.500, "currency": "USD", "identifier": "67066GAR5",
+         "isin": "US67066GAR56", "slug": "nvidia_corpdl-notes_202626-31-Bond-2031-us67066gar56",
+         "terms_source": "NVIDIA SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000119312526275783/d48176dex42.htm"},
+        {"issuer": "Meta", "maturity": "2031-05-15", "coupon": 4.550, "currency": "USD", "identifier": "30303MAF9",
+         "isin": "US30303MAF95", "slug": "meta_platforms_incdl-notes_202626-31-Bond-2031-us30303maf95",
+         "terms_source": "Meta SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526201738/d109954d424b2.htm"},
+        {"issuer": "Alphabet", "maturity": "2031-08-15", "coupon": 4.875, "currency": "USD", "identifier": "02079KCQ8",
+         "isin": "US02079KCQ85", "slug": "alphabet_incdl-notes_202626-31-Bond-2031-us02079kcq85",
+         "terms_source": "Alphabet SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526342390/d171253dex46.htm"},
+        {"issuer": "Microsoft", "maturity": "2031-11-03", "coupon": 5.200, "currency": "USD", "identifier": "594918DB7",
+         "isin": "US594918DB72", "slug": "microsoft_corpdl-notes_202626-31-Bond-2031-us594918db72",
+         "terms_source": "Microsoft SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526442618/d150456d424b2.htm"},
+        {"issuer": "Amazon", "maturity": "2031-07-09", "coupon": 4.800, "currency": "USD", "identifier": "023135EC6",
+         "isin": "US023135EC69", "slug": "amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
+         "terms_source": "Amazon SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm"},
+    ]
+    issues = []
+    quoted_count = 0
+    for spec in issue_specs:
+        quote = fetch_markets_insider_bond_quote(spec["isin"], spec["slug"])
+        market_yield = quote["market_yield"] if quote else None
+        market_price = quote["market_price"] if quote else None
+        quote_date = quote["quote_date"] if quote else None
+        venue = quote["venue"] if quote else ""
+        benchmark = ust_7y if spec["maturity"].startswith("2032") else ust_5y
+        spread_bps = round((market_yield - benchmark) * 100) if (market_yield is not None and benchmark is not None) else None
+        if market_yield is not None:
+            quoted_count += 1
+            price_txt = f"價格 {market_price:.2f} · " if market_price is not None else ""
+            venue_txt = f"{venue} · " if venue else ""
+            quote_status = f"{price_txt}{venue_txt}{quote_date}"
+        else:
+            quote_status = "公開報價暫無更新"
+        issues.append({
+            "issuer": spec["issuer"],
+            "maturity": spec["maturity"],
+            "coupon": spec["coupon"],
+            "currency": spec["currency"],
+            "identifier": spec["identifier"],
+            "isin": spec["isin"],
+            "market_price": market_price,
+            "market_yield": market_yield,
+            "spread_bps": spread_bps,
+            "quote_date": quote_date,
+            "quote_source": f"Markets Insider ({venue})" if venue else "Markets Insider",
+            "quote_url": quote["quote_url"] if quote else None,
+            "quote_status": quote_status,
+            "terms_status": "verified",
+            "terms_source": spec["terms_source"],
+            "source_url": spec["source_url"],
+        })
+    print(f"  -> 公司債單券公開報價成功 {quoted_count}/{len(issues)} 檔")
     return {
         "as_of": max(item["date"] for item in indices),
         "updated_at": datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z"),
@@ -323,39 +452,8 @@ def fetch_corporate_bond_monitor() -> dict:
         "source_url": "https://fred.stlouisfed.org/categories/32348",
         "indices": indices,
         "history": history,
-        "issues": [
-            {"issuer": "CoreWeave", "maturity": "2031", "coupon": 9.750, "currency": "USD", "identifier": None,
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "CoreWeave SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000183/ex411.htm"},
-            {"issuer": "SoftBank Group", "maturity": "2031-07-08", "coupon": 7.000, "currency": "USD", "identifier": None,
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "SoftBank Group bond disclosures", "source_url": "https://group.softbank/en/ir/stock/bond"},
-            {"issuer": "Oracle", "maturity": "2032-09-26", "coupon": 4.800, "currency": "USD", "identifier": "68389XDK8",
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "Oracle SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525220445/d31817dex41.htm"},
-            {"issuer": "SpaceX", "maturity": "2031-07-15", "coupon": 5.350, "currency": "USD", "identifier": None,
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "SpaceX investor relations", "source_url": "https://ir.spacex.com/updates/releases-details/2026/SpaceX-Announces-Pricing-of-25-Billion-Inaugural-Bond-Issuance-2026-33VwNgsx3O/default.aspx"},
-            {"issuer": "Broadcom", "maturity": "2031-11-15", "coupon": 5.150, "currency": "USD", "identifier": "11135FBY6",
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "Broadcom SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036124033072/ny20032136x6_ex4-2.htm"},
-            {"issuer": "NVIDIA", "maturity": "2031-06-15", "coupon": 4.500, "currency": "USD", "identifier": "67066GAR5",
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "NVIDIA SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000119312526275783/d48176dex42.htm"},
-            {"issuer": "Meta", "maturity": "2031", "coupon": 4.550, "currency": "USD", "identifier": None,
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "Meta SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526201738/d109954d424b2.htm"},
-            {"issuer": "Alphabet", "maturity": "2031-08-15", "coupon": 4.875, "currency": "USD", "identifier": "02079KCQ8",
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "Alphabet SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526342390/d171253dex46.htm"},
-            {"issuer": "Microsoft", "maturity": "2031", "coupon": 5.200, "currency": "USD", "identifier": None,
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "Microsoft SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526442618/d150456d424b2.htm"},
-            {"issuer": "Amazon", "maturity": "2031", "coupon": 4.800, "currency": "USD", "identifier": "023135EA0",
-             "market_yield": None, "spread_bps": None, "quote_status": "FINRA 報價需授權", "terms_status": "verified",
-             "terms_source": "Amazon SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm"},
-        ],
-        "methodology": "票息、到期日與識別碼來自發行人或 SEC 官方文件；指數殖利率與 OAS 來自 FRED / ICE BofA。FINRA TRACE 單券成交殖利率需授權工作階段，未取得授權前不以截圖或估算值代替。",
+        "issues": issues,
+        "methodology": "票息、到期日與識別碼來自發行人或 SEC 官方文件；指數殖利率與 OAS 來自 FRED / ICE BofA；單券市場價格與 YTM 每日抓取自 Markets Insider 公開債券報價，利差為單券 YTM 與對應天期美國公債殖利率（FRED DGS5 / DGS7）之差。",
     }
 
 

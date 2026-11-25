@@ -11330,8 +11330,13 @@
         const ytm = Number.isFinite(item.market_yield) ? `${Number(item.market_yield).toFixed(2)}%` : '—';
         const spread = Number.isFinite(item.spread_bps) ? `${item.spread_bps} bps` : '—';
         const identifier = [item.currency, item.identifier].filter(Boolean).join(' · ') || '—';
+        const hasQuote = Number.isFinite(item.market_yield);
         const quoteStatus = item.quote_status || '尚無可驗證報價';
-        return `<tr title="${quoteStatus}"><td class="p-2 font-medium">${issuer}</td><td class="p-2 text-right tabular-nums">${item.maturity || '—'}</td><td class="p-2 text-right tabular-nums">${coupon}</td><td class="p-2 text-left tabular-nums text-slate-500 dark:text-slate-400">${identifier}</td><td class="p-2 text-right tabular-nums">${ytm}</td><td class="p-2 text-right tabular-nums">${spread}</td><td class="p-2 text-left text-amber-600 dark:text-amber-400">${quoteStatus}</td></tr>`;
+        const statusColor = hasQuote ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400';
+        const statusCell = (hasQuote && item.quote_url)
+          ? `<a href="${item.quote_url}" target="_blank" rel="noopener noreferrer" class="hover:underline">${quoteStatus}</a>`
+          : quoteStatus;
+        return `<tr title="${quoteStatus}"><td class="p-2 font-medium">${issuer}</td><td class="p-2 text-right tabular-nums">${item.maturity || '—'}</td><td class="p-2 text-right tabular-nums">${coupon}</td><td class="p-2 text-left tabular-nums text-slate-500 dark:text-slate-400">${identifier}</td><td class="p-2 text-right tabular-nums font-semibold">${ytm}</td><td class="p-2 text-right tabular-nums">${spread}</td><td class="p-2 text-left ${statusColor}">${statusCell}</td></tr>`;
       }).join('');
       const method = document.getElementById('corporate-bond-method');
       if (method) method.textContent = data.methodology || '';
