@@ -1,24 +1,24 @@
 {
-  "updated_at": "2026-11-25T04:58:56Z",
-  "market_date": "20261124",
-  "market_status": "觀察階段 (初步止跌徵兆浮現)",
+  "updated_at": "2026-11-25T09:55:05Z",
+  "market_date": "20261125",
+  "market_status": "弱勢探底 (技術與籌碼尚未止穩)",
   "model_score": {
-    "total_score": 56,
+    "total_score": 39,
     "max_score": 100,
-    "stage": "觀察階段 (初步止跌徵兆浮現)",
-    "stage_en": "Observation Phase",
-    "risk_level": "中高風險",
-    "color": "#f59e0b",
-    "action": "保留現金，等待均線扭轉或籌碼沉澱",
+    "stage": "弱勢探底 (技術與籌碼尚未止穩)",
+    "stage_en": "Downtrend Testing",
+    "risk_level": "高風險",
+    "color": "#ef4444",
+    "action": "嚴控持股水位，切忌盲目摸底",
     "factors": [
       {
         "id": "taiex_tech",
         "name": "加權指數技術止跌",
         "weight": 25,
-        "score": 17,
-        "actual": "收盤 40122.35 (5MA 38311.82, 10MA 40633.52, 量價: 量縮止跌 (弱勢整理沉澱))",
+        "score": 8,
+        "actual": "收盤 38195.43 (5MA 38311.82, 10MA 40633.52, 量價: 價跌量增 (恐慌拋售殺盤))",
         "threshold": "不再破波段新低、站回 5MA/10MA、成交量由價跌量增轉為量縮或帶量長下影",
-        "status": "pass",
+        "status": "neutral",
         "date": "2026-11-25"
       },
       {
@@ -26,7 +26,7 @@
         "name": "半導體及電子族群轉強",
         "weight": 25,
         "score": 13,
-        "actual": "半導體指數跌幅 +9.78% vs 大盤 +8.99%，台積電 2030 (5MA 2095)",
+        "actual": "半導體指數跌幅 -4.71% vs 大盤 -4.80%，台積電 2030 (5MA 2095)",
         "threshold": "半導體類跌幅顯著小於大盤 (相對強弱走揚)、台積電率先站上短期均線",
         "status": "neutral",
         "date": "2026-11-25"
@@ -36,20 +36,20 @@
         "name": "外資賣壓減弱",
         "weight": 20,
         "score": 6,
-        "actual": "外資現貨賣超 -503.9 億，台指期空單 -103,182 口，台幣匯率 32.89",
+        "actual": "外資現貨賣超 -1236.5 億，台指期空單 -105,709 口，台幣匯率 32.89",
         "threshold": "現貨賣超收斂至百億內或轉買、期貨淨空單由峰值顯著回補、台幣貶壓趨緩",
         "status": "neutral",
-        "date": "20261124"
+        "date": "20261125"
       },
       {
         "id": "tpex_breadth",
         "name": "櫃買與市場廣度改善",
         "weight": 20,
-        "score": 20,
-        "actual": "櫃買指數 293.23 (單日 +8.24%)，那斯達克100 +0.00%",
+        "score": 12,
+        "actual": "櫃買指數 275.97 (單日 -5.89%)，那斯達克100 +0.00%",
         "threshold": "中小型櫃買指數不再領跌破底、上漲家數比率提升、美科技股波動收斂",
         "status": "pass",
-        "date": "20261124"
+        "date": "20261125"
       },
       {
         "id": "margin_cleansing",
@@ -62,10 +62,10 @@
         "date": "20261124"
       }
     ],
-    "technical_score": 17,
+    "technical_score": 8,
     "industry_score": 13,
     "foreign_score": 6,
-    "breadth_score": 20,
+    "breadth_score": 12,
     "margin_score": 0,
     "_quality_metadata": {
       "model_version": "2.0-verified",
@@ -78,15 +78,15 @@
         "margin": 10
       }
     },
-    "score_change": 0
+    "score_change": -17
   },
   "indices": {
     "twse": {
       "taiex": {
         "name": "發行量加權股價指數",
-        "close": 40122.35,
-        "change": 3310.46,
-        "change_pct": 8.99,
+        "close": 38195.43,
+        "change": -1926.92,
+        "change_pct": -4.8,
         "ma5": 38311.82,
         "ma10": 40633.52,
         "ma20": 42258.09,
@@ -1365,9 +1365,9 @@
       },
       "tw50": {
         "name": "臺灣50指數",
-        "close": 37863.95,
-        "change": 3314.06,
-        "change_pct": 9.59,
+        "close": 36096.66,
+        "change": -1767.29,
+        "change_pct": -4.67,
         "ma5": 35721.41,
         "ma10": 37828.16,
         "ma20": 39149.59,
@@ -2646,9 +2646,9 @@
       },
       "elec": {
         "name": "電子工業類指數",
-        "close": 2480.06,
-        "change": 214.9,
-        "change_pct": 9.49,
+        "close": 2363.34,
+        "change": -116.72,
+        "change_pct": -4.71,
         "ma5": 2336.98,
         "ma10": 2477.67,
         "ma20": 2569.7,
@@ -3927,9 +3927,9 @@
       },
       "semi": {
         "name": "半導體類指數",
-        "close": 1385.94,
-        "change": 123.45,
-        "change_pct": 9.78,
+        "close": 1320.63,
+        "change": -65.31,
+        "change_pct": -4.71,
         "ma5": 1306.03,
         "ma10": 1397.9,
         "ma20": 1464.03,
@@ -5208,9 +5208,9 @@
       },
       "elec_parts": {
         "name": "電子零組件類指數",
-        "close": 593.59,
-        "change": 52.19,
-        "change_pct": 9.64,
+        "close": 571.94,
+        "change": -21.65,
+        "change_pct": -3.65,
         "ma5": 555.97,
         "ma10": 595.73,
         "ma20": 626.07,
@@ -6490,10 +6490,10 @@
     },
     "tpex": {
       "name": "櫃買指數 TPEx",
-      "close": 293.23,
-      "change": 22.33,
-      "change_pct": 8.24,
-      "date": "20261124",
+      "close": 275.97,
+      "change": -17.26,
+      "change_pct": -5.89,
+      "date": "20261125",
       "ma5": 286.67,
       "ma10": 313.4,
       "ma20": 340.16,
@@ -36854,22 +36854,25 @@
     }
   },
   "institutional_flow": {
-    "foreign": -503.9,
-    "trust": 97.63,
-    "dealer_prop": 15.86,
-    "dealer_hedge": -826.11,
-    "dealer_total": -810.25,
-    "total": -1216.52,
-    "date": "20261124",
+    "foreign": -1236.55,
+    "trust": 535.32,
+    "dealer_prop": -73.63,
+    "dealer_hedge": -54.7,
+    "dealer_total": -128.33,
+    "total": -829.56,
+    "date": "20261125",
     "history": {
       "dates": [
-        "11/24"
+        "11/24",
+        "11/25"
       ],
       "daily_foreign": [
-        -503.9
+        -503.9,
+        -1236.55
       ],
       "accum_foreign": [
-        -503.9
+        -503.9,
+        -1740.45
       ],
       "provenance": "official_observations",
       "source": "TWSE BFI82U"
@@ -36905,29 +36908,32 @@
     }
   },
   "futures_oi": {
-    "net_contracts": -103182,
-    "net_amount_thousand": -832157862,
-    "date": "",
+    "net_contracts": -105709,
+    "net_amount_thousand": -806007339,
+    "date": "20261125",
     "history": {
       "dates": [
-        "11/24"
+        "11/24",
+        "11/25"
       ],
       "closes": [
-        -103182
+        -103182,
+        -105709
       ],
       "ma5": [
-        -103182
+        -103182,
+        -104445
       ],
       "provenance": "official_observations",
       "source": "TAIFEX futContractsDate"
     }
   },
   "volume_analysis": {
-    "latest_amount_billion": 4325.6,
-    "vol_5ma": 8999.55,
-    "vol_20ma": 9704.91,
-    "vol_ratio_20ma": 44.6,
-    "pattern": "量縮止跌 (弱勢整理沉澱)",
+    "latest_amount_billion": 12297.62,
+    "vol_5ma": 9308.73,
+    "vol_20ma": 9848.95,
+    "vol_ratio_20ma": 124.9,
+    "pattern": "價跌量增 (恐慌拋售殺盤)",
     "status": "量能沉澱",
     "history": {
       "dates": [
@@ -36947,7 +36953,8 @@
         "115/11/19",
         "115/11/20",
         "115/11/23",
-        "115/11/24"
+        "115/11/24",
+        "115/11/25"
       ],
       "amounts": [
         7996.87507911,
@@ -36966,7 +36973,8 @@
         9429.88976493,
         9353.1042015,
         11137.43193221,
-        4325.59877529
+        4325.59877529,
+        12297.61968894
       ],
       "closes": [
         44920.14,
@@ -36985,7 +36993,8 @@
         38426.89,
         36033.29,
         36811.89,
-        40122.35
+        40122.35,
+        38195.43
       ]
     }
   },
@@ -53819,29 +53828,29 @@
   "scenarios": {
     "optimistic": {
       "title": "樂觀情境：恐慌清洗後的「放量報復性反彈」",
-      "probability": "20%",
+      "probability": "10%",
       "conditions": "外資期貨空單顯著回補、融資浮額清洗告一段落、台積電強勢重返短期均線之上",
-      "target_range": "41,700 ~ 43,300 點",
+      "target_range": "39,700 ~ 41,300 點",
       "strategy": "融資斷頭潮尾聲通常伴隨極速千點反彈，緊盯權值龍頭股站上 5MA/10MA 加碼"
     },
     "base_case": {
       "title": "基準情境：融資去槓桿後的「低檔反覆打底震盪 (築底 W 底)」",
-      "probability": "55%",
-      "conditions": "大盤在 39,300~41,300 點進行量縮整理，籌碼由融資散戶移轉至長期法人，技術指標進入超賣背離修復",
-      "target_range": "39,300 ~ 41,300 點",
+      "probability": "45%",
+      "conditions": "大盤在 37,400~39,300 點進行量縮整理，籌碼由融資散戶移轉至長期法人，技術指標進入超賣背離修復",
+      "target_range": "37,400 ~ 39,300 點",
       "strategy": "採取金字塔分批佈局策略，每逢急殺回測支撐買進 1~2 成資金，不追高，耐心等待均線走平"
     },
     "stress_case": {
       "title": "壓力情境：國際流動性收緊與多殺多的「深層次修正探底」",
-      "probability": "25%",
+      "probability": "45%",
       "conditions": "美股費半 (SOX) 跌破重要均線、地緣政治限制升級、外資期貨空單與現貨賣超雙向擴大",
-      "target_range": "36,900 ~ 38,500 點 (長期均線防線)",
+      "target_range": "35,100 ~ 36,700 點 (長期均線防線)",
       "strategy": "觸發個股失效條件時果斷停損，保留 50% 以上現金水位，等待恐慌指標極致飆升後的非理性出清"
     }
   },
   "today_conclusion": {
-    "is_suitable_for_buying": "適合開始「極小量金字塔式分批測試」，嚴禁單筆梭哈！",
-    "reasoning": "當前五大底部模型得分為 56 分（處於「觀察階段 (初步止跌徵兆浮現)」）。當前市場處於籌碼去槓桿與均線位階修復期。量化統計顯示，當指標回升至 60 分以上時，分批布局之風險報酬比將顯著改善。",
+    "is_suitable_for_buying": "現階段宜以觀望與嚴控資金風險為主，避免躁進摸底！",
+    "reasoning": "當前五大底部模型得分為 39 分（處於「弱勢探底 (技術與籌碼尚未止穩)」）。當前市場處於籌碼去槓桿與均線位階修復期。量化統計顯示，當指標回升至 60 分以上時，分批布局之風險報酬比將顯著改善。",
     "approaching_buy_stocks": [
       "台積電 (2330): 處於歷史本益比相對中下緣，具備強大主權基金與長線法人價值防守支撐",
       "鴻海 (2317): 本益比具防禦性，高殖利率與 AI 伺服器整機出貨能見度提供下檔保護",
@@ -53865,6 +53874,6 @@
   "_quality_metadata": {
     "engine_version": "2.0-verified",
     "fallback_used": false,
-    "timestamp": "2026-11-25 04:58:56"
+    "timestamp": "2026-11-25 09:55:05"
   }
 }
