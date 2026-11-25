@@ -1,15 +1,15 @@
 {
-  "updated_at": "2026-11-25T09:55:05Z",
+  "updated_at": "2026-11-25T19:59:22Z",
   "market_date": "20261125",
-  "market_status": "弱勢探底 (技術與籌碼尚未止穩)",
+  "market_status": "觀察階段 (初步止跌徵兆浮現)",
   "model_score": {
-    "total_score": 39,
+    "total_score": 49,
     "max_score": 100,
-    "stage": "弱勢探底 (技術與籌碼尚未止穩)",
-    "stage_en": "Downtrend Testing",
-    "risk_level": "高風險",
-    "color": "#ef4444",
-    "action": "嚴控持股水位，切忌盲目摸底",
+    "stage": "觀察階段 (初步止跌徵兆浮現)",
+    "stage_en": "Observation Phase",
+    "risk_level": "中高風險",
+    "color": "#f59e0b",
+    "action": "保留現金，等待均線扭轉或籌碼沉澱",
     "factors": [
       {
         "id": "taiex_tech",
@@ -55,18 +55,18 @@
         "id": "margin_cleansing",
         "name": "融資籌碼去槓桿改善",
         "weight": 10,
-        "score": 0,
-        "actual": "融資餘額 4535.05 億 (單日融資增加 +196.98 億)",
+        "score": 10,
+        "actual": "融資餘額 4341.38 億 (單日大幅斷頭洗盤 -193.67 億)",
         "threshold": "融資單日顯著清洗 >30億，浮額快速出清，籌碼由散戶移轉至安定法人",
-        "status": "fail",
-        "date": "20261124"
+        "status": "pass",
+        "date": "20261125"
       }
     ],
     "technical_score": 8,
     "industry_score": 13,
     "foreign_score": 6,
     "breadth_score": 12,
-    "margin_score": 0,
+    "margin_score": 10,
     "_quality_metadata": {
       "model_version": "2.0-verified",
       "calculation_method": "five_factor_quantitative",
@@ -78,7 +78,7 @@
         "margin": 10
       }
     },
-    "score_change": -17
+    "score_change": -7
   },
   "indices": {
     "twse": {
@@ -36855,11 +36855,11 @@
   },
   "institutional_flow": {
     "foreign": -1236.55,
-    "trust": 535.32,
+    "trust": 550.35,
     "dealer_prop": -73.63,
     "dealer_hedge": -54.7,
     "dealer_total": -128.33,
-    "total": -829.56,
+    "total": -814.53,
     "date": "20261125",
     "history": {
       "dates": [
@@ -36879,29 +36879,33 @@
     }
   },
   "margin_trading": {
-    "margin_balance": 4535.05,
-    "margin_prev": 4338.08,
-    "margin_diff": 196.98,
-    "short_balance": 186613,
-    "short_prev": 172957,
-    "short_diff": 13656,
-    "date": "20261124",
+    "margin_balance": 4341.38,
+    "margin_prev": 4535.05,
+    "margin_diff": -193.67,
+    "short_balance": 169365,
+    "short_prev": 186613,
+    "short_diff": -17248,
+    "date": "20261125",
     "history": {
       "dates": [
         "11/23",
-        "11/24"
+        "11/24",
+        "11/25"
       ],
       "balances": [
         4338.08,
-        4535.05
+        4535.05,
+        4341.38
       ],
       "diffs": [
         -14.2,
-        196.97
+        196.97,
+        -193.67
       ],
       "ma5": [
         4338.08,
-        4436.57
+        4436.57,
+        4404.84
       ],
       "provenance": "official_observations",
       "source": "TWSE MI_MARGN"
@@ -36910,11 +36914,11 @@
   "futures_oi": {
     "net_contracts": -105709,
     "net_amount_thousand": -806007339,
-    "date": "20261125",
+    "date": "20261126",
     "history": {
       "dates": [
         "11/24",
-        "11/25"
+        "11/26"
       ],
       "closes": [
         -103182,
@@ -53828,21 +53832,21 @@
   "scenarios": {
     "optimistic": {
       "title": "樂觀情境：恐慌清洗後的「放量報復性反彈」",
-      "probability": "10%",
+      "probability": "20%",
       "conditions": "外資期貨空單顯著回補、融資浮額清洗告一段落、台積電強勢重返短期均線之上",
       "target_range": "39,700 ~ 41,300 點",
       "strategy": "融資斷頭潮尾聲通常伴隨極速千點反彈，緊盯權值龍頭股站上 5MA/10MA 加碼"
     },
     "base_case": {
       "title": "基準情境：融資去槓桿後的「低檔反覆打底震盪 (築底 W 底)」",
-      "probability": "45%",
+      "probability": "55%",
       "conditions": "大盤在 37,400~39,300 點進行量縮整理，籌碼由融資散戶移轉至長期法人，技術指標進入超賣背離修復",
       "target_range": "37,400 ~ 39,300 點",
       "strategy": "採取金字塔分批佈局策略，每逢急殺回測支撐買進 1~2 成資金，不追高，耐心等待均線走平"
     },
     "stress_case": {
       "title": "壓力情境：國際流動性收緊與多殺多的「深層次修正探底」",
-      "probability": "45%",
+      "probability": "25%",
       "conditions": "美股費半 (SOX) 跌破重要均線、地緣政治限制升級、外資期貨空單與現貨賣超雙向擴大",
       "target_range": "35,100 ~ 36,700 點 (長期均線防線)",
       "strategy": "觸發個股失效條件時果斷停損，保留 50% 以上現金水位，等待恐慌指標極致飆升後的非理性出清"
@@ -53850,7 +53854,7 @@
   },
   "today_conclusion": {
     "is_suitable_for_buying": "現階段宜以觀望與嚴控資金風險為主，避免躁進摸底！",
-    "reasoning": "當前五大底部模型得分為 39 分（處於「弱勢探底 (技術與籌碼尚未止穩)」）。當前市場處於籌碼去槓桿與均線位階修復期。量化統計顯示，當指標回升至 60 分以上時，分批布局之風險報酬比將顯著改善。",
+    "reasoning": "當前五大底部模型得分為 49 分（處於「觀察階段 (初步止跌徵兆浮現)」）。當前市場處於籌碼去槓桿與均線位階修復期。量化統計顯示，當指標回升至 60 分以上時，分批布局之風險報酬比將顯著改善。",
     "approaching_buy_stocks": [
       "台積電 (2330): 處於歷史本益比相對中下緣，具備強大主權基金與長線法人價值防守支撐",
       "鴻海 (2317): 本益比具防禦性，高殖利率與 AI 伺服器整機出貨能見度提供下檔保護",
@@ -53874,6 +53878,6 @@
   "_quality_metadata": {
     "engine_version": "2.0-verified",
     "fallback_used": false,
-    "timestamp": "2026-11-25 09:55:05"
+    "timestamp": "2026-11-25 19:59:22"
   }
 }
