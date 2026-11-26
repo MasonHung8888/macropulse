@@ -553,6 +553,33 @@ def roc_date_to_iso(value: str) -> str | None:
         return None
 
 
+def fetch_cnyes_quotes(symbols: list[str]) -> dict[str, dict]:
+    """從鉅亨網 (Anue / cnyes.com) 公開報價端點批次取得台股、美股或外匯備用報價。"""
+    if not symbols:
+        return {}
+    try:
+        joined = ",".join(symbols)
+        url = f"https://ws.api.cnyes.com/ws/api/v1/quote/quotes/{urllib.parse.quote(joined, safe=':,')}"
+        raw = fetch_url(url, timeout=12)
+        payload = json.loads(raw)
+        out = {}
+        for item in payload.get("data") or []:
+            sym = item.get("0")
+            price = item.get("6")
+            if sym and isinstance(price, (int, float)):
+                ts = item.get("200007")
+                as_of = datetime.fromtimestamp(ts, timezone.utc).strftime("%Y-%m-%d") if isinstance(ts, (int, float)) and ts > 0 else None
+                out[sym] = {
+                    "price": float(price),
+                    "d1": round(float(item["56"]), 2) if isinstance(item.get("56"), (int, float)) else None,
+                    "as_of": as_of,
+                }
+        return out
+    except Exception as exc:
+        print(f"  鉅亨網 (cnyes) 備用報價略過: {exc}")
+        return {}
+
+
 def fetch_twse_taiex_snapshot() -> dict:
     """從 TWSE 官方指數日報取得發行量加權股價指數。"""
     raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/MI_INDEX", timeout=20)
@@ -570,9 +597,17 @@ def fetch_twse_taiex_snapshot() -> dict:
 
 def fetch_twse_heatmap() -> list:
     print("4/7 抓取 TWSE 收盤價，並以歷史日線計算 1W / YTD...")
-    raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL", timeout=20)
-    rows = json.loads(raw)
-    by_code = {r.get("Code", "").strip(): r for r in rows}
+    by_code = {}
+    try:
+        raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/STOCK_DAY_ALL", timeout=20)
+        rows = json.loads(raw)
+        by_code = {r.get("Code", "").strip(): r for r in rows}
+    except Exception as exc:
+        print(f"  TWSE STOCK_DAY_ALL 失敗，切換鉅亨網備用來源: {exc}")
+    cnyes_tw = {}
+    missing_codes = [f"TWS:{code}:STOCK" for _, code, _, _ in TW_WATCHLIST if code not in by_code]
+    if missing_codes:
+        cnyes_tw = fetch_cnyes_quotes(missing_codes)
     history = None
     try:
         import yfinance as yf
@@ -598,6 +633,11 @@ def fetch_twse_heatmap() -> list:
                     pct = round((chg / prev_p) * 100, 2)
             except (ValueError, ZeroDivisionError):
                 pass
+        elif f"TWS:{code}:STOCK" in cnyes_tw:
+            q = cnyes_tw[f"TWS:{code}:STOCK"]
+            price = q["price"]
+            pct = q["d1"]
+            as_of = q["as_of"]
         w1 = ytd = None
         try:
             symbol = f"{code}.TW"
@@ -776,6 +816,24 @@ def fetch_live_fx():
             rates["TWD"] = round(d2["rates"]["TWD"], 2)
     except Exception as e:
         print(f"  Open ER-API 略過: {e}")
+
+    # 鉅亨網 (cnyes) 外匯備用來源
+    fx_fallback_map = {
+        "TWD": ("FX:USDTWD:FOREX", False),
+        "JPY": ("FX:USDJPY:FOREX", False),
+        "EUR": ("FX:EURUSD:FOREX", True),
+        "GBP": ("FX:GBPUSD:FOREX", True),
+        "AUD": ("FX:USDAUD:FOREX", False),
+        "CAD": ("FX:USDCAD:FOREX", False),
+    }
+    missing_fx = [sym for k, (sym, _) in fx_fallback_map.items() if k not in rates]
+    if missing_fx:
+        cnyes_fx = fetch_cnyes_quotes(missing_fx)
+        for cur, (sym, invert) in fx_fallback_map.items():
+            if cur not in rates and sym in cnyes_fx:
+                val = cnyes_fx[sym]["price"]
+                if val > 0:
+                    rates[cur] = round(1.0 / val, 5) if invert else round(val, 2)
 
     print(f"  -> 最新匯率: USD/TWD={rates.get('TWD', 'N/A')}, USD/JPY={rates.get('JPY', 'N/A')}, EUR={rates.get('EUR', 'N/A')}")
     return rates
@@ -2641,6 +2699,7 @@ def main(output_file: str = None):
         "corporate_bonds": {"label": "ICE Data Indices via FRED", "status": "ok" if bond_keys == {"ig", "hy", "ccc"} else "error"},
         "fred": {"label": "Federal Reserve Bank of St. Louis (FRED)", "status": "ok" if len(payload["macro_indicators"]) >= 8 else "partial"},
         "world_bank": {"label": "World Bank Open Data", "status": "ok" if country_macro_count >= 12 else "partial"},
+        "cnyes": {"label": "鉅亨網 Anue (台股/美股/外匯備用來源)", "url": "https://www.cnyes.com/", "status": "ok", "role": "backup"},
     }
     payload["data_quality"] = {
         "status": "valid" if not errors else "invalid",

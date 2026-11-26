@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-26T23:05:55Z",
+  "updated_at": "2026-11-26T23:16:29Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1027,7 +1027,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 1
+        "age_days": 0
       }
     },
     "nikkei": {
@@ -1038,8 +1038,8 @@
       "realtime": false
     },
     "gold": {
-      "price": 3593.4,
-      "d1": 1.63,
+      "price": 3591.9,
+      "d1": 1.59,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1049,8 +1049,8 @@
       }
     },
     "wti": {
-      "price": 84.91,
-      "d1": 1.47,
+      "price": 84.83,
+      "d1": 1.37,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1060,8 +1060,8 @@
       }
     },
     "copper": {
-      "price": 5.43,
-      "d1": 1.89,
+      "price": 5.45,
+      "d1": 2.17,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -1155,21 +1155,22 @@
       "realtime": false
     },
     "dxy": {
-      "price": 103.75,
-      "d1": 0.08,
+      "price": 103.78,
+      "d1": 0.1,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "usdtwd": {
       "price": 32.92,
-      "d1": -0.01,
+      "d1": -0.02,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us10y": 4.85,
     "spread10y5y": 0.19,
+    "ndc_score": 41,
     "tw_export_orders_yoy": 78.33,
     "tw_export_orders_amount": 1238.2,
     "erp": -0.46,
@@ -2549,7 +2550,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3593.4
+        3591.9
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2599,7 +2600,7 @@
         85.76,
         90.42,
         104.12,
-        84.91
+        84.83
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2715,7 +2716,7 @@
         99.43,
         101.45,
         101.88,
-        103.75
+        103.78
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -3490,7 +3491,7 @@
     "TWD": 33.16
   },
   "crypto": {
-    "btc_price": 60463,
+    "btc_price": 60412,
     "stablecoin_market_cap_b": 243.1
   },
   "macro_indicators": {
@@ -4146,7 +4147,7 @@
   },
   "corporate_bonds": {
     "as_of": "2026-11-24",
-    "updated_at": "2026-11-26T23:06:31Z",
+    "updated_at": "2026-11-26T23:17:01Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4835,7 +4836,7 @@
     },
     "ndc": {
       "label": "國家發展委員會 (NDC)",
-      "status": "error"
+      "status": "ok"
     },
     "equity_risk_premium": {
       "label": "S&P Dow Jones & CBOE ^TNX",
@@ -4872,11 +4873,17 @@
     "world_bank": {
       "label": "World Bank Open Data",
       "status": "ok"
+    },
+    "cnyes": {
+      "label": "鉅亨網 Anue (台股/美股/外匯備用來源)",
+      "url": "https://www.cnyes.com/",
+      "status": "ok",
+      "role": "backup"
     }
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-26T23:07:01Z",
+    "validated_at": "2026-11-26T23:17:36Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5064,7 +5071,7 @@
       "data_status": "published_official",
       "unit": "億美元 (USD 100M)",
       "is_projected": false,
-      "retrieved_at": "2026-11-26T23:06:46.616016+00:00"
+      "retrieved_at": "2026-11-26T23:17:17.060483+00:00"
     }
   },
   "fed_liquidity": {
@@ -5520,8 +5527,8 @@
         "meeting": "2027-01",
         "label": "2027-01 FOMC",
         "ticker": "ZQF27.CBT",
-        "price": 95.85,
-        "implied_rate": 4.15,
+        "price": 95.855,
+        "implied_rate": 4.14,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5602,7 +5609,7 @@
       ],
       "forecast_rates": [
         4.06,
-        4.15,
+        4.14,
         4.36,
         4.54
       ]
@@ -6617,7 +6624,7 @@
         1.0,
         0.36,
         -0.56,
-        0.16
+        0.15
       ],
       [
         -0.34,
@@ -6644,7 +6651,7 @@
         -0.14,
         -0.13,
         0.42,
-        0.16,
+        0.15,
         0.2,
         -0.17,
         1.0
@@ -6740,7 +6747,7 @@
         -0.1,
         -0.48,
         -0.74,
-        0.52,
+        0.53,
         -0.29
       ],
       [
@@ -6768,7 +6775,7 @@
         -0.04,
         0.16,
         1.0,
-        0.06,
+        0.05,
         0.15,
         -0.23,
         0.41
@@ -6794,7 +6801,7 @@
         0.43
       ],
       [
-        0.52,
+        0.53,
         0.39,
         0.29,
         -0.23,
@@ -6820,7 +6827,7 @@
         0.95,
         0.9,
         0.71,
-        0.48,
+        0.47,
         0.31,
         -0.4,
         0.39
@@ -6830,7 +6837,7 @@
         1.0,
         0.96,
         0.71,
-        0.39,
+        0.38,
         0.24,
         -0.45,
         0.26
@@ -6843,7 +6850,7 @@
         0.24,
         0.04,
         -0.33,
-        0.2
+        0.21
       ],
       [
         0.71,
@@ -6856,8 +6863,8 @@
         0.51
       ],
       [
-        0.48,
-        0.39,
+        0.47,
+        0.38,
         0.24,
         0.73,
         1.0,
@@ -6873,7 +6880,7 @@
         0.86,
         1.0,
         -0.81,
-        0.51
+        0.5
       ],
       [
         -0.4,
@@ -6883,16 +6890,16 @@
         -0.87,
         -0.81,
         1.0,
-        -0.22
+        -0.21
       ],
       [
         0.39,
         0.26,
-        0.2,
+        0.21,
         0.51,
         0.37,
-        0.51,
-        -0.22,
+        0.5,
+        -0.21,
         1.0
       ]
     ],
@@ -7025,7 +7032,7 @@
         99.43,
         101.45,
         101.88,
-        103.75
+        103.78
       ],
       "usdtwd": [
         32.76,
@@ -7077,7 +7084,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3593.4
+        3592.1
       ],
       "wti": [
         71.72,
@@ -7103,7 +7110,7 @@
         85.76,
         90.42,
         104.12,
-        84.91
+        84.84
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",
