@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-25T23:14:11Z",
+  "updated_at": "2026-11-26T00:45:21Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1005,7 +1005,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "nasdaq": {
@@ -1016,7 +1016,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "taiex": {
@@ -1027,41 +1027,41 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "nikkei": {
-      "price": 58644.63,
-      "d1": 3.91,
-      "as_of": "2026-11-24",
+      "price": 57999.73,
+      "d1": -1.1,
+      "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "gold": {
-      "price": 3610.0,
-      "d1": 1.35,
+      "price": 3605.4,
+      "d1": 1.22,
       "as_of": "2026-11-25",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "wti": {
-      "price": 83.94,
-      "d1": 2.3,
+      "price": 84.05,
+      "d1": 2.44,
       "as_of": "2026-11-25",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "copper": {
-      "price": 5.47,
-      "d1": 2.1,
+      "price": 5.49,
+      "d1": 2.39,
       "as_of": "2026-11-25",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -1074,7 +1074,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "vix9d": {
@@ -1162,9 +1162,9 @@
       "realtime": false
     },
     "usdtwd": {
-      "price": 33.19,
-      "d1": 1.03,
-      "as_of": "2026-11-25",
+      "price": 33.15,
+      "d1": 0.71,
+      "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
@@ -1182,7 +1182,7 @@
     "fed_target_lower": 3.75,
     "fedwatch_next_cut_prob": 0.0,
     "fedwatch_next_hold_prob": 30.0,
-    "fedwatch_terminal_rate": 4.54,
+    "fedwatch_terminal_rate": 4.55,
     "fear_and_greed": 39.2,
     "fear_and_greed_rating": "恐慌",
     "buffett_ratio": 217.3,
@@ -2549,7 +2549,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3608.5
+        3605.4
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2599,7 +2599,7 @@
         85.76,
         90.42,
         104.12,
-        83.95
+        84.05
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2773,7 +2773,7 @@
         31.63,
         31.85,
         32.61,
-        33.2
+        33.15
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -3480,8 +3480,8 @@
     "TWD": 32.92
   },
   "crypto": {
-    "btc_price": 60139,
-    "stablecoin_market_cap_b": 242.9
+    "btc_price": 60561,
+    "stablecoin_market_cap_b": 243.0
   },
   "macro_indicators": {
     "us_cpi_yoy": {
@@ -3497,7 +3497,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 55,
+        "age_days": 56,
         "freshness_limit_days": 150,
         "expected_range": [
           -10,
@@ -3518,7 +3518,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 55,
+        "age_days": 56,
         "freshness_limit_days": 150,
         "expected_range": [
           -10,
@@ -3539,7 +3539,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 55,
+        "age_days": 56,
         "freshness_limit_days": 150,
         "expected_range": [
           0,
@@ -3560,7 +3560,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 55,
+        "age_days": 56,
         "freshness_limit_days": 150,
         "expected_range": [
           -2,
@@ -3581,7 +3581,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 55,
+        "age_days": 56,
         "freshness_limit_days": 150,
         "expected_range": [
           -50,
@@ -3602,7 +3602,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 55,
+        "age_days": 56,
         "freshness_limit_days": 150,
         "expected_range": [
           -30,
@@ -3623,7 +3623,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 55,
+        "age_days": 56,
         "freshness_limit_days": 150,
         "expected_range": [
           -5000,
@@ -3644,7 +3644,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 1,
+        "age_days": 2,
         "freshness_limit_days": 14,
         "expected_range": [
           -5,
@@ -3665,7 +3665,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 1,
+        "age_days": 2,
         "freshness_limit_days": 14,
         "expected_range": [
           -5,
@@ -3686,7 +3686,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 0,
+        "age_days": 1,
         "freshness_limit_days": 14,
         "expected_range": [
           -10,
@@ -3712,7 +3712,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               -30,
@@ -3733,7 +3733,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 1059,
+            "age_days": 1060,
             "freshness_limit_days": 1200,
             "expected_range": [
               -20,
@@ -3754,7 +3754,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               0,
@@ -3780,7 +3780,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               -30,
@@ -3801,7 +3801,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               -20,
@@ -3822,7 +3822,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               0,
@@ -3848,7 +3848,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               -30,
@@ -3869,7 +3869,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               -20,
@@ -3890,7 +3890,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               0,
@@ -3916,7 +3916,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               -30,
@@ -3937,7 +3937,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               -20,
@@ -3958,7 +3958,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 693,
+            "age_days": 694,
             "freshness_limit_days": 1200,
             "expected_range": [
               0,
@@ -4107,7 +4107,7 @@
   "equity_risk_premium": {},
   "corporate_bonds": {
     "as_of": "2026-11-24",
-    "updated_at": "2026-11-25T23:14:50Z",
+    "updated_at": "2026-11-26T00:45:43Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4757,7 +4757,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-25T23:15:30Z",
+    "validated_at": "2026-11-26T00:46:13Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5381,8 +5381,8 @@
     "terminal_rate": {
       "meeting": "2027-06",
       "label": "2027-06 FOMC",
-      "rate": 4.54,
-      "status_desc": "市場定價終端利率約 4.54%，反映長期中性利率預期抬升 (Higher for Longer)"
+      "rate": 4.55,
+      "status_desc": "市場定價終端利率約 4.55%，反映長期中性利率預期抬升 (Higher for Longer)"
     },
     "meetings": [
       {
@@ -5401,7 +5401,7 @@
         "meeting": "2027-01",
         "label": "2027-01 FOMC",
         "ticker": "ZQF27.CBT",
-        "price": 95.86,
+        "price": 95.855,
         "implied_rate": 4.14,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
@@ -5413,8 +5413,8 @@
         "meeting": "2027-03",
         "label": "2027-03 FOMC",
         "ticker": "ZQH27.CBT",
-        "price": 95.655,
-        "implied_rate": 4.35,
+        "price": 95.64,
+        "implied_rate": 4.36,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5425,8 +5425,8 @@
         "meeting": "2027-06",
         "label": "2027-06 FOMC",
         "ticker": "ZQM27.CBT",
-        "price": 95.465,
-        "implied_rate": 4.54,
+        "price": 95.45,
+        "implied_rate": 4.55,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5484,11 +5484,11 @@
       "forecast_rates": [
         4.05,
         4.14,
-        4.35,
-        4.54
+        4.36,
+        4.55
       ]
     },
-    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 30.0%，降息機率 0.0%；市場預期終端利率約 4.54%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
+    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 30.0%，降息機率 0.0%；市場預期終端利率約 4.55%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
     "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
     "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
     "_quality_metadata": {
@@ -6456,7 +6456,7 @@
         0.82,
         -0.01,
         0.02,
-        -0.37,
+        -0.36,
         0.26,
         -0.22
       ],
@@ -6476,7 +6476,7 @@
         1.0,
         0.16,
         -0.09,
-        -0.57,
+        -0.56,
         0.14,
         -0.12
       ],
@@ -6501,14 +6501,14 @@
         0.15
       ],
       [
-        -0.37,
+        -0.36,
         -0.53,
-        -0.57,
+        -0.56,
         -0.02,
         0.37,
         1.0,
-        -0.22,
-        0.17
+        -0.21,
+        0.18
       ],
       [
         0.26,
@@ -6516,7 +6516,7 @@
         0.14,
         -0.32,
         -0.56,
-        -0.22,
+        -0.21,
         1.0,
         -0.17
       ],
@@ -6526,7 +6526,7 @@
         -0.12,
         0.42,
         0.15,
-        0.17,
+        0.18,
         -0.17,
         1.0
       ]
@@ -6642,7 +6642,7 @@
         -0.47,
         -0.74,
         0.28,
-        -0.19
+        -0.2
       ],
       [
         -0.13,
@@ -6661,7 +6661,7 @@
         0.06,
         1.0,
         0.5,
-        -0.69,
+        -0.68,
         -0.08
       ],
       [
@@ -6671,27 +6671,27 @@
         0.12,
         0.5,
         1.0,
-        -0.7,
-        0.35
+        -0.69,
+        0.36
       ],
       [
         0.52,
         0.39,
         0.28,
         -0.24,
+        -0.68,
         -0.69,
-        -0.7,
         1.0,
-        -0.03
+        -0.04
       ],
       [
         -0.34,
         -0.23,
-        -0.19,
+        -0.2,
         0.41,
         -0.08,
-        0.35,
-        -0.03,
+        0.36,
+        -0.04,
         1.0
       ]
     ],
@@ -6702,7 +6702,7 @@
         0.89,
         0.74,
         0.53,
-        0.33,
+        0.34,
         -0.45,
         0.39
       ],
@@ -6712,7 +6712,7 @@
         0.96,
         0.71,
         0.39,
-        0.21,
+        0.22,
         -0.45,
         0.26
       ],
@@ -6722,7 +6722,7 @@
         1.0,
         0.61,
         0.25,
-        0.01,
+        0.02,
         -0.34,
         0.21
       ],
@@ -6747,14 +6747,14 @@
         0.36
       ],
       [
-        0.33,
-        0.21,
-        0.01,
+        0.34,
+        0.22,
+        0.02,
         0.61,
         0.87,
         1.0,
         -0.81,
-        0.45
+        0.46
       ],
       [
         -0.45,
@@ -6772,7 +6772,7 @@
         0.21,
         0.5,
         0.36,
-        0.45,
+        0.46,
         -0.21,
         1.0
       ]
@@ -6932,7 +6932,7 @@
         31.63,
         31.85,
         32.57,
-        33.2
+        33.15
       ],
       "gold": [
         2641.0,
@@ -6958,7 +6958,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3605.1
+        3606.9
       ],
       "wti": [
         71.72,
@@ -6984,7 +6984,7 @@
         85.76,
         90.42,
         104.12,
-        83.92
+        84.05
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",

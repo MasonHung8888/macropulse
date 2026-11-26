@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-25T19:59:22Z",
+  "updated_at": "2026-11-26T00:46:20Z",
   "market_date": "20261125",
   "market_status": "觀察階段 (初步止跌徵兆浮現)",
   "model_score": {
@@ -19,7 +19,7 @@
         "actual": "收盤 38195.43 (5MA 38311.82, 10MA 40633.52, 量價: 價跌量增 (恐慌拋售殺盤))",
         "threshold": "不再破波段新低、站回 5MA/10MA、成交量由價跌量增轉為量縮或帶量長下影",
         "status": "neutral",
-        "date": "2026-11-25"
+        "date": "2026-11-26"
       },
       {
         "id": "semi_turn_strong",
@@ -29,7 +29,7 @@
         "actual": "半導體指數跌幅 -4.71% vs 大盤 -4.80%，台積電 2030 (5MA 2095)",
         "threshold": "半導體類跌幅顯著小於大盤 (相對強弱走揚)、台積電率先站上短期均線",
         "status": "neutral",
-        "date": "2026-11-25"
+        "date": "2026-11-26"
       },
       {
         "id": "foreign_flow",
@@ -53878,6 +53878,6 @@
   "_quality_metadata": {
     "engine_version": "2.0-verified",
     "fallback_used": false,
-    "timestamp": "2026-11-25 19:59:22"
+    "timestamp": "2026-11-26 00:46:20"
   }
 }
