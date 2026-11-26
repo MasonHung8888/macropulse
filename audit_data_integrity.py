@@ -18,13 +18,12 @@ macro = load("macro_live_data.json")
 if macro.get("data_quality", {}).get("status") != "valid":
     errors.append("macro_live_data.json did not pass its quality gate")
 
-for key in ("equity_risk_premium",):
-    if macro.get(key):
-        errors.append(f"{key} must remain empty until a verifiable live source is implemented")
-
-for key in ("equityRiskPremium",):
-    if key in macro.get("series", {}):
-        errors.append(f"unverified series leaked into macro bundle: {key}")
+erp = macro.get("equity_risk_premium", {})
+if erp:
+    if (not erp.get("source_url") or "Yahoo Finance" not in str(erp.get("source", "")) or
+            not erp.get("as_of") or not isinstance(erp.get("erp"), (int, float)) or
+            not isinstance(erp.get("sp500_forward_pe"), (int, float))):
+        errors.append("equity_risk_premium lacks live verified source, date, or numeric fields")
 
 orders = macro.get("tw_export_orders", {})
 orders_meta = orders.get("_quality_metadata", {})

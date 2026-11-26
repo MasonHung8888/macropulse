@@ -332,7 +332,7 @@ def fetch_markets_insider_bond_quote(isin: str, slug: str | None = None) -> dict
         return None
 
 
-def fetch_corporate_bond_monitor() -> dict:
+def fetch_corporate_bond_monitor(existing_bonds: dict | None = None) -> dict:
     """取得 ICE BofA 公司債指數與 10 檔指標公司債每日公開報價。"""
     print("  抓取 FRED / ICE BofA 公司債每日指標與單券公開報價...")
     definitions = {
@@ -408,6 +408,12 @@ def fetch_corporate_bond_monitor() -> dict:
          "isin": "US023135EC69", "slug": "amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
          "terms_source": "Amazon SEC filing", "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm"},
     ]
+    existing_history_by_issuer = {}
+    if isinstance(existing_bonds, dict):
+        for old_issue in existing_bonds.get("issues", []):
+            if old_issue.get("issuer") and isinstance(old_issue.get("history"), list):
+                existing_history_by_issuer[old_issue["issuer"]] = old_issue["history"]
+
     issues = []
     quoted_count = 0
     for spec in issue_specs:
@@ -418,11 +424,19 @@ def fetch_corporate_bond_monitor() -> dict:
         venue = quote["venue"] if quote else ""
         benchmark = ust_7y if spec["maturity"].startswith("2032") else ust_5y
         spread_bps = round((market_yield - benchmark) * 100) if (market_yield is not None and benchmark is not None) else None
-        if market_yield is not None:
+        hist = [
+            pt for pt in existing_history_by_issuer.get(spec["issuer"], [])
+            if isinstance(pt, dict) and pt.get("date")
+        ]
+        if market_yield is not None and quote_date:
             quoted_count += 1
             price_txt = f"價格 {market_price:.2f} · " if market_price is not None else ""
             venue_txt = f"{venue} · " if venue else ""
             quote_status = f"{price_txt}{venue_txt}{quote_date}"
+            new_pt = {"date": quote_date, "ytm": market_yield, "spread_bps": spread_bps, "price": market_price}
+            hist = [pt for pt in hist if pt.get("date") != quote_date]
+            hist.append(new_pt)
+            hist = sorted(hist, key=lambda pt: pt["date"])[-90:]
         else:
             quote_status = "公開報價暫無更新"
         issues.append({
@@ -439,6 +453,7 @@ def fetch_corporate_bond_monitor() -> dict:
             "quote_source": f"Markets Insider ({venue})" if venue else "Markets Insider",
             "quote_url": quote["quote_url"] if quote else None,
             "quote_status": quote_status,
+            "history": hist,
             "terms_status": "verified",
             "terms_source": spec["terms_source"],
             "source_url": spec["source_url"],
@@ -1010,9 +1025,23 @@ def fetch_tw_export_orders():
 
 
 # 7. 股權風險溢價 (Equity Risk Premium, ERP) 計算
-def compute_equity_risk_premium(sp500_price, us10y_yield, sp500_forward_pe=22.4):
+def compute_equity_risk_premium(sp500_price, us10y_yield, existing_erp=None, as_of=None):
     print("7/8 計算美股標普 500 股權風險溢價 (ERP)...")
-    earnings_yield = round((1.0 / sp500_forward_pe) * 100, 2)
+    if not sp500_price or not us10y_yield:
+        return None
+    try:
+        import yfinance as yf
+        spy_info = yf.Ticker("SPY").info or {}
+        trailing_pe = spy_info.get("trailingPE")
+        if not isinstance(trailing_pe, (int, float)) or trailing_pe <= 0:
+            print("  -> SPY trailingPE 無法取得，跳過 ERP 計算（不使用硬編碼數值）")
+            return None
+        sp500_pe = round(float(trailing_pe), 2)
+    except Exception as exc:
+        print(f"  -> SPY trailingPE 抓取失敗: {exc}")
+        return None
+
+    earnings_yield = round((1.0 / sp500_pe) * 100, 2)
     erp = round(earnings_yield - us10y_yield, 2)
     if erp < 0:
         regime = "債券極具性價比 (ERP < 0%)"
@@ -1030,51 +1059,33 @@ def compute_equity_risk_premium(sp500_price, us10y_yield, sp500_forward_pe=22.4)
         color = "emerald"
         desc = "股權風險溢價高，持有股票相對無風險債券的超額報酬期望值較佳。"
 
-    history = [
-        {"date": "2024-12", "erp": 0.42, "us10y": 4.38, "ey": 4.80},
-        {"date": "2025-01", "erp": 0.15, "us10y": 4.55, "ey": 4.70},
-        {"date": "2025-02", "erp": 0.23, "us10y": 4.42, "ey": 4.65},
-        {"date": "2025-03", "erp": 0.42, "us10y": 4.28, "ey": 4.70},
-        {"date": "2025-04", "erp": 0.45, "us10y": 4.35, "ey": 4.80},
-        {"date": "2025-05", "erp": 0.22, "us10y": 4.48, "ey": 4.70},
-        {"date": "2025-06", "erp": 0.20, "us10y": 4.40, "ey": 4.60},
-        {"date": "2025-07", "erp": 0.23, "us10y": 4.32, "ey": 4.55},
-        {"date": "2025-08", "erp": 0.25, "us10y": 4.25, "ey": 4.50},
-        {"date": "2025-09", "erp": 0.32, "us10y": 4.13, "ey": 4.45},
-        {"date": "2025-10", "erp": 0.12, "us10y": 4.28, "ey": 4.40},
-        {"date": "2025-11", "erp": -0.07, "us10y": 4.42, "ey": 4.35},
-        {"date": "2025-12", "erp": -0.16, "us10y": 4.51, "ey": 4.35},
-        {"date": "2026-01", "erp": -0.27, "us10y": 4.62, "ey": 4.35},
-        {"date": "2026-02", "erp": -0.33, "us10y": 4.68, "ey": 4.35},
-        {"date": "2026-03", "erp": -0.35, "us10y": 4.75, "ey": 4.40},
-        {"date": "2026-04", "erp": -0.42, "us10y": 4.82, "ey": 4.40},
-        {"date": "2026-05", "erp": -0.45, "us10y": 4.90, "ey": 4.45},
-        {"date": "2026-06", "erp": -0.50, "us10y": 4.95, "ey": 4.45},
-        {"date": "2026-07", "erp": -0.53, "us10y": 4.98, "ey": 4.45},
-        {"date": "2026-08", "erp": -0.58, "us10y": 5.04, "ey": 4.46},
-        {"date": "2026-09", "erp": -0.62, "us10y": 5.08, "ey": 4.46},
-        {"date": "2026-10", "erp": -0.64, "us10y": 5.10, "ey": 4.46},
-        {"date": "2026-11", "erp": erp, "us10y": us10y_yield, "ey": earnings_yield},
-    ]
+    obs_date = as_of or datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    history = []
+    if isinstance(existing_erp, dict) and existing_erp.get("source_url") == "https://finance.yahoo.com/quote/SPY/":
+        history = [pt for pt in existing_erp.get("history", []) if isinstance(pt, dict) and pt.get("date") and pt.get("date") != obs_date]
+    history.append({"date": obs_date, "erp": erp, "us10y": round(us10y_yield, 2), "ey": earnings_yield, "pe": sp500_pe})
+    history = sorted(history, key=lambda pt: pt["date"])[-90:]
 
-    print(f"  -> 美股 ERP 最新: {erp}% (10Y美債: {us10y_yield}%, 標普盈利殖利率: {earnings_yield}%) - {regime}")
+    print(f"  -> 美股 ERP 最新 ({obs_date}): {erp}% (10Y美債: {us10y_yield}%, SPY Trailing P/E: {sp500_pe}x, 盈利殖利率: {earnings_yield}%) - {regime}")
     return {
+        "as_of": obs_date,
         "sp500_price": sp500_price,
-        "sp500_forward_pe": sp500_forward_pe,
+        "sp500_forward_pe": sp500_pe,
+        "pe_basis": "SPY trailingPE (Yahoo Finance)",
         "earnings_yield": earnings_yield,
-        "us10y_yield": us10y_yield,
+        "us10y_yield": round(us10y_yield, 2),
         "erp": erp,
         "regime": regime,
         "regime_key": regime_key,
         "color": color,
         "desc": desc,
         "history": history,
-        "source": "S&P Dow Jones & CBOE ^TNX",
-        "source_url": "https://finance.yahoo.com/quote/%5ETNX",
+        "source": "Yahoo Finance (SPY Trailing P/E) & CBOE ^TNX",
+        "source_url": "https://finance.yahoo.com/quote/SPY/",
         "_quality_metadata": {
             "model_type": "Earnings_Yield_Spread_Model",
-            "forward_pe_used": sp500_forward_pe,
-            "benchmark": "S&P 500 Forward P/E vs 10Y US Treasury Yield",
+            "trailing_pe_used": sp500_pe,
+            "benchmark": "SPY Trailing P/E vs 10Y US Treasury Yield",
             "calculation": "Earnings_Yield (1/PE * 100) - US10Y"
         }
     }
@@ -2199,7 +2210,7 @@ def main(output_file: str = None):
     payload["macro_indicators"].update(fred_indicators)
     payload["series"].update(fred_series)
 
-    corporate_bonds = fetch_corporate_bond_monitor()
+    corporate_bonds = fetch_corporate_bond_monitor(existing_bonds=existing_payload.get("corporate_bonds"))
     if not corporate_bonds and existing_payload.get("corporate_bonds"):
         corporate_bonds = existing_payload["corporate_bonds"]
         print("  -> 使用上一份有效的公司債指標資料")
@@ -2298,9 +2309,18 @@ def main(output_file: str = None):
         payload["snapshots"]["tw_export_orders_yoy"] = tw_orders["latest"]["yoy_pct"]
         payload["snapshots"]["tw_export_orders_amount"] = tw_orders["latest"]["amount_billions"]
 
-    # 9. 美股標普 500 股權風險溢價 (ERP)
-    # Forward P/E 尚無可驗證的動態來源；不要用硬編碼假設產生「最新」ERP。
-    erp_data = None
+    # 9. 美股標普 500 股權風險溢價 (ERP) — 使用 Yahoo Finance SPY 即時 Trailing P/E 與 ^TNX
+    sp500_snap = payload["snapshots"].get("sp500")
+    us10y_snap = payload["snapshots"].get("us10y")
+    sp500_val = sp500_snap.get("price") if isinstance(sp500_snap, dict) else sp500_snap
+    us10y_val = us10y_snap.get("price") if isinstance(us10y_snap, dict) else us10y_snap
+    erp_as_of = sp500_snap.get("as_of") if isinstance(sp500_snap, dict) else None
+    erp_data = compute_equity_risk_premium(
+        sp500_val,
+        us10y_val,
+        existing_erp=existing_payload.get("equity_risk_premium"),
+        as_of=erp_as_of,
+    )
     if erp_data:
         payload["equity_risk_premium"] = erp_data
         payload["series"]["equityRiskPremium"] = {

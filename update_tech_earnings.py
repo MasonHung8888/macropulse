@@ -696,9 +696,10 @@ def update_earnings_dataset(output_file: Optional[str] = None) -> Dict[str, Any]
                 verified_source = "TWSE_MOPS_OFFICIAL"
                 logging.info(f"已動態同步 {ticker} 官方法說日程至 {clean_d}")
                 
-        # 2. 美股標的嘗試透過 yfinance 更新 (B-01, B-02)
-        if item.get("category") == "US_AI":
-            yf_res = fetch_us_earnings_via_yfinance(ticker)
+        # 2. 美股標的（含雙重掛牌台積電 ADR）嘗試透過 yfinance 更新 (B-01, B-02)
+        if not verified and (item.get("category") == "US_AI" or "TSM" in ticker):
+            yf_ticker = "TSM" if "TSM" in ticker else ticker
+            yf_res = fetch_us_earnings_via_yfinance(yf_ticker)
             if yf_res:
                 if yf_res.get("date"):
                     item["date"] = yf_res["date"]
