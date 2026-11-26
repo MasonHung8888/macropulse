@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-26T04:14:46Z",
+  "updated_at": "2026-11-26T09:38:59Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1031,50 +1031,50 @@
       }
     },
     "nikkei": {
-      "price": 57703.02,
-      "d1": 1.21,
+      "price": 57499.16,
+      "d1": 0.86,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "gold": {
-      "price": 3603.5,
-      "d1": 1.17,
-      "as_of": "2026-11-25",
+      "price": 3598.1,
+      "d1": 1.76,
+      "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 1
+        "age_days": 0
       }
     },
     "wti": {
-      "price": 84.34,
-      "d1": 2.79,
-      "as_of": "2026-11-25",
+      "price": 83.35,
+      "d1": -0.39,
+      "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 1
+        "age_days": 0
       }
     },
     "copper": {
-      "price": 5.49,
-      "d1": 2.42,
-      "as_of": "2026-11-25",
+      "price": 5.46,
+      "d1": 2.37,
+      "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix": {
-      "price": 28.29,
-      "d1": 7.32,
-      "as_of": "2026-11-25",
+      "price": 27.23,
+      "d1": -3.75,
+      "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 1
+        "age_days": 0
       }
     },
     "vix9d": {
@@ -1141,7 +1141,7 @@
       "realtime": false
     },
     "us30y_tyx": {
-      "price": 5.23,
+      "price": 5.24,
       "d1": -1.08,
       "as_of": "2026-11-25",
       "source": "Yahoo Finance daily close (may be delayed)",
@@ -1155,15 +1155,15 @@
       "realtime": false
     },
     "dxy": {
-      "price": 103.81,
-      "d1": 0.0,
-      "as_of": "2026-11-25",
+      "price": 103.69,
+      "d1": 0.02,
+      "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "usdtwd": {
-      "price": 32.97,
-      "d1": 0.13,
+      "price": 32.95,
+      "d1": 0.08,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -1181,8 +1181,8 @@
     "fed_target_upper": 4.0,
     "fed_target_lower": 3.75,
     "fedwatch_next_cut_prob": 0.0,
-    "fedwatch_next_hold_prob": 26.0,
-    "fedwatch_terminal_rate": 4.55,
+    "fedwatch_next_hold_prob": 30.0,
+    "fedwatch_terminal_rate": 4.53,
     "fear_and_greed": 39.2,
     "fear_and_greed_rating": "恐慌",
     "buffett_ratio": 217.0,
@@ -2499,7 +2499,7 @@
         46128.47,
         47940.13,
         45211.83,
-        39126.31
+        39151.81
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2549,7 +2549,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3603.1
+        3598.1
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2599,7 +2599,7 @@
         85.76,
         90.42,
         104.12,
-        84.34
+        83.35
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2715,7 +2715,7 @@
         99.43,
         101.45,
         101.88,
-        103.81
+        103.69
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2773,7 +2773,7 @@
         31.63,
         31.85,
         32.61,
-        32.97
+        32.95
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -3480,7 +3480,7 @@
     "TWD": 32.92
   },
   "crypto": {
-    "btc_price": 60884,
+    "btc_price": 60847,
     "stablecoin_market_cap_b": 243.1
   },
   "macro_indicators": {
@@ -4107,7 +4107,7 @@
   "equity_risk_premium": {},
   "corporate_bonds": {
     "as_of": "2026-11-24",
-    "updated_at": "2026-11-26T04:14:56Z",
+    "updated_at": "2026-11-26T09:39:11Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4757,7 +4757,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-26T04:15:22Z",
+    "validated_at": "2026-11-26T09:39:37Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5371,38 +5371,38 @@
     "next_meeting": {
       "meeting": "2026-12",
       "label": "2026-12 FOMC",
-      "implied_rate": 4.06,
+      "implied_rate": 4.05,
       "prob_cut": 0.0,
-      "prob_hold": 26.0,
-      "prob_hike": 74.0,
-      "futures_price": 95.945,
-      "status_desc": "期貨定價顯示下次 FOMC 按兵不動 (Hold) 機率達 26.0%，降息機率 0.0%"
+      "prob_hold": 30.0,
+      "prob_hike": 70.0,
+      "futures_price": 95.95,
+      "status_desc": "期貨定價顯示下次 FOMC 按兵不動 (Hold) 機率達 30.0%，降息機率 0.0%"
     },
     "terminal_rate": {
       "meeting": "2027-06",
       "label": "2027-06 FOMC",
-      "rate": 4.55,
-      "status_desc": "市場定價終端利率約 4.55%，反映長期中性利率預期抬升 (Higher for Longer)"
+      "rate": 4.53,
+      "status_desc": "市場定價終端利率約 4.53%，反映長期中性利率預期抬升 (Higher for Longer)"
     },
     "meetings": [
       {
         "meeting": "2026-12",
         "label": "2026-12 FOMC",
         "ticker": "ZQZ26.CBT",
-        "price": 95.945,
-        "implied_rate": 4.06,
+        "price": 95.95,
+        "implied_rate": 4.05,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
-        "prob_hold": 26.0,
-        "prob_hike": 74.0
+        "prob_hold": 30.0,
+        "prob_hike": 70.0
       },
       {
         "meeting": "2027-01",
         "label": "2027-01 FOMC",
         "ticker": "ZQF27.CBT",
-        "price": 95.85,
-        "implied_rate": 4.15,
+        "price": 95.855,
+        "implied_rate": 4.14,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5413,8 +5413,8 @@
         "meeting": "2027-03",
         "label": "2027-03 FOMC",
         "ticker": "ZQH27.CBT",
-        "price": 95.64,
-        "implied_rate": 4.36,
+        "price": 95.65,
+        "implied_rate": 4.35,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5425,8 +5425,8 @@
         "meeting": "2027-06",
         "label": "2027-06 FOMC",
         "ticker": "ZQM27.CBT",
-        "price": 95.45,
-        "implied_rate": 4.55,
+        "price": 95.475,
+        "implied_rate": 4.53,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5482,13 +5482,13 @@
         "2027-06"
       ],
       "forecast_rates": [
-        4.06,
-        4.15,
-        4.36,
-        4.55
+        4.05,
+        4.14,
+        4.35,
+        4.53
       ]
     },
-    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 26.0%，降息機率 0.0%；市場預期終端利率約 4.55%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
+    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 30.0%，降息機率 0.0%；市場預期終端利率約 4.53%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
     "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
     "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
     "_quality_metadata": {
@@ -6478,7 +6478,7 @@
         -0.09,
         -0.55,
         0.14,
-        -0.13
+        -0.12
       ],
       [
         -0.0,
@@ -6523,7 +6523,7 @@
       [
         -0.2,
         -0.14,
-        -0.13,
+        -0.12,
         0.42,
         0.15,
         0.19,
@@ -6548,7 +6548,7 @@
         0.99,
         0.48,
         -0.34,
-        0.02,
+        0.01,
         0.7,
         0.53
       ],
@@ -6580,17 +6580,17 @@
         1.0,
         0.71,
         -0.67,
-        0.11
+        0.1
       ],
       [
         0.23,
-        0.02,
+        0.01,
         -0.05,
         0.37,
         0.71,
         1.0,
         -0.16,
-        0.39
+        0.38
       ],
       [
         0.62,
@@ -6607,8 +6607,8 @@
         0.53,
         0.49,
         0.64,
-        0.11,
-        0.39,
+        0.1,
+        0.38,
         0.31,
         1.0
       ]
@@ -6619,7 +6619,7 @@
         0.88,
         0.86,
         -0.11,
-        -0.48,
+        -0.47,
         -0.76,
         0.52,
         -0.31
@@ -6640,36 +6640,36 @@
         1.0,
         0.16,
         -0.47,
-        -0.72,
-        0.28,
-        -0.2
+        -0.71,
+        0.29,
+        -0.19
       ],
       [
         -0.11,
         -0.04,
         0.16,
         1.0,
-        0.05,
+        0.06,
         0.15,
-        -0.24,
+        -0.23,
         0.41
       ],
       [
-        -0.48,
+        -0.47,
         -0.63,
         -0.47,
-        0.05,
+        0.06,
         1.0,
-        0.48,
+        0.47,
         -0.69,
         -0.08
       ],
       [
         -0.76,
         -0.7,
-        -0.72,
+        -0.71,
         0.15,
-        0.48,
+        0.47,
         1.0,
         -0.68,
         0.42
@@ -6677,21 +6677,21 @@
       [
         0.52,
         0.39,
-        0.28,
-        -0.24,
+        0.29,
+        -0.23,
         -0.69,
         -0.68,
         1.0,
-        -0.04
+        -0.03
       ],
       [
         -0.31,
         -0.23,
-        -0.2,
+        -0.19,
         0.41,
         -0.08,
         0.42,
-        -0.04,
+        -0.03,
         1.0
       ]
     ],
@@ -6701,7 +6701,7 @@
         0.95,
         0.9,
         0.73,
-        0.5,
+        0.51,
         0.33,
         -0.43,
         0.39
@@ -6711,7 +6711,7 @@
         1.0,
         0.96,
         0.71,
-        0.38,
+        0.39,
         0.24,
         -0.45,
         0.26
@@ -6721,7 +6721,7 @@
         0.96,
         1.0,
         0.61,
-        0.24,
+        0.25,
         0.04,
         -0.34,
         0.21
@@ -6731,19 +6731,19 @@
         0.71,
         0.61,
         1.0,
-        0.72,
+        0.73,
         0.63,
         -0.7,
         0.5
       ],
       [
-        0.5,
-        0.38,
-        0.24,
-        0.72,
+        0.51,
+        0.39,
+        0.25,
+        0.73,
         1.0,
         0.86,
-        -0.86,
+        -0.87,
         0.36
       ],
       [
@@ -6754,17 +6754,17 @@
         0.86,
         1.0,
         -0.81,
-        0.49
+        0.48
       ],
       [
         -0.43,
         -0.45,
         -0.34,
         -0.7,
-        -0.86,
+        -0.87,
         -0.81,
         1.0,
-        -0.21
+        -0.2
       ],
       [
         0.39,
@@ -6772,8 +6772,8 @@
         0.21,
         0.5,
         0.36,
-        0.49,
-        -0.21,
+        0.48,
+        -0.2,
         1.0
       ]
     ],
@@ -6802,7 +6802,7 @@
         46128.47,
         47940.13,
         45211.83,
-        39130.06
+        39151.81
       ],
       "sp500": [
         5881.63,
@@ -6906,7 +6906,7 @@
         99.43,
         101.45,
         101.88,
-        103.81
+        103.69
       ],
       "usdtwd": [
         32.76,
@@ -6932,7 +6932,7 @@
         31.63,
         31.85,
         32.57,
-        32.97
+        32.95
       ],
       "gold": [
         2641.0,
@@ -6958,7 +6958,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3603.7
+        3598.7
       ],
       "wti": [
         71.72,
@@ -6984,7 +6984,7 @@
         85.76,
         90.42,
         104.12,
-        84.35
+        83.37
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",
