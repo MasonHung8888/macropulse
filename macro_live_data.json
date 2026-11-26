@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-26T09:38:59Z",
+  "updated_at": "2026-11-26T19:42:28Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -515,7 +515,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "NVDA",
       "name": "Nvidia Corp",
-      "cap": 54252231998.94,
+      "cap": 54729185788.69,
       "price": 149.3,
       "d1": -3.91,
       "w1": -1.1,
@@ -528,7 +528,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "AAPL",
       "name": "Apple Inc",
-      "cap": 19286694029.68,
+      "cap": 19302766245.07,
       "price": 355.58,
       "d1": 0.43,
       "w1": 0.89,
@@ -541,7 +541,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "MSFT",
       "name": "Microsoft Corp",
-      "cap": 13097592452.2,
+      "cap": 13110281639.01,
       "price": 489.93,
       "d1": -1.25,
       "w1": -3.43,
@@ -554,7 +554,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "AVGO",
       "name": "Broadcom Inc",
-      "cap": 10306530432.19,
+      "cap": 10334390066.83,
       "price": 300.86,
       "d1": -0.07,
       "w1": -15.02,
@@ -567,7 +567,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "MU",
       "name": "Micron Tech",
-      "cap": 31547587500.0,
+      "cap": 31859275500.0,
       "price": 601.25,
       "d1": -4.53,
       "w1": -14.75,
@@ -580,7 +580,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "AMD",
       "name": "Advanced Micro Devices",
-      "cap": 20845904961.33,
+      "cap": 20964140896.97,
       "price": 406.03,
       "d1": -1.75,
       "w1": -23.41,
@@ -593,7 +593,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "INTC",
       "name": "Intel Corp",
-      "cap": 7005119953.99,
+      "cap": 7041767370.81,
       "price": 54.47,
       "d1": -0.6,
       "w1": -0.37,
@@ -606,7 +606,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "QCOM",
       "name": "Qualcomm Inc",
-      "cap": 2366198655.38,
+      "cap": 2370415155.47,
       "price": 168.66,
       "d1": 2.24,
       "w1": 5.54,
@@ -632,7 +632,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "ORCL",
       "name": "Oracle Corp",
-      "cap": 3981159342.74,
+      "cap": 3998496914.28,
       "price": 103.88,
       "d1": -5.13,
       "w1": -8.79,
@@ -645,7 +645,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "PLTR",
       "name": "Palantir Tech",
-      "cap": 3501971051.61,
+      "cap": 3514894661.32,
       "price": 163.59,
       "d1": 1.5,
       "w1": 4.42,
@@ -658,7 +658,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "PANW",
       "name": "Palo Alto Networks",
-      "cap": 2371037761.52,
+      "cap": 2382897224.01,
       "price": 356.14,
       "d1": 0.89,
       "w1": 4.77,
@@ -671,7 +671,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "CRWD",
       "name": "CrowdStrike",
-      "cap": 3038429074.3,
+      "cap": 3049856854.47,
       "price": 209.3,
       "d1": -0.74,
       "w1": -11.7,
@@ -684,7 +684,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "AMAT",
       "name": "Applied Materials",
-      "cap": 3641054858.3,
+      "cap": 3646842806.16,
       "price": 311.18,
       "d1": -3.89,
       "w1": -11.54,
@@ -697,7 +697,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "GOOGL",
       "name": "Alphabet Inc",
-      "cap": 11242025201.25,
+      "cap": 11274578721.98,
       "price": 273.1,
       "d1": -2.13,
       "w1": -3.31,
@@ -710,7 +710,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "META",
       "name": "Meta Platforms",
-      "cap": 11343588338.45,
+      "cap": 11385548771.46,
       "price": 609.89,
       "d1": 3.4,
       "w1": -1.05,
@@ -723,7 +723,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "NFLX",
       "name": "Netflix Inc",
-      "cap": 2714656769.03,
+      "cap": 2718393658.02,
       "price": 59.41,
       "d1": 0.92,
       "w1": -0.69,
@@ -736,7 +736,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "DIS",
       "name": "Walt Disney Co",
-      "cap": 2052856615.06,
+      "cap": 2054213095.04,
       "price": 125.6,
       "d1": 2.52,
       "w1": 2.65,
@@ -801,7 +801,7 @@
       "sector": "FINANCIAL",
       "ticker": "BAC",
       "name": "Bank of America",
-      "cap": 1857873389.04,
+      "cap": 1858392767.05,
       "price": 48.54,
       "d1": -0.04,
       "w1": -0.76,
@@ -827,7 +827,7 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "AMZN",
       "name": "Amazon.com Inc",
-      "cap": 15222219995.87,
+      "cap": 15271863727.39,
       "price": 244.43,
       "d1": -3.12,
       "w1": -8.71,
@@ -840,7 +840,7 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "TSLA",
       "name": "Tesla Inc",
-      "cap": 13225033095.62,
+      "cap": 13272892723.46,
       "price": 380.14,
       "d1": -1.18,
       "w1": -0.93,
@@ -905,7 +905,7 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "WMT",
       "name": "Walmart Inc",
-      "cap": 3114232653.63,
+      "cap": 3116409663.67,
       "price": 131.94,
       "d1": -0.28,
       "w1": 3.6,
@@ -931,7 +931,7 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "KO",
       "name": "Coca-Cola Co",
-      "cap": 2428517299.87,
+      "cap": 2430527653.79,
       "price": 97.59,
       "d1": -0.03,
       "w1": -0.51,
@@ -1031,15 +1031,15 @@
       }
     },
     "nikkei": {
-      "price": 57499.16,
-      "d1": 0.86,
-      "as_of": "2026-11-26",
+      "price": 57011.62,
+      "d1": -2.78,
+      "as_of": "2026-11-25",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "gold": {
-      "price": 3598.1,
-      "d1": 1.76,
+      "price": 3593.4,
+      "d1": 1.63,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1049,8 +1049,8 @@
       }
     },
     "wti": {
-      "price": 83.35,
-      "d1": -0.39,
+      "price": 84.91,
+      "d1": 1.47,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1060,15 +1060,15 @@
       }
     },
     "copper": {
-      "price": 5.46,
-      "d1": 2.37,
+      "price": 5.43,
+      "d1": 1.89,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix": {
-      "price": 27.23,
-      "d1": -3.75,
+      "price": 26.8,
+      "d1": -5.27,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1155,22 +1155,21 @@
       "realtime": false
     },
     "dxy": {
-      "price": 103.69,
-      "d1": 0.02,
+      "price": 103.79,
+      "d1": 0.11,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "usdtwd": {
-      "price": 32.95,
-      "d1": 0.08,
+      "price": 32.94,
+      "d1": 0.06,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us10y": 4.85,
     "spread10y5y": 0.19,
-    "ndc_score": 41,
     "tw_export_orders_yoy": 78.33,
     "tw_export_orders_amount": 1238.2,
     "fed_net_liquidity": 5.825,
@@ -1181,8 +1180,8 @@
     "fed_target_upper": 4.0,
     "fed_target_lower": 3.75,
     "fedwatch_next_cut_prob": 0.0,
-    "fedwatch_next_hold_prob": 30.0,
-    "fedwatch_terminal_rate": 4.53,
+    "fedwatch_next_hold_prob": 26.0,
+    "fedwatch_terminal_rate": 4.54,
     "fear_and_greed": 39.2,
     "fear_and_greed_rating": "恐慌",
     "buffett_ratio": 217.0,
@@ -2549,7 +2548,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3598.1
+        3593.4
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2599,7 +2598,7 @@
         85.76,
         90.42,
         104.12,
-        83.35
+        84.91
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2715,7 +2714,7 @@
         99.43,
         101.45,
         101.88,
-        103.69
+        103.79
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2773,7 +2772,7 @@
         31.63,
         31.85,
         32.61,
-        32.95
+        32.94
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -3472,15 +3471,15 @@
     }
   },
   "fx": {
-    "AUD": 1.5221,
-    "CAD": 1.4258,
-    "EUR": 0.91449,
-    "GBP": 0.76571,
-    "JPY": 159.32,
-    "TWD": 32.92
+    "AUD": 1.5071,
+    "CAD": 1.423,
+    "EUR": 0.91116,
+    "GBP": 0.76314,
+    "JPY": 159.26,
+    "TWD": 33.16
   },
   "crypto": {
-    "btc_price": 60847,
+    "btc_price": 60601,
     "stablecoin_market_cap_b": 243.1
   },
   "macro_indicators": {
@@ -3969,145 +3968,11 @@
       }
     }
   },
-  "ndc_indicators": {
-    "latest": {
-      "date": "2026-09",
-      "score": 41,
-      "light": "紅燈",
-      "color": "red",
-      "desc": "景氣熱絡"
-    },
-    "history": [
-      {
-        "date": "2025-10",
-        "score": 35,
-        "light": "黃紅燈",
-        "color": "yellow-red",
-        "desc": "轉向熱絡"
-      },
-      {
-        "date": "2025-11",
-        "score": 37,
-        "light": "黃紅燈",
-        "color": "yellow-red",
-        "desc": "轉向熱絡"
-      },
-      {
-        "date": "2025-12",
-        "score": 38,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-01",
-        "score": 39,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-02",
-        "score": 41,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-03",
-        "score": 39,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-04",
-        "score": 40,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-05",
-        "score": 39,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-06",
-        "score": 41,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-07",
-        "score": 41,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-08",
-        "score": 40,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      },
-      {
-        "date": "2026-09",
-        "score": 41,
-        "light": "紅燈",
-        "color": "red",
-        "desc": "景氣熱絡"
-      }
-    ],
-    "components": [
-      {
-        "name": "股價指數",
-        "score": 5
-      },
-      {
-        "name": "批發、零售及餐飲業營業額",
-        "score": 5
-      },
-      {
-        "name": "工業生產指數",
-        "score": 5
-      },
-      {
-        "name": "製造業銷售量指數",
-        "score": 5
-      },
-      {
-        "name": "機械及電機設備進口值",
-        "score": 5
-      },
-      {
-        "name": "製造業營業氣候測驗點",
-        "score": 4
-      },
-      {
-        "name": "貨幣總計數 M1B",
-        "score": 3
-      },
-      {
-        "name": "工業及服務業加班工時",
-        "score": 4
-      },
-      {
-        "name": "海關出口值",
-        "score": 5
-      }
-    ],
-    "source": "國家發展委員會 (NDC)",
-    "source_url": "https://index.ndc.gov.tw/n/zh_tw"
-  },
+  "ndc_indicators": {},
   "equity_risk_premium": {},
   "corporate_bonds": {
     "as_of": "2026-11-24",
-    "updated_at": "2026-11-26T09:39:11Z",
+    "updated_at": "2026-11-26T19:42:36Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4524,13 +4389,13 @@
         "currency": "USD",
         "identifier": "21873SAG3",
         "isin": "USU2069EAC40",
-        "market_price": 74.04,
-        "market_yield": 17.72,
-        "spread_bps": 1303,
-        "quote_date": "2026-11-25",
+        "market_price": 73.45,
+        "market_yield": 19.11,
+        "spread_bps": 1442,
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (FFMFO)",
         "quote_url": "https://markets.businessinsider.com/bonds/coreweave_incdl-notes_202626-31_regs-Bond-2031-usu2069eac40",
-        "quote_status": "價格 74.04 · FFMFO · 2026-11-25",
+        "quote_status": "價格 73.45 · FFMFO · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "CoreWeave SEC filing",
         "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000183/ex411.htm"
@@ -4542,13 +4407,13 @@
         "currency": "USD",
         "identifier": "XS2854422818",
         "isin": "XS2854422818",
-        "market_price": 89.87,
-        "market_yield": 9.52,
-        "spread_bps": 483,
-        "quote_date": "2026-11-25",
-        "quote_source": "Markets Insider (DUS)",
+        "market_price": 89.11,
+        "market_yield": 9.86,
+        "spread_bps": 517,
+        "quote_date": "2026-11-26",
+        "quote_source": "Markets Insider (FFMFO)",
         "quote_url": "https://markets.businessinsider.com/bonds/softbank_group_corpdl-notes_202424-31-Bond-2031-xs2854422818",
-        "quote_status": "價格 89.87 · DUS · 2026-11-25",
+        "quote_status": "價格 89.11 · FFMFO · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "SoftBank Group bond disclosures",
         "source_url": "https://group.softbank/en/ir/stock/bond"
@@ -4560,13 +4425,13 @@
         "currency": "USD",
         "identifier": "68389XDK8",
         "isin": "US68389XDK81",
-        "market_price": 84.11,
-        "market_yield": 8.23,
-        "spread_bps": 344,
-        "quote_date": "2026-11-25",
+        "market_price": 84.12,
+        "market_yield": 8.26,
+        "spread_bps": 347,
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/oracle_corpdl-notes_202525-32-Bond-2032-us68389xdk81",
-        "quote_status": "價格 84.11 · BMN · 2026-11-25",
+        "quote_status": "價格 84.12 · BMN · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "Oracle SEC filing",
         "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525220445/d31817dex41.htm"
@@ -4578,13 +4443,13 @@
         "currency": "USD",
         "identifier": "84615QAA1",
         "isin": "USU8531HAA87",
-        "market_price": 92.26,
+        "market_price": 92.29,
         "market_yield": 7.33,
         "spread_bps": 264,
-        "quote_date": "2026-11-25",
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/space_exploration_techs_corpdl-notes_202626-31_regs-Bond-2031-usu8531haa87",
-        "quote_status": "價格 92.26 · BMN · 2026-11-25",
+        "quote_status": "價格 92.29 · BMN · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "SpaceX investor relations",
         "source_url": "https://ir.spacex.com/updates/releases-details/2026/SpaceX-Announces-Pricing-of-25-Billion-Inaugural-Bond-Issuance-2026-33VwNgsx3O/default.aspx"
@@ -4596,13 +4461,13 @@
         "currency": "USD",
         "identifier": "11135FBY6",
         "isin": "US11135FBY60",
-        "market_price": 97.04,
-        "market_yield": 5.91,
-        "spread_bps": 122,
-        "quote_date": "2026-11-25",
+        "market_price": 97.07,
+        "market_yield": 5.88,
+        "spread_bps": 119,
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/broadcom_incdl-notes_202424-31-Bond-2031-us11135fby60",
-        "quote_status": "價格 97.04 · BMN · 2026-11-25",
+        "quote_status": "價格 97.07 · BMN · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "Broadcom SEC filing",
         "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036124033072/ny20032136x6_ex4-2.htm"
@@ -4614,13 +4479,13 @@
         "currency": "USD",
         "identifier": "67066GAR5",
         "isin": "US67066GAR56",
-        "market_price": 95.93,
-        "market_yield": 5.58,
-        "spread_bps": 89,
-        "quote_date": "2026-11-25",
+        "market_price": 95.96,
+        "market_yield": 5.51,
+        "spread_bps": 82,
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/nvidia_corpdl-notes_202626-31-Bond-2031-us67066gar56",
-        "quote_status": "價格 95.93 · BMN · 2026-11-25",
+        "quote_status": "價格 95.96 · BMN · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "NVIDIA SEC filing",
         "source_url": "https://www.sec.gov/Archives/edgar/data/1045810/000119312526275783/d48176dex42.htm"
@@ -4632,13 +4497,13 @@
         "currency": "USD",
         "identifier": "30303MAF9",
         "isin": "US30303MAF95",
-        "market_price": 96.39,
-        "market_yield": 5.58,
-        "spread_bps": 89,
-        "quote_date": "2026-11-25",
+        "market_price": 96.46,
+        "market_yield": 5.51,
+        "spread_bps": 82,
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/meta_platforms_incdl-notes_202626-31-Bond-2031-us30303maf95",
-        "quote_status": "價格 96.39 · BMN · 2026-11-25",
+        "quote_status": "價格 96.46 · BMN · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "Meta SEC filing",
         "source_url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312526201738/d109954d424b2.htm"
@@ -4650,13 +4515,13 @@
         "currency": "USD",
         "identifier": "02079KCQ8",
         "isin": "US02079KCQ85",
-        "market_price": 98.27,
-        "market_yield": 5.34,
-        "spread_bps": 65,
-        "quote_date": "2026-11-25",
+        "market_price": 98.36,
+        "market_yield": 5.26,
+        "spread_bps": 57,
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/alphabet_incdl-notes_202626-31-Bond-2031-us02079kcq85",
-        "quote_status": "價格 98.27 · BMN · 2026-11-25",
+        "quote_status": "價格 98.36 · BMN · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "Alphabet SEC filing",
         "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526342390/d171253dex46.htm"
@@ -4668,13 +4533,13 @@
         "currency": "USD",
         "identifier": "594918DB7",
         "isin": "US594918DB72",
-        "market_price": 100.54,
-        "market_yield": 5.12,
-        "spread_bps": 43,
-        "quote_date": "2026-11-25",
+        "market_price": 100.69,
+        "market_yield": 5.05,
+        "spread_bps": 36,
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/microsoft_corpdl-notes_202626-31-Bond-2031-us594918db72",
-        "quote_status": "價格 100.54 · BMN · 2026-11-25",
+        "quote_status": "價格 100.69 · BMN · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "Microsoft SEC filing",
         "source_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526442618/d150456d424b2.htm"
@@ -4686,13 +4551,13 @@
         "currency": "USD",
         "identifier": "023135EC6",
         "isin": "US023135EC69",
-        "market_price": 97.75,
-        "market_yield": 5.41,
-        "spread_bps": 72,
-        "quote_date": "2026-11-25",
+        "market_price": 97.84,
+        "market_yield": 5.33,
+        "spread_bps": 64,
+        "quote_date": "2026-11-26",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
-        "quote_status": "價格 97.75 · BMN · 2026-11-25",
+        "quote_status": "價格 97.84 · BMN · 2026-11-26",
         "terms_status": "verified",
         "terms_source": "Amazon SEC filing",
         "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm"
@@ -4716,7 +4581,7 @@
     },
     "ndc": {
       "label": "國家發展委員會 (NDC)",
-      "status": "ok"
+      "status": "error"
     },
     "equity_risk_premium": {
       "label": "S&P Dow Jones & CBOE ^TNX",
@@ -4757,7 +4622,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-26T09:39:37Z",
+    "validated_at": "2026-11-26T19:43:00Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5364,45 +5229,45 @@
     }
   },
   "fedwatch": {
-    "as_of": "2026-11-25",
+    "as_of": "2026-11-26",
     "target_lower": 3.75,
     "target_upper": 4.0,
     "effective_rate": 3.88,
     "next_meeting": {
       "meeting": "2026-12",
       "label": "2026-12 FOMC",
-      "implied_rate": 4.05,
+      "implied_rate": 4.06,
       "prob_cut": 0.0,
-      "prob_hold": 30.0,
-      "prob_hike": 70.0,
-      "futures_price": 95.95,
-      "status_desc": "期貨定價顯示下次 FOMC 按兵不動 (Hold) 機率達 30.0%，降息機率 0.0%"
+      "prob_hold": 26.0,
+      "prob_hike": 74.0,
+      "futures_price": 95.945,
+      "status_desc": "期貨定價顯示下次 FOMC 按兵不動 (Hold) 機率達 26.0%，降息機率 0.0%"
     },
     "terminal_rate": {
       "meeting": "2027-06",
       "label": "2027-06 FOMC",
-      "rate": 4.53,
-      "status_desc": "市場定價終端利率約 4.53%，反映長期中性利率預期抬升 (Higher for Longer)"
+      "rate": 4.54,
+      "status_desc": "市場定價終端利率約 4.54%，反映長期中性利率預期抬升 (Higher for Longer)"
     },
     "meetings": [
       {
         "meeting": "2026-12",
         "label": "2026-12 FOMC",
         "ticker": "ZQZ26.CBT",
-        "price": 95.95,
-        "implied_rate": 4.05,
+        "price": 95.945,
+        "implied_rate": 4.06,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
-        "prob_hold": 30.0,
-        "prob_hike": 70.0
+        "prob_hold": 26.0,
+        "prob_hike": 74.0
       },
       {
         "meeting": "2027-01",
         "label": "2027-01 FOMC",
         "ticker": "ZQF27.CBT",
-        "price": 95.855,
-        "implied_rate": 4.14,
+        "price": 95.85,
+        "implied_rate": 4.15,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5413,8 +5278,8 @@
         "meeting": "2027-03",
         "label": "2027-03 FOMC",
         "ticker": "ZQH27.CBT",
-        "price": 95.65,
-        "implied_rate": 4.35,
+        "price": 95.645,
+        "implied_rate": 4.36,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5425,8 +5290,8 @@
         "meeting": "2027-06",
         "label": "2027-06 FOMC",
         "ticker": "ZQM27.CBT",
-        "price": 95.475,
-        "implied_rate": 4.53,
+        "price": 95.465,
+        "implied_rate": 4.54,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5482,13 +5347,13 @@
         "2027-06"
       ],
       "forecast_rates": [
-        4.05,
-        4.14,
-        4.35,
-        4.53
+        4.06,
+        4.15,
+        4.36,
+        4.54
       ]
     },
-    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 30.0%，降息機率 0.0%；市場預期終端利率約 4.53%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
+    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 26.0%，降息機率 0.0%；市場預期終端利率約 4.54%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
     "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
     "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
     "_quality_metadata": {
@@ -6454,11 +6319,11 @@
         1.0,
         0.82,
         0.82,
+        0.0,
         -0.0,
-        0.01,
         -0.34,
-        0.27,
-        -0.2
+        0.28,
+        -0.19
       ],
       [
         0.82,
@@ -6478,10 +6343,10 @@
         -0.09,
         -0.55,
         0.14,
-        -0.12
+        -0.13
       ],
       [
-        -0.0,
+        0.0,
         -0.05,
         0.16,
         1.0,
@@ -6491,7 +6356,7 @@
         0.42
       ],
       [
-        0.01,
+        -0.0,
         -0.19,
         -0.09,
         0.32,
@@ -6508,10 +6373,10 @@
         0.36,
         1.0,
         -0.2,
-        0.19
+        0.2
       ],
       [
-        0.27,
+        0.28,
         0.21,
         0.14,
         -0.32,
@@ -6521,12 +6386,12 @@
         -0.17
       ],
       [
-        -0.2,
+        -0.19,
         -0.14,
-        -0.12,
+        -0.13,
         0.42,
         0.15,
-        0.19,
+        0.2,
         -0.17,
         1.0
       ]
@@ -6537,9 +6402,9 @@
         0.94,
         0.92,
         0.62,
-        -0.17,
-        0.23,
-        0.62,
+        -0.18,
+        0.22,
+        0.63,
         0.66
       ],
       [
@@ -6573,27 +6438,27 @@
         0.64
       ],
       [
-        -0.17,
+        -0.18,
         -0.34,
         -0.37,
         0.33,
         1.0,
         0.71,
         -0.67,
-        0.1
+        0.11
       ],
       [
-        0.23,
+        0.22,
         0.01,
         -0.05,
         0.37,
         0.71,
         1.0,
         -0.16,
-        0.38
+        0.39
       ],
       [
-        0.62,
+        0.63,
         0.7,
         0.7,
         -0.08,
@@ -6607,8 +6472,8 @@
         0.53,
         0.49,
         0.64,
-        0.1,
-        0.38,
+        0.11,
+        0.39,
         0.31,
         1.0
       ]
@@ -6618,11 +6483,11 @@
         1.0,
         0.88,
         0.86,
-        -0.11,
-        -0.47,
-        -0.76,
+        -0.1,
+        -0.48,
+        -0.75,
         0.52,
-        -0.31
+        -0.29
       ],
       [
         0.88,
@@ -6630,9 +6495,9 @@
         0.95,
         -0.04,
         -0.63,
-        -0.7,
+        -0.69,
         0.39,
-        -0.23
+        -0.24
       ],
       [
         0.86,
@@ -6642,37 +6507,37 @@
         -0.47,
         -0.71,
         0.29,
-        -0.19
+        -0.2
       ],
       [
-        -0.11,
+        -0.1,
         -0.04,
         0.16,
         1.0,
-        0.06,
+        0.05,
         0.15,
         -0.23,
         0.41
       ],
       [
-        -0.47,
+        -0.48,
         -0.63,
         -0.47,
-        0.06,
+        0.05,
         1.0,
         0.47,
         -0.69,
         -0.08
       ],
       [
-        -0.76,
-        -0.7,
+        -0.75,
+        -0.69,
         -0.71,
         0.15,
         0.47,
         1.0,
         -0.68,
-        0.42
+        0.43
       ],
       [
         0.52,
@@ -6685,12 +6550,12 @@
         -0.03
       ],
       [
-        -0.31,
-        -0.23,
-        -0.19,
+        -0.29,
+        -0.24,
+        -0.2,
         0.41,
         -0.08,
-        0.42,
+        0.43,
         -0.03,
         1.0
       ]
@@ -6700,10 +6565,10 @@
         1.0,
         0.95,
         0.9,
-        0.73,
-        0.51,
-        0.33,
-        -0.43,
+        0.71,
+        0.47,
+        0.31,
+        -0.4,
         0.39
       ],
       [
@@ -6711,7 +6576,7 @@
         1.0,
         0.96,
         0.71,
-        0.39,
+        0.38,
         0.24,
         -0.45,
         0.26
@@ -6721,59 +6586,59 @@
         0.96,
         1.0,
         0.61,
-        0.25,
+        0.24,
         0.04,
-        -0.34,
-        0.21
+        -0.33,
+        0.2
       ],
       [
-        0.73,
+        0.71,
         0.71,
         0.61,
         1.0,
         0.73,
         0.63,
         -0.7,
-        0.5
+        0.51
       ],
       [
-        0.51,
-        0.39,
-        0.25,
+        0.47,
+        0.38,
+        0.24,
         0.73,
         1.0,
         0.86,
         -0.87,
-        0.36
+        0.37
       ],
       [
-        0.33,
+        0.31,
         0.24,
         0.04,
         0.63,
         0.86,
         1.0,
         -0.81,
-        0.48
+        0.5
       ],
       [
-        -0.43,
+        -0.4,
         -0.45,
-        -0.34,
+        -0.33,
         -0.7,
         -0.87,
         -0.81,
         1.0,
-        -0.2
+        -0.22
       ],
       [
         0.39,
         0.26,
-        0.21,
+        0.2,
+        0.51,
+        0.37,
         0.5,
-        0.36,
-        0.48,
-        -0.2,
+        -0.22,
         1.0
       ]
     ],
@@ -6802,7 +6667,7 @@
         46128.47,
         47940.13,
         45211.83,
-        39151.81
+        38195.43
       ],
       "sp500": [
         5881.63,
@@ -6906,7 +6771,7 @@
         99.43,
         101.45,
         101.88,
-        103.69
+        103.79
       ],
       "usdtwd": [
         32.76,
@@ -6932,7 +6797,7 @@
         31.63,
         31.85,
         32.57,
-        32.95
+        32.94
       ],
       "gold": [
         2641.0,
@@ -6958,7 +6823,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3598.7
+        3593.4
       ],
       "wti": [
         71.72,
@@ -6984,7 +6849,7 @@
         85.76,
         90.42,
         104.12,
-        83.37
+        84.91
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",
