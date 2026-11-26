@@ -581,18 +581,31 @@ def fetch_cnyes_quotes(symbols: list[str]) -> dict[str, dict]:
 
 
 def fetch_twse_taiex_snapshot() -> dict:
-    """從 TWSE 官方指數日報取得發行量加權股價指數。"""
-    raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/MI_INDEX", timeout=20)
-    rows = json.loads(raw)
-    row = next(item for item in rows if item.get("指數") == "發行量加權股價指數")
-    direction = -1 if row.get("漲跌") == "-" else 1
-    return {
-        "price": float(row["收盤指數"].replace(",", "")),
-        "d1": round(direction * float(row["漲跌百分比"].replace(",", "")), 2),
-        "as_of": roc_date_to_iso(row.get("日期")),
-        "source": "TWSE official market index daily report",
-        "realtime": False,
-    }
+    """從 TWSE 官方指數日報取得發行量加權股價指數；若失敗則切換鉅亨網備用來源。"""
+    try:
+        raw = fetch_url("https://openapi.twse.com.tw/v1/exchangeReport/MI_INDEX", timeout=20)
+        rows = json.loads(raw)
+        row = next(item for item in rows if item.get("指數") == "發行量加權股價指數")
+        direction = -1 if row.get("漲跌") == "-" else 1
+        return {
+            "price": float(row["收盤指數"].replace(",", "")),
+            "d1": round(direction * float(row["漲跌百分比"].replace(",", "")), 2),
+            "as_of": roc_date_to_iso(row.get("日期")),
+            "source": "TWSE official market index daily report",
+            "realtime": False,
+        }
+    except Exception as exc:
+        print(f"  TWSE MI_INDEX 失敗，切換鉅亨網備用來源: {exc}")
+        q = fetch_cnyes_quotes(["TWS:TSE01:INDEX"]).get("TWS:TSE01:INDEX")
+        if q:
+            return {
+                "price": q["price"],
+                "d1": q["d1"],
+                "as_of": q["as_of"] or datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                "source": "Anue (cnyes) fallback",
+                "realtime": False,
+            }
+        raise
 
 
 def fetch_twse_heatmap() -> list:
@@ -723,6 +736,28 @@ def fetch_us_market_data():
     except Exception as e:
         print(f"  美股熱力圖批次抓取略過: {e}")
 
+    # 鉅亨網 (cnyes) 美股熱力圖備援補齊
+    fetched_us_tickers = {row["ticker"] for row in sp500_heatmap}
+    missing_us = [(sec, t, n, w) for sec, t, n, w in SP500_WATCHLIST if t not in fetched_us_tickers]
+    if missing_us:
+        cnyes_us = fetch_cnyes_quotes([f"USS:{t.replace('-', '.')}:STOCK" for _, t, _, _ in missing_us])
+        for sec, t, n, w in missing_us:
+            q = cnyes_us.get(f"USS:{t.replace('-', '.')}:STOCK")
+            if q and q.get("price"):
+                sp500_heatmap.append({
+                    "sector": sec,
+                    "ticker": t,
+                    "name": n,
+                    "cap": round(float(w) * 1e7, 2),
+                    "price": round(q["price"], 2),
+                    "d1": q["d1"] if q["d1"] is not None else 0.0,
+                    "w1": None,
+                    "ytd": None,
+                    "as_of": q["as_of"] or datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                    "size_basis": "Anue (cnyes) fallback quote",
+                    "source": "Anue (cnyes) fallback",
+                })
+
     # 大盤快照必須使用日線。舊版誤用 1mo interval，會把月線最後一筆當成即時價。
     indices = {
         "sp500": "^GSPC",
@@ -794,6 +829,27 @@ def fetch_us_market_data():
             print(f"  -> 美債 10Y-5Y 利差: {snapshots['spread10y5y']}%")
     except Exception as e:
         print(f"  指數與原物料抓取略過: {e}")
+
+    # 鉅亨網 (cnyes) 指數與匯率快照備援補齊
+    cnyes_snap_map = {
+        "nasdaq": "GI:IXIC:INDEX",
+        "taiex": "TWS:TSE01:INDEX",
+        "dxy": "GI:DXY:INDEX",
+        "usdtwd": "FX:USDTWD:FOREX",
+    }
+    missing_snaps = [sym for k, sym in cnyes_snap_map.items() if k not in snapshots]
+    if missing_snaps:
+        cnyes_snaps = fetch_cnyes_quotes(missing_snaps)
+        for k, sym in cnyes_snap_map.items():
+            if k not in snapshots and sym in cnyes_snaps:
+                q = cnyes_snaps[sym]
+                snapshots[k] = {
+                    "price": round(q["price"], 2),
+                    "d1": q["d1"],
+                    "as_of": q["as_of"] or datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                    "source": "Anue (cnyes) fallback",
+                    "realtime": False,
+                }
 
     return sp500_heatmap, snapshots, series
 

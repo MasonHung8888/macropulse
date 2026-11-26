@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-26T23:16:29Z",
+  "updated_at": "2026-11-26T23:29:09Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1038,8 +1038,8 @@
       "realtime": false
     },
     "gold": {
-      "price": 3591.9,
-      "d1": 1.59,
+      "price": 3592.7,
+      "d1": 1.61,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1049,8 +1049,8 @@
       }
     },
     "wti": {
-      "price": 84.83,
-      "d1": 1.37,
+      "price": 84.79,
+      "d1": 1.33,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1061,7 +1061,7 @@
     },
     "copper": {
       "price": 5.45,
-      "d1": 2.17,
+      "d1": 2.24,
       "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -2550,7 +2550,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3591.9
+        3592.7
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2600,7 +2600,7 @@
         85.76,
         90.42,
         104.12,
-        84.83
+        84.79
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -3491,7 +3491,7 @@
     "TWD": 33.16
   },
   "crypto": {
-    "btc_price": 60412,
+    "btc_price": 60407,
     "stablecoin_market_cap_b": 243.1
   },
   "macro_indicators": {
@@ -4147,7 +4147,7 @@
   },
   "corporate_bonds": {
     "as_of": "2026-11-24",
-    "updated_at": "2026-11-26T23:17:01Z",
+    "updated_at": "2026-11-26T23:29:43Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4883,7 +4883,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-26T23:17:36Z",
+    "validated_at": "2026-11-26T23:30:17Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5071,7 +5071,7 @@
       "data_status": "published_official",
       "unit": "億美元 (USD 100M)",
       "is_projected": false,
-      "retrieved_at": "2026-11-26T23:17:17.060483+00:00"
+      "retrieved_at": "2026-11-26T23:29:57.292502+00:00"
     }
   },
   "fed_liquidity": {
@@ -7084,7 +7084,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3592.1
+        3591.5
       ],
       "wti": [
         71.72,
@@ -7110,7 +7110,7 @@
         85.76,
         90.42,
         104.12,
-        84.84
+        84.81
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",

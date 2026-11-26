@@ -9035,7 +9035,7 @@
         const twSyms = twRows.map(r => `TWS:${r.ticker}:STOCK`);
         const usSyms = usRows.map(r => `USS:${String(r.ticker).replace('-', '.')}:STOCK`);
         const fxSyms = ['FX:USDTWD:FOREX', 'FX:USDJPY:FOREX', 'FX:EURUSD:FOREX', 'FX:GBPUSD:FOREX', 'FX:USDAUD:FOREX', 'FX:USDCAD:FOREX'];
-        const idxSyms = ['GI:IXIC:INDEX', 'GI:DJI:INDEX'];
+        const idxSyms = ['TWS:TSE01:INDEX', 'GI:IXIC:INDEX', 'GI:DJI:INDEX', 'GI:DXY:INDEX'];
 
         const allSyms = [...twSyms, ...usSyms, ...fxSyms, ...idxSyms];
         const quoteMap = {};
@@ -9095,6 +9095,28 @@
         if (quoteMap['FX:USDAUD:FOREX']) fx.AUD = Number(Number(quoteMap['FX:USDAUD:FOREX']['6']).toFixed(4));
         if (quoteMap['FX:USDCAD:FOREX']) fx.CAD = Number(Number(quoteMap['FX:USDCAD:FOREX']['6']).toFixed(4));
 
+        if (quoteMap['TWS:TSE01:INDEX']) {
+          const tx = quoteMap['TWS:TSE01:INDEX'];
+          const txPrice = Number(tx['6']);
+          const txChg = Number.isFinite(Number(tx['56'])) ? Number(Number(tx['56']).toFixed(2)) : null;
+          const valEl = document.getElementById('tk-taiex-val');
+          const chgEl = document.getElementById('tk-taiex-chg');
+          if (valEl) valEl.textContent = Math.round(txPrice).toLocaleString('en-US');
+          if (chgEl && txChg !== null) {
+            chgEl.textContent = `${txChg >= 0 ? '+' : ''}${txChg}%`;
+            chgEl.className = txChg >= 0 ? 'text-emerald-500 font-medium tabular-nums' : 'text-rose-500 font-medium tabular-nums';
+          }
+        }
+        if (quoteMap['GI:DXY:INDEX']) {
+          const dxyVal = Number(quoteMap['GI:DXY:INDEX']['6']);
+          const dxyItem = TRADER_ITEMS.find(x => x.name && x.name.includes('美元指數'));
+          if (dxyItem && Number.isFinite(dxyVal)) {
+            dxyItem.val = dxyVal.toFixed(2);
+            dxyItem.date = todayStr;
+            dxyItem.source = '鉅亨網 Anue';
+            dxyItem.sourceUrl = 'https://www.cnyes.com/';
+          }
+        }
         if (quoteMap['GI:IXIC:INDEX']) {
           const nq = quoteMap['GI:IXIC:INDEX'];
           const nqPrice = Number(nq['6']);
