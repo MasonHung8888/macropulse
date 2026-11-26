@@ -1,5 +1,5 @@
 {
-  "last_updated": "2026-11-27 07:02:39",
+  "last_updated": "2026-11-27 07:31:52",
   "timezone": "Asia/Taipei",
   "total_count": 9,
   "data": [
@@ -23,7 +23,7 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     },
@@ -47,7 +47,7 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     },
@@ -62,7 +62,7 @@
       "period": "—",
       "consensusEps": "$5.16",
       "epsYoy": "—",
-      "consensusRev": "$1707.8B",
+      "consensusRev": "NT$1707.8B",
       "revYoy": "—",
       "badgeColor": "slate",
       "focusPoints": [],
@@ -71,7 +71,7 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     },
@@ -86,7 +86,7 @@
       "period": "—",
       "consensusEps": "$15.39",
       "epsYoy": "—",
-      "consensusRev": "$14.8B",
+      "consensusRev": "€14.8B",
       "revYoy": "—",
       "badgeColor": "slate",
       "focusPoints": [],
@@ -95,7 +95,7 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     },
@@ -119,7 +119,7 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     },
@@ -143,7 +143,7 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     },
@@ -167,7 +167,7 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     },
@@ -191,7 +191,7 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     },
@@ -215,13 +215,13 @@
       "_quality_metadata": {
         "status": "confirmed",
         "source": "YAHOO_FINANCE_LIVE",
-        "verified_at": "2026-11-27 07:02:39",
+        "verified_at": "2026-11-27 07:31:52",
         "source_url": "https://finance.yahoo.com/"
       }
     }
   ],
   "_quality_metadata": {
-    "system_runtime": "2026-11-27 07:02:39",
+    "system_runtime": "2026-11-27 07:31:52",
     "data_source_status": {
       "twse_mops": "stale",
       "us_consensus": "available"

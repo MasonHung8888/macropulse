@@ -100,6 +100,43 @@ for idx, item in enumerate(earnings.get("data", [])):
         errors.append(f"earnings item {idx} lacks source URL or verification time")
     if item.get("focusPoints") or item.get("supplyChain"):
         errors.append(f"earnings item {idx} contains unverified editorial fields")
+    rev = str(item.get("consensusRev", ""))
+    if rev.startswith("$") and rev.endswith("B"):
+        try:
+            if float(rev[1:-1]) > 500:
+                errors.append(f"earnings item {idx} ({item.get('ticker')}) USD revenue {rev} exceeds sanity bound (possible currency mismatch)")
+        except ValueError:
+            pass
+
+# Mathematical & numerical sanity gates
+for k, val in macro.get("fx", {}).items():
+    if not isinstance(val, (int, float)) or val <= 0:
+        errors.append(f"invalid FX rate for {k}: {val}")
+
+fl = macro.get("fed_liquidity", {}).get("latest", {})
+if fl:
+    calc_fl = fl.get("total_assets_billions", 0) - fl.get("tga_billions", 0) - fl.get("rrp_billions", 0)
+    if abs(calc_fl - fl.get("net_liquidity_billions", 0)) > 1.0:
+        errors.append("fed_liquidity math mismatch")
+
+tb = macro.get("tips_breakeven", {}).get("latest", {})
+if tb:
+    if abs((tb.get("nominal_yield", 0) - tb.get("real_yield", 0)) - tb.get("breakeven_inflation", 0)) > 0.25:
+        errors.append("tips_breakeven math mismatch")
+
+bi = macro.get("buffett_indicator", {}).get("latest", {})
+if bi and bi.get("gdp_trillions"):
+    if abs((bi.get("market_cap_trillions", 0) / bi["gdp_trillions"] * 100) - bi.get("ratio", 0)) > 1.0:
+        errors.append("buffett_indicator math mismatch")
+
+if erp:
+    if abs((erp.get("earnings_yield", 0) - erp.get("us10y_yield", 0)) - erp.get("erp", 0)) > 0.1:
+        errors.append("equity_risk_premium math mismatch")
+
+for issue in bonds.get("issues", []):
+    ytm = issue.get("market_yield")
+    if ytm is not None and (not isinstance(ytm, (int, float)) or ytm <= 0 or ytm > 50):
+        errors.append(f"corporate bond YTM out of sanity range: {issue.get('issuer')}={ytm}")
 
 if errors:
     print("DATA INTEGRITY AUDIT FAILED")

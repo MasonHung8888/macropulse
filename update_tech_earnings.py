@@ -614,6 +614,8 @@ def fetch_us_earnings_via_yfinance(ticker: str) -> Optional[Dict[str, Any]]:
         import yfinance as yf
         t = yf.Ticker(ticker)
         cal = t.calendar
+        fin_currency = (t.info or {}).get("financialCurrency", "USD")
+        rev_prefix = "NT$" if fin_currency == "TWD" else ("€" if fin_currency == "EUR" else "$")
         result = {}
         
         # 嘗試從 calendar 取得 Earnings Date
@@ -634,7 +636,7 @@ def fetch_us_earnings_via_yfinance(ticker: str) -> Optional[Dict[str, Any]]:
                 rev_avg = cal.get("Revenue Average") or cal.get("revAvg")
                 if rev_avg:
                     val = float(rev_avg)
-                    result["consensusRev"] = f"${val/1e9:.1f}B" if val >= 1e9 else f"${val/1e6:.1f}M"
+                    result["consensusRev"] = f"{rev_prefix}{val/1e9:.1f}B" if val >= 1e9 else f"{rev_prefix}{val/1e6:.1f}M"
         return result if result else None
     except Exception as e:
         logging.debug(f"yfinance 擷取 {ticker} 未果: {e}")
