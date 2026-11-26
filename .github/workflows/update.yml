@@ -43,7 +43,9 @@ jobs:
         run: python update_tech_earnings.py
       - name: Audit production data integrity
         id: audit
-        run: python audit_data_integrity.py
+        run: |
+          python audit_data_integrity.py
+          python test_full_regression.py
       - name: Commit updated JSON
         if: always() && steps.audit.outcome == 'success'
         run: |
