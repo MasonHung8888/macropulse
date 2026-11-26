@@ -100,7 +100,11 @@
       </nav>
 
       <div class="flex items-center gap-2">
-        <button id="live-sync-btn" type="button" class="px-2.5 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 text-xs font-medium transition-colors flex items-center gap-1.5" title="從公開 API 抓取最新匯率、加密貨幣與官方總經數據">
+        <button id="cnyes-live-btn" type="button" class="px-2.5 py-1.5 rounded-lg border border-sky-500/40 bg-sky-500/10 text-sky-600 dark:text-sky-400 hover:bg-sky-500/20 text-xs font-medium transition-colors flex items-center gap-1.5" title="即時向鉅亨網 (Anue) 抓取最新台股、美股、指數與匯率報價">
+          <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+          <span id="cnyes-live-label" class="hidden sm:inline">鉅亨網即時更新</span>
+        </button>
+        <button id="live-sync-btn" type="button" class="px-2.5 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 text-xs font-medium transition-colors flex items-center gap-1.5" title="重新載入雲端每日市場資料包">
           <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
           <span id="live-sync-label" class="hidden sm:inline">重新整理</span>
         </button>
@@ -9019,6 +9023,112 @@
       }
     }
 
+    async function syncFromCnyesLive() {
+      const btn = document.getElementById('cnyes-live-btn');
+      const lbl = document.getElementById('cnyes-live-label');
+      if (btn) btn.disabled = true;
+      if (lbl) lbl.textContent = '抓取中...';
+      try {
+        const payload = state.livePayload || {};
+        const twRows = Array.isArray(payload.tw_heatmap) ? payload.tw_heatmap : [];
+        const usRows = Array.isArray(payload.sp500_heatmap) ? payload.sp500_heatmap : [];
+        const twSyms = twRows.map(r => `TWS:${r.ticker}:STOCK`);
+        const usSyms = usRows.map(r => `USS:${String(r.ticker).replace('-', '.')}:STOCK`);
+        const fxSyms = ['FX:USDTWD:FOREX', 'FX:USDJPY:FOREX', 'FX:EURUSD:FOREX', 'FX:GBPUSD:FOREX', 'FX:USDAUD:FOREX', 'FX:USDCAD:FOREX'];
+        const idxSyms = ['GI:IXIC:INDEX', 'GI:DJI:INDEX'];
+
+        const allSyms = [...twSyms, ...usSyms, ...fxSyms, ...idxSyms];
+        const quoteMap = {};
+        for (let i = 0; i < allSyms.length; i += 35) {
+          const chunk = allSyms.slice(i, i + 35);
+          const url = `https://ws.api.cnyes.com/ws/api/v1/quote/quotes/${encodeURIComponent(chunk.join(','))}`;
+          const res = await fetch(url);
+          if (res.ok) {
+            const json = await res.json();
+            for (const item of (json.data || [])) {
+              if (item && item['0'] && Number.isFinite(Number(item['6']))) {
+                quoteMap[item['0']] = item;
+              }
+            }
+          }
+        }
+
+        const todayStr = new Date().toISOString().slice(0, 10);
+        let twCount = 0;
+        for (const r of twRows) {
+          const q = quoteMap[`TWS:${r.ticker}:STOCK`];
+          if (q) {
+            r.price = Number(q['6']);
+            if (Number.isFinite(Number(q['56']))) r.d1 = Number(Number(q['56']).toFixed(2));
+            r.as_of = todayStr;
+            r.source = '鉅亨網 Anue 即時報價';
+            twCount++;
+          }
+        }
+        let usCount = 0;
+        for (const r of usRows) {
+          const q = quoteMap[`USS:${String(r.ticker).replace('-', '.')}:STOCK`];
+          if (q) {
+            r.price = Number(q['6']);
+            if (Number.isFinite(Number(q['56']))) r.d1 = Number(Number(q['56']).toFixed(2));
+            r.as_of = todayStr;
+            r.source = '鉅亨網 Anue 即時報價';
+            usCount++;
+          }
+        }
+
+        const fx = payload.fx || (payload.fx = {});
+        if (quoteMap['FX:USDTWD:FOREX']) {
+          fx.TWD = Number(Number(quoteMap['FX:USDTWD:FOREX']['6']).toFixed(2));
+          const el = document.getElementById('tk-twd');
+          if (el) el.textContent = fx.TWD.toFixed(2);
+        }
+        if (quoteMap['FX:USDJPY:FOREX']) fx.JPY = Number(Number(quoteMap['FX:USDJPY:FOREX']['6']).toFixed(2));
+        if (quoteMap['FX:EURUSD:FOREX']) {
+          const eurUsd = Number(quoteMap['FX:EURUSD:FOREX']['6']);
+          if (eurUsd > 0) fx.EUR = Number((1 / eurUsd).toFixed(5));
+        }
+        if (quoteMap['FX:GBPUSD:FOREX']) {
+          const gbpUsd = Number(quoteMap['FX:GBPUSD:FOREX']['6']);
+          if (gbpUsd > 0) fx.GBP = Number((1 / gbpUsd).toFixed(5));
+        }
+        if (quoteMap['FX:USDAUD:FOREX']) fx.AUD = Number(Number(quoteMap['FX:USDAUD:FOREX']['6']).toFixed(4));
+        if (quoteMap['FX:USDCAD:FOREX']) fx.CAD = Number(Number(quoteMap['FX:USDCAD:FOREX']['6']).toFixed(4));
+
+        if (quoteMap['GI:IXIC:INDEX']) {
+          const nq = quoteMap['GI:IXIC:INDEX'];
+          const nqPrice = Number(nq['6']);
+          const nqChg = Number.isFinite(Number(nq['56'])) ? Number(Number(nq['56']).toFixed(2)) : null;
+          const valEl = document.getElementById('tk-nasdaq-val');
+          const chgEl = document.getElementById('tk-nasdaq-chg');
+          if (valEl) valEl.textContent = Math.round(nqPrice).toLocaleString('en-US');
+          if (chgEl && nqChg !== null) {
+            chgEl.textContent = `${nqChg >= 0 ? '+' : ''}${nqChg}%`;
+            chgEl.className = nqChg >= 0 ? 'text-emerald-500 font-medium tabular-nums' : 'text-rose-500 font-medium tabular-nums';
+          }
+        }
+
+        if (typeof applyLivePayload === 'function' && payload.snapshots) {
+          applyLivePayload(payload);
+        }
+        if (state.activeTab === 'dashboard') renderTop5();
+        if (state.activeTab === 'heatmap') renderHeatmap();
+        if (state.activeTab === 'trader') renderTraderTab();
+
+        const healthDetail = document.getElementById('data-health-detail');
+        if (healthDetail) {
+          healthDetail.textContent = `已於 ${new Date().toLocaleTimeString('zh-TW')} 從鉅亨網 (Anue) 即時同步台股 ${twCount} 檔、美股 ${usCount} 檔與最新匯率。`;
+        }
+        showToast(`已從鉅亨網即時更新：台股 ${twCount} 檔、美股 ${usCount} 檔與匯率！`);
+      } catch (err) {
+        console.error('鉅亨網即時更新失敗', err);
+        showToast('鉅亨網即時連線失敗，保留目前頁面數據');
+      } finally {
+        if (btn) btn.disabled = false;
+        if (lbl) lbl.textContent = '鉅亨網即時更新';
+      }
+    }
+
     let TW_BOTTOM_DATA = null;
     let TW_SELECTED_STK_CAT = 'ALL';
 
@@ -17285,6 +17395,8 @@
       renderTreasuryTermStructureSection();
 
       document.getElementById('live-sync-btn').addEventListener('click', () => syncLivePublicData(true));
+      const cnyesLiveBtn = document.getElementById('cnyes-live-btn');
+      if (cnyesLiveBtn) cnyesLiveBtn.addEventListener('click', () => syncFromCnyesLive());
       renderTaiwanRadarQuickCards();
       renderFearGreedRadar();
       loadTechEarningsData();
