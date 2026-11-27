@@ -1,9 +1,9 @@
 {
-  "updated_at": "2026-11-27T04:23:44Z",
-  "market_date": "20261126",
+  "updated_at": "2026-11-27T09:45:23Z",
+  "market_date": "20261127",
   "market_status": "觀察階段 (初步止跌徵兆浮現)",
   "model_score": {
-    "total_score": 51,
+    "total_score": 44,
     "max_score": 100,
     "stage": "觀察階段 (初步止跌徵兆浮現)",
     "stage_en": "Observation Phase",
@@ -16,7 +16,7 @@
         "name": "加權指數技術止跌",
         "weight": 25,
         "score": 17,
-        "actual": "收盤 39151.81 (5MA 38311.82, 10MA 40633.52, 量價: 量縮止跌 (弱勢整理沉澱))",
+        "actual": "收盤 39308.08 (5MA 38311.82, 10MA 40633.52, 量價: 量縮止跌 (弱勢整理沉澱))",
         "threshold": "不再破波段新低、站回 5MA/10MA、成交量由價跌量增轉為量縮或帶量長下影",
         "status": "pass",
         "date": "2026-11-27"
@@ -25,8 +25,8 @@
         "id": "semi_turn_strong",
         "name": "半導體及電子族群轉強",
         "weight": 25,
-        "score": 8,
-        "actual": "半導體指數跌幅 +0.70% vs 大盤 +2.50%，台積電 2030 (5MA 2095)",
+        "score": 9,
+        "actual": "半導體指數跌幅 +1.09% vs 大盤 +0.40%，台積電 2030 (5MA 2095)",
         "threshold": "半導體類跌幅顯著小於大盤 (相對強弱走揚)、台積電率先站上短期均線",
         "status": "neutral",
         "date": "2026-11-27"
@@ -36,20 +36,20 @@
         "name": "外資賣壓減弱",
         "weight": 20,
         "score": 6,
-        "actual": "外資現貨賣超 -491.8 億，台指期空單 -106,275 口，台幣匯率 32.89",
+        "actual": "外資現貨賣超 -296.3 億，台指期空單 -107,503 口，台幣匯率 32.89",
         "threshold": "現貨賣超收斂至百億內或轉買、期貨淨空單由峰值顯著回補、台幣貶壓趨緩",
         "status": "neutral",
-        "date": "20261126"
+        "date": "20261127"
       },
       {
         "id": "tpex_breadth",
         "name": "櫃買與市場廣度改善",
         "weight": 20,
-        "score": 20,
-        "actual": "櫃買指數 289.84 (單日 +5.03%)，那斯達克100 +0.00%",
+        "score": 12,
+        "actual": "櫃買指數 285.77 (單日 -1.40%)，那斯達克100 +0.00%",
         "threshold": "中小型櫃買指數不再領跌破底、上漲家數比率提升、美科技股波動收斂",
         "status": "pass",
-        "date": "20261126"
+        "date": "20261127"
       },
       {
         "id": "margin_cleansing",
@@ -63,9 +63,9 @@
       }
     ],
     "technical_score": 17,
-    "industry_score": 8,
+    "industry_score": 9,
     "foreign_score": 6,
-    "breadth_score": 20,
+    "breadth_score": 12,
     "margin_score": 0,
     "_quality_metadata": {
       "model_version": "2.0-verified",
@@ -78,15 +78,15 @@
         "margin": 10
       }
     },
-    "score_change": -5
+    "score_change": -12
   },
   "indices": {
     "twse": {
       "taiex": {
         "name": "發行量加權股價指數",
-        "close": 39151.81,
-        "change": 956.38,
-        "change_pct": 2.5,
+        "close": 39308.08,
+        "change": 156.27,
+        "change_pct": 0.4,
         "ma5": 38311.82,
         "ma10": 40633.52,
         "ma20": 42258.09,
@@ -1365,9 +1365,9 @@
       },
       "tw50": {
         "name": "臺灣50指數",
-        "close": 36751.37,
-        "change": 654.71,
-        "change_pct": 1.81,
+        "close": 37003.62,
+        "change": 252.25,
+        "change_pct": 0.69,
         "ma5": 35721.41,
         "ma10": 37828.16,
         "ma20": 39149.59,
@@ -2646,9 +2646,9 @@
       },
       "elec": {
         "name": "電子工業類指數",
-        "close": 2419.82,
-        "change": 56.48,
-        "change_pct": 2.39,
+        "close": 2436.71,
+        "change": 16.89,
+        "change_pct": 0.7,
         "ma5": 2336.98,
         "ma10": 2477.67,
         "ma20": 2569.7,
@@ -3927,9 +3927,9 @@
       },
       "semi": {
         "name": "半導體類指數",
-        "close": 1329.89,
-        "change": 9.26,
-        "change_pct": 0.7,
+        "close": 1344.32,
+        "change": 14.43,
+        "change_pct": 1.09,
         "ma5": 1306.03,
         "ma10": 1397.9,
         "ma20": 1464.03,
@@ -5208,9 +5208,9 @@
       },
       "elec_parts": {
         "name": "電子零組件類指數",
-        "close": 619.47,
-        "change": 47.53,
-        "change_pct": 8.31,
+        "close": 618.31,
+        "change": -1.16,
+        "change_pct": -0.19,
         "ma5": 555.97,
         "ma10": 595.73,
         "ma20": 626.07,
@@ -6490,10 +6490,10 @@
     },
     "tpex": {
       "name": "櫃買指數 TPEx",
-      "close": 289.84,
-      "change": 13.87,
-      "change_pct": 5.03,
-      "date": "20261126",
+      "close": 285.77,
+      "change": -4.07,
+      "change_pct": -1.4,
+      "date": "20261127",
       "ma5": 286.67,
       "ma10": 313.4,
       "ma20": 340.16,
@@ -36854,25 +36854,25 @@
     }
   },
   "institutional_flow": {
-    "foreign": -491.81,
-    "trust": 212.13,
-    "dealer_prop": 40.03,
-    "dealer_hedge": 88.62,
-    "dealer_total": 128.65,
-    "total": -151.03,
-    "date": "20261126",
+    "foreign": -296.28,
+    "trust": 85.19,
+    "dealer_prop": 20.32,
+    "dealer_hedge": -22.27,
+    "dealer_total": -1.95,
+    "total": -213.04,
+    "date": "20261127",
     "history": {
       "dates": [
         "11/24",
-        "11/26"
+        "11/27"
       ],
       "daily_foreign": [
         -503.9,
-        -491.81
+        -296.28
       ],
       "accum_foreign": [
         -503.9,
-        -995.71
+        -800.18
       ],
       "provenance": "official_observations",
       "source": "TWSE BFI82U"
@@ -36912,8 +36912,8 @@
     }
   },
   "futures_oi": {
-    "net_contracts": -106275,
-    "net_amount_thousand": -839422511,
+    "net_contracts": -107503,
+    "net_amount_thousand": -846069849,
     "date": "20261127",
     "history": {
       "dates": [
@@ -36922,21 +36922,21 @@
       ],
       "closes": [
         -103182,
-        -106275
+        -107503
       ],
       "ma5": [
         -103182,
-        -104728
+        -105342
       ],
       "provenance": "official_observations",
       "source": "TAIFEX futContractsDate"
     }
   },
   "volume_analysis": {
-    "latest_amount_billion": 8453.37,
-    "vol_5ma": 9113.42,
-    "vol_20ma": 9775.49,
-    "vol_ratio_20ma": 86.5,
+    "latest_amount_billion": 6946.61,
+    "vol_5ma": 8632.12,
+    "vol_20ma": 9634.05,
+    "vol_ratio_20ma": 72.1,
     "pattern": "量縮止跌 (弱勢整理沉澱)",
     "status": "量能沉澱",
     "history": {
@@ -36959,7 +36959,8 @@
         "115/11/23",
         "115/11/24",
         "115/11/25",
-        "115/11/26"
+        "115/11/26",
+        "115/11/27"
       ],
       "amounts": [
         7996.87507911,
@@ -36980,7 +36981,8 @@
         11137.43193221,
         4325.59877529,
         12297.61968894,
-        8453.36632675
+        8453.36632675,
+        6946.60790531
       ],
       "closes": [
         44920.14,
@@ -37001,7 +37003,8 @@
         36811.89,
         40122.35,
         38195.43,
-        39151.81
+        39151.81,
+        39308.08
       ]
     }
   },
@@ -53837,27 +53840,27 @@
       "title": "樂觀情境：恐慌清洗後的「放量報復性反彈」",
       "probability": "20%",
       "conditions": "外資期貨空單顯著回補、融資浮額清洗告一段落、台積電強勢重返短期均線之上",
-      "target_range": "40,700 ~ 42,300 點",
+      "target_range": "40,900 ~ 42,500 點",
       "strategy": "融資斷頭潮尾聲通常伴隨極速千點反彈，緊盯權值龍頭股站上 5MA/10MA 加碼"
     },
     "base_case": {
       "title": "基準情境：融資去槓桿後的「低檔反覆打底震盪 (築底 W 底)」",
       "probability": "55%",
-      "conditions": "大盤在 38,400~40,300 點進行量縮整理，籌碼由融資散戶移轉至長期法人，技術指標進入超賣背離修復",
-      "target_range": "38,400 ~ 40,300 點",
+      "conditions": "大盤在 38,500~40,500 點進行量縮整理，籌碼由融資散戶移轉至長期法人，技術指標進入超賣背離修復",
+      "target_range": "38,500 ~ 40,500 點",
       "strategy": "採取金字塔分批佈局策略，每逢急殺回測支撐買進 1~2 成資金，不追高，耐心等待均線走平"
     },
     "stress_case": {
       "title": "壓力情境：國際流動性收緊與多殺多的「深層次修正探底」",
       "probability": "25%",
       "conditions": "美股費半 (SOX) 跌破重要均線、地緣政治限制升級、外資期貨空單與現貨賣超雙向擴大",
-      "target_range": "36,000 ~ 37,600 點 (長期均線防線)",
+      "target_range": "36,200 ~ 37,700 點 (長期均線防線)",
       "strategy": "觸發個股失效條件時果斷停損，保留 50% 以上現金水位，等待恐慌指標極致飆升後的非理性出清"
     }
   },
   "today_conclusion": {
-    "is_suitable_for_buying": "適合開始「極小量金字塔式分批測試」，嚴禁單筆梭哈！",
-    "reasoning": "當前五大底部模型得分為 51 分（處於「觀察階段 (初步止跌徵兆浮現)」）。當前市場處於籌碼去槓桿與均線位階修復期。量化統計顯示，當指標回升至 60 分以上時，分批布局之風險報酬比將顯著改善。",
+    "is_suitable_for_buying": "現階段宜以觀望與嚴控資金風險為主，避免躁進摸底！",
+    "reasoning": "當前五大底部模型得分為 44 分（處於「觀察階段 (初步止跌徵兆浮現)」）。當前市場處於籌碼去槓桿與均線位階修復期。量化統計顯示，當指標回升至 60 分以上時，分批布局之風險報酬比將顯著改善。",
     "approaching_buy_stocks": [
       "台積電 (2330): 處於歷史本益比相對中下緣，具備強大主權基金與長線法人價值防守支撐",
       "鴻海 (2317): 本益比具防禦性，高殖利率與 AI 伺服器整機出貨能見度提供下檔保護",
@@ -53881,6 +53884,6 @@
   "_quality_metadata": {
     "engine_version": "2.0-verified",
     "fallback_used": false,
-    "timestamp": "2026-11-27 04:23:44"
+    "timestamp": "2026-11-27 09:45:23"
   }
 }
