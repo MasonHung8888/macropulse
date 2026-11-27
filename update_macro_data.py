@@ -855,6 +855,78 @@ def fetch_us_market_data():
     return sp500_heatmap, snapshots, series
 
 
+def fetch_etf_monitor() -> dict:
+    """抓取核心半導體、美股、台股與避險 ETF 真實日線報價與 YTD 表現（Yahoo Finance + 鉅亨網備援）。"""
+    print("5.5/7 抓取核心產業與 ETF 每日表現 (SMH, SOXQ, SOXX, SPY, QQQ, 0050.TW, TLT, GLD)...")
+    etf_specs = [
+        ("SMH", "USS:SMH:STOCK"),
+        ("SOXQ", "USS:SOXQ:STOCK"),
+        ("SOXX", "USS:SOXX:STOCK"),
+        ("SPY", "USS:SPY:STOCK"),
+        ("QQQ", "USS:QQQ:STOCK"),
+        ("0050.TW", "TWS:0050:STOCK"),
+        ("TLT", "USS:TLT:STOCK"),
+        ("GLD", "USS:GLD:STOCK"),
+        ("^SOX", "GI:SOX:INDEX"),
+    ]
+    rows_by_ticker = {}
+    try:
+        import yfinance as yf
+        symbols = " ".join(sym for sym, _ in etf_specs)
+        data = yf.download(symbols, period="ytd", interval="1d", group_by="ticker", auto_adjust=True, progress=False)
+        for sym, _ in etf_specs:
+            try:
+                df = data[sym] if sym in data else None
+                if df is not None and not df.empty and "Close" in df:
+                    closes = df["Close"].dropna()
+                    if len(closes) >= 2:
+                        latest = float(closes.iloc[-1])
+                        prev_1d = float(closes.iloc[-2])
+                        prev_1w = float(closes.iloc[-6]) if len(closes) >= 6 else float(closes.iloc[0])
+                        first_ytd = float(closes.iloc[0])
+                        rows_by_ticker[sym] = {
+                            "ticker": sym,
+                            "price": round(latest, 2),
+                            "d1": round((latest - prev_1d) / prev_1d * 100, 2),
+                            "w1": round((latest - prev_1w) / prev_1w * 100, 2),
+                            "ytd": round((latest - first_ytd) / first_ytd * 100, 2),
+                            "as_of": closes.index[-1].strftime("%Y-%m-%d"),
+                            "source": "Yahoo Finance daily close",
+                        }
+            except Exception:
+                continue
+    except Exception as exc:
+        print(f"  ETF yfinance 抓取略過: {exc}")
+
+    missing_cnyes = [cnyes_sym for sym, cnyes_sym in etf_specs if sym not in rows_by_ticker]
+    if missing_cnyes:
+        cnyes_map = fetch_cnyes_quotes(missing_cnyes)
+        for sym, cnyes_sym in etf_specs:
+            if sym not in rows_by_ticker and cnyes_sym in cnyes_map:
+                q = cnyes_map[cnyes_sym]
+                rows_by_ticker[sym] = {
+                    "ticker": sym,
+                    "price": round(q["price"], 2),
+                    "d1": q["d1"],
+                    "w1": None,
+                    "ytd": None,
+                    "as_of": q["as_of"] or datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+                    "source": "Anue (cnyes) fallback",
+                }
+
+    sox = rows_by_ticker.pop("^SOX", None)
+    etfs = [rows_by_ticker[sym] for sym, _ in etf_specs if sym != "^SOX" and sym in rows_by_ticker]
+    print(f"  -> 成功取得核心 ETF 真實報價 {len(etfs)}/8 檔")
+    if not etfs:
+        return {}
+    return {
+        "as_of": max(item["as_of"] for item in etfs if item.get("as_of")),
+        "sox": sox,
+        "etfs": etfs,
+        "source": "Yahoo Finance & Anue (cnyes) fallback",
+    }
+
+
 # 4. 公開 API 最新匯率
 def fetch_live_fx():
     print("6/7 抓取歐洲央行 (ECB) 參考匯率與台幣匯率...")
@@ -2354,6 +2426,9 @@ def main(output_file: str = None):
         payload["sp500_heatmap"] = sp_heat
         payload["snapshots"].update(snaps)
         payload["series"].update(sers)
+        etf_mon = fetch_etf_monitor()
+        if etf_mon:
+            payload["etf_monitor"] = etf_mon
     except Exception as e:
         print(f"  美股與市場數據處理失敗: {e}")
     if not payload["sp500_heatmap"] and "sp500_heatmap" in existing_payload:

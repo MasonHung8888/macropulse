@@ -133,6 +133,14 @@ if erp:
     if abs((erp.get("earnings_yield", 0) - erp.get("us10y_yield", 0)) - erp.get("erp", 0)) > 0.1:
         errors.append("equity_risk_premium math mismatch")
 
+etf_mon = macro.get("etf_monitor", {})
+etf_list = etf_mon.get("etfs", [])
+if len(etf_list) != 8:
+    errors.append(f"etf_monitor must contain 8 verified ETFs, got {len(etf_list)}")
+for etf in etf_list:
+    if not isinstance(etf.get("price"), (int, float)) or etf["price"] <= 0 or not etf.get("as_of") or not etf.get("source"):
+        errors.append(f"etf_monitor.{etf.get('ticker')} lacks valid price/date/source")
+
 for issue in bonds.get("issues", []):
     ytm = issue.get("market_yield")
     if ytm is not None and (not isinstance(ytm, (int, float)) or ytm <= 0 or ytm > 50):

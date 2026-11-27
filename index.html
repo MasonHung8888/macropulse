@@ -5190,61 +5190,61 @@
         <p class="text-sm text-slate-500 dark:text-slate-400 mt-0.5">結合台灣半導體出口動能與美股／台股核心 ETF 費用率與配置比較</p>
       </div>
 
-      <!-- Semiconductor Industry Spotlight -->
+      <!-- Semiconductor Industry Spotlight (100% Real Official & Market Data) -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
-          <div class="text-xs text-slate-500 dark:text-slate-400">台灣半導體出口年增率 (Aug 2026)</div>
-          <div class="text-2xl font-bold text-emerald-500 tabular-nums mt-1">+59.0% YoY</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">單月金額達 $31.30B 創歷史新高 (財政部關務署)</div>
+          <div id="etf-spot-export-title" class="text-xs text-slate-500 dark:text-slate-400">台灣外銷訂單年增率（經濟部官方）</div>
+          <div id="etf-spot-export-val" class="text-2xl font-bold text-emerald-500 tabular-nums mt-1">—</div>
+          <div id="etf-spot-export-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">載入經濟部統計處最新實績中…</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
-          <div class="text-xs text-slate-500 dark:text-slate-400">台股半導體成交比重 (Sep 2026)</div>
-          <div class="text-2xl font-bold text-blue-500 tabular-nums mt-1">37.11%</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">高於前值 36.74%，資金高度集中 AI 供應鏈</div>
+          <div id="etf-spot-sox-title" class="text-xs text-slate-500 dark:text-slate-400">費城半導體指數 (SOX)</div>
+          <div id="etf-spot-sox-val" class="text-2xl font-bold text-blue-500 tabular-nums mt-1">—</div>
+          <div id="etf-spot-sox-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">載入費半日線與 YTD 報酬中…</div>
         </div>
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
-          <div class="text-xs text-slate-500 dark:text-slate-400">產業景氣週期研判</div>
-          <div class="text-2xl font-bold text-indigo-500 mt-1">AI 基建強擴張</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">留意高利率環境下的估值修正波動</div>
+          <div id="etf-spot-tsm-title" class="text-xs text-slate-500 dark:text-slate-400">台積電 (2330) 權值動態</div>
+          <div id="etf-spot-tsm-val" class="text-2xl font-bold text-indigo-500 tabular-nums mt-1">—</div>
+          <div id="etf-spot-tsm-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">載入 TWSE / 鉅亨網即時報價中…</div>
         </div>
       </div>
 
-      <!-- Global ETF Flows & Holdings Overlap & Rebalancer -->
+      <!-- Core ETF Real-Time Price & Performance Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-            <span>全球半導體 ETF 資金流入</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400">連6週淨買</span>
+            <span>SMH 半導體龍頭 ETF</span>
+            <span id="etf-card-SMH-badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-500">—</span>
           </div>
-          <div class="text-2xl font-bold text-emerald-500 tabular-nums mt-1">+$14.2 億</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">SMH / SOXX 單週淨申購創近 3 月高</div>
+          <div id="etf-card-SMH-price" class="text-2xl font-bold text-slate-800 dark:text-white tabular-nums mt-1">—</div>
+          <div id="etf-card-SMH-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Yahoo Finance / 鉅亨網日線</div>
         </div>
 
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-            <span>QQQ 納指 100 月度淨申購</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/15 text-blue-600 dark:text-blue-400">巨頭護城河</span>
+            <span>QQQ 納斯達克 100 ETF</span>
+            <span id="etf-card-QQQ-badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-500">—</span>
           </div>
-          <div class="text-2xl font-bold text-blue-500 tabular-nums mt-1">+$68.5 億</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">CSP 資本支出狂飆，資金加碼大型科技</div>
+          <div id="etf-card-QQQ-price" class="text-2xl font-bold text-slate-800 dark:text-white tabular-nums mt-1">—</div>
+          <div id="etf-card-QQQ-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Yahoo Finance / 鉅亨網日線</div>
         </div>
 
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
-            <span>0050 元大台灣 50 申購動能</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-indigo-500/15 text-indigo-600 dark:text-indigo-400">長線定存潮</span>
+            <span>0050 元大台灣 50 ETF</span>
+            <span id="etf-card-0050-badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-500">—</span>
           </div>
-          <div class="text-2xl font-bold text-indigo-500 tabular-nums mt-1">+NT$245 億</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">台積電佔比 56.2%，權值買盤極度強韌</div>
+          <div id="etf-card-0050-price" class="text-2xl font-bold text-slate-800 dark:text-white tabular-nums mt-1">—</div>
+          <div id="etf-card-0050-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">TWSE / 鉅亨網即時</div>
         </div>
 
         <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
           <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
             <span>TLT 美國長天期公債 ETF</span>
-            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/15 text-amber-600 dark:text-amber-400">長端承壓</span>
+            <span id="etf-card-TLT-badge" class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-500">—</span>
           </div>
-          <div class="text-2xl font-bold text-rose-500 tabular-nums mt-1">-$8.4 億</div>
-          <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">殖利率重返 5.0%，機構避開長債轉短債</div>
+          <div id="etf-card-TLT-price" class="text-2xl font-bold text-slate-800 dark:text-white tabular-nums mt-1">—</div>
+          <div id="etf-card-TLT-sub" class="text-xs text-slate-500 dark:text-slate-400 mt-1">Yahoo Finance / 鉅亨網日線</div>
         </div>
       </div>
 
@@ -9067,7 +9067,8 @@
         const fxSyms = ['FX:USDTWD:FOREX', 'FX:USDJPY:FOREX', 'FX:EURUSD:FOREX', 'FX:GBPUSD:FOREX', 'FX:USDAUD:FOREX', 'FX:USDCAD:FOREX'];
         const idxSyms = ['TWS:TSE01:INDEX', 'GI:INX:INDEX', 'GI:IXIC:INDEX', 'GI:DJI:INDEX', 'GI:SOX:INDEX', 'GI:DXY:INDEX'];
 
-        const allSyms = [...twSyms, ...usSyms, ...fxSyms, ...idxSyms];
+        const etfSyms = ['USS:SMH:STOCK', 'USS:SOXQ:STOCK', 'USS:SOXX:STOCK', 'USS:SPY:STOCK', 'USS:QQQ:STOCK', 'TWS:0050:STOCK', 'USS:TLT:STOCK', 'USS:GLD:STOCK'];
+        const allSyms = [...twSyms, ...usSyms, ...fxSyms, ...idxSyms, ...etfSyms];
         const quoteMap = {};
         for (let i = 0; i < allSyms.length; i += 35) {
           const chunk = allSyms.slice(i, i + 35);
@@ -9214,12 +9215,35 @@
           }
         }
 
+        if (payload.etf_monitor && Array.isArray(payload.etf_monitor.etfs)) {
+          const etfCnyesMap = { SMH: 'USS:SMH:STOCK', SOXQ: 'USS:SOXQ:STOCK', SOXX: 'USS:SOXX:STOCK', SPY: 'USS:SPY:STOCK', QQQ: 'USS:QQQ:STOCK', '0050.TW': 'TWS:0050:STOCK', TLT: 'USS:TLT:STOCK', GLD: 'USS:GLD:STOCK' };
+          for (const etf of payload.etf_monitor.etfs) {
+            const cSym = etfCnyesMap[etf.ticker];
+            const q = cSym ? quoteMap[cSym] : null;
+            const v = q ? validateQuote(q, Number(etf.price)) : null;
+            if (v) {
+              etf.price = v.price;
+              if (v.d1 !== null) etf.d1 = v.d1;
+              etf.as_of = v.asOf;
+              etf.source = '鉅亨網 Anue 即時報價';
+            }
+          }
+          if (payload.etf_monitor.sox && quoteMap['GI:SOX:INDEX']) {
+            const vSox = validateQuote(quoteMap['GI:SOX:INDEX'], Number(payload.etf_monitor.sox.price));
+            if (vSox) {
+              payload.etf_monitor.sox.price = Number(vSox.price.toFixed(2));
+              if (vSox.d1 !== null) payload.etf_monitor.sox.d1 = vSox.d1;
+              payload.etf_monitor.sox.as_of = vSox.asOf;
+            }
+          }
+        }
         if (typeof applyLivePayload === 'function' && payload.snapshots) {
           applyLivePayload(payload);
         }
         if (state.activeTab === 'dashboard') renderTop5();
         if (state.activeTab === 'heatmap') renderHeatmap();
         if (state.activeTab === 'taiwan' && typeof renderTaiwanTab === 'function') renderTaiwanTab();
+        if (state.activeTab === 'etf' && typeof renderEtfTab === 'function') renderEtfTab();
         if (state.activeTab === 'trader') renderTraderTab();
 
         const healthDetail = document.getElementById('data-health-detail');
@@ -14385,6 +14409,61 @@
     }
 
     function renderEtfTab() {
+      const payload = state.livePayload || {};
+      const exp = payload.tw_export_orders?.latest;
+      if (exp) {
+        const t = document.getElementById('etf-spot-export-title');
+        const v = document.getElementById('etf-spot-export-val');
+        const s = document.getElementById('etf-spot-export-sub');
+        if (t) t.textContent = `台灣外銷訂單年增率 (${exp.date})`;
+        if (v) {
+          v.textContent = `${exp.yoy >= 0 ? '+' : ''}${exp.yoy}% YoY`;
+          v.className = `text-2xl font-bold tabular-nums mt-1 ${exp.yoy >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+        }
+        if (s) s.textContent = `單月金額 $${exp.amount_billions}B · 經濟部統計處`;
+      }
+      const etfMon = payload.etf_monitor || {};
+      if (etfMon.sox) {
+        const sox = etfMon.sox;
+        const v = document.getElementById('etf-spot-sox-val');
+        const s = document.getElementById('etf-spot-sox-sub');
+        if (v) v.textContent = Number(sox.price).toLocaleString('en-US', { maximumFractionDigits: 2 });
+        if (s) {
+          const d1Txt = Number.isFinite(sox.d1) ? `${sox.d1 >= 0 ? '+' : ''}${sox.d1}% (1D)` : '';
+          const ytdTxt = Number.isFinite(sox.ytd) ? ` · ${sox.ytd >= 0 ? '+' : ''}${sox.ytd}% YTD` : '';
+          s.textContent = `${d1Txt}${ytdTxt} · ${sox.as_of || ''}`;
+        }
+      }
+      const tsmc = Array.isArray(payload.tw_heatmap) ? payload.tw_heatmap.find(r => r.ticker === '2330') : null;
+      if (tsmc && Number.isFinite(tsmc.price)) {
+        const v = document.getElementById('etf-spot-tsm-val');
+        const s = document.getElementById('etf-spot-tsm-sub');
+        if (v) v.textContent = `NT$${Number(tsmc.price).toLocaleString('en-US')}`;
+        if (s) {
+          const d1Txt = Number.isFinite(tsmc.d1) ? `${tsmc.d1 >= 0 ? '+' : ''}${tsmc.d1}% (1D)` : '';
+          const ytdTxt = Number.isFinite(tsmc.ytd) ? ` · ${tsmc.ytd >= 0 ? '+' : ''}${tsmc.ytd}% YTD` : '';
+          s.textContent = `${d1Txt}${ytdTxt} · ${tsmc.as_of || ''}`;
+        }
+      }
+      const cardMap = { SMH: 'SMH', QQQ: 'QQQ', '0050.TW': '0050', TLT: 'TLT' };
+      for (const etf of (etfMon.etfs || [])) {
+        const cid = cardMap[etf.ticker];
+        if (!cid) continue;
+        const pEl = document.getElementById(`etf-card-${cid}-price`);
+        const bEl = document.getElementById(`etf-card-${cid}-badge`);
+        const sEl = document.getElementById(`etf-card-${cid}-sub`);
+        const prefix = etf.ticker.endsWith('.TW') ? 'NT$' : '$';
+        if (pEl) pEl.textContent = `${prefix}${Number(etf.price).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        if (bEl && Number.isFinite(etf.d1)) {
+          bEl.textContent = `${etf.d1 >= 0 ? '+' : ''}${etf.d1}%`;
+          bEl.className = `px-1.5 py-0.5 rounded text-[10px] font-bold ${etf.d1 >= 0 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-rose-500/15 text-rose-600 dark:text-rose-400'}`;
+        }
+        if (sEl) {
+          const ytdTxt = Number.isFinite(etf.ytd) ? `YTD ${etf.ytd >= 0 ? '+' : ''}${etf.ytd}% · ` : '';
+          sEl.textContent = `${ytdTxt}${etf.as_of || ''} · ${etf.source || ''}`;
+        }
+      }
+
       const q = state.etf.query.toLowerCase();
       const filtered = ETF_DB.filter(e => {
         const matchCat = state.etf.category === 'ALL' || e.category === state.etf.category;
@@ -16915,7 +16994,7 @@
         'treasury-term-structure-section',
         'cal-valuation-panel',
       ].forEach(id => document.getElementById(id)?.classList.add('hidden'));
-      document.querySelectorAll('[data-tab="etf"]').forEach(el => { el.style.display = 'none'; });
+      // 產業 & ETF 分頁已接入真實官方與市場日線/即時來源，正式開放顯示。
       const etfPanel = document.getElementById('tab-etf');
       if (etfPanel) etfPanel.style.display = 'none';
       const valuationButton = document.getElementById('cal-track-valuation-btn');
