@@ -475,9 +475,71 @@ def fetch_stock_and_global_data(prev_data: Dict[str, Any]) -> Dict[str, Any]:
         "quanta": "2382.TW", "wistron": "3231.TW", "nvda": "NVDA", "amd": "AMD"
     }
 
-    # 1. 優先嘗試原生 urllib 直連 Yahoo Finance (零外部依賴、精確解析 1 年日 K 線)
+    # 1. 優先使用 yfinance 批次下載 1 年日 K 線（單次批次連線，避免 query1 直連遭 429 限流）
     results = {}
+    try:
+        import yfinance as yf
+        unique_syms = list(dict.fromkeys(symbols.values()))
+        batch_df = yf.download(" ".join(unique_syms), period="1y", interval="1d", group_by="ticker", auto_adjust=True, progress=False)
+        for key, sym in symbols.items():
+            try:
+                df = batch_df[sym] if (batch_df is not None and not batch_df.empty and sym in batch_df) else None
+                if df is None or df.empty or "Close" not in df:
+                    continue
+                df_clean = df.dropna(subset=["Close"])
+                if len(df_clean) < 5:
+                    continue
+                clean_dates = [idx.strftime("%Y-%m-%d") for idx in df_clean.index]
+                clean_c = [round(float(v), 2) for v in df_clean["Close"].tolist()]
+                clean_v = [int(v) if (v == v and v is not None) else 0 for v in (df_clean["Volume"].tolist() if "Volume" in df_clean else [0] * len(clean_c))]
+                curr = clean_c[-1]
+                prev = clean_c[-2]
+                chg_pct = round(((curr / prev) - 1.0) * 100.0, 2)
+                ma5 = round(sum(clean_c[-5:]) / min(5, len(clean_c)), 2)
+                ma10 = round(sum(clean_c[-10:]) / min(10, len(clean_c)), 2)
+                ma20 = round(sum(clean_c[-20:]) / min(20, len(clean_c)), 2)
+                ma60 = round(sum(clean_c[-60:]) / min(60, len(clean_c)), 2)
+                ma120 = round(sum(clean_c[-120:]) / min(120, len(clean_c)), 2)
+                ma240 = round(sum(clean_c[-240:]) / min(240, len(clean_c)), 2)
+                dist_ma20_pct = round(((curr / ma20) - 1.0) * 100.0, 2)
+                dist_ma60_pct = round(((curr / ma60) - 1.0) * 100.0, 2)
+                r5 = round(((curr / clean_c[-6]) - 1.0) * 100.0, 2) if len(clean_c) >= 6 else chg_pct
+                r10 = round(((curr / clean_c[-11]) - 1.0) * 100.0, 2) if len(clean_c) >= 11 else chg_pct
+                r20 = round(((curr / clean_c[-21]) - 1.0) * 100.0, 2) if len(clean_c) >= 21 else chg_pct
+                r60 = round(((curr / clean_c[-61]) - 1.0) * 100.0, 2) if len(clean_c) >= 61 else chg_pct
+                high20, low20 = max(clean_c[-20:]), min(clean_c[-20:])
+                high60, low60 = max(clean_c[-60:]), min(clean_c[-60:])
+                dd20 = round(((curr / high20) - 1.0) * 100.0, 2)
+                dd60 = round(((curr / high60) - 1.0) * 100.0, 2)
+                dist_low60 = round(((curr / low60) - 1.0) * 100.0, 2)
+                vol_5ma = int(sum(clean_v[-5:]) / 5) if len(clean_v) >= 5 else 0
+                vol_20ma = int(sum(clean_v[-20:]) / 20) if len(clean_v) >= 20 else 0
+                hist_dates = clean_dates[-250:]
+                hist_closes = clean_c[-250:]
+                offset = len(clean_c) - len(hist_closes)
+                hist_ma20 = [round(sum(clean_c[max(0, offset + i - 19):offset + i + 1]) / min(20, offset + i + 1), 2) for i in range(len(hist_closes))]
+                hist_ma60 = [round(sum(clean_c[max(0, offset + i - 59):offset + i + 1]) / min(60, offset + i + 1), 2) for i in range(len(hist_closes))]
+                hist_vols = clean_v[-250:]
+                results[key] = {
+                    "symbol": sym, "close": round(curr, 2), "prev_close": round(prev, 2), "change_pct": chg_pct,
+                    "ma5": ma5, "ma10": ma10, "ma20": ma20, "ma60": ma60, "ma120": ma120, "ma240": ma240,
+                    "dist_ma20_pct": dist_ma20_pct, "dist_ma60_pct": dist_ma60_pct, "dist_low60": dist_low60,
+                    "r5": r5, "r10": r10, "r20": r20, "r60": r60,
+                    "high20": high20, "low20": low20, "high60": high60, "low60": low60,
+                    "dd20": dd20, "dd60": dd60, "vol_5ma": vol_5ma, "vol_20ma": vol_20ma,
+                    "history": {
+                        "dates": hist_dates, "closes": hist_closes, "ma20": hist_ma20, "ma60": hist_ma60, "volumes": hist_vols
+                    }
+                }
+            except Exception:
+                continue
+    except Exception as exc:
+        logging.warning(f"yfinance 批次抓取略過: {exc}")
+
+    # 1b. 對 yfinance 未取得的標的再用原生 urllib 補抓
     for key, sym in symbols.items():
+        if key in results:
+            continue
         try:
             import urllib.request
             url = f"https://query1.finance.yahoo.com/v8/finance/chart/{sym}?interval=1d&range=1y"

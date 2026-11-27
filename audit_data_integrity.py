@@ -89,6 +89,17 @@ if not tw.get("market_date"):
     errors.append("Taiwan bundle lacks market_date")
 if tw.get("_quality_metadata", {}).get("fallback_used"):
     errors.append("Taiwan bundle used a fallback instead of current source data")
+taiex_hist_dates = tw.get("indices", {}).get("twse", {}).get("taiex", {}).get("history", {}).get("dates", [])
+if taiex_hist_dates and tw.get("market_date"):
+    last_hist_date = str(taiex_hist_dates[-1]).replace("-", "")
+    if last_hist_date < str(tw["market_date"]):
+        from datetime import datetime as _dt
+        try:
+            gap_days = (_dt.strptime(str(tw["market_date"]), "%Y%m%d") - _dt.strptime(last_hist_date, "%Y%m%d")).days
+            if gap_days > 3:
+                errors.append(f"Taiwan TAIEX history is stale ({last_hist_date} vs market_date {tw['market_date']})")
+        except ValueError:
+            pass
 
 earnings = load("tech_earnings_data.json")
 accepted_sources = {"TWSE_MOPS_OFFICIAL", "YAHOO_FINANCE_LIVE"}
