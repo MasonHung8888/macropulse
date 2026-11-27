@@ -139,6 +139,32 @@ def fetch_cbc_m1b_m2(months: int = 24):
             except (ValueError, TypeError):
                 continue
 
+    # 若央行新聞稿已搶先發布最新月份（cpx API 常延遲數日），自動補齊最新月份官方實績
+    try:
+        lp_html = fetch_url("https://www.cbc.gov.tw/tw/lp-302-1.html", timeout=12)
+        pr_match = re.search(r'href="(/tw/cp-302-[^"]+\.html)"[^>]*>\s*(\d+)年(\d+)月金融情況', lp_html)
+        if pr_match:
+            pr_path, roc_y, pr_m = pr_match.group(1), int(pr_match.group(2)), int(pr_match.group(3))
+            pr_ym = f"{roc_y + 1911}-{pr_m:02d}"
+            if not labels or pr_ym > labels[-1]:
+                pr_html = fetch_url(f"https://www.cbc.gov.tw{pr_path}", timeout=12)
+                pr_text = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', pr_html))
+                val_m = (
+                    re.search(r'M1B\s+[-0-9.]+\s+([-0-9.]+)\s+[-0-9.]+\s+M2\s+[-0-9.]+\s+([-0-9.]+)', pr_text)
+                    or re.search(r'M1B及M2年增率[^0-9-]{0,15}([-0-9.]+)%及([-0-9.]+)%', pr_text)
+                )
+                if val_m:
+                    m1b_yoy = float(val_m.group(1))
+                    m2_yoy = float(val_m.group(2))
+                    spread = round(m1b_yoy - m2_yoy, 2)
+                    labels = (labels + [pr_ym])[-months:]
+                    m1b_vals = (m1b_vals + [m1b_yoy])[-months:]
+                    m2_vals = (m2_vals + [m2_yoy])[-months:]
+                    spread_vals = (spread_vals + [spread])[-months:]
+                    print(f"  -> 已自央行新聞稿補齊最新月份 {pr_ym}: M1B={m1b_yoy}%, M2={m2_yoy}%")
+    except Exception as exc:
+        print(f"  央行新聞稿最新月份檢查略過: {exc}")
+
     latest_ym = labels[-1] if labels else ""
     latest_m1b = m1b_vals[-1] if m1b_vals else 0.0
     latest_m2 = m2_vals[-1] if m2_vals else 0.0
