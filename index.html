@@ -195,7 +195,7 @@
                 <button data-traj="EU" class="traj-btn px-2 py-0.5 rounded font-medium">歐元區</button>
               </div>
             </div>
-            <div class="text-center text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" id="traj-date-label">2026-11</div>
+            <div class="text-center text-xs font-medium text-slate-500 dark:text-slate-400 mb-1" id="traj-date-label">載入中...</div>
             <div class="relative h-56">
               <canvas id="trajChart"></canvas>
             </div>
@@ -771,7 +771,7 @@
           <div class="p-3.5 rounded-lg bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-200/70 dark:border-emerald-800/50">
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">下次 FOMC 按兵不動機率</div>
             <div id="fedwatch-hold-val" class="text-2xl font-bold tabular-nums mt-1 text-emerald-600 dark:text-emerald-400">68.0%</div>
-            <div id="fedwatch-hold-sub" class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">2026-12 FOMC 市場定價</div>
+            <div id="fedwatch-hold-sub" class="text-[11px] text-emerald-600 dark:text-emerald-400 mt-0.5">載入中...</div>
           </div>
           <div class="p-3.5 rounded-lg bg-blue-50/50 dark:bg-blue-950/20 border border-blue-200/70 dark:border-blue-800/50">
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">下次 FOMC 降息機率</div>
@@ -951,7 +951,7 @@
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">美國名目 GDP (季度折年率)</div>
             <div id="buffett-gdp-val" class="text-2xl font-bold tabular-nums mt-1 text-slate-700 dark:text-slate-300">$33.01 兆</div>
-            <div id="buffett-gdp-sub" class="text-[11px] text-slate-400 mt-0.5">FRED 官方發布 (2026-Q3)</div>
+            <div id="buffett-gdp-sub" class="text-[11px] text-slate-400 mt-0.5">FRED 官方發布</div>
           </div>
           <div class="p-3.5 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200/70 dark:border-slate-700/60">
             <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">一年前同期比率 (1 Year Ago)</div>
@@ -4997,7 +4997,7 @@
             </select>
           </div>
           <div class="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-mono">
-            <span>回測時間窗口：<strong class="text-slate-700 dark:text-slate-300">2024-12 ~ 2026-11 (24 個月全週期)</strong></span>
+            <span>回測時間窗口：<strong id="bt-window-label" class="text-slate-700 dark:text-slate-300">載入真實序列中...</strong></span>
           </div>
         </div>
       </div>
@@ -6374,8 +6374,8 @@
       { date: '2026-11-18', region: 'US', flag: '🇺🇸', event: 'FOMC 10 月會議紀要公布', impact: 'HIGH', note: '多數官員支持維持鷹派，討論若通膨未降不排除更大幅度升息' },
       { date: '2026-11-20', region: 'JP', flag: '🇯🇵', event: '日本全國 CPI 年增率公布', impact: 'HIGH', note: '影響日本央行 12 月升息節奏的關鍵物價指標' },
       { date: '2026-11-20', region: 'CN', flag: '🇨🇳', event: '中國 1 年期 / 5 年期 LPR 報價', impact: 'MEDIUM', note: '觀察人行是否維持寬鬆以支撐內需成長' },
-      { date: '2026-11-20', region: 'TW', flag: '🇹🇼', event: '台灣 10 月外銷訂單統計公布', impact: 'HIGH', note: '實際 554.5 億美元 (年增 4.9%)，AI 伺服器與半導體訂單穩健' },
-      { date: '2026-11-24', region: 'TW', flag: '🇹🇼', event: '台灣 10 月貨幣總計數 (M1B / M2)', impact: 'HIGH', note: '關注 M1B (前值 6.65%) 與 M2 (前值 7.24%) 剪刀差是否收斂' },
+      { date: '2026-11-20', region: 'TW', flag: '🇹🇼', event: '台灣 10 月外銷訂單統計公布', impact: 'HIGH', note: '由經濟部統計處 (MOEA) 官方發布，追蹤 AI 伺服器與半導體接單動能' },
+      { date: '2026-11-24', region: 'TW', flag: '🇹🇼', event: '台灣 10 月貨幣總計數 (M1B / M2)', impact: 'HIGH', note: '由中央銀行 (CBC) 官方發布，追蹤資金動能與 M1B/M2 剪刀差變化' },
       { date: '2026-12-04', region: 'US', flag: '🇺🇸', event: '美國 11 月非農就業報告 (NFP)', impact: 'HIGH', note: '前值失業率 4.1%，觀察勞動市場是否維持低裁員、低招募' },
       { date: '2026-12-08', region: 'EU', flag: '🇪🇺', event: '歐洲央行 (ECB) 利率決議', impact: 'MEDIUM', note: '評估歐元區通膨回落路徑與景氣降息步調' },
       { date: '2026-12-10', region: 'US', flag: '🇺🇸', event: '美國 11 月 CPI 消費者物價指數', impact: 'HIGH', note: '前值 3.7%，若高於預期將強化 Fed 升息壓力' },
@@ -6935,6 +6935,10 @@
 
     // 舊版榜單只作程式預設，不在資料包驗證前顯示。
     TOP5_MOVERS.STOCK = [];
+    TOP5_MOVERS.FX = [];
+    TOP5_MOVERS.ETF = [];
+    TOP5_MOVERS.COMM = [];
+    TECH_EARNINGS_DATA = [];
 
     const TRADER_ITEMS = [
       // 股市 (11)
@@ -8623,6 +8627,8 @@
         if (mcapEl) mcapEl.textContent = `$${l.market_cap_trillions.toFixed(2)} 兆`;
         const gdpEl = document.getElementById('buffett-gdp-val');
         if (gdpEl) gdpEl.textContent = `$${l.gdp_trillions.toFixed(2)} 兆`;
+        const gdpSub = document.getElementById('buffett-gdp-sub');
+        if (gdpSub && l.as_of) gdpSub.textContent = `FRED 官方發布 (${l.as_of})`;
         const p1yEl = document.getElementById('buffett-prev-1y-val');
         if (p1yEl) p1yEl.textContent = `${l.previous_1y.toFixed(1)}%`;
         const p1ySub = document.getElementById('buffett-prev-1y-sub');
@@ -14068,6 +14074,10 @@
       if (!assetObj || !assetObj.data || assetObj.data.length < 2) return;
       const assetData = assetObj.data;
       const N = assetData.length;
+      const btWin = document.getElementById('bt-window-label');
+      if (btWin && Array.isArray(assetObj.labels) && assetObj.labels.length >= 2) {
+        btWin.textContent = `${assetObj.labels[0]} ~ ${assetObj.labels[assetObj.labels.length - 1]} (${N} 期真實序列)`;
+      }
       
       // Determine risk engine
       let riskEngine = state.backtest.riskEngine || 'trailing8';
