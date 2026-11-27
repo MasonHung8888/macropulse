@@ -1556,7 +1556,7 @@
         </div>
         <div class="flex items-center gap-2">
           <span id="tw-live-date-pill" class="text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
-            資料基準日: 2026-11-20
+            資料基準日: 載入中...
           </span>
           <button id="tw-refresh-btn" type="button" class="px-3.5 py-1.5 rounded-lg border border-indigo-500/30 bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 text-xs font-semibold transition-colors flex items-center gap-1.5">
             <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> 重新載入
@@ -5505,7 +5505,7 @@
             <i data-lucide="clock" class="w-3.5 h-3.5 text-indigo-500"></i>
             <span id="cal-live-date-pill" class="font-bold text-indigo-600 dark:text-indigo-400">即時日期：載入中...</span>
             <span class="opacity-40">｜</span>
-            <span id="cal-market-ref-pill" class="text-slate-500 dark:text-slate-400">市場數據基準日：2026-11-20 (週五收盤結算)</span>
+            <span id="cal-market-ref-pill" class="text-slate-500 dark:text-slate-400">市場數據基準日：載入中...</span>
           </span>
         </div>
       </div>
@@ -16291,6 +16291,11 @@
       const d = String(now.getDate()).padStart(2, '0');
       const pill = document.getElementById('cal-live-date-pill');
       if (pill) pill.textContent = `即時日期：${y}-${m}-${d}`;
+      const calRefPill = document.getElementById('cal-market-ref-pill');
+      const refDate = state.livePayload?.snapshots?.taiex?.as_of || state.livePayload?.snapshots?.sp500?.as_of || (state.livePayload?.updated_at || '').slice(0, 10);
+      if (calRefPill && refDate) {
+        calRefPill.textContent = `市場數據基準日：${refDate} (最新市場結算)`;
+      }
     }
 
     async function loadTechEarningsData() {
@@ -16300,6 +16305,10 @@
           const json = await res.json();
           if (json && Array.isArray(json.data)) {
             TECH_EARNINGS_DATA = json.data.filter(item => item?._quality_metadata?.status === 'confirmed');
+            const calRefPill = document.getElementById('cal-market-ref-pill');
+            if (calRefPill && calRefPill.textContent.includes('載入中') && json.last_updated) {
+              calRefPill.textContent = `財報行事曆更新：${json.last_updated}`;
+            }
             if (state.activeTab === 'calendar') renderCalendar();
             renderTaiwanRadarQuickCards();
           }
