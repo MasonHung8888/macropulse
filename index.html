@@ -3010,11 +3010,12 @@
       <!-- Charts Grid -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-sm">
-          <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center justify-between gap-2 mb-3">
             <div>
               <h2 class="font-semibold text-base">台灣 M1B vs M2 年增率與台股加權指數 (TAIEX)</h2>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">當 M1B 年增率 &gt; M2（黃金交叉），代表活期存款資金流入股市動能較強</p>
             </div>
+            <span id="m1b-taiex-period-badge" class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 shrink-0">載入中...</span>
           </div>
           <div class="relative h-72">
             <canvas id="m1bM2Chart"></canvas>
@@ -9246,9 +9247,15 @@
         if (typeof applyLivePayload === 'function' && payload.snapshots) {
           applyLivePayload(payload);
         }
+        if (taiexLive && SERIES_DB?.taiex?.labels?.length && SERIES_DB?.taiex?.data?.length) {
+          const ym = taiexLive.asOf.slice(0, 7);
+          const idx = SERIES_DB.taiex.labels.indexOf(ym);
+          if (idx !== -1) SERIES_DB.taiex.data[idx] = Number(taiexLive.price.toFixed(2));
+        }
         if (state.activeTab === 'dashboard') renderTop5();
         if (state.activeTab === 'heatmap') renderHeatmap();
         if (state.activeTab === 'taiwan' && typeof renderTaiwanTab === 'function') renderTaiwanTab();
+        if (state.activeTab === 'money' && typeof renderMoneyTab === 'function') renderMoneyTab();
         if (state.activeTab === 'etf' && typeof renderEtfTab === 'function') renderEtfTab();
         if (state.activeTab === 'trader') renderTraderTab();
 
@@ -12005,15 +12012,30 @@
         function renderMoneyTab() {
       const ctx = document.getElementById('m1bM2Chart').getContext('2d');
       if (charts.m1bM2) charts.m1bM2.destroy();
-      const labels = (SERIES_DB.twM1b && SERIES_DB.twM1b.labels && SERIES_DB.twM1b.labels.length > 0) ? SERIES_DB.twM1b.labels : MONTHS;
+      const sM1b = SERIES_DB.twM1b || { labels: [], data: [] };
+      const sM2 = SERIES_DB.twM2 || { labels: [], data: [] };
+      const sTaiex = SERIES_DB.taiex || { labels: [], data: [] };
+      const allLabels = Array.from(new Set([...(sM1b.labels || []), ...(sM2.labels || []), ...(sTaiex.labels || [])])).sort();
+      const labels = allLabels.length > 0 ? allLabels : MONTHS;
+      const alignSeries = (s) => {
+        const map = new Map();
+        (s.labels || []).forEach((lbl, i) => map.set(lbl, s.data?.[i] ?? null));
+        return labels.map(lbl => map.has(lbl) ? map.get(lbl) : null);
+      };
+      const periodBadge = document.getElementById('m1b-taiex-period-badge');
+      if (periodBadge) {
+        const m1bLast = sM1b.labels?.[sM1b.labels.length - 1] || '—';
+        const txLast = sTaiex.labels?.[sTaiex.labels.length - 1] || '—';
+        periodBadge.textContent = `CBC 至 ${m1bLast} · TAIEX 至 ${txLast}`;
+      }
       charts.m1bM2 = new Chart(ctx, {
         type: 'line',
         data: {
           labels: labels,
           datasets: [
-            { label: '台灣 M1B 年增率 (%) [央行官方]', data: SERIES_DB.twM1b.data, borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
-            { label: '台灣 M2 年增率 (%) [央行官方]', data: SERIES_DB.twM2.data, borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5 },
-            { label: '台股 TAIEX (右軸)', data: SERIES_DB.taiex.data, borderColor: '#10b981', borderDash: [4, 3], yAxisID: 'y1', tension: 0.25, pointRadius: 0 }
+            { label: '台灣 M1B 年增率 (%) [央行官方]', data: alignSeries(sM1b), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5, spanGaps: false },
+            { label: '台灣 M2 年增率 (%) [央行官方]', data: alignSeries(sM2), borderColor: '#f59e0b', backgroundColor: 'rgba(245,158,11,0.1)', yAxisID: 'y', tension: 0.25, pointRadius: 2.5, spanGaps: false },
+            { label: '台股 TAIEX (右軸)', data: alignSeries(sTaiex), borderColor: '#10b981', borderDash: [4, 3], yAxisID: 'y1', tension: 0.25, pointRadius: 1.5, spanGaps: false }
           ]
         },
         options: {
