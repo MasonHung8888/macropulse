@@ -73,6 +73,9 @@
         <button data-tab="trader" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
           <i data-lucide="radar" class="w-3.5 h-3.5"></i>操盤人必看
         </button>
+        <button data-tab="bondwar" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 text-amber-600 dark:text-amber-400">
+          <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i>美債戰情室
+        </button>
         <button data-tab="heatmap" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
           <i data-lucide="grid-2x2" class="w-3.5 h-3.5"></i>市場熱力圖
         </button>
@@ -128,6 +131,7 @@
       <button data-tab="taiwan" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="crosshair" class="w-4 h-4"></i>台股與 AI 監控</button>
       <button data-tab="money" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="coins" class="w-4 h-4"></i>資金動能 ＆ 景氣燈號</button>
       <button data-tab="trader" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="radar" class="w-4 h-4"></i>操盤人必看</button>
+      <button data-tab="bondwar" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2 text-amber-600 dark:text-amber-400"><i data-lucide="shield-alert" class="w-4 h-4"></i>美債戰情室</button>
       <button data-tab="heatmap" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="grid-2x2" class="w-4 h-4"></i>市場熱力圖</button>
       <button data-tab="toolbox" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="line-chart" class="w-4 h-4"></i>研究工具箱</button>
       <button data-tab="backtest" class="nav-btn text-left px-3 py-2 rounded-lg text-sm font-medium flex items-center gap-2"><i data-lucide="flask-conical" class="w-4 h-4"></i>量化回測</button>
@@ -5485,6 +5489,129 @@
         <div id="etf-compare-box" class="hidden pt-4 border-t border-slate-200 dark:border-slate-800">
           <h3 class="text-sm font-semibold mb-3 text-blue-600 dark:text-blue-400">已選 ETF 並排比較</h3>
           <div id="etf-compare-grid" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB: US BOND MARKET WAR ROOM (美國債市戰情室) -->
+    <section id="tab-bondwar" class="tab-panel hidden space-y-6">
+      <div class="bg-slate-950 text-slate-100 rounded-2xl border border-slate-800 p-4 sm:p-6 space-y-6 shadow-xl">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-4">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-extrabold tracking-tight flex items-center gap-2 text-white">
+              <i data-lucide="shield-alert" class="w-6 h-6 text-amber-400"></i> 美國債市戰情室 (US Bond Market War Room)
+            </h1>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">追蹤信用分層（「挑客戶」）vs 流動性枯竭（「系統性危機」），並量化債市對美股之傳導壓力</p>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span id="bw-asof-badge" class="text-xs font-mono px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-slate-300">基準日：載入中…</span>
+            <button id="bw-refresh-btn" type="button" class="px-3 py-1.5 rounded-lg bg-amber-500/15 border border-amber-500/40 text-amber-300 hover:bg-amber-500/25 text-xs font-semibold flex items-center gap-1.5 transition-colors">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> 手動更新
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-4 bg-slate-900/90 border border-slate-800 rounded-xl p-5 flex flex-col justify-between">
+            <div>
+              <div class="text-xs uppercase tracking-wider text-slate-400 font-semibold">綜合債市壓力分數 (0–100)</div>
+              <div class="flex items-baseline gap-3 mt-2">
+                <span id="bw-stress-score" class="text-5xl font-black tabular-nums text-amber-400">—</span>
+                <span id="bw-regime-badge" class="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">判讀中…</span>
+              </div>
+              <p id="bw-conclusion" class="text-xs sm:text-sm text-slate-300 leading-relaxed mt-3">載入最新判讀中…</p>
+            </div>
+            <div class="text-[11px] text-slate-500 mt-4 pt-3 border-t border-slate-800">資料來源：FRED 官方日/週頻序列 &amp; Yahoo Finance · 台北 07:30 自動更新</div>
+          </div>
+          <div id="bw-signals-grid" class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3"></div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h2 class="font-bold text-base text-white">美國公債殖利率曲線 (3M / 2Y / 5Y / 10Y / 30Y)</h2>
+              <p class="text-xs text-slate-400">來源：FRED DGS 系列官方日線收盤</p>
+            </div>
+            <span id="bw-2s10s-badge" class="text-xs font-mono font-bold px-3 py-1 rounded-lg bg-slate-800 text-slate-200 border border-slate-700">2s10s：—</span>
+          </div>
+          <div id="bw-curve-kpis" class="grid grid-cols-2 sm:grid-cols-5 gap-3"></div>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="h-60 bg-slate-950/60 rounded-xl p-3 border border-slate-800/80"><canvas id="bwYieldCurveChart"></canvas></div>
+            <div class="h-60 bg-slate-950/60 rounded-xl p-3 border border-slate-800/80"><canvas id="bwCurveHistChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+          <div>
+            <h2 class="font-bold text-base text-white">信用利差 (OAS) 與有效殖利率 (ICE BofA)</h2>
+            <p class="text-xs text-slate-400">區分 IG 優質企業 vs HY 高收益 vs CCC 弱借款人（含 30 日變化）</p>
+          </div>
+          <div id="bw-credit-kpis" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
+          <div class="h-64 bg-slate-950/60 rounded-xl p-3 border border-slate-800/80"><canvas id="bwCreditChart"></canvas></div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+          <h2 class="font-bold text-base text-white">聯準會與貨幣市場流動性儀表板</h2>
+          <div id="bw-liquidity-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-3">
+          <div>
+            <h2 class="font-bold text-base text-white">AI 核心企業美元公司債單券追蹤表（17 家，依 YTM 高→低排序）</h2>
+            <p class="text-xs text-slate-400">誠實規則：無免費即時公開報價者標示「無公開報價」，絕不虛構；每檔標註實際報價基準日。</p>
+          </div>
+          <div class="overflow-x-auto border border-slate-800 rounded-xl">
+            <table class="w-full text-xs whitespace-nowrap">
+              <thead class="bg-slate-950 text-slate-400">
+                <tr>
+                  <th class="text-left p-2.5">公司</th>
+                  <th class="text-right p-2.5">到期日</th>
+                  <th class="text-right p-2.5">票息</th>
+                  <th class="text-right p-2.5">價格</th>
+                  <th class="text-right p-2.5">YTM</th>
+                  <th class="text-right p-2.5">對公債利差</th>
+                  <th class="text-left p-2.5">基準日期</th>
+                  <th class="text-left p-2.5">報價狀態</th>
+                </tr>
+              </thead>
+              <tbody id="bw-ai-bonds-body" class="divide-y divide-slate-800/80"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-4">
+          <h2 class="font-bold text-base text-white">債 → 股傳導對照 (S&amp;P 500 / Nasdaq / 費半 / VIX / MOVE)</h2>
+          <div id="bw-transmission-kpis" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
+          <div class="h-64 bg-slate-950/60 rounded-xl p-3 border border-slate-800/80"><canvas id="bwTransmissionChart"></canvas></div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <div class="lg:col-span-7 bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <h2 class="font-bold text-base text-white">每日判讀存檔與隔日命中率驗證</h2>
+              <span id="bw-hitrate-badge" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 text-emerald-400 border border-slate-700">累計命中率：—</span>
+            </div>
+            <div class="overflow-x-auto max-h-64 border border-slate-800 rounded-xl">
+              <table class="w-full text-xs whitespace-nowrap">
+                <thead class="bg-slate-950 text-slate-400">
+                  <tr><th class="text-left p-2">日期</th><th class="text-right p-2">分數</th><th class="text-left p-2">判讀</th><th class="text-left p-2">隔日驗證</th><th class="text-left p-2">錯因說明</th></tr>
+                </thead>
+                <tbody id="bw-archive-body" class="divide-y divide-slate-800/80"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="lg:col-span-5 bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-3">
+            <h2 class="font-bold text-base text-white">模型權重進化日誌</h2>
+            <div id="bw-evo-log" class="space-y-2 text-xs max-h-64 overflow-y-auto"></div>
+          </div>
+        </div>
+
+        <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-5 space-y-3">
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-base text-white">美國債市即時新聞彙整</h2>
+            <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">規則引擎自動初判（僅供參考）</span>
+          </div>
+          <div id="bw-news-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
         </div>
       </div>
     </section>
@@ -11411,6 +11538,7 @@
       if (tabId === 'toolbox') renderToolbox();
       if (tabId === 'backtest') renderBacktest();
       if (tabId === 'etf') renderEtfTab();
+      if (tabId === 'bondwar') loadBondWarRoom(false);
       if (tabId === 'calendar') renderCalendar();
       if (tabId === 'mydash') renderMyDashboard();
     }
@@ -16325,6 +16453,253 @@
       }
     }
 
+    let BOND_WAR_ROOM_DATA = null;
+
+    async function loadBondWarRoom(force = false) {
+      const btn = document.getElementById('bw-refresh-btn');
+      if (BOND_WAR_ROOM_DATA && !force) {
+        const updatedMs = Date.parse(BOND_WAR_ROOM_DATA.updated_at || '');
+        if (Number.isFinite(updatedMs) && (Date.now() - updatedMs) < 6 * 3600 * 1000) {
+          renderBondWarRoom();
+          return;
+        }
+      }
+      if (btn) btn.disabled = true;
+      try {
+        const res = await fetch('bond_war_room_data.json?t=' + Date.now());
+        if (res.ok) {
+          BOND_WAR_ROOM_DATA = await res.json();
+          renderBondWarRoom();
+          if (force) showToast('已更新美國債市戰情室最新數據！');
+        }
+      } catch (err) {
+        console.warn('載入 bond_war_room_data.json 失敗', err);
+        if (force) showToast('債市戰情室資料暫時無法載入');
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    function renderBondWarRoom() {
+      const d = BOND_WAR_ROOM_DATA;
+      if (!d) return;
+      const sum = d.summary || {};
+      const badge = document.getElementById('bw-asof-badge');
+      if (badge) badge.textContent = `基準日：${d.as_of || '—'} · 更新 ${(d.updated_at || '').slice(11, 16)} UTC`;
+
+      const scoreEl = document.getElementById('bw-stress-score');
+      const regEl = document.getElementById('bw-regime-badge');
+      const conEl = document.getElementById('bw-conclusion');
+      const score = Number(sum.stress_score);
+      if (scoreEl) {
+        scoreEl.textContent = Number.isFinite(score) ? score.toFixed(1) : '—';
+        scoreEl.className = `text-5xl font-black tabular-nums ${score >= 60 ? 'text-rose-400' : score >= 40 ? 'text-amber-400' : 'text-emerald-400'}`;
+      }
+      if (regEl) {
+        regEl.textContent = sum.regime || '—';
+        regEl.className = `text-xs font-bold px-2.5 py-1 rounded-full border ${
+          sum.regime_key === 'systemic_crisis' ? 'bg-rose-500/15 text-rose-300 border-rose-500/40'
+            : sum.regime_key === 'selective_credit' ? 'bg-amber-500/15 text-amber-300 border-amber-500/40'
+            : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40'
+        }`;
+      }
+      if (conEl) conEl.textContent = sum.conclusion || '';
+
+      const sigGrid = document.getElementById('bw-signals-grid');
+      if (sigGrid) {
+        sigGrid.innerHTML = (sum.signals || []).map(s => {
+          const stCls = s.status === '警戒' ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
+            : s.status === '注意' ? 'bg-amber-500/15 text-amber-300 border-amber-500/30'
+            : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30';
+          const valTxt = s.value !== null && s.value !== undefined ? `${s.value}${s.unit || ''}` : '—';
+          return `<div class="bg-slate-900/90 border border-slate-800 rounded-xl p-3.5 space-y-1.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-semibold text-slate-300">${s.label}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border ${stCls}">${s.status}</span>
+            </div>
+            <div class="text-xl font-extrabold tabular-nums text-white">${valTxt}</div>
+            <div class="text-[11px] text-slate-400 leading-snug">${s.note || ''}</div>
+          </div>`;
+        }).join('');
+      }
+
+      // 2. Yield Curve
+      const yc = d.yield_curve || {};
+      const b2s10s = document.getElementById('bw-2s10s-badge');
+      if (b2s10s) {
+        const sp = yc.spread_2s10s_bps;
+        const inv = yc.is_inverted ? '（倒掛）' : '（正斜率）';
+        b2s10s.textContent = sp !== null && sp !== undefined ? `2s10s：${sp >= 0 ? '+' : ''}${sp} bps ${inv}` : '2s10s：—';
+      }
+      const cKpis = document.getElementById('bw-curve-kpis');
+      if (cKpis) {
+        cKpis.innerHTML = (yc.points || []).map(p => `<div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
+          <div class="text-xs text-slate-400">${p.tenor} 美債</div>
+          <div class="text-2xl font-extrabold tabular-nums text-white mt-0.5">${Number(p.yield).toFixed(2)}%</div>
+          <div class="text-[11px] text-slate-400 mt-0.5">30日 ${p.chg_30d_bps >= 0 ? '+' : ''}${p.chg_30d_bps} bps</div>
+        </div>`).join('');
+      }
+      const ycCanvas = document.getElementById('bwYieldCurveChart');
+      if (ycCanvas && yc.points?.length) {
+        if (charts.bwYieldCurve) charts.bwYieldCurve.destroy();
+        charts.bwYieldCurve = new Chart(ycCanvas.getContext('2d'), {
+          type: 'line',
+          data: { labels: yc.points.map(p => p.tenor), datasets: [{ label: '當日殖利率曲線 (%)', data: yc.points.map(p => p.yield), borderColor: '#fbbf24', backgroundColor: 'rgba(251,191,36,0.12)', fill: true, tension: 0.3, pointRadius: 4 }] },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148,163,184,0.1)' } }, y: { ticks: { color: '#94a3b8', callback: v => `${v}%` }, grid: { color: 'rgba(148,163,184,0.1)' } } } }
+        });
+      }
+      const ychCanvas = document.getElementById('bwCurveHistChart');
+      if (ychCanvas && yc.history?.labels?.length) {
+        if (charts.bwCurveHist) charts.bwCurveHist.destroy();
+        charts.bwCurveHist = new Chart(ychCanvas.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: yc.history.labels,
+            datasets: [
+              { label: '10Y 美債 (%)', data: yc.history.dgs10, borderColor: '#38bdf8', pointRadius: 0, tension: 0.2 },
+              { label: '2Y 美債 (%)', data: yc.history.dgs2, borderColor: '#f43f5e', pointRadius: 0, tension: 0.2, spanGaps: true }
+            ]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { x: { ticks: { color: '#94a3b8', maxTicksLimit: 6 }, grid: { display: false } }, y: { ticks: { color: '#94a3b8', callback: v => `${v}%` }, grid: { color: 'rgba(148,163,184,0.1)' } } } }
+        });
+      }
+
+      // 3. Credit Spreads
+      const cs = d.credit_spreads || {};
+      const csKpis = document.getElementById('bw-credit-kpis');
+      if (csKpis) {
+        csKpis.innerHTML = (cs.items || []).map(it => `<div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3.5">
+          <div class="text-xs text-slate-400">${it.name}</div>
+          <div class="flex items-baseline justify-between mt-1">
+            <span class="text-2xl font-extrabold tabular-nums text-white">${Number(it.yield).toFixed(2)}%</span>
+            <span class="text-xs font-mono text-amber-300">OAS ${it.oas_bps ?? '—'} bps</span>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">30日 OAS ${it.oas_chg_30d_bps !== null ? (it.oas_chg_30d_bps >= 0 ? '+' : '') + it.oas_chg_30d_bps + ' bps' : '—'} · ${it.date || ''}</div>
+        </div>`).join('');
+      }
+      const crCanvas = document.getElementById('bwCreditChart');
+      if (crCanvas && cs.history?.labels?.length) {
+        if (charts.bwCredit) charts.bwCredit.destroy();
+        charts.bwCredit = new Chart(crCanvas.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: cs.history.labels,
+            datasets: [
+              { label: 'IG OAS (bps)', data: cs.history.ig_oas, borderColor: '#38bdf8', pointRadius: 0, tension: 0.2, spanGaps: true },
+              { label: 'HY OAS (bps)', data: cs.history.hy_oas, borderColor: '#fbbf24', pointRadius: 0, tension: 0.2, spanGaps: true },
+              { label: 'CCC OAS (bps)', data: cs.history.ccc_oas, borderColor: '#fb7185', pointRadius: 0, tension: 0.2, spanGaps: true }
+            ]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { x: { ticks: { color: '#94a3b8', maxTicksLimit: 8 }, grid: { display: false } }, y: { ticks: { color: '#94a3b8', callback: v => `${v} bps` }, grid: { color: 'rgba(148,163,184,0.1)' } } } }
+        });
+      }
+
+      // 4. Liquidity
+      const liq = d.liquidity || {};
+      const liqGrid = document.getElementById('bw-liquidity-grid');
+      if (liqGrid) {
+        const liqCards = [
+          { title: '聯準會準備金 (WRESBAL)', val: liq.reserves_trillions !== null ? `$${liq.reserves_trillions.toFixed(2)} 兆` : '—', sub: `30日 ${liq.reserves_chg_30d_pct !== null ? (liq.reserves_chg_30d_pct >= 0 ? '+' : '') + liq.reserves_chg_30d_pct + '%' : '—'} · ${liq.reserves_date || ''}` },
+          { title: 'SOFR − IORB 資金利差', val: liq.sofr_iorb_bps !== null ? `${liq.sofr_iorb_bps >= 0 ? '+' : ''}${liq.sofr_iorb_bps} bps` : '—', sub: `SOFR ${liq.sofr ?? '—'}% / IORB ${liq.iorb ?? '—'}% · ${liq.sofr_date || ''}` },
+          { title: 'ON RRP 隔夜逆回購餘額', val: liq.on_rrp_billions !== null ? `$${liq.on_rrp_billions.toFixed(1)}B` : '—', sub: `日期 ${liq.on_rrp_date || ''}` },
+          { title: '聯準會總資產 (WALCL)', val: liq.fed_assets_trillions !== null ? `$${liq.fed_assets_trillions.toFixed(2)} 兆` : '—', sub: `日期 ${liq.fed_assets_date || ''}` }
+        ];
+        liqGrid.innerHTML = liqCards.map(c => `<div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3.5">
+          <div class="text-xs text-slate-400">${c.title}</div>
+          <div class="text-2xl font-extrabold tabular-nums text-white mt-1">${c.val}</div>
+          <div class="text-[11px] text-slate-400 mt-1">${c.sub}</div>
+        </div>`).join('');
+      }
+
+      // 5. AI Bonds
+      const bBody = document.getElementById('bw-ai-bonds-body');
+      if (bBody) {
+        bBody.innerHTML = (d.ai_bonds || []).map(b => {
+          const hasQ = Number.isFinite(b.market_yield);
+          const issuerCell = b.source_url ? `<a href="${b.source_url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline font-semibold">${b.issuer}</a>` : `<span class="text-slate-300 font-semibold">${b.issuer}</span>`;
+          const statusCell = hasQ && b.quote_url ? `<a href="${b.quote_url}" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:underline">${b.quote_source || '公開報價'}</a>` : `<span class="text-amber-400">${b.quote_status || '無公開報價'}</span>`;
+          return `<tr>
+            <td class="p-2.5">${issuerCell}</td>
+            <td class="p-2.5 text-right tabular-nums text-slate-300">${b.maturity || '—'}</td>
+            <td class="p-2.5 text-right tabular-nums text-slate-300">${Number.isFinite(b.coupon) ? b.coupon.toFixed(2) + '%' : '—'}</td>
+            <td class="p-2.5 text-right tabular-nums text-slate-200">${Number.isFinite(b.market_price) ? b.market_price.toFixed(2) : '—'}</td>
+            <td class="p-2.5 text-right tabular-nums font-bold ${hasQ ? 'text-amber-300' : 'text-slate-500'}">${hasQ ? b.market_yield.toFixed(2) + '%' : '—'}</td>
+            <td class="p-2.5 text-right tabular-nums text-slate-300">${Number.isFinite(b.spread_bps) ? b.spread_bps + ' bps' : '—'}</td>
+            <td class="p-2.5 text-left font-mono text-slate-400">${b.quote_date || '—'}</td>
+            <td class="p-2.5 text-left">${statusCell}</td>
+          </tr>`;
+        }).join('');
+      }
+
+      // 6. Transmission
+      const tr = d.transmission || {};
+      const trKpis = document.getElementById('bw-transmission-kpis');
+      if (trKpis) {
+        const items = [tr.sp500, tr.nasdaq, tr.sox, tr.vix, tr.move].filter(Boolean);
+        trKpis.innerHTML = items.map(it => `<div class="bg-slate-950/70 border border-slate-800 rounded-xl p-3">
+          <div class="text-xs text-slate-400">${it.label}</div>
+          <div class="text-xl font-extrabold tabular-nums text-white mt-0.5">${Number(it.latest).toLocaleString('en-US')}</div>
+          <div class="text-[11px] mt-0.5 ${it.d1_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}">1日 ${it.d1_pct >= 0 ? '+' : ''}${it.d1_pct}% · 30日 ${it.chg_30d_pct >= 0 ? '+' : ''}${it.chg_30d_pct}%</div>
+        </div>`).join('');
+      }
+      const trCanvas = document.getElementById('bwTransmissionChart');
+      if (trCanvas && tr.sp500?.labels?.length && tr.move?.data?.length) {
+        if (charts.bwTrans) charts.bwTrans.destroy();
+        charts.bwTrans = new Chart(trCanvas.getContext('2d'), {
+          type: 'line',
+          data: {
+            labels: tr.sp500.labels,
+            datasets: [
+              { label: 'S&P 500', data: tr.sp500.data, borderColor: '#34d399', yAxisID: 'y', pointRadius: 0, tension: 0.2 },
+              { label: 'MOVE 債市波動', data: tr.move.data, borderColor: '#fb7185', yAxisID: 'y1', pointRadius: 0, tension: 0.2 }
+            ]
+          },
+          options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { x: { ticks: { color: '#94a3b8', maxTicksLimit: 8 }, grid: { display: false } }, y: { position: 'left', ticks: { color: '#34d399' }, grid: { color: 'rgba(148,163,184,0.1)' } }, y1: { position: 'right', ticks: { color: '#fb7185' }, grid: { drawOnChartArea: false } } } }
+        });
+      }
+
+      // 7. Calibration Archive
+      const cal = d.calibration || {};
+      const hitBadge = document.getElementById('bw-hitrate-badge');
+      if (hitBadge) {
+        hitBadge.textContent = cal.hit_rate_pct !== null && cal.hit_rate_pct !== undefined
+          ? `累計命中率：${cal.hit_rate_pct}% (${cal.verified_count} 筆已驗證)`
+          : `累計存檔 ${cal.total_count || 0} 筆（待隔日驗證）`;
+      }
+      const aBody = document.getElementById('bw-archive-body');
+      if (aBody) {
+        aBody.innerHTML = (cal.records || []).map(r => {
+          const vBadge = !r.verified ? '<span class="text-slate-400">待隔日驗證</span>' : (r.hit ? '<span class="text-emerald-400 font-bold">命中</span>' : '<span class="text-rose-400 font-bold">未中</span>');
+          return `<tr><td class="p-2 font-mono text-slate-300">${r.date}</td><td class="p-2 text-right font-bold text-amber-300">${r.stress_score}</td><td class="p-2 text-slate-300">${r.regime}</td><td class="p-2">${vBadge}</td><td class="p-2 text-slate-400">${r.miss_reason || '—'}</td></tr>`;
+        }).join('');
+      }
+      const evoEl = document.getElementById('bw-evo-log');
+      if (evoEl) {
+        const logs = cal.evolution_log || [];
+        evoEl.innerHTML = logs.length
+          ? logs.map(l => `<div class="p-2.5 rounded-lg bg-slate-950/70 border border-slate-800"><div class="font-mono text-amber-300">${l.date} · 檢驗 ${l.evaluated_date}</div><div class="text-slate-300 mt-1">${l.reason}</div></div>`).join('')
+          : '<div class="text-slate-400 p-3 bg-slate-950/50 rounded-lg border border-slate-800">尚無權重修正紀錄；每日排程累積隔日驗證結果後，將自動記錄錯因與權重微調歷程。</div>';
+      }
+
+      // 8. News
+      const nGrid = document.getElementById('bw-news-grid');
+      if (nGrid) {
+        nGrid.innerHTML = (d.news || []).map(n => {
+          const sCls = n.sentiment === '利多' ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+            : n.sentiment === '利空' ? 'bg-rose-500/15 text-rose-300 border-rose-500/30'
+            : 'bg-slate-800 text-slate-300 border-slate-700';
+          return `<a href="${n.link}" target="_blank" rel="noopener noreferrer" class="block p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-amber-500/50 transition-colors space-y-1.5">
+            <div class="flex items-center justify-between gap-2 text-[11px]">
+              <span class="text-slate-400">${n.source} · ${(n.published_at || '').slice(0, 16)}</span>
+              <span class="px-2 py-0.5 rounded-full font-bold border ${sCls}">${n.sentiment} · 自動初判</span>
+            </div>
+            <div class="text-sm font-semibold text-white leading-snug">${n.title}</div>
+            <div class="text-xs text-slate-400">${n.reason}</div>
+          </a>`;
+        }).join('');
+      }
+    }
+
     async function loadTechEarningsData() {
       try {
         const res = await fetch('tech_earnings_data.json?t=' + Date.now());
@@ -17622,9 +17997,11 @@
       if (cnyesAutoBtn) cnyesAutoBtn.addEventListener('click', () => toggleCnyesAutoLive());
       renderTaiwanRadarQuickCards();
       renderFearGreedRadar();
+      const bwRefreshBtn = document.getElementById('bw-refresh-btn');
+      if (bwRefreshBtn) bwRefreshBtn.addEventListener('click', () => loadBondWarRoom(true));
       loadTechEarningsData();
       const hashTab = (window.location.hash || '').slice(1);
-      const validTabs = ['dashboard', 'taiwan', 'money', 'trader', 'heatmap', 'toolbox', 'backtest', 'builder', 'calendar', 'etf', 'mydash', 'import'];
+      const validTabs = ['dashboard', 'taiwan', 'money', 'trader', 'bondwar', 'heatmap', 'toolbox', 'backtest', 'builder', 'calendar', 'etf', 'mydash', 'import'];
       const initialTab = validTabs.includes(hashTab) ? hashTab : 'dashboard';
       switchTab(initialTab);
       syncLivePublicData(false);

@@ -1,0 +1,32 @@
+{
+  "weights": {
+    "ccc_yield": 0.2,
+    "hy_oas_mom": 0.16,
+    "ig_oas_mom": 0.12,
+    "sofr_iorb": 0.16,
+    "fed_reserves": 0.14,
+    "move_index": 0.12,
+    "us10y_mom": 0.1
+  },
+  "records": [
+    {
+      "date": "2026-11-25",
+      "stress_score": 51.7,
+      "regime": "挑客戶（信用分層、只針對弱借款人收費）",
+      "regime_key": "selective_credit",
+      "signal_scores": {
+        "ccc_yield": 100.0,
+        "hy_oas_mom": 68.3,
+        "ig_oas_mom": 42.3,
+        "sofr_iorb": 30.0,
+        "fed_reserves": 40.0,
+        "move_index": 36.9,
+        "us10y_mom": 8.5
+      },
+      "verified": false,
+      "hit": null,
+      "miss_reason": null
+    }
+  ],
+  "evolution_log": []
+}
