@@ -152,6 +152,13 @@ for etf in etf_list:
     if not isinstance(etf.get("price"), (int, float)) or etf["price"] <= 0 or not etf.get("as_of") or not etf.get("source"):
         errors.append(f"etf_monitor.{etf.get('ticker')} lacks valid price/date/source")
 
+macro_cal = macro.get("macro_calendar", [])
+if not macro_cal:
+    errors.append("macro_calendar must contain official upcoming events")
+for ev in macro_cal:
+    if not ev.get("date") or not ev.get("event") or not ev.get("source_url"):
+        errors.append(f"macro_calendar event incomplete: {ev}")
+
 for issue in bonds.get("issues", []):
     ytm = issue.get("market_yield")
     if ytm is not None and (not isinstance(ytm, (int, float)) or ytm <= 0 or ytm > 50):

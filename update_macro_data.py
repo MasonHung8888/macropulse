@@ -1237,6 +1237,95 @@ def fetch_tw_export_orders():
         return None
 
 
+def fetch_macro_calendar(macro_indicators: dict | None = None) -> list[dict]:
+    """從聯準會 (Federal Reserve) 與美國勞工統計局 (BLS) 官網抓取最新總經事件正式排程。"""
+    print("6.8/8 抓取官方總經行事曆 (FOMC / BLS CPI / BLS 非農就業)...")
+    events: list[dict] = []
+    today = datetime.now(timezone.utc).date()
+    indicators = macro_indicators or {}
+    cpi_prev = indicators.get("us_cpi_yoy", {}).get("value")
+    unrate_prev = indicators.get("us_unemployment", {}).get("value")
+    month_map = {
+        "january": 1, "jan": 1, "february": 2, "feb": 2, "march": 3, "mar": 3,
+        "april": 4, "apr": 4, "may": 5, "june": 6, "jun": 6,
+        "july": 7, "jul": 7, "august": 8, "aug": 8, "september": 9, "sep": 9, "sept": 9,
+        "october": 10, "oct": 10, "november": 11, "nov": 11, "december": 12, "dec": 12,
+    }
+
+    def keep_window(d_str: str) -> bool:
+        try:
+            d = datetime.strptime(d_str, "%Y-%m-%d").date()
+            return -14 <= (d - today).days <= 120
+        except ValueError:
+            return False
+
+    try:
+        from curl_cffi import requests as curl_requests
+        # 1. Federal Reserve FOMC Calendar
+        fomc_url = "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+        fomc_html = curl_requests.get(fomc_url, timeout=15, impersonate="chrome").text
+        for yr_m in re.finditer(r'(202[67])\s+FOMC Meetings(.*?)(?=202[5-8]\s+FOMC Meetings|</section>|\Z)', fomc_html, re.S):
+            yr = int(yr_m.group(1))
+            rows = re.findall(r'fomc-meeting__month[^>]*><strong>([^<]+)</strong>.*?fomc-meeting__date[^>]*>([^<]+)<', yr_m.group(2), re.S)
+            for m_str, d_raw in rows:
+                m_num = month_map.get(m_str.strip().lower().split("/")[0])
+                days = re.findall(r'\d+', d_raw)
+                if not m_num or not days:
+                    continue
+                decision_day = int(days[-1])
+                decision_month = m_num + 1 if ("/" in m_str and len(days) >= 2 and int(days[-1]) < int(days[0])) else m_num
+                if decision_month > 12:
+                    decision_month = 1
+                    yr_adj = yr + 1
+                else:
+                    yr_adj = yr
+                d_str = f"{yr_adj}-{decision_month:02d}-{decision_day:02d}"
+                if keep_window(d_str):
+                    has_sep = "*" in d_raw
+                    events.append({
+                        "date": d_str,
+                        "region": "US",
+                        "flag": "🇺🇸",
+                        "event": "聯準會 (FOMC) 利率決議" + ("（含利率點陣圖）" if has_sep else ""),
+                        "impact": "HIGH",
+                        "note": "Federal Reserve 官方排程；會後公布利率決議與主席記者會" + ("及 SEP 經濟預測點陣圖" if has_sep else ""),
+                        "source": "Federal Reserve Official",
+                        "source_url": fomc_url,
+                    })
+
+        # 2. BLS CPI & Employment Situation (NFP)
+        bls_specs = [
+            ("https://www.bls.gov/schedule/news_release/cpi.htm", "美國 CPI 消費者物價指數",
+             f"美國勞工統計局 (BLS) 官方排程；最新 CPI 年增率前值 {cpi_prev}%" if cpi_prev is not None else "美國勞工統計局 (BLS) 官方排程"),
+            ("https://www.bls.gov/schedule/news_release/empsit.htm", "美國非農就業報告 (NFP)",
+             f"美國勞工統計局 (BLS) 官方排程；最新失業率前值 {unrate_prev}%" if unrate_prev is not None else "美國勞工統計局 (BLS) 官方排程"),
+        ]
+        for b_url, b_title, b_note in bls_specs:
+            b_html = curl_requests.get(b_url, timeout=15, impersonate="chrome").text
+            for dm in re.finditer(r'([A-Za-z]+)\.?\s+(\d{1,2}),\s+(202[67])', b_html):
+                m_num = month_map.get(dm.group(1).lower())
+                if not m_num:
+                    continue
+                d_str = f"{int(dm.group(3))}-{m_num:02d}-{int(dm.group(2)):02d}"
+                if keep_window(d_str) and not any(e["date"] == d_str and e["event"] == b_title for e in events):
+                    events.append({
+                        "date": d_str,
+                        "region": "US",
+                        "flag": "🇺🇸",
+                        "event": b_title,
+                        "impact": "HIGH",
+                        "note": b_note,
+                        "source": "U.S. Bureau of Labor Statistics (BLS)",
+                        "source_url": b_url,
+                    })
+    except Exception as exc:
+        print(f"  官方總經行事曆抓取略過: {exc}")
+
+    events.sort(key=lambda e: e["date"])
+    print(f"  -> 成功抓取官方總經行事曆 {len(events)} 筆")
+    return events
+
+
 # 7. 股權風險溢價 (Equity Risk Premium, ERP) 計算
 def compute_equity_risk_premium(sp500_price, us10y_yield, existing_erp=None, as_of=None):
     print("7/8 計算美股標普 500 股權風險溢價 (ERP)...")
@@ -2524,6 +2613,13 @@ def main(output_file: str = None):
         }
         payload["snapshots"]["tw_export_orders_yoy"] = tw_orders["latest"]["yoy_pct"]
         payload["snapshots"]["tw_export_orders_amount"] = tw_orders["latest"]["amount_billions"]
+
+    # 8.5 官方總經行事曆 (FOMC / BLS CPI / NFP)
+    macro_cal = fetch_macro_calendar(payload["macro_indicators"])
+    if not macro_cal and "macro_calendar" in existing_payload:
+        macro_cal = existing_payload["macro_calendar"]
+    if macro_cal:
+        payload["macro_calendar"] = macro_cal
 
     # 9. 美股標普 500 股權風險溢價 (ERP) — 使用 Yahoo Finance SPY 即時 Trailing P/E 與 ^TNX
     sp500_snap = payload["snapshots"].get("sp500")

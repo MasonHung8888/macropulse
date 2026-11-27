@@ -6371,22 +6371,7 @@
     };
 
 
-    const CALENDAR_EVENTS = [
-      { date: '2026-11-18', region: 'US', flag: '🇺🇸', event: 'FOMC 10 月會議紀要公布', impact: 'HIGH', note: '多數官員支持維持鷹派，討論若通膨未降不排除更大幅度升息' },
-      { date: '2026-11-20', region: 'JP', flag: '🇯🇵', event: '日本全國 CPI 年增率公布', impact: 'HIGH', note: '影響日本央行 12 月升息節奏的關鍵物價指標' },
-      { date: '2026-11-20', region: 'CN', flag: '🇨🇳', event: '中國 1 年期 / 5 年期 LPR 報價', impact: 'MEDIUM', note: '觀察人行是否維持寬鬆以支撐內需成長' },
-      { date: '2026-11-20', region: 'TW', flag: '🇹🇼', event: '台灣 10 月外銷訂單統計公布', impact: 'HIGH', note: '由經濟部統計處 (MOEA) 官方發布，追蹤 AI 伺服器與半導體接單動能' },
-      { date: '2026-11-24', region: 'TW', flag: '🇹🇼', event: '台灣 10 月貨幣總計數 (M1B / M2)', impact: 'HIGH', note: '由中央銀行 (CBC) 官方發布，追蹤資金動能與 M1B/M2 剪刀差變化' },
-      { date: '2026-12-04', region: 'US', flag: '🇺🇸', event: '美國 11 月非農就業報告 (NFP)', impact: 'HIGH', note: '前值失業率 4.1%，觀察勞動市場是否維持低裁員、低招募' },
-      { date: '2026-12-08', region: 'EU', flag: '🇪🇺', event: '歐洲央行 (ECB) 利率決議', impact: 'MEDIUM', note: '評估歐元區通膨回落路徑與景氣降息步調' },
-      { date: '2026-12-10', region: 'US', flag: '🇺🇸', event: '美國 11 月 CPI 消費者物價指數', impact: 'HIGH', note: '前值 3.7%，若高於預期將強化 Fed 升息壓力' },
-      { date: '2026-12-11', region: 'US', flag: '🇺🇸', event: '美國 11 月 PPI 生產者物價指數', impact: 'MEDIUM', note: '觀察商品與服務端上游成本通膨傳導壓力' },
-      { date: '2026-12-16', region: 'US', flag: '🇺🇸', event: '聯準會 (FOMC) 利率決議', impact: 'HIGH', note: '市場高度關注是否升息 25bp 及最新利率點陣圖' },
-      { date: '2026-12-17', region: 'TW', flag: '🇹🇼', event: '台灣央行 Q4 理監事聯席會議', impact: 'HIGH', note: '現行利率 2.00%，更新 2027 年台灣 GDP 與 CPI 預測' },
-      { date: '2026-12-18', region: 'JP', flag: '🇯🇵', event: '日本央行 (BOJ) 利率決議', impact: 'HIGH', note: '市場定價升息機率約 85%，關注總裁植田和男會後談話' },
-      { date: '2026-12-23', region: 'US', flag: '🇺🇸', event: '美國 11 月核心 PCE 物價指數', impact: 'HIGH', note: 'Fed 最青睞的通膨指標，影響明年初利率路徑' },
-      { date: '2027-01-28', region: 'US', flag: '🇺🇸', event: '聯準會 (FOMC) 2027 首場利率決議', impact: 'HIGH', note: '全球流動性開局風向球，更新全年降息次數預期' }
-    ];
+    let CALENDAR_EVENTS = [];
 
     let TECH_EARNINGS_DATA = [
       {
@@ -7882,6 +7867,10 @@
     // --- 5. Render Views ---
     function applyLivePayload(payload) {
       let count = 0;
+      if (Array.isArray(payload.macro_calendar) && payload.macro_calendar.length > 0) {
+        CALENDAR_EVENTS = payload.macro_calendar;
+        if (state.activeTab === 'calendar' && typeof renderCalendar === 'function') renderCalendar();
+      }
       const dateStr = (payload.updated_at || new Date().toISOString()).slice(0, 10);
       const quality = payload.data_quality || {};
       const healthCard = document.getElementById('data-health-card');

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-27T13:36:51Z",
+  "updated_at": "2026-11-27T14:02:03Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -1038,8 +1038,8 @@
       "realtime": false
     },
     "gold": {
-      "price": 3674.3,
-      "d1": 3.92,
+      "price": 3673.0,
+      "d1": 3.88,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1049,8 +1049,8 @@
       }
     },
     "wti": {
-      "price": 84.77,
-      "d1": 1.3,
+      "price": 84.29,
+      "d1": 0.73,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1061,14 +1061,14 @@
     },
     "copper": {
       "price": 5.62,
-      "d1": 5.35,
+      "d1": 5.47,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix": {
-      "price": 25.26,
-      "d1": -5.75,
+      "price": 25.3,
+      "d1": -5.6,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1135,35 +1135,35 @@
     },
     "us10y_tnx": {
       "price": 4.9,
-      "d1": 1.16,
+      "d1": 1.07,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us30y_tyx": {
       "price": 5.29,
-      "d1": 1.09,
+      "d1": 0.97,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us5y_fvx": {
       "price": 4.72,
-      "d1": 1.22,
+      "d1": 1.18,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "dxy": {
-      "price": 103.96,
-      "d1": 0.28,
+      "price": 103.91,
+      "d1": 0.24,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "usdtwd": {
-      "price": 32.97,
-      "d1": -0.65,
+      "price": 32.96,
+      "d1": -0.7,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -2550,7 +2550,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3674.2
+        3673.2
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2600,7 +2600,7 @@
         85.76,
         90.42,
         104.12,
-        84.75
+        84.29
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2716,7 +2716,7 @@
         99.43,
         101.45,
         101.88,
-        103.96
+        103.91
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2774,7 +2774,7 @@
         31.63,
         31.85,
         32.61,
-        32.97
+        32.96
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -3493,7 +3493,7 @@
     "TWD": 32.95
   },
   "crypto": {
-    "btc_price": 61392,
+    "btc_price": 61402,
     "stablecoin_market_cap_b": 243.0
   },
   "macro_indicators": {
@@ -4156,7 +4156,7 @@
   },
   "corporate_bonds": {
     "as_of": "2026-11-24",
-    "updated_at": "2026-11-27T13:38:14Z",
+    "updated_at": "2026-11-27T14:03:15Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4637,13 +4637,13 @@
         "currency": "USD",
         "identifier": "68389XDK8",
         "isin": "US68389XDK81",
-        "market_price": 84.15,
+        "market_price": 84.05,
         "market_yield": 8.26,
         "spread_bps": 347,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/oracle_corpdl-notes_202525-32-Bond-2032-us68389xdk81",
-        "quote_status": "價格 84.15 · BMN · 2026-11-27",
+        "quote_status": "價格 84.05 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4655,7 +4655,7 @@
             "date": "2026-11-27",
             "ytm": 8.26,
             "spread_bps": 347,
-            "price": 84.15
+            "price": 84.05
           }
         ],
         "terms_status": "verified",
@@ -4669,13 +4669,13 @@
         "currency": "USD",
         "identifier": "84615QAA1",
         "isin": "USU8531HAA87",
-        "market_price": 92.42,
+        "market_price": 92.35,
         "market_yield": 7.33,
         "spread_bps": 264,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/space_exploration_techs_corpdl-notes_202626-31_regs-Bond-2031-usu8531haa87",
-        "quote_status": "價格 92.42 · BMN · 2026-11-27",
+        "quote_status": "價格 92.35 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4687,7 +4687,7 @@
             "date": "2026-11-27",
             "ytm": 7.33,
             "spread_bps": 264,
-            "price": 92.42
+            "price": 92.35
           }
         ],
         "terms_status": "verified",
@@ -4701,13 +4701,13 @@
         "currency": "USD",
         "identifier": "11135FBY6",
         "isin": "US11135FBY60",
-        "market_price": 97.0,
+        "market_price": 97.04,
         "market_yield": 5.88,
         "spread_bps": 119,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/broadcom_incdl-notes_202424-31-Bond-2031-us11135fby60",
-        "quote_status": "價格 97.00 · BMN · 2026-11-27",
+        "quote_status": "價格 97.04 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4719,7 +4719,7 @@
             "date": "2026-11-27",
             "ytm": 5.88,
             "spread_bps": 119,
-            "price": 97.0
+            "price": 97.04
           }
         ],
         "terms_status": "verified",
@@ -4733,13 +4733,13 @@
         "currency": "USD",
         "identifier": "67066GAR5",
         "isin": "US67066GAR56",
-        "market_price": 95.87,
+        "market_price": 95.93,
         "market_yield": 5.52,
         "spread_bps": 83,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/nvidia_corpdl-notes_202626-31-Bond-2031-us67066gar56",
-        "quote_status": "價格 95.87 · BMN · 2026-11-27",
+        "quote_status": "價格 95.93 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4751,7 +4751,7 @@
             "date": "2026-11-27",
             "ytm": 5.52,
             "spread_bps": 83,
-            "price": 95.87
+            "price": 95.93
           }
         ],
         "terms_status": "verified",
@@ -4765,13 +4765,13 @@
         "currency": "USD",
         "identifier": "30303MAF9",
         "isin": "US30303MAF95",
-        "market_price": 96.29,
+        "market_price": 96.32,
         "market_yield": 5.51,
         "spread_bps": 82,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/meta_platforms_incdl-notes_202626-31-Bond-2031-us30303maf95",
-        "quote_status": "價格 96.29 · BMN · 2026-11-27",
+        "quote_status": "價格 96.32 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4783,7 +4783,7 @@
             "date": "2026-11-27",
             "ytm": 5.51,
             "spread_bps": 82,
-            "price": 96.29
+            "price": 96.32
           }
         ],
         "terms_status": "verified",
@@ -4797,13 +4797,13 @@
         "currency": "USD",
         "identifier": "02079KCQ8",
         "isin": "US02079KCQ85",
-        "market_price": null,
-        "market_yield": null,
-        "spread_bps": null,
-        "quote_date": null,
-        "quote_source": "Markets Insider",
-        "quote_url": null,
-        "quote_status": "公開報價暫無更新",
+        "market_price": 98.19,
+        "market_yield": 5.28,
+        "spread_bps": 59,
+        "quote_date": "2026-11-27",
+        "quote_source": "Markets Insider (BMN)",
+        "quote_url": "https://markets.businessinsider.com/bonds/alphabet_incdl-notes_202626-31-Bond-2031-us02079kcq85",
+        "quote_status": "價格 98.19 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4829,13 +4829,13 @@
         "currency": "USD",
         "identifier": "594918DB7",
         "isin": "US594918DB72",
-        "market_price": 100.5,
+        "market_price": 100.47,
         "market_yield": 5.05,
         "spread_bps": 36,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/microsoft_corpdl-notes_202626-31-Bond-2031-us594918db72",
-        "quote_status": "價格 100.50 · BMN · 2026-11-27",
+        "quote_status": "價格 100.47 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4847,7 +4847,7 @@
             "date": "2026-11-27",
             "ytm": 5.05,
             "spread_bps": 36,
-            "price": 100.5
+            "price": 100.47
           }
         ],
         "terms_status": "verified",
@@ -4861,13 +4861,13 @@
         "currency": "USD",
         "identifier": "023135EC6",
         "isin": "US023135EC69",
-        "market_price": 97.73,
+        "market_price": 97.7,
         "market_yield": 5.34,
         "spread_bps": 65,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
-        "quote_status": "價格 97.73 · BMN · 2026-11-27",
+        "quote_status": "價格 97.70 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4879,7 +4879,7 @@
             "date": "2026-11-27",
             "ytm": 5.34,
             "spread_bps": 65,
-            "price": 97.73
+            "price": 97.7
           }
         ],
         "terms_status": "verified",
@@ -4952,7 +4952,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-27T13:38:49Z",
+    "validated_at": "2026-11-27T14:03:50Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5227,9 +5227,121 @@
       "data_status": "published_official",
       "unit": "億美元 (USD 100M)",
       "is_projected": false,
-      "retrieved_at": "2026-11-27T13:38:29.694910+00:00"
+      "retrieved_at": "2026-11-27T14:03:33.240532+00:00"
     }
   },
+  "macro_calendar": [
+    {
+      "date": "2026-12-04",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "美國非農就業報告 (NFP)",
+      "impact": "HIGH",
+      "note": "美國勞工統計局 (BLS) 官方排程；最新失業率前值 4.1%",
+      "source": "U.S. Bureau of Labor Statistics (BLS)",
+      "source_url": "https://www.bls.gov/schedule/news_release/empsit.htm"
+    },
+    {
+      "date": "2026-12-09",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "聯準會 (FOMC) 利率決議（含利率點陣圖）",
+      "impact": "HIGH",
+      "note": "Federal Reserve 官方排程；會後公布利率決議與主席記者會及 SEP 經濟預測點陣圖",
+      "source": "Federal Reserve Official",
+      "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+    },
+    {
+      "date": "2026-12-10",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "美國 CPI 消費者物價指數",
+      "impact": "HIGH",
+      "note": "美國勞工統計局 (BLS) 官方排程；最新 CPI 年增率前值 4.08%",
+      "source": "U.S. Bureau of Labor Statistics (BLS)",
+      "source_url": "https://www.bls.gov/schedule/news_release/cpi.htm"
+    },
+    {
+      "date": "2027-01-08",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "美國非農就業報告 (NFP)",
+      "impact": "HIGH",
+      "note": "美國勞工統計局 (BLS) 官方排程；最新失業率前值 4.1%",
+      "source": "U.S. Bureau of Labor Statistics (BLS)",
+      "source_url": "https://www.bls.gov/schedule/news_release/empsit.htm"
+    },
+    {
+      "date": "2027-01-13",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "美國 CPI 消費者物價指數",
+      "impact": "HIGH",
+      "note": "美國勞工統計局 (BLS) 官方排程；最新 CPI 年增率前值 4.08%",
+      "source": "U.S. Bureau of Labor Statistics (BLS)",
+      "source_url": "https://www.bls.gov/schedule/news_release/cpi.htm"
+    },
+    {
+      "date": "2027-01-27",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "聯準會 (FOMC) 利率決議",
+      "impact": "HIGH",
+      "note": "Federal Reserve 官方排程；會後公布利率決議與主席記者會",
+      "source": "Federal Reserve Official",
+      "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+    },
+    {
+      "date": "2027-02-05",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "美國非農就業報告 (NFP)",
+      "impact": "HIGH",
+      "note": "美國勞工統計局 (BLS) 官方排程；最新失業率前值 4.1%",
+      "source": "U.S. Bureau of Labor Statistics (BLS)",
+      "source_url": "https://www.bls.gov/schedule/news_release/empsit.htm"
+    },
+    {
+      "date": "2027-02-11",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "美國 CPI 消費者物價指數",
+      "impact": "HIGH",
+      "note": "美國勞工統計局 (BLS) 官方排程；最新 CPI 年增率前值 4.08%",
+      "source": "U.S. Bureau of Labor Statistics (BLS)",
+      "source_url": "https://www.bls.gov/schedule/news_release/cpi.htm"
+    },
+    {
+      "date": "2027-03-05",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "美國非農就業報告 (NFP)",
+      "impact": "HIGH",
+      "note": "美國勞工統計局 (BLS) 官方排程；最新失業率前值 4.1%",
+      "source": "U.S. Bureau of Labor Statistics (BLS)",
+      "source_url": "https://www.bls.gov/schedule/news_release/empsit.htm"
+    },
+    {
+      "date": "2027-03-10",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "美國 CPI 消費者物價指數",
+      "impact": "HIGH",
+      "note": "美國勞工統計局 (BLS) 官方排程；最新 CPI 年增率前值 4.08%",
+      "source": "U.S. Bureau of Labor Statistics (BLS)",
+      "source_url": "https://www.bls.gov/schedule/news_release/cpi.htm"
+    },
+    {
+      "date": "2027-03-17",
+      "region": "US",
+      "flag": "🇺🇸",
+      "event": "聯準會 (FOMC) 利率決議",
+      "impact": "HIGH",
+      "note": "Federal Reserve 官方排程；會後公布利率決議與主席記者會",
+      "source": "Federal Reserve Official",
+      "source_url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
+    }
+  ],
   "fed_liquidity": {
     "latest": {
       "date": "2026-11",
@@ -5657,7 +5769,7 @@
       "prob_cut": 0.0,
       "prob_hold": 26.0,
       "prob_hike": 74.0,
-      "futures_price": 95.945,
+      "futures_price": 95.94,
       "status_desc": "期貨定價顯示下次 FOMC 按兵不動 (Hold) 機率達 26.0%，降息機率 0.0%"
     },
     "terminal_rate": {
@@ -5671,7 +5783,7 @@
         "meeting": "2026-12",
         "label": "2026-12 FOMC",
         "ticker": "ZQZ26.CBT",
-        "price": 95.945,
+        "price": 95.94,
         "implied_rate": 4.06,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
@@ -6737,8 +6849,8 @@
         0.82,
         0.82,
         -0.02,
-        0.0,
-        -0.35,
+        0.01,
+        -0.34,
         0.25,
         -0.21
       ],
@@ -6747,7 +6859,7 @@
         1.0,
         0.94,
         -0.07,
-        -0.2,
+        -0.19,
         -0.51,
         0.19,
         -0.14
@@ -6769,12 +6881,12 @@
         1.0,
         0.33,
         -0.01,
-        -0.35,
+        -0.34,
         0.41
       ],
       [
-        0.0,
-        -0.2,
+        0.01,
+        -0.19,
         -0.09,
         0.33,
         1.0,
@@ -6783,22 +6895,22 @@
         0.15
       ],
       [
-        -0.35,
+        -0.34,
         -0.51,
         -0.55,
         -0.01,
         0.36,
         1.0,
-        -0.2,
+        -0.19,
         0.2
       ],
       [
         0.25,
         0.19,
         0.12,
-        -0.35,
+        -0.34,
         -0.56,
-        -0.2,
+        -0.19,
         1.0,
         -0.19
       ],
@@ -6849,7 +6961,7 @@
         0.48,
         0.44,
         1.0,
-        0.34,
+        0.33,
         0.38,
         -0.08,
         0.64
@@ -6858,7 +6970,7 @@
         -0.17,
         -0.34,
         -0.36,
-        0.34,
+        0.33,
         1.0,
         0.71,
         -0.67,
@@ -6900,9 +7012,9 @@
         1.0,
         0.88,
         0.86,
-        -0.15,
+        -0.14,
         -0.49,
-        -0.77,
+        -0.76,
         0.5,
         -0.32
       ],
@@ -6922,19 +7034,19 @@
         1.0,
         0.14,
         -0.48,
-        -0.72,
+        -0.71,
         0.26,
         -0.2
       ],
       [
-        -0.15,
+        -0.14,
         -0.06,
         0.14,
         1.0,
         0.07,
         0.16,
-        -0.27,
-        0.39
+        -0.26,
+        0.4
       ],
       [
         -0.49,
@@ -6942,16 +7054,16 @@
         -0.48,
         0.07,
         1.0,
-        0.48,
+        0.47,
         -0.68,
         -0.09
       ],
       [
-        -0.77,
+        -0.76,
         -0.7,
-        -0.72,
+        -0.71,
         0.16,
-        0.48,
+        0.47,
         1.0,
         -0.68,
         0.42
@@ -6960,7 +7072,7 @@
         0.5,
         0.37,
         0.26,
-        -0.27,
+        -0.26,
         -0.68,
         -0.68,
         1.0,
@@ -6970,7 +7082,7 @@
         -0.32,
         -0.23,
         -0.2,
-        0.39,
+        0.4,
         -0.09,
         0.42,
         -0.06,
@@ -7003,7 +7115,7 @@
         0.96,
         1.0,
         0.59,
-        0.23,
+        0.24,
         0.04,
         -0.35,
         0.21
@@ -7021,10 +7133,10 @@
       [
         0.5,
         0.38,
-        0.23,
+        0.24,
         0.74,
         1.0,
-        0.87,
+        0.86,
         -0.86,
         0.36
       ],
@@ -7033,7 +7145,7 @@
         0.24,
         0.04,
         0.65,
-        0.87,
+        0.86,
         1.0,
         -0.8,
         0.49
@@ -7162,7 +7274,7 @@
         4.76,
         5.29,
         4.93,
-        4.91
+        4.9
       ],
       "dxy": [
         108.49,
@@ -7188,7 +7300,7 @@
         99.43,
         101.45,
         101.88,
-        103.96
+        103.91
       ],
       "usdtwd": [
         32.76,
@@ -7214,7 +7326,7 @@
         31.63,
         31.85,
         32.57,
-        32.97
+        32.95
       ],
       "gold": [
         2641.0,
@@ -7240,7 +7352,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3674.1
+        3673.0
       ],
       "wti": [
         71.72,
@@ -7266,7 +7378,7 @@
         85.76,
         90.42,
         104.12,
-        84.72
+        84.33
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",
