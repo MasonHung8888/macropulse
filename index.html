@@ -14415,12 +14415,13 @@
         const t = document.getElementById('etf-spot-export-title');
         const v = document.getElementById('etf-spot-export-val');
         const s = document.getElementById('etf-spot-export-sub');
+        const yoy = Number.isFinite(Number(exp.yoy_pct)) ? Number(exp.yoy_pct) : null;
         if (t) t.textContent = `台灣外銷訂單年增率 (${exp.date})`;
         if (v) {
-          v.textContent = `${exp.yoy >= 0 ? '+' : ''}${exp.yoy}% YoY`;
-          v.className = `text-2xl font-bold tabular-nums mt-1 ${exp.yoy >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
+          v.textContent = yoy !== null ? `${yoy >= 0 ? '+' : ''}${yoy}% YoY` : '—';
+          v.className = `text-2xl font-bold tabular-nums mt-1 ${yoy !== null && yoy >= 0 ? 'text-emerald-500' : 'text-rose-500'}`;
         }
-        if (s) s.textContent = `單月金額 $${exp.amount_billions}B · 經濟部統計處`;
+        if (s) s.textContent = `單月金額 ${Number(exp.amount_billions).toLocaleString('en-US')} 億美元 · 經濟部統計處`;
       }
       const etfMon = payload.etf_monitor || {};
       if (etfMon.sox) {
