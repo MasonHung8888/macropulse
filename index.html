@@ -9161,10 +9161,17 @@
           if (v) fx.CAD = Number(v.price.toFixed(4));
         }
 
-        const updateIdxTicker = (sym, valId, chgId, prevPrice, decimals = 0) => {
+        const updateIdxTicker = (sym, snapKey, valId, chgId, decimals = 0) => {
           const q = quoteMap[sym];
+          const prevPrice = Number(payload.snapshots?.[snapKey]?.price);
           const v = q ? validateQuote(q, prevPrice) : null;
-          if (!v) return;
+          if (!v) return null;
+          if (payload.snapshots && payload.snapshots[snapKey]) {
+            payload.snapshots[snapKey].price = decimals > 0 ? Number(v.price.toFixed(decimals)) : Number(v.price.toFixed(2));
+            if (v.d1 !== null) payload.snapshots[snapKey].d1 = v.d1;
+            payload.snapshots[snapKey].as_of = v.asOf;
+            payload.snapshots[snapKey].source = '鉅亨網 Anue 即時報價';
+          }
           const valEl = document.getElementById(valId);
           const chgEl = document.getElementById(chgId);
           if (valEl) valEl.textContent = decimals > 0 ? v.price.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) : Math.round(v.price).toLocaleString('en-US');
@@ -9172,13 +9179,32 @@
             chgEl.textContent = `${v.d1 >= 0 ? '+' : ''}${v.d1}%`;
             chgEl.className = v.d1 >= 0 ? 'text-emerald-500 font-medium tabular-nums' : 'text-rose-500 font-medium tabular-nums';
           }
+          return v;
         };
-        updateIdxTicker('TWS:TSE01:INDEX', 'tk-taiex-val', 'tk-taiex-chg', Number(payload.snapshots?.taiex?.price));
-        updateIdxTicker('GI:INX:INDEX', 'tk-sp500-val', 'tk-sp500-chg', Number(payload.snapshots?.sp500?.price), 2);
-        updateIdxTicker('GI:IXIC:INDEX', 'tk-nasdaq-val', 'tk-nasdaq-chg', Number(payload.snapshots?.nasdaq?.price));
+        const taiexLive = updateIdxTicker('TWS:TSE01:INDEX', 'taiex', 'tk-taiex-val', 'tk-taiex-chg');
+        updateIdxTicker('GI:INX:INDEX', 'sp500', 'tk-sp500-val', 'tk-sp500-chg', 2);
+        updateIdxTicker('GI:IXIC:INDEX', 'nasdaq', 'tk-nasdaq-val', 'tk-nasdaq-chg');
+
+        if (taiexLive && TW_BOTTOM_DATA?.indices?.twse?.taiex) {
+          TW_BOTTOM_DATA.indices.twse.taiex.close = Number(taiexLive.price.toFixed(2));
+          if (taiexLive.d1 !== null) TW_BOTTOM_DATA.indices.twse.taiex.change_pct = taiexLive.d1;
+        }
+        if (quoteMap['GI:SOX:INDEX'] && TW_BOTTOM_DATA?.indices?.sox) {
+          const vSox = validateQuote(quoteMap['GI:SOX:INDEX'], Number(TW_BOTTOM_DATA.indices.sox.close));
+          if (vSox) {
+            TW_BOTTOM_DATA.indices.sox.close = Number(vSox.price.toFixed(2));
+            if (vSox.d1 !== null) TW_BOTTOM_DATA.indices.sox.change_pct = vSox.d1;
+          }
+        }
 
         if (quoteMap['GI:DXY:INDEX']) {
           const v = validateQuote(quoteMap['GI:DXY:INDEX'], Number(payload.snapshots?.dxy?.price));
+          if (v && payload.snapshots?.dxy) {
+            payload.snapshots.dxy.price = Number(v.price.toFixed(2));
+            if (v.d1 !== null) payload.snapshots.dxy.d1 = v.d1;
+            payload.snapshots.dxy.as_of = v.asOf;
+            payload.snapshots.dxy.source = '鉅亨網 Anue 即時報價';
+          }
           const dxyItem = TRADER_ITEMS.find(x => x.name && x.name.includes('美元指數'));
           if (dxyItem && v) {
             dxyItem.val = v.price.toFixed(2);
