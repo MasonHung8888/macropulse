@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-27T19:30:34Z",
+  "updated_at": "2026-11-27T21:56:29Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -121,12 +121,12 @@
       "sector": "半導體",
       "ticker": "2330",
       "name": "台積電",
-      "cap": 98655062940.0,
-      "price": 2145.0,
-      "d1": -0.23,
-      "w1": 2.14,
-      "ytd": 36.54,
-      "as_of": "2026-11-26",
+      "cap": 92160703370.0,
+      "price": 2180.0,
+      "d1": 1.63,
+      "w1": 9.0,
+      "ytd": 38.76,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -135,12 +135,12 @@
       "sector": "半導體",
       "ticker": "2454",
       "name": "聯發科",
-      "cap": 59100659260.0,
-      "price": 3705.0,
-      "d1": 1.65,
-      "w1": -0.4,
-      "ytd": 158.46,
-      "as_of": "2026-11-26",
+      "cap": 33079486550.0,
+      "price": 3680.0,
+      "d1": -0.67,
+      "w1": 9.85,
+      "ytd": 156.72,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -149,12 +149,12 @@
       "sector": "半導體",
       "ticker": "3711",
       "name": "日月光投控",
-      "cap": 16441062315.0,
-      "price": 511.0,
-      "d1": 4.71,
-      "w1": 1.39,
-      "ytd": 99.87,
-      "as_of": "2026-11-26",
+      "cap": 9061367770.0,
+      "price": 514.0,
+      "d1": 0.59,
+      "w1": 12.47,
+      "ytd": 101.05,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -163,12 +163,12 @@
       "sector": "半導體",
       "ticker": "2303",
       "name": "聯電",
-      "cap": 19293054258.0,
-      "price": 88.8,
-      "d1": 1.6,
-      "w1": 0.68,
-      "ytd": 85.46,
-      "as_of": "2026-11-26",
+      "cap": 10015607390.0,
+      "price": 87.5,
+      "d1": -1.46,
+      "w1": 8.97,
+      "ytd": 82.75,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -177,12 +177,12 @@
       "sector": "半導體",
       "ticker": "2379",
       "name": "瑞昱",
-      "cap": 2849679159.0,
-      "price": 730.0,
-      "d1": 4.43,
-      "w1": 0.55,
-      "ytd": 55.06,
-      "as_of": "2026-11-26",
+      "cap": 2230814547.0,
+      "price": 755.0,
+      "d1": 3.42,
+      "w1": 13.02,
+      "ytd": 60.37,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -191,12 +191,12 @@
       "sector": "半導體",
       "ticker": "3034",
       "name": "聯詠",
-      "cap": 1449694701.0,
-      "price": 446.0,
-      "d1": 4.33,
-      "w1": 2.18,
-      "ytd": 26.91,
-      "as_of": "2026-11-26",
+      "cap": 1498327875.0,
+      "price": 443.0,
+      "d1": -0.67,
+      "w1": 6.36,
+      "ytd": 26.06,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -205,12 +205,12 @@
       "sector": "半導體",
       "ticker": "3661",
       "name": "世芯-KY",
-      "cap": 13045791960.0,
-      "price": 3735.0,
-      "d1": 3.61,
-      "w1": 3.75,
-      "ytd": 3.55,
-      "as_of": "2026-11-26",
+      "cap": 9179650430.0,
+      "price": 3595.0,
+      "d1": -3.75,
+      "w1": 10.96,
+      "ytd": -0.33,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -219,12 +219,12 @@
       "sector": "AI 伺服器/電子",
       "ticker": "2317",
       "name": "鴻海",
-      "cap": 11572217309.0,
-      "price": 216.5,
-      "d1": 4.84,
-      "w1": -1.81,
-      "ytd": -3.9,
-      "as_of": "2026-11-26",
+      "cap": 7501659447.0,
+      "price": 219.0,
+      "d1": 1.15,
+      "w1": 4.29,
+      "ytd": -2.79,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -233,12 +233,12 @@
       "sector": "AI 伺服器/電子",
       "ticker": "2382",
       "name": "廣達",
-      "cap": 4961009796.0,
-      "price": 281.0,
-      "d1": 7.66,
-      "w1": 7.05,
-      "ytd": 5.77,
-      "as_of": "2026-11-26",
+      "cap": 2599458160.0,
+      "price": 278.0,
+      "d1": -1.07,
+      "w1": 10.32,
+      "ytd": 4.65,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -247,12 +247,12 @@
       "sector": "AI 伺服器/電子",
       "ticker": "2308",
       "name": "台達電",
-      "cap": 23902485620.0,
-      "price": 1120.0,
-      "d1": 6.16,
-      "w1": 12.0,
-      "ytd": 13.15,
-      "as_of": "2026-11-26",
+      "cap": 16772005605.0,
+      "price": 1125.0,
+      "d1": 0.45,
+      "w1": 25.0,
+      "ytd": 13.66,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -261,12 +261,12 @@
       "sector": "AI 伺服器/電子",
       "ticker": "3231",
       "name": "緯創",
-      "cap": 5810499473.0,
-      "price": 167.0,
-      "d1": 9.87,
-      "w1": 7.05,
-      "ytd": 11.69,
-      "as_of": "2026-11-26",
+      "cap": 3245848651.0,
+      "price": 162.0,
+      "d1": -2.99,
+      "w1": 10.2,
+      "ytd": 8.35,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -275,12 +275,12 @@
       "sector": "AI 伺服器/電子",
       "ticker": "6669",
       "name": "緯穎",
-      "cap": 5914199545.0,
-      "price": 1570.0,
-      "d1": 9.79,
-      "w1": 11.35,
-      "ytd": 7.56,
-      "as_of": "2026-11-26",
+      "cap": 12188710255.0,
+      "price": 1670.0,
+      "d1": 6.37,
+      "w1": 26.04,
+      "ytd": 14.41,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -289,12 +289,12 @@
       "sector": "AI 伺服器/電子",
       "ticker": "2357",
       "name": "華碩",
-      "cap": 2906316987.0,
+      "cap": 2399526142.0,
       "price": 799.0,
-      "d1": 3.9,
-      "w1": -0.12,
+      "d1": 0.0,
+      "w1": 5.69,
       "ytd": 53.15,
-      "as_of": "2026-11-26",
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -303,12 +303,12 @@
       "sector": "AI 伺服器/電子",
       "ticker": "2376",
       "name": "技嘉",
-      "cap": 1835964588.0,
+      "cap": 1554281258.0,
       "price": 273.5,
-      "d1": 4.79,
-      "w1": 5.19,
+      "d1": 0.0,
+      "w1": 10.28,
       "ytd": 9.5,
-      "as_of": "2026-11-26",
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -317,12 +317,12 @@
       "sector": "金融保險",
       "ticker": "2881",
       "name": "富邦金",
-      "cap": 2424882676.0,
-      "price": 138.5,
-      "d1": 4.53,
-      "w1": -6.42,
-      "ytd": 49.79,
-      "as_of": "2026-11-26",
+      "cap": 2734594632.0,
+      "price": 140.0,
+      "d1": 1.08,
+      "w1": 2.56,
+      "ytd": 51.41,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -331,12 +331,12 @@
       "sector": "金融保險",
       "ticker": "2882",
       "name": "國泰金",
-      "cap": 6687162439.0,
-      "price": 104.5,
-      "d1": 3.98,
-      "w1": 0.97,
-      "ytd": 43.93,
-      "as_of": "2026-11-26",
+      "cap": 5115899190.0,
+      "price": 102.0,
+      "d1": -2.39,
+      "w1": 5.26,
+      "ytd": 40.48,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -345,12 +345,12 @@
       "sector": "金融保險",
       "ticker": "2891",
       "name": "中信金",
-      "cap": 3892928813.0,
+      "cap": 3751800809.0,
       "price": 68.9,
-      "d1": 4.55,
-      "w1": -5.75,
+      "d1": 0.0,
+      "w1": 1.32,
       "ytd": 40.66,
-      "as_of": "2026-11-26",
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -359,12 +359,12 @@
       "sector": "金融保險",
       "ticker": "2886",
       "name": "兆豐金",
-      "cap": 5358859252.0,
-      "price": 48.25,
-      "d1": -2.92,
-      "w1": -9.64,
-      "ytd": 24.19,
-      "as_of": "2026-11-26",
+      "cap": 4803145212.0,
+      "price": 47.05,
+      "d1": -2.49,
+      "w1": -9.17,
+      "ytd": 21.1,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -373,12 +373,12 @@
       "sector": "金融保險",
       "ticker": "2884",
       "name": "玉山金",
-      "cap": 1078810294.0,
-      "price": 40.0,
-      "d1": 2.7,
-      "w1": -0.87,
-      "ytd": 22.27,
-      "as_of": "2026-11-26",
+      "cap": 1638232451.0,
+      "price": 40.5,
+      "d1": 1.25,
+      "w1": 2.27,
+      "ytd": 23.8,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -387,12 +387,12 @@
       "sector": "金融保險",
       "ticker": "2885",
       "name": "元大金",
-      "cap": 1978289411.0,
-      "price": 63.8,
-      "d1": 3.74,
-      "w1": 0.95,
-      "ytd": 72.27,
-      "as_of": "2026-11-26",
+      "cap": 1731384467.0,
+      "price": 63.2,
+      "d1": -0.94,
+      "w1": 6.58,
+      "ytd": 70.65,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -401,12 +401,12 @@
       "sector": "航運/傳產",
       "ticker": "2603",
       "name": "長榮",
-      "cap": 6899838814.0,
-      "price": 254.0,
-      "d1": 0.59,
-      "w1": 2.83,
-      "ytd": 41.9,
-      "as_of": "2026-11-26",
+      "cap": 6674215955.0,
+      "price": 249.0,
+      "d1": -1.97,
+      "w1": 6.87,
+      "ytd": 39.11,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -415,12 +415,12 @@
       "sector": "航運/傳產",
       "ticker": "2609",
       "name": "陽明",
-      "cap": 527302708.0,
-      "price": 56.3,
-      "d1": 0.9,
-      "w1": -1.75,
-      "ytd": 4.72,
-      "as_of": "2026-11-26",
+      "cap": 569814076.0,
+      "price": 55.4,
+      "d1": -1.6,
+      "w1": 4.53,
+      "ytd": 3.04,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -429,12 +429,12 @@
       "sector": "航運/傳產",
       "ticker": "2615",
       "name": "萬海",
-      "cap": 1013870063.0,
-      "price": 100.0,
-      "d1": -0.5,
-      "w1": null,
-      "ytd": null,
-      "as_of": "2026-11-26",
+      "cap": 813870894.0,
+      "price": 99.0,
+      "d1": -1.0,
+      "w1": 4.21,
+      "ytd": 29.05,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -443,12 +443,12 @@
       "sector": "航運/傳產",
       "ticker": "1301",
       "name": "台塑",
-      "cap": 984566395.0,
-      "price": 60.2,
-      "d1": 5.99,
-      "w1": -0.33,
-      "ytd": 58.05,
-      "as_of": "2026-11-26",
+      "cap": 765727455.0,
+      "price": 60.1,
+      "d1": -0.17,
+      "w1": 7.13,
+      "ytd": 57.79,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -457,12 +457,12 @@
       "sector": "航運/傳產",
       "ticker": "2002",
       "name": "中鋼",
-      "cap": 454398841.0,
-      "price": 17.35,
-      "d1": 1.46,
-      "w1": -1.42,
-      "ytd": -6.73,
-      "as_of": "2026-11-26",
+      "cap": 343897463.0,
+      "price": 17.25,
+      "d1": -0.58,
+      "w1": 0.88,
+      "ytd": -7.27,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -471,12 +471,12 @@
       "sector": "電信/內需",
       "ticker": "2412",
       "name": "中華電",
-      "cap": 8910159706.0,
-      "price": 166.5,
-      "d1": 1.83,
-      "w1": 0.3,
-      "ytd": 31.02,
-      "as_of": "2026-11-26",
+      "cap": 7768130888.0,
+      "price": 165.5,
+      "d1": -0.6,
+      "w1": 1.85,
+      "ytd": 30.23,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -485,12 +485,12 @@
       "sector": "電信/內需",
       "ticker": "1216",
       "name": "統一",
-      "cap": 1655250272.0,
-      "price": 78.5,
-      "d1": -0.25,
-      "w1": -0.25,
-      "ytd": 5.47,
-      "as_of": "2026-11-26",
+      "cap": 1561255478.0,
+      "price": 77.9,
+      "d1": -0.76,
+      "w1": 3.87,
+      "ytd": 4.66,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -499,12 +499,12 @@
       "sector": "電信/內需",
       "ticker": "3045",
       "name": "台灣大",
-      "cap": 1380920916.0,
-      "price": 124.5,
-      "d1": 1.22,
-      "w1": -2.35,
-      "ytd": 20.33,
-      "as_of": "2026-11-26",
+      "cap": 1172176229.0,
+      "price": 123.5,
+      "d1": -0.8,
+      "w1": 0.41,
+      "ytd": 19.36,
+      "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
       "realtime": false
@@ -619,7 +619,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "CRM",
       "name": "Salesforce Inc",
-      "cap": 486254536.56,
+      "cap": 497238542.29,
       "price": 198.21,
       "d1": 0.51,
       "w1": 8.13,
@@ -632,7 +632,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "ORCL",
       "name": "Oracle Corp",
-      "cap": 1536230876.49,
+      "cap": 1564437561.99,
       "price": 107.13,
       "d1": 3.13,
       "w1": -3.11,
@@ -736,7 +736,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "DIS",
       "name": "Walt Disney Co",
-      "cap": 870090772.03,
+      "cap": 875259769.71,
       "price": 127.24,
       "d1": 1.31,
       "w1": 5.81,
@@ -749,7 +749,7 @@
       "sector": "FINANCIAL",
       "ticker": "BRK-B",
       "name": "Berkshire Hathaway",
-      "cap": 1233230273.27,
+      "cap": 1400928733.11,
       "price": 580.79,
       "d1": 0.25,
       "w1": 1.53,
@@ -762,7 +762,7 @@
       "sector": "FINANCIAL",
       "ticker": "JPM",
       "name": "JPMorgan Chase",
-      "cap": 1112576501.12,
+      "cap": 1135110065.65,
       "price": 322.96,
       "d1": 1.96,
       "w1": 0.86,
@@ -775,7 +775,7 @@
       "sector": "FINANCIAL",
       "ticker": "V",
       "name": "Visa Inc",
-      "cap": 1555491734.84,
+      "cap": 1582429871.85,
       "price": 429.56,
       "d1": 1.22,
       "w1": 6.79,
@@ -788,7 +788,7 @@
       "sector": "FINANCIAL",
       "ticker": "MA",
       "name": "Mastercard Inc",
-      "cap": 971513976.81,
+      "cap": 1107917972.66,
       "price": 666.96,
       "d1": 1.06,
       "w1": 6.46,
@@ -801,7 +801,7 @@
       "sector": "FINANCIAL",
       "ticker": "BAC",
       "name": "Bank of America",
-      "cap": 780438422.73,
+      "cap": 800601187.46,
       "price": 49.07,
       "d1": 1.09,
       "w1": 1.03,
@@ -814,7 +814,7 @@
       "sector": "FINANCIAL",
       "ticker": "GS",
       "name": "Goldman Sachs",
-      "cap": 987053403.41,
+      "cap": 992027354.91,
       "price": 812.87,
       "d1": 1.48,
       "w1": -4.09,
@@ -853,7 +853,7 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "HD",
       "name": "Home Depot",
-      "cap": 580741919.46,
+      "cap": 855413133.73,
       "price": 362.15,
       "d1": 0.25,
       "w1": 7.57,
@@ -866,7 +866,7 @@
       "sector": "HEALTHCARE",
       "ticker": "LLY",
       "name": "Eli Lilly & Co",
-      "cap": 2025142920.96,
+      "cap": 2146506939.33,
       "price": 1392.38,
       "d1": 0.01,
       "w1": 3.05,
@@ -879,7 +879,7 @@
       "sector": "HEALTHCARE",
       "ticker": "JNJ",
       "name": "Johnson & Johnson",
-      "cap": 807831164.93,
+      "cap": 842258620.24,
       "price": 275.51,
       "d1": 0.57,
       "w1": 3.65,
@@ -892,7 +892,7 @@
       "sector": "HEALTHCARE",
       "ticker": "UNH",
       "name": "UnitedHealth Group",
-      "cap": 894422446.31,
+      "cap": 1050872991.22,
       "price": 351.41,
       "d1": 1.51,
       "w1": 6.33,
@@ -931,7 +931,7 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "KO",
       "name": "Coca-Cola Co",
-      "cap": 885638052.07,
+      "cap": 896227672.44,
       "price": 97.4,
       "d1": -0.19,
       "w1": 1.36,
@@ -944,7 +944,7 @@
       "sector": "INDUSTRIALS",
       "ticker": "GE",
       "name": "GE Aerospace",
-      "cap": 469898945.1,
+      "cap": 494770734.55,
       "price": 323.94,
       "d1": 2.2,
       "w1": 1.59,
@@ -957,7 +957,7 @@
       "sector": "INDUSTRIALS",
       "ticker": "CAT",
       "name": "Caterpillar Inc",
-      "cap": 1014912492.56,
+      "cap": 1128391834.94,
       "price": 561.74,
       "d1": 3.32,
       "w1": 4.54,
@@ -970,7 +970,7 @@
       "sector": "ENERGY",
       "ticker": "XOM",
       "name": "Exxon Mobil",
-      "cap": 1108715612.78,
+      "cap": 1337275963.79,
       "price": 160.18,
       "d1": 1.33,
       "w1": 0.79,
@@ -983,7 +983,7 @@
       "sector": "ENERGY",
       "ticker": "CVX",
       "name": "Chevron Corp",
-      "cap": 881176727.84,
+      "cap": 907693249.31,
       "price": 212.45,
       "d1": 0.71,
       "w1": 2.88,
@@ -1020,14 +1020,14 @@
       }
     },
     "taiex": {
-      "price": 39151.81,
-      "d1": 2.5,
-      "as_of": "2026-11-26",
+      "price": 39308.08,
+      "d1": 0.4,
+      "as_of": "2026-11-27",
       "source": "TWSE official market index daily report",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 1
+        "age_days": 0
       }
     },
     "nikkei": {
@@ -1049,8 +1049,8 @@
       }
     },
     "wti": {
-      "price": 83.01,
-      "d1": -0.8,
+      "price": 83.08,
+      "d1": -0.72,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1107,7 +1107,7 @@
     },
     "move": {
       "price": 95.3,
-      "d1": -2.29,
+      "d1": -2.3,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -1155,15 +1155,15 @@
       "realtime": false
     },
     "dxy": {
-      "price": 104.05,
-      "d1": 0.36,
+      "price": 104.01,
+      "d1": 0.33,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "usdtwd": {
-      "price": 32.96,
-      "d1": -0.7,
+      "price": 32.98,
+      "d1": -0.64,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -1174,7 +1174,7 @@
     "tw_export_orders_yoy": 78.33,
     "tw_export_orders_amount": 1238.2,
     "erp": -0.62,
-    "fed_net_liquidity": 5.824,
+    "fed_net_liquidity": 5.83,
     "sahm_rule": 0.0,
     "spread_10y2y": 0.24,
     "spread_10y3m": 0.51,
@@ -1190,16 +1190,16 @@
     "buffett_rating": "顯著高估 (泡沫警戒)",
     "us_total_market_cap": 71.74,
     "us_nominal_gdp": 33.06,
-    "tips_10y_real": 2.79,
+    "tips_10y_real": 2.73,
     "breakeven_10y": 2.12,
-    "nominal_10y": 4.91,
+    "nominal_10y": 4.85,
     "real_rate_rating": "限制性緊縮 (估值重力)",
-    "global_cb_total": 20.67,
-    "global_cb_fed": 6.74,
+    "global_cb_total": 20.66,
+    "global_cb_fed": 6.73,
     "global_cb_ecb": 6.5,
     "global_cb_boj": 3.94,
     "global_cb_china": 3.48,
-    "global_cb_yoy": -4.12,
+    "global_cb_yoy": -4.17,
     "global_cb_rating": "有序縮表緊縮"
   },
   "series": {
@@ -1788,7 +1788,6 @@
       "name": "美國 10 年期公債殖利率 [FRED]",
       "unit": "%",
       "labels": [
-        "2026-10-21",
         "2026-10-22",
         "2026-10-23",
         "2026-10-26",
@@ -1811,10 +1810,10 @@
         "2026-11-19",
         "2026-11-20",
         "2026-11-23",
-        "2026-11-24"
+        "2026-11-24",
+        "2026-11-25"
       ],
       "data": [
-        5.13,
         4.96,
         5.0,
         5.0,
@@ -1837,17 +1836,17 @@
         5.04,
         4.92,
         4.92,
-        4.91
+        4.91,
+        4.85
       ],
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/DGS10",
-      "as_of": "2026-11-24"
+      "as_of": "2026-11-25"
     },
     "us_2y": {
       "name": "美國 2 年期公債殖利率 [FRED]",
       "unit": "%",
       "labels": [
-        "2026-10-21",
         "2026-10-22",
         "2026-10-23",
         "2026-10-26",
@@ -1870,10 +1869,10 @@
         "2026-11-19",
         "2026-11-20",
         "2026-11-23",
-        "2026-11-24"
+        "2026-11-24",
+        "2026-11-25"
       ],
       "data": [
-        4.81,
         4.65,
         4.69,
         4.68,
@@ -1896,11 +1895,12 @@
         4.76,
         4.63,
         4.63,
-        4.63
+        4.63,
+        4.61
       ],
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/DGS2",
-      "as_of": "2026-11-24"
+      "as_of": "2026-11-25"
     },
     "us_10y2y": {
       "name": "美債 10Y－2Y 利差 [FRED]",
@@ -2600,7 +2600,7 @@
         85.76,
         90.42,
         104.12,
-        83.01
+        83.08
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2716,7 +2716,7 @@
         99.43,
         101.45,
         101.88,
-        104.05
+        104.01
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2774,7 +2774,7 @@
         31.63,
         31.85,
         32.61,
-        32.96
+        32.98
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2866,7 +2866,7 @@
         5.773,
         5.783,
         5.742,
-        5.824
+        5.83
       ]
     },
     "sahmRule": {
@@ -3246,7 +3246,7 @@
         2.44,
         2.93,
         2.6,
-        2.79
+        2.73
       ]
     },
     "breakevenInflation": {
@@ -3358,7 +3358,7 @@
         21.12,
         20.89,
         20.84,
-        20.67
+        20.66
       ]
     },
     "twExportOrders": {
@@ -3495,7 +3495,7 @@
     "TWD": 32.95
   },
   "crypto": {
-    "btc_price": 59916,
+    "btc_price": 59765,
     "stablecoin_market_cap_b": 243.1
   },
   "macro_indicators": {
@@ -3648,18 +3648,18 @@
     },
     "us_10y": {
       "label": "美國 10 年期公債殖利率",
-      "value": 4.91,
+      "value": 4.85,
       "unit": "%",
-      "period": "2026-11-24",
+      "period": "2026-11-25",
       "frequency": "daily",
-      "previous": 4.92,
+      "previous": 4.91,
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/DGS10",
       "series_id": "DGS10",
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 3,
+        "age_days": 2,
         "freshness_limit_days": 14,
         "expected_range": [
           -5,
@@ -3669,9 +3669,9 @@
     },
     "us_2y": {
       "label": "美國 2 年期公債殖利率",
-      "value": 4.63,
+      "value": 4.61,
       "unit": "%",
-      "period": "2026-11-24",
+      "period": "2026-11-25",
       "frequency": "daily",
       "previous": 4.63,
       "source": "Federal Reserve Bank of St. Louis (FRED)",
@@ -3680,7 +3680,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 3,
+        "age_days": 2,
         "freshness_limit_days": 14,
         "expected_range": [
           -5,
@@ -4165,7 +4165,7 @@
   },
   "corporate_bonds": {
     "as_of": "2026-11-26",
-    "updated_at": "2026-11-27T19:30:49Z",
+    "updated_at": "2026-11-27T21:57:16Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4584,7 +4584,7 @@
         "isin": "USU2069EAC40",
         "market_price": 73.15,
         "market_yield": 18.71,
-        "spread_bps": 1402,
+        "spread_bps": 1406,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (FFMFO)",
         "quote_url": "https://markets.businessinsider.com/bonds/coreweave_incdl-notes_202626-31_regs-Bond-2031-usu2069eac40",
@@ -4599,7 +4599,7 @@
           {
             "date": "2026-11-27",
             "ytm": 18.71,
-            "spread_bps": 1402,
+            "spread_bps": 1406,
             "price": 73.15
           }
         ],
@@ -4616,7 +4616,7 @@
         "isin": "XS2854422818",
         "market_price": 88.73,
         "market_yield": 10.04,
-        "spread_bps": 535,
+        "spread_bps": 539,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (FSE)",
         "quote_url": "https://markets.businessinsider.com/bonds/softbank_group_corpdl-notes_202424-31-Bond-2031-xs2854422818",
@@ -4631,7 +4631,7 @@
           {
             "date": "2026-11-27",
             "ytm": 10.04,
-            "spread_bps": 535,
+            "spread_bps": 539,
             "price": 88.73
           }
         ],
@@ -4646,13 +4646,13 @@
         "currency": "USD",
         "identifier": "68389XDK8",
         "isin": "US68389XDK81",
-        "market_price": 84.05,
+        "market_price": 83.76,
         "market_yield": 8.26,
-        "spread_bps": 347,
+        "spread_bps": 352,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/oracle_corpdl-notes_202525-32-Bond-2032-us68389xdk81",
-        "quote_status": "價格 84.05 · BMN · 2026-11-27",
+        "quote_status": "價格 83.76 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4663,8 +4663,8 @@
           {
             "date": "2026-11-27",
             "ytm": 8.26,
-            "spread_bps": 347,
-            "price": 84.05
+            "spread_bps": 352,
+            "price": 83.76
           }
         ],
         "terms_status": "verified",
@@ -4678,13 +4678,13 @@
         "currency": "USD",
         "identifier": "84615QAA1",
         "isin": "USU8531HAA87",
-        "market_price": 92.22,
+        "market_price": 92.11,
         "market_yield": 7.33,
-        "spread_bps": 264,
+        "spread_bps": 268,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/space_exploration_techs_corpdl-notes_202626-31_regs-Bond-2031-usu8531haa87",
-        "quote_status": "價格 92.22 · BMN · 2026-11-27",
+        "quote_status": "價格 92.11 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4695,8 +4695,8 @@
           {
             "date": "2026-11-27",
             "ytm": 7.33,
-            "spread_bps": 264,
-            "price": 92.22
+            "spread_bps": 268,
+            "price": 92.11
           }
         ],
         "terms_status": "verified",
@@ -4710,13 +4710,13 @@
         "currency": "USD",
         "identifier": "11135FBY6",
         "isin": "US11135FBY60",
-        "market_price": 96.94,
+        "market_price": 96.84,
         "market_yield": 5.88,
-        "spread_bps": 119,
+        "spread_bps": 123,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/broadcom_incdl-notes_202424-31-Bond-2031-us11135fby60",
-        "quote_status": "價格 96.94 · BMN · 2026-11-27",
+        "quote_status": "價格 96.84 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4727,8 +4727,8 @@
           {
             "date": "2026-11-27",
             "ytm": 5.88,
-            "spread_bps": 119,
-            "price": 96.94
+            "spread_bps": 123,
+            "price": 96.84
           }
         ],
         "terms_status": "verified",
@@ -4742,13 +4742,13 @@
         "currency": "USD",
         "identifier": "67066GAR5",
         "isin": "US67066GAR56",
-        "market_price": 95.83,
+        "market_price": 95.87,
         "market_yield": 5.52,
-        "spread_bps": 83,
+        "spread_bps": 87,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/nvidia_corpdl-notes_202626-31-Bond-2031-us67066gar56",
-        "quote_status": "價格 95.83 · BMN · 2026-11-27",
+        "quote_status": "價格 95.87 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4759,8 +4759,8 @@
           {
             "date": "2026-11-27",
             "ytm": 5.52,
-            "spread_bps": 83,
-            "price": 95.83
+            "spread_bps": 87,
+            "price": 95.87
           }
         ],
         "terms_status": "verified",
@@ -4774,13 +4774,13 @@
         "currency": "USD",
         "identifier": "30303MAF9",
         "isin": "US30303MAF95",
-        "market_price": 96.19,
+        "market_price": 96.24,
         "market_yield": 5.51,
-        "spread_bps": 82,
+        "spread_bps": 86,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/meta_platforms_incdl-notes_202626-31-Bond-2031-us30303maf95",
-        "quote_status": "價格 96.19 · BMN · 2026-11-27",
+        "quote_status": "價格 96.24 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4791,8 +4791,8 @@
           {
             "date": "2026-11-27",
             "ytm": 5.51,
-            "spread_bps": 82,
-            "price": 96.19
+            "spread_bps": 86,
+            "price": 96.24
           }
         ],
         "terms_status": "verified",
@@ -4806,13 +4806,13 @@
         "currency": "USD",
         "identifier": "02079KCQ8",
         "isin": "US02079KCQ85",
-        "market_price": 98.14,
+        "market_price": 98.16,
         "market_yield": 5.28,
-        "spread_bps": 59,
+        "spread_bps": 63,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/alphabet_incdl-notes_202626-31-Bond-2031-us02079kcq85",
-        "quote_status": "價格 98.14 · BMN · 2026-11-27",
+        "quote_status": "價格 98.16 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4823,8 +4823,8 @@
           {
             "date": "2026-11-27",
             "ytm": 5.28,
-            "spread_bps": 59,
-            "price": 98.14
+            "spread_bps": 63,
+            "price": 98.16
           }
         ],
         "terms_status": "verified",
@@ -4838,13 +4838,13 @@
         "currency": "USD",
         "identifier": "594918DB7",
         "isin": "US594918DB72",
-        "market_price": 100.49,
+        "market_price": 100.36,
         "market_yield": 5.05,
-        "spread_bps": 36,
+        "spread_bps": 40,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/microsoft_corpdl-notes_202626-31-Bond-2031-us594918db72",
-        "quote_status": "價格 100.49 · BMN · 2026-11-27",
+        "quote_status": "價格 100.36 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4855,8 +4855,8 @@
           {
             "date": "2026-11-27",
             "ytm": 5.05,
-            "spread_bps": 36,
-            "price": 100.49
+            "spread_bps": 40,
+            "price": 100.36
           }
         ],
         "terms_status": "verified",
@@ -4870,13 +4870,13 @@
         "currency": "USD",
         "identifier": "023135EC6",
         "isin": "US023135EC69",
-        "market_price": 97.6,
+        "market_price": 97.54,
         "market_yield": 5.34,
-        "spread_bps": 65,
+        "spread_bps": 69,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
-        "quote_status": "價格 97.60 · BMN · 2026-11-27",
+        "quote_status": "價格 97.54 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4887,8 +4887,8 @@
           {
             "date": "2026-11-27",
             "ytm": 5.34,
-            "spread_bps": 65,
-            "price": 97.6
+            "spread_bps": 69,
+            "price": 97.54
           }
         ],
         "terms_status": "verified",
@@ -4961,7 +4961,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-27T19:31:17Z",
+    "validated_at": "2026-11-27T21:58:02Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5236,7 +5236,7 @@
       "data_status": "published_official",
       "unit": "億美元 (USD 100M)",
       "is_projected": false,
-      "retrieved_at": "2026-11-27T14:03:33.240532+00:00"
+      "retrieved_at": "2026-11-27T21:57:34.964608+00:00"
     }
   },
   "macro_calendar": [
@@ -5354,17 +5354,17 @@
   "fed_liquidity": {
     "latest": {
       "date": "2026-11",
-      "total_assets_billions": 6741.45,
-      "tga_billions": 916.61,
+      "total_assets_billions": 6732.04,
+      "tga_billions": 902.04,
       "rrp_billions": 0.35,
-      "net_liquidity_billions": 5824.49,
-      "net_liquidity_trillions": 5.824,
-      "mom_change_billions": 82.96,
-      "mom_change_pct": 1.44,
+      "net_liquidity_billions": 5829.66,
+      "net_liquidity_trillions": 5.83,
+      "mom_change_billions": 88.13,
+      "mom_change_pct": 1.53,
       "regime": "流動性擴張注入中 (資金面偏多)",
       "regime_key": "expanding",
       "color": "emerald",
-      "desc": "Fed 總資產維持在 $6.74 兆美元，近期受財政支出挹注，淨流動性單月回升 +$83 億美元 (+1.44%)，為美股與風險資產提供流動性支撐。"
+      "desc": "Fed 總資產維持在 $6.73 兆美元，近期受財政支出挹注，淨流動性單月回升 +$88 億美元 (+1.53%)，為美股與風險資產提供流動性支撐。"
     },
     "history": [
       {
@@ -5553,11 +5553,11 @@
       },
       {
         "date": "2026-11",
-        "total_assets_billions": 6741.45,
-        "tga_billions": 916.61,
+        "total_assets_billions": 6732.04,
+        "tga_billions": 902.04,
         "rrp_billions": 0.35,
-        "net_liquidity_billions": 5824.49,
-        "net_liquidity_trillions": 5.824
+        "net_liquidity_billions": 5829.66,
+        "net_liquidity_trillions": 5.83
       }
     ],
     "source": "Federal Reserve (FRED WALCL, WTREGEN, RRPONTSYD)",
@@ -5580,8 +5580,8 @@
       "spread_10y2y": 0.24,
       "spread_10y2y_date": "2026-11-25",
       "spread_10y3m": 0.51,
-      "us_10y": 4.91,
-      "us_2y": 4.63,
+      "us_10y": 4.85,
+      "us_2y": 4.61,
       "curve_status": "倒掛解除·走向陡峭化 (Steepening)",
       "curve_badge_class": "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
       "curve_type": "steepening",
@@ -6266,8 +6266,8 @@
   },
   "tips_breakeven": {
     "latest": {
-      "real_yield": 2.79,
-      "nominal_yield": 4.91,
+      "real_yield": 2.73,
+      "nominal_yield": 4.85,
       "breakeven_inflation": 2.12,
       "as_of": "2026-11-25",
       "rating": "限制性緊縮 (估值重力)",
@@ -6275,7 +6275,7 @@
       "color": "#ef4444",
       "prev_1m_real": 2.6,
       "prev_1y_real": 1.79,
-      "desc": "美國 10 年期 TIPS 實質利率最新讀數為 2.79%，處於「限制性緊縮 (估值重力)」區間；10 年期名目公債殖利率為 4.91%，市場隱含 10 年期平衡通膨率 (Breakeven Inflation) 為 2.12%。費雪方程式拆解顯示名目利率主要受高達 2.79% 的實質融資成本驅動，通膨預期緊貼 Fed 2% 長期目標，無風險實質報酬高達 2% 以上，對高本益比成長股形成嚴重折現壓力，資金傾向配置優質債券。"
+      "desc": "美國 10 年期 TIPS 實質利率最新讀數為 2.73%，處於「限制性緊縮 (估值重力)」區間；10 年期名目公債殖利率為 4.85%，市場隱含 10 年期平衡通膨率 (Breakeven Inflation) 為 2.12%。費雪方程式拆解顯示名目利率主要受高達 2.73% 的實質融資成本驅動，通膨預期緊貼 Fed 2% 長期目標，無風險實質報酬高達 2% 以上，對高本益比成長股形成嚴重折現壓力，資金傾向配置優質債券。"
     },
     "history_24m": {
       "labels": [
@@ -6328,7 +6328,7 @@
         2.44,
         2.93,
         2.6,
-        2.79
+        2.73
       ],
       "nominal_yields": [
         4.58,
@@ -6354,7 +6354,7 @@
         4.75,
         5.29,
         4.94,
-        4.91
+        4.85
       ],
       "breakeven_rates": [
         2.34,
@@ -6446,7 +6446,7 @@
         2.77,
         2.79,
         2.79,
-        2.79
+        2.73
       ],
       "nominal_yields": [
         5.19,
@@ -6478,7 +6478,7 @@
         4.92,
         4.92,
         4.91,
-        4.91
+        4.85
       ],
       "breakeven_rates": [
         2.35,
@@ -6541,19 +6541,19 @@
   "global_central_banks": {
     "as_of": "2026-11",
     "latest": {
-      "total_trillions": 20.67,
-      "fed_trillions": 6.74,
+      "total_trillions": 20.66,
+      "fed_trillions": 6.73,
       "ecb_trillions": 6.5,
       "boj_trillions": 3.94,
       "china_trillions": 3.48,
-      "yoy_pct": -4.12,
-      "mom_change": -0.17,
-      "yoy_change": -0.89,
+      "yoy_pct": -4.17,
+      "mom_change": -0.18,
+      "yoy_change": -0.9,
       "rating": "有序縮表緊縮",
       "rating_en": "Orderly Balance Sheet Runoff",
       "regime": "tightening_mild",
       "status_color": "#f59e0b",
-      "summary": "全球四大央行（Fed、ECB、BOJ、PBOC）總資產規模約為 20.67 兆美元，年增率為 -4.12%，處於「有序縮表緊縮」階段。隨著美歐央行資產負債表常態化進程接近尾聲，全球流動性收縮斜率已明顯趨緩，為全球科技股估值與加密資產（如比特幣）構築了中長線流動性底座。"
+      "summary": "全球四大央行（Fed、ECB、BOJ、PBOC）總資產規模約為 20.66 兆美元，年增率為 -4.17%，處於「有序縮表緊縮」階段。隨著美歐央行資產負債表常態化進程接近尾聲，全球流動性收縮斜率已明顯趨緩，為全球科技股估值與加密資產（如比特幣）構築了中長線流動性底座。"
     },
     "history_24m": {
       "labels": [
@@ -6606,7 +6606,7 @@
         21.12,
         20.89,
         20.84,
-        20.67
+        20.66
       ],
       "fed": [
         6.89,
@@ -6632,7 +6632,7 @@
         6.73,
         6.74,
         6.75,
-        6.74
+        6.73
       ],
       "ecb": [
         6.58,
@@ -6736,7 +6736,7 @@
         -4.18,
         -4.35,
         -3.69,
-        -4.12
+        -4.17
       ]
     },
     "zones": [
@@ -6859,7 +6859,7 @@
         0.81,
         -0.03,
         -0.0,
-        -0.34,
+        -0.35,
         0.25,
         -0.19
       ],
@@ -6869,7 +6869,7 @@
         0.94,
         -0.08,
         -0.18,
-        -0.51,
+        -0.52,
         0.18,
         -0.16
       ],
@@ -6904,8 +6904,8 @@
         0.14
       ],
       [
-        -0.34,
-        -0.51,
+        -0.35,
+        -0.52,
         -0.55,
         -0.0,
         0.36,
@@ -7022,8 +7022,8 @@
         0.86,
         0.84,
         -0.16,
-        -0.5,
-        -0.76,
+        -0.49,
+        -0.77,
         0.5,
         -0.3
       ],
@@ -7042,7 +7042,7 @@
         0.95,
         1.0,
         0.12,
-        -0.47,
+        -0.46,
         -0.72,
         0.25,
         -0.23
@@ -7053,26 +7053,26 @@
         0.12,
         1.0,
         0.08,
-        0.17,
+        0.16,
         -0.27,
         0.38
       ],
       [
-        -0.5,
+        -0.49,
         -0.63,
-        -0.47,
+        -0.46,
         0.08,
         1.0,
-        0.47,
+        0.48,
         -0.68,
         -0.1
       ],
       [
-        -0.76,
+        -0.77,
         -0.71,
         -0.72,
-        0.17,
-        0.47,
+        0.16,
+        0.48,
         1.0,
         -0.68,
         0.41
@@ -7309,7 +7309,7 @@
         99.43,
         101.45,
         101.88,
-        104.05
+        104.01
       ],
       "usdtwd": [
         32.76,
@@ -7335,7 +7335,7 @@
         31.63,
         31.85,
         32.57,
-        32.96
+        32.98
       ],
       "gold": [
         2641.0,
@@ -7387,7 +7387,7 @@
         85.76,
         90.42,
         104.12,
-        82.99
+        83.08
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",

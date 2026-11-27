@@ -11553,7 +11553,12 @@
       }
       section.classList.remove('hidden');
       const asof = document.getElementById('corporate-bond-asof');
-      if (asof) asof.textContent = `資料日期 ${data.as_of || '—'}（美國交易日）`;
+      const latestIssueDate = (data.issues || []).map(i => i.quote_date).filter(Boolean).sort().pop();
+      if (asof) {
+        asof.textContent = latestIssueDate
+          ? `指數日期 ${data.as_of || '—'}（FRED）· 單券最新 ${latestIssueDate}`
+          : `資料日期 ${data.as_of || '—'}（美國交易日）`;
+      }
       const source = document.getElementById('corporate-bond-source');
       if (source && data.source_url) source.href = data.source_url;
       const colors = { ig: 'blue', hy: 'amber', ccc: 'rose' };
