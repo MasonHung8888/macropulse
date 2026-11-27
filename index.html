@@ -48,69 +48,69 @@
 
   <!-- Top Navigation -->
   <header class="sticky top-0 z-40 border-b border-slate-200 dark:border-slate-800 bg-white/90 dark:bg-slate-900/90 backdrop-blur">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-2">
+    <div class="max-w-[1600px] mx-auto px-3 sm:px-5 h-14 flex items-center justify-between gap-3">
       <div class="flex items-center gap-2 shrink-0">
         <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-sm">
           <i data-lucide="activity" class="w-4 h-4"></i>
         </div>
-        <div>
+        <div class="whitespace-nowrap">
           <span class="font-bold text-base tracking-tight">MacroPulse</span>
-          <span class="hidden xl:inline-block ml-1.5 text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-medium">全方位總經工作台</span>
+          <span class="hidden 2xl:inline-block ml-1.5 text-xs px-2 py-0.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 font-medium">全方位總經工作台</span>
         </div>
       </div>
 
       <!-- Desktop Nav -->
-      <nav id="desktop-nav" class="hidden lg:flex items-center gap-1" aria-label="主要導覽">
-        <button data-tab="dashboard" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="layout-dashboard" class="w-4 h-4"></i>總經儀表板
+      <nav id="desktop-nav" class="hidden lg:flex items-center gap-1 flex-1 min-w-0 overflow-x-auto whitespace-nowrap py-1 [&>button]:shrink-0 [&>button]:whitespace-nowrap" aria-label="主要導覽">
+        <button data-tab="dashboard" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i>總經儀表板
         </button>
-        <button data-tab="taiwan" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="crosshair" class="w-4 h-4"></i>台股與 AI 監控
+        <button data-tab="taiwan" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="crosshair" class="w-3.5 h-3.5"></i>台股與 AI 監控
         </button>
-        <button data-tab="money" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="coins" class="w-4 h-4"></i>資金動能 ＆ 景氣燈號
+        <button data-tab="money" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="coins" class="w-3.5 h-3.5"></i>資金動能 ＆ 景氣燈號
         </button>
-        <button data-tab="trader" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="radar" class="w-4 h-4"></i>操盤人必看
+        <button data-tab="trader" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="radar" class="w-3.5 h-3.5"></i>操盤人必看
         </button>
-        <button data-tab="heatmap" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="grid-2x2" class="w-4 h-4"></i>市場熱力圖
+        <button data-tab="heatmap" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="grid-2x2" class="w-3.5 h-3.5"></i>市場熱力圖
         </button>
-        <button data-tab="toolbox" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="line-chart" class="w-4 h-4"></i>研究工具箱
+        <button data-tab="toolbox" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="line-chart" class="w-3.5 h-3.5"></i>研究工具箱
         </button>
-        <button data-tab="backtest" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="flask-conical" class="w-4 h-4"></i>量化回測
+        <button data-tab="backtest" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="flask-conical" class="w-3.5 h-3.5"></i>量化回測
         </button>
-        <button data-tab="builder" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="layers" class="w-4 h-4"></i>自編指數
+        <button data-tab="builder" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="layers" class="w-3.5 h-3.5"></i>自編指數
         </button>
-        <button data-tab="etf" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
-          <i data-lucide="cpu" class="w-4 h-4"></i>產業 &amp; ETF
+        <button data-tab="etf" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i>產業 &amp; ETF
         </button>
-        <button data-tab="calendar" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="calendar-days" class="w-4 h-4"></i>科技 ＆ 財經行事曆
+        <button data-tab="calendar" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="calendar-days" class="w-3.5 h-3.5"></i>科技 ＆ 財經行事曆
         </button>
-        <button data-tab="mydash" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="bookmark" class="w-4 h-4"></i>我的儀表板
+        <button data-tab="mydash" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="bookmark" class="w-3.5 h-3.5"></i>我的儀表板
         </button>
-        <button data-tab="import" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-colors flex items-center gap-1.5">
-          <i data-lucide="upload" class="w-4 h-4"></i>匯入數據
+        <button data-tab="import" class="nav-btn px-2.5 py-1.5 rounded-lg text-xs font-medium transition-colors flex items-center gap-1.5">
+          <i data-lucide="upload" class="w-3.5 h-3.5"></i>匯入數據
         </button>
       </nav>
 
-      <div class="flex items-center gap-2">
-        <button id="cnyes-live-btn" type="button" class="px-2.5 py-1.5 rounded-lg border border-sky-500/40 bg-sky-500/10 text-sky-600 dark:text-sky-400 hover:bg-sky-500/20 text-xs font-medium transition-colors flex items-center gap-1.5" title="即時向鉅亨網 (Anue) 抓取最新台股、美股、指數與匯率報價">
+      <div class="flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+        <button id="cnyes-live-btn" type="button" class="shrink-0 whitespace-nowrap px-2.5 py-1.5 rounded-lg border border-sky-500/40 bg-sky-500/10 text-sky-600 dark:text-sky-400 hover:bg-sky-500/20 text-xs font-medium transition-colors flex items-center gap-1" title="即時向鉅亨網 (Anue) 抓取最新台股、美股、指數與匯率報價">
           <i data-lucide="zap" class="w-3.5 h-3.5"></i>
-          <span id="cnyes-live-label" class="hidden sm:inline">鉅亨網即時更新</span>
+          <span id="cnyes-live-label" class="hidden sm:inline">鉅亨即時</span>
         </button>
-        <button id="cnyes-auto-btn" type="button" class="px-2 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100/70 dark:bg-slate-800/70 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700 text-xs font-medium transition-colors flex items-center gap-1" title="開啟或關閉每 60 秒自動即時追蹤股價與匯率">
+        <button id="cnyes-auto-btn" type="button" class="shrink-0 whitespace-nowrap px-2 py-1.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-100/70 dark:bg-slate-800/70 text-slate-600 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700 text-xs font-medium transition-colors flex items-center gap-1" title="開啟或關閉每 60 秒自動即時追蹤股價與匯率">
           <span class="w-2 h-2 rounded-full bg-slate-400" id="cnyes-auto-dot"></span>
           <span id="cnyes-auto-label" class="hidden md:inline">自動追蹤</span>
         </button>
-        <button id="live-sync-btn" type="button" class="px-2.5 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 text-xs font-medium transition-colors flex items-center gap-1.5" title="重新載入雲端每日市場資料包">
+        <button id="live-sync-btn" type="button" class="shrink-0 whitespace-nowrap px-2.5 py-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/20 text-xs font-medium transition-colors flex items-center gap-1" title="重新載入雲端每日市場資料包">
           <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-          <span id="live-sync-label" class="hidden sm:inline">重新整理</span>
+          <span id="live-sync-label" class="hidden sm:inline">重整</span>
         </button>
         <button id="theme-toggle" type="button" class="p-2 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="切換深淺色主題">
           <i data-lucide="sun" class="w-4 h-4 hidden dark:block text-amber-400"></i>
@@ -9257,7 +9257,7 @@
         if (!silent) showToast('鉅亨網即時連線失敗，保留目前頁面數據');
       } finally {
         if (btn) btn.disabled = false;
-        if (lbl) lbl.textContent = '鉅亨網即時更新';
+        if (lbl) lbl.textContent = '鉅亨即時';
       }
     }
 
