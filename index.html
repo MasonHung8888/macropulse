@@ -17004,8 +17004,6 @@
         'cal-valuation-panel',
       ].forEach(id => document.getElementById(id)?.classList.add('hidden'));
       // 產業 & ETF 分頁已接入真實官方與市場日線/即時來源，正式開放顯示。
-      const etfPanel = document.getElementById('tab-etf');
-      if (etfPanel) etfPanel.style.display = 'none';
       const valuationButton = document.getElementById('cal-track-valuation-btn');
       if (valuationButton) valuationButton.style.display = 'none';
       document.getElementById('trajChart')?.closest('.bg-white, .dark\\:bg-slate-900')?.classList.add('hidden');
