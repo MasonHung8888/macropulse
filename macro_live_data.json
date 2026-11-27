@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-27T14:02:03Z",
+  "updated_at": "2026-11-27T19:30:34Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -432,8 +432,8 @@
       "cap": 1013870063.0,
       "price": 100.0,
       "d1": -0.5,
-      "w1": -3.38,
-      "ytd": 30.35,
+      "w1": null,
+      "ytd": null,
       "as_of": "2026-11-26",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
@@ -515,12 +515,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "NVDA",
       "name": "Nvidia Corp",
-      "cap": 54729185788.69,
-      "price": 149.3,
-      "d1": -3.91,
-      "w1": -1.1,
-      "ytd": -20.76,
-      "as_of": "2026-11-25",
+      "cap": 27229729163.95,
+      "price": 150.49,
+      "d1": 0.8,
+      "w1": 3.09,
+      "ytd": -20.13,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -528,12 +528,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "AAPL",
       "name": "Apple Inc",
-      "cap": 19302766245.07,
-      "price": 355.58,
-      "d1": 0.43,
-      "w1": 0.89,
-      "ytd": 31.66,
-      "as_of": "2026-11-25",
+      "cap": 7744274158.37,
+      "price": 358.54,
+      "d1": 0.83,
+      "w1": 2.67,
+      "ytd": 32.76,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -541,12 +541,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "MSFT",
       "name": "Microsoft Corp",
-      "cap": 13110281639.01,
-      "price": 489.93,
-      "d1": -1.25,
-      "w1": -3.43,
-      "ytd": 4.45,
-      "as_of": "2026-11-25",
+      "cap": 6123125105.03,
+      "price": 492.85,
+      "d1": 0.6,
+      "w1": -1.09,
+      "ytd": 5.07,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -554,12 +554,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "AVGO",
       "name": "Broadcom Inc",
-      "cap": 10334390066.83,
-      "price": 300.86,
-      "d1": -0.07,
-      "w1": -15.02,
-      "ytd": -12.97,
-      "as_of": "2026-11-25",
+      "cap": 5324088545.32,
+      "price": 312.34,
+      "d1": 3.82,
+      "w1": -9.9,
+      "ytd": -9.65,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -567,12 +567,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "MU",
       "name": "Micron Tech",
-      "cap": 31859275500.0,
-      "price": 601.25,
-      "d1": -4.53,
-      "w1": -14.75,
-      "ytd": 90.76,
-      "as_of": "2026-11-25",
+      "cap": 17174613674.61,
+      "price": 646.95,
+      "d1": 7.6,
+      "w1": -6.3,
+      "ytd": 105.26,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -580,12 +580,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "AMD",
       "name": "Advanced Micro Devices",
-      "cap": 20964140896.97,
-      "price": 406.03,
-      "d1": -1.75,
-      "w1": -23.41,
-      "ytd": 81.69,
-      "as_of": "2026-11-25",
+      "cap": 9404468855.81,
+      "price": 424.54,
+      "d1": 4.56,
+      "w1": -13.22,
+      "ytd": 89.98,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -593,12 +593,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "INTC",
       "name": "Intel Corp",
-      "cap": 7041767370.81,
-      "price": 54.47,
-      "d1": -0.6,
-      "w1": -0.37,
-      "ytd": 38.32,
-      "as_of": "2026-11-25",
+      "cap": 4374246672.68,
+      "price": 57.4,
+      "d1": 5.38,
+      "w1": 3.02,
+      "ytd": 45.76,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -606,12 +606,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "QCOM",
       "name": "Qualcomm Inc",
-      "cap": 2370415155.47,
-      "price": 168.66,
-      "d1": 2.24,
-      "w1": 5.54,
-      "ytd": -0.97,
-      "as_of": "2026-11-25",
+      "cap": 1748360654.76,
+      "price": 179.27,
+      "d1": 6.29,
+      "w1": 10.65,
+      "ytd": 5.26,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -619,12 +619,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "CRM",
       "name": "Salesforce Inc",
-      "cap": 1328110790.21,
-      "price": 197.21,
-      "d1": 2.04,
-      "w1": 3.58,
-      "ytd": -21.71,
-      "as_of": "2026-11-25",
+      "cap": 486254536.56,
+      "price": 198.21,
+      "d1": 0.51,
+      "w1": 8.13,
+      "ytd": -21.31,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -632,12 +632,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "ORCL",
       "name": "Oracle Corp",
-      "cap": 3998496914.28,
-      "price": 103.88,
-      "d1": -5.13,
-      "w1": -8.79,
-      "ytd": -46.21,
-      "as_of": "2026-11-25",
+      "cap": 1536230876.49,
+      "price": 107.13,
+      "d1": 3.13,
+      "w1": -3.11,
+      "ytd": -44.53,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -645,12 +645,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "PLTR",
       "name": "Palantir Tech",
-      "cap": 3514894661.32,
-      "price": 163.59,
-      "d1": 1.5,
-      "w1": 4.42,
-      "ytd": -2.54,
-      "as_of": "2026-11-25",
+      "cap": 2580414548.05,
+      "price": 172.17,
+      "d1": 5.24,
+      "w1": 12.03,
+      "ytd": 2.57,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -658,12 +658,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "PANW",
       "name": "Palo Alto Networks",
-      "cap": 2382897224.01,
-      "price": 356.14,
-      "d1": 0.89,
-      "w1": 4.77,
-      "ytd": 98.55,
-      "as_of": "2026-11-25",
+      "cap": 1949942307.88,
+      "price": 366.76,
+      "d1": 2.98,
+      "w1": 1.39,
+      "ytd": 104.47,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -671,12 +671,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "CRWD",
       "name": "CrowdStrike",
-      "cap": 3049856854.47,
-      "price": 209.3,
-      "d1": -0.74,
-      "w1": -11.7,
-      "ytd": 84.58,
-      "as_of": "2026-11-25",
+      "cap": 1937070371.18,
+      "price": 217.2,
+      "d1": 3.77,
+      "w1": -10.79,
+      "ytd": 91.54,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -684,12 +684,12 @@
       "sector": "TECHNOLOGY",
       "ticker": "AMAT",
       "name": "Applied Materials",
-      "cap": 3646842806.16,
-      "price": 311.18,
-      "d1": -3.89,
-      "w1": -11.54,
-      "ytd": 16.32,
-      "as_of": "2026-11-25",
+      "cap": 1534291348.23,
+      "price": 322.04,
+      "d1": 3.49,
+      "w1": -4.98,
+      "ytd": 20.38,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -697,12 +697,12 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "GOOGL",
       "name": "Alphabet Inc",
-      "cap": 11274578721.98,
-      "price": 273.1,
-      "d1": -2.13,
-      "w1": -3.31,
-      "ytd": -13.17,
-      "as_of": "2026-11-25",
+      "cap": 6137065765.28,
+      "price": 274.96,
+      "d1": 0.68,
+      "w1": 0.84,
+      "ytd": -12.58,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -710,12 +710,12 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "META",
       "name": "Meta Platforms",
-      "cap": 11385548771.46,
-      "price": 609.89,
-      "d1": 3.4,
-      "w1": -1.05,
-      "ytd": -5.99,
-      "as_of": "2026-11-25",
+      "cap": 6973315614.33,
+      "price": 628.96,
+      "d1": 3.13,
+      "w1": 5.49,
+      "ytd": -3.05,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -723,12 +723,12 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "NFLX",
       "name": "Netflix Inc",
-      "cap": 2718393658.02,
-      "price": 59.41,
-      "d1": 0.92,
-      "w1": -0.69,
-      "ytd": -34.71,
-      "as_of": "2026-11-25",
+      "cap": 1315104352.67,
+      "price": 60.93,
+      "d1": 2.56,
+      "w1": 4.23,
+      "ytd": -33.04,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -736,12 +736,12 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "DIS",
       "name": "Walt Disney Co",
-      "cap": 2054213095.04,
-      "price": 125.6,
-      "d1": 2.52,
-      "w1": 2.65,
-      "ytd": 13.15,
-      "as_of": "2026-11-25",
+      "cap": 870090772.03,
+      "price": 127.24,
+      "d1": 1.31,
+      "w1": 5.81,
+      "ytd": 14.63,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -749,12 +749,12 @@
       "sector": "FINANCIAL",
       "ticker": "BRK-B",
       "name": "Berkshire Hathaway",
-      "cap": 2500750675.62,
-      "price": 579.32,
-      "d1": 0.37,
-      "w1": 0.82,
-      "ytd": 16.6,
-      "as_of": "2026-11-25",
+      "cap": 1233230273.27,
+      "price": 580.79,
+      "d1": 0.25,
+      "w1": 1.53,
+      "ytd": 16.89,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -762,12 +762,12 @@
       "sector": "FINANCIAL",
       "ticker": "JPM",
       "name": "JPMorgan Chase",
-      "cap": 2418499869.43,
-      "price": 316.74,
-      "d1": -0.11,
-      "w1": -2.27,
-      "ytd": -0.81,
-      "as_of": "2026-11-25",
+      "cap": 1112576501.12,
+      "price": 322.96,
+      "d1": 1.96,
+      "w1": 0.86,
+      "ytd": 1.14,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -775,12 +775,12 @@
       "sector": "FINANCIAL",
       "ticker": "V",
       "name": "Visa Inc",
-      "cap": 2797366781.56,
-      "price": 424.39,
-      "d1": 1.83,
-      "w1": 2.21,
-      "ytd": 23.45,
-      "as_of": "2026-11-25",
+      "cap": 1555491734.84,
+      "price": 429.56,
+      "d1": 1.22,
+      "w1": 6.79,
+      "ytd": 24.95,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -788,12 +788,12 @@
       "sector": "FINANCIAL",
       "ticker": "MA",
       "name": "Mastercard Inc",
-      "cap": 2338933576.17,
-      "price": 659.97,
-      "d1": 1.94,
-      "w1": 2.58,
-      "ytd": 17.95,
-      "as_of": "2026-11-25",
+      "cap": 971513976.81,
+      "price": 666.96,
+      "d1": 1.06,
+      "w1": 6.46,
+      "ytd": 19.2,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -801,12 +801,12 @@
       "sector": "FINANCIAL",
       "ticker": "BAC",
       "name": "Bank of America",
-      "cap": 1858392767.05,
-      "price": 48.54,
-      "d1": -0.04,
-      "w1": -0.76,
-      "ytd": -11.85,
-      "as_of": "2026-11-25",
+      "cap": 780438422.73,
+      "price": 49.07,
+      "d1": 1.09,
+      "w1": 1.03,
+      "ytd": -10.89,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -814,12 +814,12 @@
       "sector": "FINANCIAL",
       "ticker": "GS",
       "name": "Goldman Sachs",
-      "cap": 2741044657.25,
-      "price": 801.03,
-      "d1": -0.62,
-      "w1": -8.26,
-      "ytd": -11.11,
-      "as_of": "2026-11-25",
+      "cap": 987053403.41,
+      "price": 812.87,
+      "d1": 1.48,
+      "w1": -4.09,
+      "ytd": -9.8,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -827,12 +827,12 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "AMZN",
       "name": "Amazon.com Inc",
-      "cap": 15271863727.39,
-      "price": 244.43,
-      "d1": -3.12,
-      "w1": -8.71,
-      "ytd": 7.92,
-      "as_of": "2026-11-25",
+      "cap": 6899095615.6,
+      "price": 254.12,
+      "d1": 3.96,
+      "w1": -1.26,
+      "ytd": 12.19,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -840,12 +840,12 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "TSLA",
       "name": "Tesla Inc",
-      "cap": 13272892723.46,
-      "price": 380.14,
-      "d1": -1.18,
-      "w1": -0.93,
-      "ytd": -13.22,
-      "as_of": "2026-11-25",
+      "cap": 10281182000.0,
+      "price": 400.0,
+      "d1": 5.22,
+      "w1": 6.83,
+      "ytd": -8.69,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -853,12 +853,12 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "HD",
       "name": "Home Depot",
-      "cap": 2611440232.59,
-      "price": 361.26,
-      "d1": 2.14,
-      "w1": 7.0,
-      "ytd": 6.73,
-      "as_of": "2026-11-25",
+      "cap": 580741919.46,
+      "price": 362.15,
+      "d1": 0.25,
+      "w1": 7.57,
+      "ytd": 7.0,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -866,12 +866,12 @@
       "sector": "HEALTHCARE",
       "ticker": "LLY",
       "name": "Eli Lilly & Co",
-      "cap": 4075584742.24,
-      "price": 1392.22,
-      "d1": -1.09,
-      "w1": 0.68,
-      "ytd": 29.65,
-      "as_of": "2026-11-25",
+      "cap": 2025142920.96,
+      "price": 1392.38,
+      "d1": 0.01,
+      "w1": 3.05,
+      "ytd": 29.66,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -879,12 +879,12 @@
       "sector": "HEALTHCARE",
       "ticker": "JNJ",
       "name": "Johnson & Johnson",
-      "cap": 2480417146.11,
-      "price": 273.94,
-      "d1": -0.91,
-      "w1": 0.96,
-      "ytd": 34.91,
-      "as_of": "2026-11-25",
+      "cap": 807831164.93,
+      "price": 275.51,
+      "d1": 0.57,
+      "w1": 3.65,
+      "ytd": 35.68,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -892,12 +892,12 @@
       "sector": "HEALTHCARE",
       "ticker": "UNH",
       "name": "UnitedHealth Group",
-      "cap": 2282292210.1,
-      "price": 346.19,
-      "d1": 1.26,
-      "w1": -1.06,
-      "ytd": 4.94,
-      "as_of": "2026-11-25",
+      "cap": 894422446.31,
+      "price": 351.41,
+      "d1": 1.51,
+      "w1": 6.33,
+      "ytd": 6.53,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -905,12 +905,12 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "WMT",
       "name": "Walmart Inc",
-      "cap": 3116409663.67,
-      "price": 131.94,
-      "d1": -0.28,
-      "w1": 3.6,
-      "ytd": 17.75,
-      "as_of": "2026-11-25",
+      "cap": 1380709386.32,
+      "price": 133.13,
+      "d1": 0.9,
+      "w1": 5.63,
+      "ytd": 18.82,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -918,12 +918,12 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "COST",
       "name": "Costco Wholesale",
-      "cap": 2936234735.3,
-      "price": 1086.81,
-      "d1": -0.45,
-      "w1": 1.89,
-      "ytd": 31.53,
-      "as_of": "2026-11-25",
+      "cap": 1496126286.53,
+      "price": 1097.81,
+      "d1": 1.01,
+      "w1": 3.18,
+      "ytd": 32.86,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -931,12 +931,12 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "KO",
       "name": "Coca-Cola Co",
-      "cap": 2430527653.79,
-      "price": 97.59,
-      "d1": -0.03,
-      "w1": -0.51,
-      "ytd": 43.93,
-      "as_of": "2026-11-25",
+      "cap": 885638052.07,
+      "price": 97.4,
+      "d1": -0.19,
+      "w1": 1.36,
+      "ytd": 43.65,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -944,12 +944,12 @@
       "sector": "INDUSTRIALS",
       "ticker": "GE",
       "name": "GE Aerospace",
-      "cap": 1384758875.99,
-      "price": 316.98,
-      "d1": -0.33,
-      "w1": -3.39,
-      "ytd": -0.76,
-      "as_of": "2026-11-25",
+      "cap": 469898945.1,
+      "price": 323.94,
+      "d1": 2.2,
+      "w1": 1.59,
+      "ytd": 1.42,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -957,12 +957,12 @@
       "sector": "INDUSTRIALS",
       "ticker": "CAT",
       "name": "Caterpillar Inc",
-      "cap": 2021928750.08,
-      "price": 543.69,
-      "d1": 0.57,
-      "w1": -2.7,
-      "ytd": -8.37,
-      "as_of": "2026-11-25",
+      "cap": 1014912492.56,
+      "price": 561.74,
+      "d1": 3.32,
+      "w1": 4.54,
+      "ytd": -5.33,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -970,12 +970,12 @@
       "sector": "ENERGY",
       "ticker": "XOM",
       "name": "Exxon Mobil",
-      "cap": 3403841831.43,
-      "price": 158.08,
-      "d1": -0.09,
-      "w1": -1.56,
-      "ytd": 32.3,
-      "as_of": "2026-11-25",
+      "cap": 1108715612.78,
+      "price": 160.18,
+      "d1": 1.33,
+      "w1": 0.79,
+      "ytd": 34.06,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     },
@@ -983,12 +983,12 @@
       "sector": "ENERGY",
       "ticker": "CVX",
       "name": "Chevron Corp",
-      "cap": 1553752202.52,
-      "price": 210.95,
-      "d1": 1.06,
-      "w1": 2.46,
-      "ytd": 40.24,
-      "as_of": "2026-11-25",
+      "cap": 881176727.84,
+      "price": 212.45,
+      "d1": 0.71,
+      "w1": 2.88,
+      "ytd": 41.24,
+      "as_of": "2026-11-27",
       "size_basis": "Yahoo Finance daily traded value (USD)",
       "source": "Yahoo Finance adjusted daily history"
     }
@@ -998,25 +998,25 @@
     "tw_m2": 7.11,
     "tw_spread": -0.03,
     "sp500": {
-      "price": 7182.78,
-      "d1": -0.25,
-      "as_of": "2026-11-25",
+      "price": 7297.49,
+      "d1": 1.6,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 2
+        "age_days": 0
       }
     },
     "nasdaq": {
-      "price": 23585.8,
-      "d1": -0.62,
-      "as_of": "2026-11-25",
+      "price": 24129.5,
+      "d1": 2.31,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 2
+        "age_days": 0
       }
     },
     "taiex": {
@@ -1031,15 +1031,15 @@
       }
     },
     "nikkei": {
-      "price": 58711.11,
-      "d1": 2.11,
-      "as_of": "2026-11-27",
+      "price": 57499.16,
+      "d1": 0.86,
+      "as_of": "2026-11-26",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "gold": {
-      "price": 3673.0,
-      "d1": 3.88,
+      "price": 3668.5,
+      "d1": 3.75,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1049,8 +1049,8 @@
       }
     },
     "wti": {
-      "price": 84.29,
-      "d1": 0.73,
+      "price": 83.01,
+      "d1": -0.8,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1060,15 +1060,15 @@
       }
     },
     "copper": {
-      "price": 5.62,
-      "d1": 5.47,
+      "price": 5.6,
+      "d1": 5.03,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix": {
-      "price": 25.3,
-      "d1": -5.6,
+      "price": 23.81,
+      "d1": -11.16,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false,
@@ -1078,37 +1078,37 @@
       }
     },
     "vix9d": {
-      "price": 29.61,
-      "d1": 10.98,
-      "as_of": "2026-11-25",
+      "price": 24.1,
+      "d1": -18.61,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix3m": {
-      "price": 26.29,
-      "d1": 3.22,
-      "as_of": "2026-11-25",
+      "price": 23.82,
+      "d1": -9.4,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "vix6m": {
-      "price": 26.89,
-      "d1": 2.67,
-      "as_of": "2026-11-25",
+      "price": 25.02,
+      "d1": -6.95,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "skew": {
-      "price": 142.06,
-      "d1": 2.08,
-      "as_of": "2026-11-25",
+      "price": 145.9,
+      "d1": 2.7,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "move": {
-      "price": 97.54,
-      "d1": -1.32,
-      "as_of": "2026-11-25",
+      "price": 95.3,
+      "d1": -2.29,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
@@ -1134,29 +1134,29 @@
       "realtime": false
     },
     "us10y_tnx": {
-      "price": 4.9,
-      "d1": 1.07,
+      "price": 4.94,
+      "d1": 1.82,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us30y_tyx": {
-      "price": 5.29,
-      "d1": 0.97,
+      "price": 5.32,
+      "d1": 1.72,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "us5y_fvx": {
-      "price": 4.72,
-      "d1": 1.18,
+      "price": 4.75,
+      "d1": 1.85,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "dxy": {
-      "price": 103.91,
-      "d1": 0.24,
+      "price": 104.05,
+      "d1": 0.36,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -1168,13 +1168,13 @@
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
-    "us10y": 4.9,
-    "spread10y5y": 0.18,
+    "us10y": 4.94,
+    "spread10y5y": 0.19,
     "ndc_score": 40,
     "tw_export_orders_yoy": 78.33,
     "tw_export_orders_amount": 1238.2,
-    "erp": -0.51,
-    "fed_net_liquidity": 5.825,
+    "erp": -0.62,
+    "fed_net_liquidity": 5.824,
     "sahm_rule": 0.0,
     "spread_10y2y": 0.24,
     "spread_10y3m": 0.51,
@@ -1183,8 +1183,8 @@
     "fed_target_lower": 3.75,
     "fedwatch_next_cut_prob": 0.0,
     "fedwatch_next_hold_prob": 26.0,
-    "fedwatch_terminal_rate": 4.56,
-    "fear_and_greed": 39.2,
+    "fedwatch_terminal_rate": 4.57,
+    "fear_and_greed": 44.0,
     "fear_and_greed_rating": "恐慌",
     "buffett_ratio": 217.0,
     "buffett_rating": "顯著高估 (泡沫警戒)",
@@ -2384,7 +2384,7 @@
         7686.14,
         7651.54,
         7580.07,
-        7182.78
+        7297.49
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2442,7 +2442,7 @@
         26370.89,
         26861.06,
         25437.0,
-        23585.8
+        24129.5
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2550,7 +2550,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3673.2
+        3668.5
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2600,7 +2600,7 @@
         85.76,
         90.42,
         104.12,
-        84.29
+        83.01
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2658,7 +2658,7 @@
         4.76,
         5.29,
         4.93,
-        4.9
+        4.94
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2716,7 +2716,7 @@
         99.43,
         101.45,
         101.88,
-        103.91
+        104.05
       ],
       "source": "Yahoo Finance monthly history",
       "as_of": "2026-11"
@@ -2866,7 +2866,7 @@
         5.773,
         5.783,
         5.742,
-        5.825
+        5.824
       ]
     },
     "sahmRule": {
@@ -3134,7 +3134,7 @@
         70.2,
         69.8,
         51.6,
-        39.2
+        44.0
       ]
     },
     "buffettIndicator": {
@@ -3477,24 +3477,26 @@
       "name": "美國 標普 500 股權風險溢價 ERP (%)",
       "unit": "%",
       "labels": [
-        "2026-11-25"
+        "2026-11-25",
+        "2026-11-27"
       ],
       "data": [
-        -0.51
+        -0.51,
+        -0.62
       ]
     }
   },
   "fx": {
-    "AUD": 1.5071,
-    "CAD": 1.423,
-    "EUR": 0.91116,
-    "GBP": 0.76314,
-    "JPY": 159.26,
+    "AUD": 1.4996,
+    "CAD": 1.4245,
+    "EUR": 0.91266,
+    "GBP": 0.76211,
+    "JPY": 159.54,
     "TWD": 32.95
   },
   "crypto": {
-    "btc_price": 61402,
-    "stablecoin_market_cap_b": 243.0
+    "btc_price": 59916,
+    "stablecoin_market_cap_b": 243.1
   },
   "macro_indicators": {
     "us_cpi_yoy": {
@@ -4125,13 +4127,13 @@
     "source_url": "https://index.ndc.gov.tw/n/zh_tw"
   },
   "equity_risk_premium": {
-    "as_of": "2026-11-25",
-    "sp500_price": 7182.78,
-    "sp500_forward_pe": 22.8,
+    "as_of": "2026-11-27",
+    "sp500_price": 7297.49,
+    "sp500_forward_pe": 23.17,
     "pe_basis": "SPY trailingPE (Yahoo Finance)",
-    "earnings_yield": 4.39,
-    "us10y_yield": 4.9,
-    "erp": -0.51,
+    "earnings_yield": 4.32,
+    "us10y_yield": 4.94,
+    "erp": -0.62,
     "regime": "債券極具性價比 (ERP < 0%)",
     "regime_key": "bonds_preferred",
     "color": "rose",
@@ -4143,20 +4145,27 @@
         "us10y": 4.9,
         "ey": 4.39,
         "pe": 22.8
+      },
+      {
+        "date": "2026-11-27",
+        "erp": -0.62,
+        "us10y": 4.94,
+        "ey": 4.32,
+        "pe": 23.17
       }
     ],
     "source": "Yahoo Finance (SPY Trailing P/E) & CBOE ^TNX",
     "source_url": "https://finance.yahoo.com/quote/SPY/",
     "_quality_metadata": {
       "model_type": "Earnings_Yield_Spread_Model",
-      "trailing_pe_used": 22.8,
+      "trailing_pe_used": 23.17,
       "benchmark": "SPY Trailing P/E vs 10Y US Treasury Yield",
       "calculation": "Earnings_Yield (1/PE * 100) - US10Y"
     }
   },
   "corporate_bonds": {
-    "as_of": "2026-11-24",
-    "updated_at": "2026-11-27T14:03:15Z",
+    "as_of": "2026-11-26",
+    "updated_at": "2026-11-27T19:30:49Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4164,9 +4173,9 @@
       {
         "key": "ig",
         "name": "美國投資級公司債",
-        "yield": 5.85,
-        "oas_bps": 98,
-        "date": "2026-11-24",
+        "yield": 5.81,
+        "oas_bps": 99,
+        "date": "2026-11-26",
         "yield_series_id": "BAMLC0A0CMEY",
         "oas_series_id": "BAMLC0A0CM",
         "source": "ICE Data Indices, LLC via FRED",
@@ -4175,9 +4184,9 @@
       {
         "key": "hy",
         "name": "美國高收益公司債",
-        "yield": 8.44,
-        "oas_bps": 372,
-        "date": "2026-11-24",
+        "yield": 8.45,
+        "oas_bps": 377,
+        "date": "2026-11-26",
         "yield_series_id": "BAMLH0A0HYM2EY",
         "oas_series_id": "BAMLH0A0HYM2",
         "source": "ICE Data Indices, LLC via FRED",
@@ -4186,9 +4195,9 @@
       {
         "key": "ccc",
         "name": "美國 CCC 以下公司債",
-        "yield": 18.66,
-        "oas_bps": 1405,
-        "date": "2026-11-24",
+        "yield": 18.72,
+        "oas_bps": 1417,
+        "date": "2026-11-26",
         "yield_series_id": "BAMLH0A3HYCEY",
         "oas_series_id": "BAMLH0A3HYC",
         "source": "ICE Data Indices, LLC via FRED",
@@ -4197,8 +4206,6 @@
     ],
     "history": {
       "labels": [
-        "2026-07-22",
-        "2026-07-23",
         "2026-07-24",
         "2026-07-27",
         "2026-07-28",
@@ -4286,11 +4293,11 @@
         "2026-11-19",
         "2026-11-20",
         "2026-11-23",
-        "2026-11-24"
+        "2026-11-24",
+        "2026-11-25",
+        "2026-11-26"
       ],
       "ig": [
-        5.39,
-        5.43,
         5.43,
         5.41,
         5.37,
@@ -4378,11 +4385,11 @@
         5.91,
         5.84,
         5.83,
-        5.85
+        5.85,
+        5.81,
+        5.81
       ],
       "hy": [
-        7.06,
-        7.19,
         7.19,
         7.17,
         7.15,
@@ -4470,11 +4477,11 @@
         8.35,
         8.46,
         8.36,
-        8.44
+        8.44,
+        8.45,
+        8.45
       ],
       "ccc": [
-        14.1,
-        14.25,
         14.28,
         14.32,
         14.31,
@@ -4562,7 +4569,9 @@
         18.32,
         18.61,
         18.48,
-        18.66
+        18.66,
+        18.72,
+        18.72
       ]
     },
     "issues": [
@@ -4669,13 +4678,13 @@
         "currency": "USD",
         "identifier": "84615QAA1",
         "isin": "USU8531HAA87",
-        "market_price": 92.35,
+        "market_price": 92.22,
         "market_yield": 7.33,
         "spread_bps": 264,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/space_exploration_techs_corpdl-notes_202626-31_regs-Bond-2031-usu8531haa87",
-        "quote_status": "價格 92.35 · BMN · 2026-11-27",
+        "quote_status": "價格 92.22 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4687,7 +4696,7 @@
             "date": "2026-11-27",
             "ytm": 7.33,
             "spread_bps": 264,
-            "price": 92.35
+            "price": 92.22
           }
         ],
         "terms_status": "verified",
@@ -4701,13 +4710,13 @@
         "currency": "USD",
         "identifier": "11135FBY6",
         "isin": "US11135FBY60",
-        "market_price": 97.04,
+        "market_price": 96.94,
         "market_yield": 5.88,
         "spread_bps": 119,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/broadcom_incdl-notes_202424-31-Bond-2031-us11135fby60",
-        "quote_status": "價格 97.04 · BMN · 2026-11-27",
+        "quote_status": "價格 96.94 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4719,7 +4728,7 @@
             "date": "2026-11-27",
             "ytm": 5.88,
             "spread_bps": 119,
-            "price": 97.04
+            "price": 96.94
           }
         ],
         "terms_status": "verified",
@@ -4733,13 +4742,13 @@
         "currency": "USD",
         "identifier": "67066GAR5",
         "isin": "US67066GAR56",
-        "market_price": 95.93,
+        "market_price": 95.83,
         "market_yield": 5.52,
         "spread_bps": 83,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/nvidia_corpdl-notes_202626-31-Bond-2031-us67066gar56",
-        "quote_status": "價格 95.93 · BMN · 2026-11-27",
+        "quote_status": "價格 95.83 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4751,7 +4760,7 @@
             "date": "2026-11-27",
             "ytm": 5.52,
             "spread_bps": 83,
-            "price": 95.93
+            "price": 95.83
           }
         ],
         "terms_status": "verified",
@@ -4765,13 +4774,13 @@
         "currency": "USD",
         "identifier": "30303MAF9",
         "isin": "US30303MAF95",
-        "market_price": 96.32,
+        "market_price": 96.19,
         "market_yield": 5.51,
         "spread_bps": 82,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/meta_platforms_incdl-notes_202626-31-Bond-2031-us30303maf95",
-        "quote_status": "價格 96.32 · BMN · 2026-11-27",
+        "quote_status": "價格 96.19 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4783,7 +4792,7 @@
             "date": "2026-11-27",
             "ytm": 5.51,
             "spread_bps": 82,
-            "price": 96.32
+            "price": 96.19
           }
         ],
         "terms_status": "verified",
@@ -4797,13 +4806,13 @@
         "currency": "USD",
         "identifier": "02079KCQ8",
         "isin": "US02079KCQ85",
-        "market_price": 98.19,
+        "market_price": 98.14,
         "market_yield": 5.28,
         "spread_bps": 59,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/alphabet_incdl-notes_202626-31-Bond-2031-us02079kcq85",
-        "quote_status": "價格 98.19 · BMN · 2026-11-27",
+        "quote_status": "價格 98.14 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4815,7 +4824,7 @@
             "date": "2026-11-27",
             "ytm": 5.28,
             "spread_bps": 59,
-            "price": 98.19
+            "price": 98.14
           }
         ],
         "terms_status": "verified",
@@ -4829,13 +4838,13 @@
         "currency": "USD",
         "identifier": "594918DB7",
         "isin": "US594918DB72",
-        "market_price": 100.47,
+        "market_price": 100.49,
         "market_yield": 5.05,
         "spread_bps": 36,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/microsoft_corpdl-notes_202626-31-Bond-2031-us594918db72",
-        "quote_status": "價格 100.47 · BMN · 2026-11-27",
+        "quote_status": "價格 100.49 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4847,7 +4856,7 @@
             "date": "2026-11-27",
             "ytm": 5.05,
             "spread_bps": 36,
-            "price": 100.47
+            "price": 100.49
           }
         ],
         "terms_status": "verified",
@@ -4861,13 +4870,13 @@
         "currency": "USD",
         "identifier": "023135EC6",
         "isin": "US023135EC69",
-        "market_price": 97.7,
+        "market_price": 97.6,
         "market_yield": 5.34,
         "spread_bps": 65,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
-        "quote_status": "價格 97.70 · BMN · 2026-11-27",
+        "quote_status": "價格 97.60 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4879,7 +4888,7 @@
             "date": "2026-11-27",
             "ytm": 5.34,
             "spread_bps": 65,
-            "price": 97.7
+            "price": 97.6
           }
         ],
         "terms_status": "verified",
@@ -4952,7 +4961,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-27T14:03:50Z",
+    "validated_at": "2026-11-27T19:31:17Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5000,84 +5009,84 @@
     "as_of": "2026-11-27",
     "sox": {
       "ticker": "^SOX",
-      "price": 8774.86,
-      "d1": -0.65,
-      "w1": -9.1,
-      "ytd": 19.1,
-      "as_of": "2026-11-25",
+      "price": 9186.71,
+      "d1": 4.69,
+      "w1": -2.47,
+      "ytd": 24.69,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close"
     },
     "etfs": [
       {
         "ticker": "SMH",
-        "price": 422.46,
-        "d1": -1.01,
-        "w1": -8.07,
-        "ytd": 13.17,
-        "as_of": "2026-11-25",
-        "source": "Yahoo Finance daily close"
-      },
-      {
-        "ticker": "SOXQ",
-        "price": 69.07,
-        "d1": -0.7,
-        "w1": -9.09,
-        "ytd": 19.44,
-        "as_of": "2026-11-25",
-        "source": "Yahoo Finance daily close"
-      },
-      {
-        "ticker": "SOXX",
-        "price": 127.98,
-        "d1": -0.5,
-        "w1": -9.78,
-        "ytd": 22.61,
-        "as_of": "2026-11-25",
-        "source": "Yahoo Finance daily close"
-      },
-      {
-        "ticker": "SPY",
-        "price": 716.7,
-        "d1": -0.29,
-        "w1": -1.85,
-        "ytd": 5.73,
-        "as_of": "2026-11-25",
-        "source": "Yahoo Finance daily close"
-      },
-      {
-        "ticker": "QQQ",
-        "price": 633.93,
-        "d1": -0.65,
-        "w1": -3.88,
-        "ytd": 3.75,
-        "as_of": "2026-11-25",
-        "source": "Yahoo Finance daily close"
-      },
-      {
-        "ticker": "0050.TW",
-        "price": 92.4,
-        "d1": -0.48,
-        "w1": 9.41,
-        "ytd": 40.81,
+        "price": 440.06,
+        "d1": 4.17,
+        "w1": -1.66,
+        "ytd": 17.88,
         "as_of": "2026-11-27",
         "source": "Yahoo Finance daily close"
       },
       {
+        "ticker": "SOXQ",
+        "price": 72.41,
+        "d1": 4.84,
+        "w1": -2.33,
+        "ytd": 25.21,
+        "as_of": "2026-11-27",
+        "source": "Yahoo Finance daily close"
+      },
+      {
+        "ticker": "SOXX",
+        "price": 134.07,
+        "d1": 4.76,
+        "w1": -2.81,
+        "ytd": 28.44,
+        "as_of": "2026-11-27",
+        "source": "Yahoo Finance daily close"
+      },
+      {
+        "ticker": "SPY",
+        "price": 728.32,
+        "d1": 1.62,
+        "w1": 1.74,
+        "ytd": 7.44,
+        "as_of": "2026-11-27",
+        "source": "Yahoo Finance daily close"
+      },
+      {
+        "ticker": "QQQ",
+        "price": 650.99,
+        "d1": 2.69,
+        "w1": 0.92,
+        "ytd": 6.54,
+        "as_of": "2026-11-27",
+        "source": "Yahoo Finance daily close"
+      },
+      {
+        "ticker": "0050.TW",
+        "price": 92.85,
+        "d1": 2.82,
+        "w1": 2.94,
+        "ytd": 41.5,
+        "as_of": "2026-11-26",
+        "source": "Yahoo Finance daily close"
+      },
+      {
         "ticker": "TLT",
-        "price": 82.24,
-        "d1": 0.92,
-        "w1": 2.52,
-        "ytd": -1.8,
-        "as_of": "2026-11-25",
+        "price": 81.27,
+        "d1": -1.18,
+        "w1": 1.14,
+        "ytd": -2.95,
+        "as_of": "2026-11-27",
         "source": "Yahoo Finance daily close"
       },
       {
         "ticker": "GLD",
-        "price": 327.45,
-        "d1": 0.61,
-        "w1": -4.03,
-        "ytd": -17.78,
-        "as_of": "2026-11-25",
+        "price": 334.4,
+        "d1": 2.12,
+        "w1": -0.23,
+        "ytd": -16.04,
+        "as_of": "2026-11-27",
         "source": "Yahoo Finance daily close"
       }
     ],
@@ -5347,15 +5356,15 @@
       "date": "2026-11",
       "total_assets_billions": 6741.45,
       "tga_billions": 916.61,
-      "rrp_billions": 0.3,
-      "net_liquidity_billions": 5824.54,
-      "net_liquidity_trillions": 5.825,
-      "mom_change_billions": 83.01,
-      "mom_change_pct": 1.45,
+      "rrp_billions": 0.35,
+      "net_liquidity_billions": 5824.49,
+      "net_liquidity_trillions": 5.824,
+      "mom_change_billions": 82.96,
+      "mom_change_pct": 1.44,
       "regime": "流動性擴張注入中 (資金面偏多)",
       "regime_key": "expanding",
       "color": "emerald",
-      "desc": "Fed 總資產維持在 $6.74 兆美元，近期受財政支出挹注，淨流動性單月回升 +$83 億美元 (+1.45%)，為美股與風險資產提供流動性支撐。"
+      "desc": "Fed 總資產維持在 $6.74 兆美元，近期受財政支出挹注，淨流動性單月回升 +$83 億美元 (+1.44%)，為美股與風險資產提供流動性支撐。"
     },
     "history": [
       {
@@ -5546,9 +5555,9 @@
         "date": "2026-11",
         "total_assets_billions": 6741.45,
         "tga_billions": 916.61,
-        "rrp_billions": 0.3,
-        "net_liquidity_billions": 5824.54,
-        "net_liquidity_trillions": 5.825
+        "rrp_billions": 0.35,
+        "net_liquidity_billions": 5824.49,
+        "net_liquidity_trillions": 5.824
       }
     ],
     "source": "Federal Reserve (FRED WALCL, WTREGEN, RRPONTSYD)",
@@ -5769,21 +5778,21 @@
       "prob_cut": 0.0,
       "prob_hold": 26.0,
       "prob_hike": 74.0,
-      "futures_price": 95.94,
+      "futures_price": 95.945,
       "status_desc": "期貨定價顯示下次 FOMC 按兵不動 (Hold) 機率達 26.0%，降息機率 0.0%"
     },
     "terminal_rate": {
       "meeting": "2027-06",
       "label": "2027-06 FOMC",
-      "rate": 4.56,
-      "status_desc": "市場定價終端利率約 4.56%，反映長期中性利率預期抬升 (Higher for Longer)"
+      "rate": 4.57,
+      "status_desc": "市場定價終端利率約 4.57%，反映長期中性利率預期抬升 (Higher for Longer)"
     },
     "meetings": [
       {
         "meeting": "2026-12",
         "label": "2026-12 FOMC",
         "ticker": "ZQZ26.CBT",
-        "price": 95.94,
+        "price": 95.945,
         "implied_rate": 4.06,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
@@ -5819,8 +5828,8 @@
         "meeting": "2027-06",
         "label": "2027-06 FOMC",
         "ticker": "ZQM27.CBT",
-        "price": 95.445,
-        "implied_rate": 4.56,
+        "price": 95.435,
+        "implied_rate": 4.57,
         "target_exp": "4.00% - 4.25%",
         "stance": "偏緊或升息定價",
         "prob_cut": 0.0,
@@ -5879,10 +5888,10 @@
         4.06,
         4.14,
         4.36,
-        4.56
+        4.57
       ]
     },
-    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 26.0%，降息機率 0.0%；市場預期終端利率約 4.56%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
+    "desc": "聯邦基金目標利率現維持於 3.75% ~ 4.00%（有效利率 3.88%）。依據 CME 30天聯邦基金期貨定價，下次 FOMC 會議按兵不動機率達 26.0%，降息機率 0.0%；市場預期終端利率約 4.57%，反映市場定價 Higher for Longer 與長期中性利率抬升架構。",
     "source": "FRED (DFEDTARU, DFEDTARL, FEDFUNDS) & CME 30-Day Fed Funds Futures (Yahoo Finance)",
     "source_url": "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
     "_quality_metadata": {
@@ -5893,76 +5902,75 @@
   },
   "fear_and_greed": {
     "latest": {
-      "score": 39.2,
+      "score": 44.0,
       "rating": "恐慌",
       "rating_key": "fear",
       "color": "amber",
-      "as_of": "2026-11-24",
-      "previous_1d": 43.4,
-      "previous_1w": 47.1,
-      "previous_1m": 58.8,
-      "previous_1y": 72.7,
-      "desc": "恐慌與貪婪綜合指數最新得分為 39.2 分，處於「恐慌」區間。相較一週前 (47.1 分) 與一個月前 (58.8 分)，近期受 VIX 恐慌指標飆升至 28.29 及美股回測 125 日線影響，市場避險情緒顯著升溫；惟垃圾債信用利差維持在 3.72% 正常水位，長線均線多頭結構未破，未見信貸市場流動性危機。"
+      "as_of": "2026-11-26",
+      "previous_1d": 38.9,
+      "previous_1w": 43.5,
+      "previous_1m": 60.3,
+      "previous_1y": 70.7,
+      "desc": "恐慌與貪婪綜合指數最新得分為 44.0 分，處於「恐慌」區間。相較一週前 (43.5 分) 與一個月前 (60.3 分)，近期受 VIX 恐慌指標飆升至 23.81 及美股回測 125 日線影響，市場避險情緒顯著升溫；惟垃圾債信用利差維持在 3.77% 正常水位，長線均線多頭結構未破，未見信貸市場流動性危機。"
     },
     "components": [
       {
         "name": "市場動能 (Market Momentum)",
         "metric": "S&P 500 vs 125-DMA",
-        "score": 24.0,
-        "rating": "極度恐慌",
-        "color": "rose",
-        "detail": "距 125日線乖離 -5.2%",
+        "score": 31.7,
+        "rating": "恐慌",
+        "color": "amber",
+        "detail": "距 125日線乖離 -3.7%",
         "desc": "標普 500 現價距 125 日移動平均線之乖離度，反映大盤中短期動量趨勢。"
       },
       {
         "name": "市場波動率 (Market Volatility)",
-        "metric": "CBOE VIX: 28.29",
-        "score": 43.0,
-        "rating": "恐慌",
-        "color": "amber",
-        "detail": "現值 28.29 (50日線: 19.02)",
+        "metric": "CBOE VIX: 23.81",
+        "score": 58.7,
+        "rating": "貪婪",
+        "color": "emerald",
+        "detail": "現值 23.81 (50日線: 19.19)",
         "desc": "VIX 恐慌指標高於 30 顯示市場充斥避險買盤，低於 15 則象徵自滿與貪婪。"
       },
       {
         "name": "避險資產需求 (Safe Haven Demand)",
         "metric": "股票 vs 美債 TLT 20日超額報酬",
-        "score": 13.1,
-        "rating": "極度恐慌",
-        "color": "rose",
-        "detail": "20日股債相對超額: -9.2%",
+        "score": 27.5,
+        "rating": "恐慌",
+        "color": "amber",
+        "detail": "20日股債相對超額: -5.6%",
         "desc": "以標普 500 相對長天期美債 TLT 20日報酬衡量資金撤出風險資產轉向公債之意願。"
       },
       {
         "name": "垃圾債信用利差 (Junk Bond Demand)",
-        "metric": "High Yield OAS: 3.72%",
-        "score": 65.9,
+        "metric": "High Yield OAS: 3.77%",
+        "score": 64.1,
         "rating": "貪婪",
         "color": "emerald",
-        "detail": "美林高收益債信用利差 3.72%",
+        "detail": "美林高收益債信用利差 3.77%",
         "desc": "垃圾債與無風險公債之利差，利差緊縮反映追逐高殖利率，利差放寬反映信貸風險避險。"
       },
       {
         "name": "選擇權偏度與尾端避險 (Option Skew)",
-        "metric": "CBOE SKEW: 142.1",
-        "score": 22.7,
+        "metric": "CBOE SKEW: 145.9",
+        "score": 11.7,
         "rating": "極度恐慌",
         "color": "rose",
-        "detail": "SKEW 指數 142.1 (尾端黑天鵝防禦買盤)",
+        "detail": "SKEW 指數 145.9 (尾端黑天鵝防禦買盤)",
         "desc": "深度價外賣權隱含波動率，指數超過 140 顯示機構投資人正積極防範極端尾端風險。"
       },
       {
         "name": "均線趨勢強度 (Stock Price Trend)",
         "metric": "50-DMA vs 200-DMA",
-        "score": 70.4,
+        "score": 69.7,
         "rating": "貪婪",
         "color": "emerald",
-        "detail": "50日線距200日年線: +3.4%",
+        "detail": "50日線距200日年線: +3.3%",
         "desc": "黃金交叉與死亡交叉多空結構，判斷市場中長線大底趨勢是否穩固。"
       }
     ],
     "history_30d": {
       "labels": [
-        "10/15",
         "10/16",
         "10/19",
         "10/20",
@@ -5991,10 +5999,10 @@
         "11/20",
         "11/23",
         "11/24",
-        "11/25"
+        "11/25",
+        "11/27"
       ],
       "scores": [
-        64.6,
         59.3,
         60.9,
         61.3,
@@ -6023,7 +6031,8 @@
         31.3,
         44.3,
         43.4,
-        39.2
+        38.9,
+        44.0
       ]
     },
     "history_24m": {
@@ -6077,7 +6086,7 @@
         70.2,
         69.8,
         51.6,
-        39.2
+        44.0
       ]
     },
     "source": "FRED (BAMLH0A0HYM2) & Yahoo Finance (^GSPC, ^VIX, TLT, ^SKEW)",
@@ -6846,82 +6855,82 @@
     "matrix_returns_24m": [
       [
         1.0,
-        0.82,
-        0.82,
-        -0.02,
-        0.01,
+        0.8,
+        0.81,
+        -0.03,
+        -0.0,
         -0.34,
         0.25,
-        -0.21
-      ],
-      [
-        0.82,
-        1.0,
-        0.94,
-        -0.07,
-        -0.19,
-        -0.51,
-        0.19,
-        -0.14
-      ],
-      [
-        0.82,
-        0.94,
-        1.0,
-        0.14,
-        -0.09,
-        -0.55,
-        0.12,
-        -0.13
-      ],
-      [
-        -0.02,
-        -0.07,
-        0.14,
-        1.0,
-        0.33,
-        -0.01,
-        -0.34,
-        0.41
-      ],
-      [
-        0.01,
-        -0.19,
-        -0.09,
-        0.33,
-        1.0,
-        0.36,
-        -0.56,
-        0.15
-      ],
-      [
-        -0.34,
-        -0.51,
-        -0.55,
-        -0.01,
-        0.36,
-        1.0,
-        -0.19,
-        0.2
-      ],
-      [
-        0.25,
-        0.19,
-        0.12,
-        -0.34,
-        -0.56,
-        -0.19,
-        1.0,
         -0.19
       ],
       [
-        -0.21,
-        -0.14,
-        -0.13,
-        0.41,
-        0.15,
-        0.2,
+        0.8,
+        1.0,
+        0.94,
+        -0.08,
+        -0.18,
+        -0.51,
+        0.18,
+        -0.16
+      ],
+      [
+        0.81,
+        0.94,
+        1.0,
+        0.13,
+        -0.08,
+        -0.55,
+        0.11,
+        -0.15
+      ],
+      [
+        -0.03,
+        -0.08,
+        0.13,
+        1.0,
+        0.33,
+        -0.0,
+        -0.35,
+        0.4
+      ],
+      [
+        -0.0,
+        -0.18,
+        -0.08,
+        0.33,
+        1.0,
+        0.36,
+        -0.56,
+        0.14
+      ],
+      [
+        -0.34,
+        -0.51,
+        -0.55,
+        -0.0,
+        0.36,
+        1.0,
+        -0.2,
+        0.19
+      ],
+      [
+        0.25,
+        0.18,
+        0.11,
+        -0.35,
+        -0.56,
+        -0.2,
+        1.0,
+        -0.18
+      ],
+      [
         -0.19,
+        -0.16,
+        -0.15,
+        0.4,
+        0.14,
+        0.19,
+        -0.18,
         1.0
       ]
     ],
@@ -6940,8 +6949,8 @@
         0.94,
         1.0,
         0.99,
-        0.48,
-        -0.34,
+        0.49,
+        -0.33,
         0.02,
         0.7,
         0.53
@@ -6950,41 +6959,41 @@
         0.92,
         0.99,
         1.0,
-        0.44,
-        -0.36,
-        -0.05,
+        0.45,
+        -0.35,
+        -0.04,
         0.7,
         0.49
       ],
       [
         0.62,
-        0.48,
-        0.44,
+        0.49,
+        0.45,
         1.0,
-        0.33,
+        0.34,
         0.38,
         -0.08,
-        0.64
+        0.63
       ],
       [
         -0.17,
-        -0.34,
-        -0.36,
-        0.33,
+        -0.33,
+        -0.35,
+        0.34,
         1.0,
         0.71,
         -0.67,
-        0.11
+        0.1
       ],
       [
         0.23,
         0.02,
-        -0.05,
+        -0.04,
         0.38,
         0.71,
         1.0,
         -0.15,
-        0.39
+        0.38
       ],
       [
         0.63,
@@ -7000,9 +7009,9 @@
         0.66,
         0.53,
         0.49,
-        0.64,
-        0.11,
-        0.39,
+        0.63,
+        0.1,
+        0.38,
         0.31,
         1.0
       ]
@@ -7010,164 +7019,164 @@
     "matrix_returns_12m": [
       [
         1.0,
-        0.88,
         0.86,
-        -0.14,
-        -0.49,
+        0.84,
+        -0.16,
+        -0.5,
         -0.76,
         0.5,
-        -0.32
+        -0.3
       ],
       [
-        0.88,
+        0.86,
         1.0,
         0.95,
-        -0.06,
-        -0.64,
-        -0.7,
-        0.37,
+        -0.09,
+        -0.63,
+        -0.71,
+        0.36,
+        -0.27
+      ],
+      [
+        0.84,
+        0.95,
+        1.0,
+        0.12,
+        -0.47,
+        -0.72,
+        0.25,
         -0.23
       ],
       [
-        0.86,
-        0.95,
+        -0.16,
+        -0.09,
+        0.12,
         1.0,
-        0.14,
-        -0.48,
-        -0.71,
-        0.26,
-        -0.2
+        0.08,
+        0.17,
+        -0.27,
+        0.38
       ],
       [
-        -0.14,
-        -0.06,
-        0.14,
-        1.0,
-        0.07,
-        0.16,
-        -0.26,
-        0.4
-      ],
-      [
-        -0.49,
-        -0.64,
-        -0.48,
-        0.07,
+        -0.5,
+        -0.63,
+        -0.47,
+        0.08,
         1.0,
         0.47,
         -0.68,
-        -0.09
+        -0.1
       ],
       [
         -0.76,
-        -0.7,
         -0.71,
-        0.16,
+        -0.72,
+        0.17,
         0.47,
         1.0,
         -0.68,
-        0.42
+        0.41
       ],
       [
         0.5,
-        0.37,
-        0.26,
-        -0.26,
+        0.36,
+        0.25,
+        -0.27,
         -0.68,
         -0.68,
         1.0,
-        -0.06
+        -0.05
       ],
       [
-        -0.32,
+        -0.3,
+        -0.27,
         -0.23,
-        -0.2,
-        0.4,
-        -0.09,
-        0.42,
-        -0.06,
+        0.38,
+        -0.1,
+        0.41,
+        -0.05,
         1.0
       ]
     ],
     "matrix_levels_12m": [
       [
         1.0,
-        0.95,
-        0.9,
-        0.72,
-        0.5,
-        0.34,
+        0.94,
+        0.91,
+        0.71,
+        0.49,
+        0.33,
         -0.44,
         0.39
       ],
       [
-        0.95,
+        0.94,
         1.0,
         0.96,
-        0.7,
-        0.38,
-        0.24,
-        -0.47,
+        0.72,
+        0.43,
+        0.29,
+        -0.51,
         0.26
       ],
       [
-        0.9,
+        0.91,
         0.96,
         1.0,
-        0.59,
-        0.24,
-        0.04,
-        -0.35,
+        0.62,
+        0.29,
+        0.1,
+        -0.4,
         0.21
       ],
       [
+        0.71,
         0.72,
-        0.7,
-        0.59,
+        0.62,
         1.0,
-        0.74,
-        0.65,
+        0.75,
+        0.66,
         -0.72,
-        0.5
-      ],
-      [
-        0.5,
-        0.38,
-        0.24,
-        0.74,
-        1.0,
-        0.86,
-        -0.86,
-        0.36
-      ],
-      [
-        0.34,
-        0.24,
-        0.04,
-        0.65,
-        0.86,
-        1.0,
-        -0.8,
         0.49
       ],
       [
+        0.49,
+        0.43,
+        0.29,
+        0.75,
+        1.0,
+        0.87,
+        -0.86,
+        0.34
+      ],
+      [
+        0.33,
+        0.29,
+        0.1,
+        0.66,
+        0.87,
+        1.0,
+        -0.8,
+        0.48
+      ],
+      [
         -0.44,
-        -0.47,
-        -0.35,
+        -0.51,
+        -0.4,
         -0.72,
         -0.86,
         -0.8,
         1.0,
-        -0.22
+        -0.2
       ],
       [
         0.39,
         0.26,
         0.21,
-        0.5,
-        0.36,
         0.49,
-        -0.22,
+        0.34,
+        0.48,
+        -0.2,
         1.0
       ]
     ],
@@ -7196,7 +7205,7 @@
         46128.47,
         47940.13,
         45211.83,
-        39308.08
+        39151.81
       ],
       "sp500": [
         5881.63,
@@ -7222,7 +7231,7 @@
         7686.14,
         7651.54,
         7580.07,
-        7182.78
+        7297.49
       ],
       "nasdaq": [
         19310.79,
@@ -7248,7 +7257,7 @@
         26370.89,
         26861.06,
         25437.0,
-        23585.8
+        24129.5
       ],
       "us10y": [
         4.57,
@@ -7274,7 +7283,7 @@
         4.76,
         5.29,
         4.93,
-        4.9
+        4.94
       ],
       "dxy": [
         108.49,
@@ -7300,7 +7309,7 @@
         99.43,
         101.45,
         101.88,
-        103.91
+        104.05
       ],
       "usdtwd": [
         32.76,
@@ -7326,7 +7335,7 @@
         31.63,
         31.85,
         32.57,
-        32.95
+        32.96
       ],
       "gold": [
         2641.0,
@@ -7352,7 +7361,7 @@
         4481.5,
         4186.7,
         3898.9,
-        3673.0
+        3668.5
       ],
       "wti": [
         71.72,
@@ -7378,7 +7387,7 @@
         85.76,
         90.42,
         104.12,
-        84.33
+        82.99
       ]
     },
     "source": "Yahoo Finance (日線月結重採樣)",
