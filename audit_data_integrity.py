@@ -138,6 +138,23 @@ for issue in bonds.get("issues", []):
     if ytm is not None and (not isinstance(ytm, (int, float)) or ytm <= 0 or ytm > 50):
         errors.append(f"corporate bond YTM out of sanity range: {issue.get('issuer')}={ytm}")
 
+for market_key in ("tw_heatmap", "sp500_heatmap"):
+    for row in macro.get(market_key, []):
+        p = row.get("price")
+        d1 = row.get("d1")
+        if not isinstance(p, (int, float)) or p <= 0:
+            errors.append(f"{market_key}.{row.get('ticker')} invalid price: {p}")
+        if not isinstance(d1, (int, float)) or abs(d1) > 35:
+            errors.append(f"{market_key}.{row.get('ticker')} extreme d1 return: {d1}")
+
+tw_taiex_close = tw.get("indices", {}).get("twse", {}).get("taiex", {}).get("close")
+macro_taiex_asof = str(taiex.get("as_of", "")).replace("-", "")
+if (isinstance(tw_taiex_close, (int, float)) and tw_taiex_close > 0 and
+        isinstance(taiex.get("price"), (int, float)) and macro_taiex_asof == str(tw.get("market_date", ""))):
+    diff_pct = abs(taiex["price"] - tw_taiex_close) / tw_taiex_close * 100
+    if diff_pct > 0.5:
+        errors.append(f"cross-bundle TAIEX mismatch on {macro_taiex_asof}: {taiex['price']} vs {tw_taiex_close}")
+
 if errors:
     print("DATA INTEGRITY AUDIT FAILED")
     for error in errors:

@@ -832,6 +832,7 @@ def fetch_us_market_data():
 
     # 鉅亨網 (cnyes) 指數與匯率快照備援補齊
     cnyes_snap_map = {
+        "sp500": "GI:INX:INDEX",
         "nasdaq": "GI:IXIC:INDEX",
         "taiex": "TWS:TSE01:INDEX",
         "dxy": "GI:DXY:INDEX",
