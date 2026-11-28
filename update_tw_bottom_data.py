@@ -1073,6 +1073,87 @@ def build_backtest_data() -> Dict[str, Any]:
     }
 
 
+def fetch_taifex_options_real(underlying_close: float) -> Dict[str, Any]:
+    """從期交所 OpenAPI 抓取真實 TXO 選擇權未平倉與 Put/Call Ratio 計算 Max Pain；失敗時回傳 {} 絕不造假。"""
+    try:
+        import urllib.request
+        pcr_req = urllib.request.Request("https://openapi.taifex.com.tw/v1/PutCallRatio", headers=HEADERS)
+        with urllib.request.urlopen(pcr_req, timeout=10) as r:
+            pcr_raw = r.read().decode("utf-8-sig").strip()
+        pcr_rows = json.loads(pcr_raw) if pcr_raw else []
+        opt_req = urllib.request.Request("https://openapi.taifex.com.tw/v1/DailyMarketReportOpt", headers=HEADERS)
+        with urllib.request.urlopen(opt_req, timeout=15) as r:
+            opt_raw = r.read().decode("utf-8-sig").strip()
+        opt_rows = json.loads(opt_raw) if opt_raw else []
+        txo = [row for row in opt_rows if row.get("Contract") == "TXO" and str(row.get("OpenInterest", "")).isdigit()]
+        if not txo:
+            return {}
+        by_month: Dict[str, Dict[int, Dict[str, int]]] = {}
+        for row in txo:
+            cm = str(row.get("ContractMonth(Week)", "")).strip()
+            try:
+                strike = int(float(row.get("StrikePrice", 0)))
+                oi = int(row.get("OpenInterest", 0))
+            except (ValueError, TypeError):
+                continue
+            cp = str(row.get("CallPut", "")).strip()
+            if not cm or strike <= 0:
+                continue
+            bucket = by_month.setdefault(cm, {}).setdefault(strike, {"call_oi": 0, "put_oi": 0})
+            if "買" in cp or cp.upper() == "CALL":
+                bucket["call_oi"] += oi
+            elif "賣" in cp or cp.upper() == "PUT":
+                bucket["put_oi"] += oi
+        months = sorted(by_month.keys())
+        if not months:
+            return {}
+
+        def _build_contract(cm_key: str) -> Dict[str, Any]:
+            strikes = [{"strike": k, **v} for k, v in sorted(by_month[cm_key].items())]
+            best_k, min_loss = strikes[0]["strike"], float("inf")
+            for target in strikes:
+                k = target["strike"]
+                loss = sum((max(0, k - s["strike"]) * s["call_oi"] + max(0, s["strike"] - k) * s["put_oi"]) * 50 / 1e6 for s in strikes)
+                target["total_payout_million"] = round(loss, 1)
+                if loss < min_loss:
+                    min_loss, best_k = loss, k
+            tot_c = sum(s["call_oi"] for s in strikes)
+            tot_p = sum(s["put_oi"] for s in strikes)
+            pcr = round(tot_p / tot_c, 3) if tot_c > 0 else 1.0
+            max_c = max(strikes, key=lambda s: s["call_oi"])
+            max_p = max(strikes, key=lambda s: s["put_oi"])
+            return {
+                "contract_name": f"TXO {cm_key} (期交所真實 OI)",
+                "max_pain_strike": best_k,
+                "pain_gap": round(best_k - underlying_close, 2),
+                "pain_gap_pct": round((best_k - underlying_close) / underlying_close * 100, 2) if underlying_close else 0.0,
+                "pcr_ratio": pcr,
+                "pcr_stage": "偏多支撐" if pcr >= 1.0 else "偏空警戒",
+                "total_call_oi": tot_c,
+                "total_put_oi": tot_p,
+                "max_call_oi_strike": max_c["strike"],
+                "max_put_oi_strike": max_p["strike"],
+                "estimated_box_low": max_p["strike"],
+                "estimated_box_high": max_c["strike"],
+                "strikes_data": strikes,
+            }
+
+        weekly_cm = next((m for m in months if "W" in m), months[0])
+        monthly_cm = next((m for m in months if "W" not in m), months[-1])
+        latest_pcr = pcr_rows[0] if pcr_rows else {}
+        return {
+            "source": "TAIFEX Official OpenAPI",
+            "date": txo[0].get("Date") or latest_pcr.get("Date"),
+            "underlying_close": round(underlying_close, 2),
+            "official_pcr": latest_pcr,
+            "weekly": _build_contract(weekly_cm),
+            "monthly": _build_contract(monthly_cm),
+        }
+    except Exception as exc:
+        logging.warning(f"TAIFEX 選擇權 OpenAPI 無法取得，維持留白: {exc}")
+        return {}
+
+
 def build_options_max_pain(underlying_close: float = 22800.0) -> Dict[str, Any]:
     """
     計算臺指選擇權 (TXO) 近週與近月最大痛點 (C-07)。
@@ -1457,7 +1538,7 @@ def update_tw_bottom_dataset(output_file: Optional[str] = None, prev_file: Optio
         "today_conclusion": today_conclusion,
         # 回測統計與 TXO OI 尚未接上可重現的原始資料集；未驗證前不發布。
         "backtest_data": {},
-        "options_max_pain": {},
+        "options_max_pain": fetch_taifex_options_real(twse_indices.get("taiex", {}).get("close", 0.0)),
         "state_owned_banks": state_banks,
         "trust_targeting": trust_targeting,
         "_quality_metadata": {

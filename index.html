@@ -5592,6 +5592,7 @@
           <h2 class="font-bold text-base text-white">債 → 股傳導對照 (S&amp;P 500 / Nasdaq / 費半 / VIX / MOVE)</h2>
           <div id="bw-transmission-kpis" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3"></div>
           <div id="bw-transmission-corr" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3"></div>
+          <div id="bw-transmission-ratios" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
           <div class="h-64 bg-slate-950/60 rounded-xl p-3 border border-slate-800/80"><canvas id="bwTransmissionChart"></canvas></div>
         </div>
 
@@ -5622,6 +5623,20 @@
             <span class="text-[11px] px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">規則引擎自動初判（僅供參考）</span>
           </div>
           <div id="bw-news-grid" class="grid grid-cols-1 md:grid-cols-2 gap-3"></div>
+        </div>
+      </div>
+
+      <!-- AI Bond Single-Issue History Modal -->
+      <div id="bw-bond-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-5 space-y-4 shadow-2xl">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h3 id="bw-modal-title" class="text-base font-bold text-white">單券歷史走勢</h3>
+              <p id="bw-modal-sub" class="text-xs text-slate-400 mt-0.5">—</p>
+            </div>
+            <button id="bw-modal-close" type="button" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400"><i data-lucide="x" class="w-4 h-4"></i></button>
+          </div>
+          <div class="h-64"><canvas id="bwBondHistChart"></canvas></div>
         </div>
       </div>
     </section>
@@ -9409,6 +9424,10 @@
         if (!res.ok) throw new Error('Failed to load tw_bottom_data.json');
         TW_BOTTOM_DATA = await res.json();
         renderTaiwanTab();
+        if (TW_BOTTOM_DATA?.options_max_pain?.source === 'TAIFEX Official OpenAPI') {
+          document.getElementById('txo-maxpain-section')?.classList.remove('hidden');
+          renderOptionsMaxPain();
+        }
         if (state.activeTab === 'trader') renderOptionsMaxPain();
         if (manual) showToast('已成功更新台股與 AI 監控最新數據！');
       } catch (err) {
@@ -16584,9 +16603,17 @@
       const ycCanvas = document.getElementById('bwYieldCurveChart');
       if (ycCanvas && yc.points?.length) {
         if (charts.bwYieldCurve) charts.bwYieldCurve.destroy();
+        const cmp = yc.compare || {};
+        const ds = [{ label: '今日曲線 (%)', data: yc.points.map(p => p.yield), borderColor: '#fbbf24', backgroundColor: 'rgba(251,191,36,0.12)', fill: true, tension: 0.3, pointRadius: 4 }];
+        if (Array.isArray(cmp.d30_ago) && cmp.d30_ago.length === yc.points.length) {
+          ds.push({ label: '30天前 (%)', data: cmp.d30_ago, borderColor: '#38bdf8', borderDash: [5, 4], tension: 0.3, pointRadius: 2.5 });
+        }
+        if (Array.isArray(cmp.d90_ago) && cmp.d90_ago.length === yc.points.length) {
+          ds.push({ label: '90天前 (%)', data: cmp.d90_ago, borderColor: '#94a3b8', borderDash: [2, 3], tension: 0.3, pointRadius: 2 });
+        }
         charts.bwYieldCurve = new Chart(ycCanvas.getContext('2d'), {
           type: 'line',
-          data: { labels: yc.points.map(p => p.tenor), datasets: [{ label: '當日殖利率曲線 (%)', data: yc.points.map(p => p.yield), borderColor: '#fbbf24', backgroundColor: 'rgba(251,191,36,0.12)', fill: true, tension: 0.3, pointRadius: 4 }] },
+          data: { labels: yc.points.map(p => p.tenor), datasets: ds },
           options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { x: { ticks: { color: '#94a3b8' }, grid: { color: 'rgba(148,163,184,0.1)' } }, y: { ticks: { color: '#94a3b8', callback: v => `${v}%` }, grid: { color: 'rgba(148,163,184,0.1)' } } } }
         });
       }
@@ -16660,9 +16687,9 @@
         const rows = (d.ai_bonds || []).filter(b => !onlyQuoted || Number.isFinite(b.market_yield));
         bBody.innerHTML = rows.map(b => {
           const hasQ = Number.isFinite(b.market_yield);
-          const issuerCell = b.source_url ? `<a href="${b.source_url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline font-semibold">${b.issuer}</a>` : `<span class="text-slate-300 font-semibold">${b.issuer}</span>`;
-          const statusCell = hasQ && b.quote_url ? `<a href="${b.quote_url}" target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:underline">${b.quote_source || '公開報價'}</a>` : `<span class="text-amber-400">${b.quote_status || '無公開報價'}</span>`;
-          return `<tr>
+          const issuerCell = b.source_url ? `<a href="${b.source_url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-sky-400 hover:underline font-semibold">${b.issuer}</a>` : `<span class="text-slate-300 font-semibold">${b.issuer}</span>`;
+          const statusCell = hasQ && b.quote_url ? `<a href="${b.quote_url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()" class="text-emerald-400 hover:underline">${b.quote_source || '公開報價'}</a>` : `<span class="text-amber-400">${b.quote_status || '無公開報價'}</span>`;
+          return `<tr data-bw-issuer="${b.issuer}" class="${hasQ ? 'cursor-pointer hover:bg-slate-800/50' : ''}">
             <td class="p-2.5">${issuerCell}</td>
             <td class="p-2.5 text-right tabular-nums text-slate-300">${b.maturity || '—'}</td>
             <td class="p-2.5 text-right tabular-nums text-slate-300">${Number.isFinite(b.coupon) ? b.coupon.toFixed(2) + '%' : '—'}</td>
@@ -16673,6 +16700,9 @@
             <td class="p-2.5 text-left">${statusCell}</td>
           </tr>`;
         }).join('');
+        bBody.querySelectorAll('tr[data-bw-issuer]').forEach(tr => {
+          tr.addEventListener('click', () => openBwBondHistoryModal(tr.dataset.bwIssuer));
+        });
       }
 
       // 6. Transmission
@@ -16697,6 +16727,17 @@
             <div class="text-[11px] text-slate-500">90D 基準：${c.corr_90d !== null ? c.corr_90d.toFixed(2) : '—'}</div>
           </div>`;
         }).join('');
+      }
+      const trRatios = document.getElementById('bw-transmission-ratios');
+      if (trRatios) {
+        trRatios.innerHTML = (tr.cross_ratios || []).map(r => `<div class="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3">
+          <div class="text-xs text-slate-400 font-medium">${r.name}</div>
+          <div class="flex items-baseline justify-between mt-1">
+            <span class="text-xl font-extrabold tabular-nums text-white">${r.latest}</span>
+            <span class="text-xs font-mono ${r.chg_30d_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'}">30日 ${r.chg_30d_pct >= 0 ? '+' : ''}${r.chg_30d_pct}%</span>
+          </div>
+          <div class="text-[11px] text-slate-500 mt-1">${r.desc}</div>
+        </div>`).join('');
       }
       const trCanvas = document.getElementById('bwTransmissionChart');
       if (trCanvas && tr.sp500?.labels?.length && tr.move?.data?.length) {
@@ -16754,6 +16795,30 @@
           </a>`;
         }).join('');
       }
+    }
+
+    function openBwBondHistoryModal(issuerName) {
+      const b = (BOND_WAR_ROOM_DATA?.ai_bonds || []).find(x => x.issuer === issuerName);
+      if (!b || !Number.isFinite(b.market_yield)) return;
+      const modal = document.getElementById('bw-bond-modal');
+      if (!modal) return;
+      document.getElementById('bw-modal-title').textContent = `${b.issuer} 美元公司債歷史追蹤`;
+      document.getElementById('bw-modal-sub').textContent = `到期 ${b.maturity || '—'} · 票息 ${b.coupon ?? '—'}% · 最新 YTM ${b.market_yield.toFixed(2)}%（${b.quote_date || '—'}）`;
+      modal.classList.remove('hidden');
+      const hist = (b.history && b.history.length) ? b.history : [{ date: b.quote_date || '最新', ytm: b.market_yield, spread_bps: b.spread_bps }];
+      const ctx = document.getElementById('bwBondHistChart').getContext('2d');
+      if (charts.bwBondHist) charts.bwBondHist.destroy();
+      charts.bwBondHist = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: hist.map(h => h.date),
+          datasets: [
+            { label: 'YTM (%)', data: hist.map(h => h.ytm), borderColor: '#fbbf24', yAxisID: 'y', tension: 0.2, pointRadius: 4 },
+            { label: '利差 (bps)', data: hist.map(h => h.spread_bps), borderColor: '#38bdf8', yAxisID: 'y1', tension: 0.2, pointRadius: 4 }
+          ]
+        },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#cbd5e1' } } }, scales: { x: { ticks: { color: '#94a3b8' }, grid: { display: false } }, y: { position: 'left', ticks: { color: '#fbbf24', callback: v => `${v}%` }, grid: { color: 'rgba(148,163,184,0.1)' } }, y1: { position: 'right', ticks: { color: '#38bdf8', callback: v => `${v} bps` }, grid: { drawOnChartArea: false } } } }
+      });
     }
 
     async function loadTechEarningsData() {
@@ -18057,6 +18122,10 @@
       if (bwRefreshBtn) bwRefreshBtn.addEventListener('click', () => loadBondWarRoom(true));
       const bwOnlyQuoted = document.getElementById('bw-only-quoted');
       if (bwOnlyQuoted) bwOnlyQuoted.addEventListener('change', () => renderBondWarRoom());
+      const bwModalClose = document.getElementById('bw-modal-close');
+      if (bwModalClose) bwModalClose.addEventListener('click', () => document.getElementById('bw-bond-modal')?.classList.add('hidden'));
+      const bwModal = document.getElementById('bw-bond-modal');
+      if (bwModal) bwModal.addEventListener('click', e => { if (e.target === bwModal) bwModal.classList.add('hidden'); });
       loadBondWarRoom(false);
       loadTechEarningsData();
       const hashTab = (window.location.hash || '').slice(1);

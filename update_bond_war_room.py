@@ -100,7 +100,7 @@ def _status_from_score(score: float) -> str:
 
 
 def fetch_equity_and_vol() -> dict:
-    """透過 yfinance 抓取 S&P 500、Nasdaq、費半、VIX 與 MOVE 近 90 個交易日序列。"""
+    """透過 yfinance 抓取 S&P 500、Nasdaq、費半、VIX、MOVE 與跨資產比率標的近 90 個交易日序列。"""
     specs = {
         "sp500": ("^GSPC", "S&P 500"),
         "nasdaq": ("^IXIC", "Nasdaq"),
@@ -108,6 +108,11 @@ def fetch_equity_and_vol() -> dict:
         "vix": ("^VIX", "VIX 股市波動"),
         "move": ("^MOVE", "MOVE 債市波動"),
         "spy": ("SPY", "SPY ETF"),
+        "hyg": ("HYG", "HYG 高收債 ETF"),
+        "ief": ("IEF", "IEF 7-10Y 美債"),
+        "tlt": ("TLT", "TLT 20Y+ 美債"),
+        "copper": ("HG=F", "紐約期銅"),
+        "gold": ("GC=F", "紐約期金"),
     }
     out = {}
     try:
@@ -191,13 +196,15 @@ def load_archive() -> dict:
     if os.path.exists(ARCHIVE_FILE):
         try:
             with open(ARCHIVE_FILE, encoding="utf-8") as f:
-                return json.load(f)
+                data = json.load(f)
+                data.setdefault("bond_history", {})
+                return data
         except Exception:
             pass
-    return {"weights": dict(DEFAULT_WEIGHTS), "records": [], "evolution_log": []}
+    return {"weights": dict(DEFAULT_WEIGHTS), "records": [], "evolution_log": [], "bond_history": {}}
 
 
-def calibrate_and_archive(archive: dict, today_record: dict, spy_d1: float | None, hy_oas_chg_1d_bps: float | None) -> dict:
+def calibrate_and_archive(archive: dict, today_record: dict, spy_d1: float | None, hy_oas_chg_1d_bps: float | None, bond_history: dict | None = None) -> dict:
     """每日判讀存檔不覆寫；若昨日紀錄尚未驗證，依今日實際 SPY 與 HY OAS 走勢檢驗並微調權重。"""
     weights = dict(archive.get("weights") or DEFAULT_WEIGHTS)
     records = list(archive.get("records") or [])
@@ -261,6 +268,7 @@ def calibrate_and_archive(archive: dict, today_record: dict, spy_d1: float | Non
         "weights": weights,
         "records": records[-180:],
         "evolution_log": evo_log[-60:],
+        "bond_history": bond_history if bond_history is not None else archive.get("bond_history", {}),
     }
     tmp = ARCHIVE_FILE + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
@@ -301,16 +309,23 @@ def main():
         v_30 = rows[-22][1] if len(rows) >= 22 else rows[0][1]
         return d_last, v_last, v_last - v_prev, v_last - v_30
 
-    # 1. Yield Curve
+    # 1. Yield Curve (with 30D ago & 90D ago overlay)
     curve_specs = [("3M", "DGS3MO"), ("2Y", "DGS2"), ("5Y", "DGS5"), ("10Y", "DGS10"), ("30Y", "DGS30")]
     curve_points = []
+    curve_30d_ago = []
+    curve_90d_ago = []
     for tenor, sid in curve_specs:
         d, v, d1, d30 = latest_and_30d(sid)
+        rows = obs.get(sid, [])
         if v is not None:
             curve_points.append({
                 "tenor": tenor, "series_id": sid, "yield": round(v, 2),
                 "chg_30d_bps": round(d30 * 100), "date": d,
             })
+            v30 = rows[-22][1] if len(rows) >= 22 else rows[0][1]
+            v90 = rows[-66][1] if len(rows) >= 66 else rows[0][1]
+            curve_30d_ago.append(round(v30, 2))
+            curve_90d_ago.append(round(v90, 2))
     d_2s10s, v_2s10s, _, d30_2s10s = latest_and_30d("T10Y2Y")
     dgs10_rows = obs.get("DGS10", [])[-90:]
     dgs2_map = dict(obs.get("DGS2", [])[-120:])
@@ -318,6 +333,12 @@ def main():
     yield_curve = {
         "as_of": max((p["date"] for p in curve_points), default=None),
         "points": curve_points,
+        "compare": {
+            "labels": [p["tenor"] for p in curve_points],
+            "today": [p["yield"] for p in curve_points],
+            "d30_ago": curve_30d_ago,
+            "d90_ago": curve_90d_ago,
+        },
         "spread_2s10s": round(v_2s10s, 2) if v_2s10s is not None else None,
         "spread_2s10s_bps": round(v_2s10s * 100) if v_2s10s is not None else None,
         "is_inverted": (v_2s10s < 0) if v_2s10s is not None else None,
@@ -470,14 +491,21 @@ def main():
     ust5 = next((p["yield"] for p in curve_points if p["tenor"] == "5Y"), None)
     ust7_approx = (next((p["yield"] for p in curve_points if p["tenor"] == "10Y"), None) + ust5) / 2 if ust5 else None
     ust10 = next((p["yield"] for p in curve_points if p["tenor"] == "10Y"), None)
+    bond_history = dict(archive.get("bond_history") or {})
     ai_bonds = []
     for spec in AI_BOND_SPECS:
         q = fetch_markets_insider_bond_quote(spec["isin"], spec["slug"]) if spec.get("slug") else None
+        hist = [pt for pt in bond_history.get(spec["issuer"], []) if isinstance(pt, dict) and pt.get("date")]
         if q and q.get("market_yield") is not None:
             ytm = q["market_yield"]
             mat_yr = int(spec["maturity"][:4])
             bench = ust5 if mat_yr <= 2031 else (ust7_approx or ust10)
             spread = round((ytm - bench) * 100) if bench is not None else None
+            q_date = q["quote_date"]
+            hist = [pt for pt in hist if pt.get("date") != q_date]
+            hist.append({"date": q_date, "ytm": ytm, "spread_bps": spread, "price": q.get("market_price")})
+            hist = sorted(hist, key=lambda pt: pt["date"])[-90:]
+            bond_history[spec["issuer"]] = hist
             ai_bonds.append({
                 "issuer": spec["issuer"],
                 "maturity": spec["maturity"],
@@ -487,10 +515,11 @@ def main():
                 "market_price": q.get("market_price"),
                 "market_yield": ytm,
                 "spread_bps": spread,
-                "quote_date": q["quote_date"],
+                "quote_date": q_date,
                 "quote_source": f"Markets Insider ({q['venue']})" if q.get("venue") else "Markets Insider",
                 "quote_url": q["quote_url"],
                 "quote_status": "公開報價",
+                "history": hist,
                 "source_url": spec["source_url"],
             })
         else:
@@ -507,6 +536,7 @@ def main():
                 "quote_source": None,
                 "quote_url": None,
                 "quote_status": "無公開報價",
+                "history": hist,
                 "source_url": spec["source_url"],
             })
     ai_bonds.sort(key=lambda b: (0, -b["market_yield"]) if b["market_yield"] is not None else (1, 0))
@@ -524,7 +554,7 @@ def main():
         "miss_reason": None,
     }
     spy_d1 = eq_vol.get("spy", {}).get("d1_pct")
-    calibration = calibrate_and_archive(archive, today_rec, spy_d1, hy_oas_1d_bps)
+    calibration = calibrate_and_archive(archive, today_rec, spy_d1, hy_oas_1d_bps, bond_history=bond_history)
 
     # 6b. Bond -> Equity Transmission Correlations (30D & 90D daily change Pearson correlation)
     def _series_map(seq_labels, seq_vals):
@@ -567,6 +597,38 @@ def main():
         if c30 is not None or c90 is not None:
             correlations.append({"pair": pair_label, "corr_30d": c30, "corr_90d": c90})
 
+    # 6c. Cross-Asset Leading Ratios (HYG/IEF, Copper/Gold, TLT/SPY)
+    def _build_ratio(key_a: str, key_b: str, name: str, scale: float = 1.0, desc: str = ""):
+        sa, sb = eq_vol.get(key_a), eq_vol.get(key_b)
+        if not sa or not sb:
+            return None
+        ma = _series_map(sa.get("labels"), sa.get("data"))
+        mb = _series_map(sb.get("labels"), sb.get("data"))
+        common = sorted(set(ma.keys()) & set(mb.keys()))[-90:]
+        if len(common) < 2:
+            return None
+        vals = [round((ma[d] / mb[d]) * scale, 4) for d in common if mb[d] > 0]
+        if len(vals) < 2:
+            return None
+        latest, prev = vals[-1], vals[-2]
+        prev30 = vals[-22] if len(vals) >= 22 else vals[0]
+        return {
+            "name": name,
+            "latest": round(latest, 3),
+            "d1_pct": round((latest - prev) / prev * 100, 2),
+            "chg_30d_pct": round((latest - prev30) / prev30 * 100, 2),
+            "as_of": common[-1],
+            "labels": common[-len(vals):],
+            "data": vals,
+            "desc": desc,
+        }
+
+    cross_ratios = [r for r in [
+        _build_ratio("hyg", "ief", "HYG / IEF 信用風險偏好", 1.0, "上升代表資金追逐高收益債（Risk-On），下降代表信用避險"),
+        _build_ratio("copper", "gold", "銅金比 (×1000)", 1000.0, "實體經濟景氣與工業需求溫度計，同步領先長端美債殖利率"),
+        _build_ratio("tlt", "spy", "TLT / SPY 股債輪動比", 1.0, "上升代表長債跑贏美股（防禦避險），下降代表風險資產領漲"),
+    ] if r is not None]
+
     # 7. Bond News
     news = fetch_bond_news(limit=8)
 
@@ -591,6 +653,7 @@ def main():
             "vix": eq_vol.get("vix"),
             "move": eq_vol.get("move"),
             "correlations": correlations,
+            "cross_ratios": cross_ratios,
         },
         "calibration": calibration,
         "news": news,

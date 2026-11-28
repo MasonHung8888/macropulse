@@ -81,9 +81,12 @@ if not str(taiex.get("source", "")).startswith("TWSE official"):
     errors.append("TAIEX snapshot is not sourced from TWSE official data")
 
 tw = load("tw_bottom_data.json")
-for key in ("backtest_data", "options_max_pain", "state_owned_banks", "trust_targeting"):
+for key in ("backtest_data", "state_owned_banks", "trust_targeting"):
     if tw.get(key):
         errors.append(f"synthetic Taiwan module must not be published: {key}")
+omp = tw.get("options_max_pain")
+if omp and omp.get("source") != "TAIFEX Official OpenAPI":
+    errors.append("options_max_pain must originate from TAIFEX Official OpenAPI or remain empty")
 
 if not tw.get("market_date"):
     errors.append("Taiwan bundle lacks market_date")

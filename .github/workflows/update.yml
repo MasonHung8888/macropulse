@@ -52,6 +52,13 @@ jobs:
         run: |
           python audit_data_integrity.py
           python test_full_regression.py
+      - name: Send 07:30 morning brief (if secrets configured)
+        if: steps.audit.outcome == 'success' && (github.event.schedule == '30 23 * * *' || github.event_name == 'workflow_dispatch')
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: python send_morning_brief.py
       - name: Commit updated JSON
         if: always() && steps.audit.outcome == 'success'
         run: |
