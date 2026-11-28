@@ -1,12 +1,12 @@
 {
   "weights": {
-    "ccc_yield": 0.2,
-    "hy_oas_mom": 0.16,
-    "ig_oas_mom": 0.12,
-    "sofr_iorb": 0.16,
-    "fed_reserves": 0.14,
-    "move_index": 0.12,
-    "us10y_mom": 0.1
+    "ccc_yield": 0.198,
+    "hy_oas_mom": 0.1683,
+    "ig_oas_mom": 0.1188,
+    "sofr_iorb": 0.1584,
+    "fed_reserves": 0.1386,
+    "move_index": 0.1188,
+    "us10y_mom": 0.099
   },
   "records": [
     {
@@ -23,18 +23,54 @@
         "move_index": 36.9,
         "us10y_mom": 8.5
       },
+      "verified": true,
+      "hit": false,
+      "miss_reason": "預期中性區間預期市場震盪可控，但隔日 SPY +1.62%、HY OAS +0.0bps；上調高敏度利差訊號權重。",
+      "actual_spy_d1": 1.62,
+      "actual_hy_oas_chg_bps": 0.0
+    },
+    {
+      "date": "2026-11-27",
+      "stress_score": 56.6,
+      "regime": "挑客戶（信用分層、只針對弱借款人收費）",
+      "regime_key": "selective_credit",
+      "signal_scores": {
+        "ccc_yield": 100.0,
+        "hy_oas_mom": 68.3,
+        "ig_oas_mom": 42.3,
+        "sofr_iorb": 50.0,
+        "fed_reserves": 44.4,
+        "move_index": 36.9,
+        "us10y_mom": 19.5
+      },
       "verified": false,
       "hit": null,
       "miss_reason": null
     }
   ],
-  "evolution_log": [],
+  "evolution_log": [
+    {
+      "date": "2026-11-27",
+      "evaluated_date": "2026-11-25",
+      "event": "權重自動校準",
+      "reason": "預期中性區間預期市場震盪可控，但隔日 SPY +1.62%、HY OAS +0.0bps；上調高敏度利差訊號權重。",
+      "weights": {
+        "ccc_yield": 0.198,
+        "hy_oas_mom": 0.1683,
+        "ig_oas_mom": 0.1188,
+        "sofr_iorb": 0.1584,
+        "fed_reserves": 0.1386,
+        "move_index": 0.1188,
+        "us10y_mom": 0.099
+      }
+    }
+  ],
   "bond_history": {
     "CoreWeave": [
       {
         "date": "2026-11-27",
         "ytm": 18.71,
-        "spread_bps": 1406,
+        "spread_bps": 1397,
         "price": 73.15
       }
     ],
@@ -42,7 +78,7 @@
       {
         "date": "2026-11-27",
         "ytm": 10.04,
-        "spread_bps": 539,
+        "spread_bps": 530,
         "price": 88.73
       }
     ],
@@ -50,7 +86,7 @@
       {
         "date": "2026-11-27",
         "ytm": 8.26,
-        "spread_bps": 351,
+        "spread_bps": 342,
         "price": 83.76
       }
     ],
@@ -58,7 +94,7 @@
       {
         "date": "2026-11-27",
         "ytm": 7.33,
-        "spread_bps": 268,
+        "spread_bps": 259,
         "price": 92.11
       }
     ],
@@ -66,7 +102,7 @@
       {
         "date": "2026-11-27",
         "ytm": 5.88,
-        "spread_bps": 123,
+        "spread_bps": 114,
         "price": 96.84
       }
     ],
@@ -74,7 +110,7 @@
       {
         "date": "2026-11-27",
         "ytm": 5.52,
-        "spread_bps": 87,
+        "spread_bps": 78,
         "price": 95.87
       }
     ],
@@ -82,7 +118,7 @@
       {
         "date": "2026-11-27",
         "ytm": 5.51,
-        "spread_bps": 86,
+        "spread_bps": 77,
         "price": 96.24
       }
     ],
@@ -90,7 +126,7 @@
       {
         "date": "2026-11-27",
         "ytm": 5.28,
-        "spread_bps": 63,
+        "spread_bps": 54,
         "price": 98.16
       }
     ],
@@ -98,7 +134,7 @@
       {
         "date": "2026-11-27",
         "ytm": 5.05,
-        "spread_bps": 40,
+        "spread_bps": 31,
         "price": 100.36
       }
     ],
@@ -106,7 +142,7 @@
       {
         "date": "2026-11-27",
         "ytm": 5.34,
-        "spread_bps": 69,
+        "spread_bps": 60,
         "price": 97.54
       }
     ],
@@ -114,7 +150,7 @@
       {
         "date": "2025-04-01",
         "ytm": 5.6,
-        "spread_bps": 85,
+        "spread_bps": 76,
         "price": 95.23
       }
     ]

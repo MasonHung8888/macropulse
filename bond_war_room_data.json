@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-28T11:23:52Z",
-  "as_of": "2026-11-25",
+  "updated_at": "2026-11-28T13:14:22Z",
+  "as_of": "2026-11-27",
   "summary": {
-    "stress_score": 55.5,
+    "stress_score": 56.6,
     "regime": "挑客戶（信用分層、只針對弱借款人收費）",
     "regime_key": "selective_credit",
-    "conclusion": "壓力分數 56/100：銀行準備金與 SOFR-IORB 仍屬平穩，但高收益／CCC 級高風險借款人融資成本偏高，屬於信用分層而非系統性危機。",
+    "conclusion": "壓力分數 57/100：銀行準備金與 SOFR-IORB 仍屬平穩，但高收益／CCC 級高風險借款人融資成本偏高，屬於信用分層而非系統性危機。",
     "signals": [
       {
         "key": "ccc_yield",
@@ -70,52 +70,52 @@
       {
         "key": "us10y_mom",
         "label": "10 年期殖利率 30 日動能",
-        "value": -15,
+        "value": -5,
         "unit": " bps",
-        "score": 8.5,
+        "score": 19.5,
         "weight": 0.1,
         "status": "平穩",
-        "note": "10Y 美債近 30 日變動 -15 bps，長端殖利率走勢平穩。"
+        "note": "10Y 美債近 30 日變動 -5 bps，長端殖利率走勢平穩。"
       }
     ]
   },
   "yield_curve": {
-    "as_of": "2026-11-25",
+    "as_of": "2026-11-27",
     "points": [
       {
         "tenor": "3M",
         "series_id": "DGS3MO",
-        "yield": 4.34,
-        "chg_30d_bps": 12,
-        "date": "2026-11-25"
+        "yield": 4.35,
+        "chg_30d_bps": 13,
+        "date": "2026-11-27"
       },
       {
         "tenor": "2Y",
         "series_id": "DGS2",
-        "yield": 4.61,
-        "chg_30d_bps": -7,
-        "date": "2026-11-25"
+        "yield": 4.69,
+        "chg_30d_bps": -1,
+        "date": "2026-11-27"
       },
       {
         "tenor": "5Y",
         "series_id": "DGS5",
-        "yield": 4.65,
-        "chg_30d_bps": -19,
-        "date": "2026-11-25"
+        "yield": 4.74,
+        "chg_30d_bps": -8,
+        "date": "2026-11-27"
       },
       {
         "tenor": "10Y",
         "series_id": "DGS10",
-        "yield": 4.85,
-        "chg_30d_bps": -15,
-        "date": "2026-11-25"
+        "yield": 4.94,
+        "chg_30d_bps": -5,
+        "date": "2026-11-27"
       },
       {
         "tenor": "30Y",
         "series_id": "DGS30",
-        "yield": 5.24,
-        "chg_30d_bps": -7,
-        "date": "2026-11-25"
+        "yield": 5.33,
+        "chg_30d_bps": 3,
+        "date": "2026-11-27"
       }
     ],
     "compare": {
@@ -127,25 +127,25 @@
         "30Y"
       ],
       "today": [
-        4.34,
-        4.61,
-        4.65,
-        4.85,
-        5.24
+        4.35,
+        4.69,
+        4.74,
+        4.94,
+        5.33
       ],
       "d30_ago": [
         4.22,
-        4.68,
-        4.84,
-        5.0,
-        5.31
+        4.7,
+        4.82,
+        4.99,
+        5.3
       ],
       "d90_ago": [
-        3.88,
+        3.87,
         4.24,
-        4.43,
-        4.74,
-        5.27
+        4.41,
+        4.7,
+        5.23
       ]
     },
     "spread_2s10s": 0.25,
@@ -153,7 +153,6 @@
     "is_inverted": false,
     "history": {
       "labels": [
-        "2026-07-20",
         "2026-07-21",
         "2026-07-22",
         "2026-07-23",
@@ -242,10 +241,10 @@
         "2026-11-20",
         "2026-11-23",
         "2026-11-24",
-        "2026-11-25"
+        "2026-11-25",
+        "2026-11-27"
       ],
       "dgs10": [
-        4.6,
         4.63,
         4.67,
         4.71,
@@ -334,10 +333,10 @@
         4.92,
         4.92,
         4.91,
-        4.85
+        4.85,
+        4.94
       ],
       "dgs2": [
-        4.21,
         4.26,
         4.31,
         4.37,
@@ -426,7 +425,8 @@
         4.63,
         4.63,
         4.63,
-        4.61
+        4.61,
+        4.69
       ]
     },
     "source": "FRED (DGS3MO, DGS2, DGS5, DGS10, DGS30, T10Y2Y)"
@@ -1133,7 +1133,7 @@
       "identifier": "21873SAG3",
       "market_price": 73.15,
       "market_yield": 18.71,
-      "spread_bps": 1406,
+      "spread_bps": 1397,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (FFMFO)",
       "quote_url": "https://markets.businessinsider.com/bonds/coreweave_incdl-notes_202626-31_regs-Bond-2031-usu2069eac40",
@@ -1142,7 +1142,7 @@
         {
           "date": "2026-11-27",
           "ytm": 18.71,
-          "spread_bps": 1406,
+          "spread_bps": 1397,
           "price": 73.15
         }
       ],
@@ -1156,7 +1156,7 @@
       "identifier": "XS2854422818",
       "market_price": 88.73,
       "market_yield": 10.04,
-      "spread_bps": 539,
+      "spread_bps": 530,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (FSE)",
       "quote_url": "https://markets.businessinsider.com/bonds/softbank_group_corpdl-notes_202424-31-Bond-2031-xs2854422818",
@@ -1165,7 +1165,7 @@
         {
           "date": "2026-11-27",
           "ytm": 10.04,
-          "spread_bps": 539,
+          "spread_bps": 530,
           "price": 88.73
         }
       ],
@@ -1179,7 +1179,7 @@
       "identifier": "68389XDK8",
       "market_price": 83.76,
       "market_yield": 8.26,
-      "spread_bps": 351,
+      "spread_bps": 342,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/oracle_corpdl-notes_202525-32-Bond-2032-us68389xdk81",
@@ -1188,7 +1188,7 @@
         {
           "date": "2026-11-27",
           "ytm": 8.26,
-          "spread_bps": 351,
+          "spread_bps": 342,
           "price": 83.76
         }
       ],
@@ -1202,7 +1202,7 @@
       "identifier": "84615QAA1",
       "market_price": 92.11,
       "market_yield": 7.33,
-      "spread_bps": 268,
+      "spread_bps": 259,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/space_exploration_techs_corpdl-notes_202626-31_regs-Bond-2031-usu8531haa87",
@@ -1211,7 +1211,7 @@
         {
           "date": "2026-11-27",
           "ytm": 7.33,
-          "spread_bps": 268,
+          "spread_bps": 259,
           "price": 92.11
         }
       ],
@@ -1225,7 +1225,7 @@
       "identifier": "11135FBY6",
       "market_price": 96.84,
       "market_yield": 5.88,
-      "spread_bps": 123,
+      "spread_bps": 114,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/broadcom_incdl-notes_202424-31-Bond-2031-us11135fby60",
@@ -1234,7 +1234,7 @@
         {
           "date": "2026-11-27",
           "ytm": 5.88,
-          "spread_bps": 123,
+          "spread_bps": 114,
           "price": 96.84
         }
       ],
@@ -1248,7 +1248,7 @@
       "identifier": "007903BF3",
       "market_price": 95.23,
       "market_yield": 5.6,
-      "spread_bps": 85,
+      "spread_bps": 76,
       "quote_date": "2025-04-01",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/advanced_micro_devices_incdl-notes_202222-32-Bond-2032-us007903bf39",
@@ -1257,7 +1257,7 @@
         {
           "date": "2025-04-01",
           "ytm": 5.6,
-          "spread_bps": 85,
+          "spread_bps": 76,
           "price": 95.23
         }
       ],
@@ -1271,7 +1271,7 @@
       "identifier": "67066GAR5",
       "market_price": 95.87,
       "market_yield": 5.52,
-      "spread_bps": 87,
+      "spread_bps": 78,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/nvidia_corpdl-notes_202626-31-Bond-2031-us67066gar56",
@@ -1280,7 +1280,7 @@
         {
           "date": "2026-11-27",
           "ytm": 5.52,
-          "spread_bps": 87,
+          "spread_bps": 78,
           "price": 95.87
         }
       ],
@@ -1294,7 +1294,7 @@
       "identifier": "30303MAF9",
       "market_price": 96.24,
       "market_yield": 5.51,
-      "spread_bps": 86,
+      "spread_bps": 77,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/meta_platforms_incdl-notes_202626-31-Bond-2031-us30303maf95",
@@ -1303,7 +1303,7 @@
         {
           "date": "2026-11-27",
           "ytm": 5.51,
-          "spread_bps": 86,
+          "spread_bps": 77,
           "price": 96.24
         }
       ],
@@ -1317,7 +1317,7 @@
       "identifier": "023135EC6",
       "market_price": 97.54,
       "market_yield": 5.34,
-      "spread_bps": 69,
+      "spread_bps": 60,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
@@ -1326,7 +1326,7 @@
         {
           "date": "2026-11-27",
           "ytm": 5.34,
-          "spread_bps": 69,
+          "spread_bps": 60,
           "price": 97.54
         }
       ],
@@ -1340,7 +1340,7 @@
       "identifier": "02079KCQ8",
       "market_price": 98.16,
       "market_yield": 5.28,
-      "spread_bps": 63,
+      "spread_bps": 54,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/alphabet_incdl-notes_202626-31-Bond-2031-us02079kcq85",
@@ -1349,7 +1349,7 @@
         {
           "date": "2026-11-27",
           "ytm": 5.28,
-          "spread_bps": 63,
+          "spread_bps": 54,
           "price": 98.16
         }
       ],
@@ -1363,7 +1363,7 @@
       "identifier": "594918DB7",
       "market_price": 100.36,
       "market_yield": 5.05,
-      "spread_bps": 40,
+      "spread_bps": 31,
       "quote_date": "2026-11-27",
       "quote_source": "Markets Insider (BMN)",
       "quote_url": "https://markets.businessinsider.com/bonds/microsoft_corpdl-notes_202626-31-Bond-2031-us594918db72",
@@ -1372,7 +1372,7 @@
         {
           "date": "2026-11-27",
           "ytm": 5.05,
-          "spread_bps": 40,
+          "spread_bps": 31,
           "price": 100.36
         }
       ],
@@ -2454,13 +2454,13 @@
       },
       {
         "pair": "10Y 美債殖利率 ↔ 費城半導體",
-        "corr_30d": 0.55,
-        "corr_90d": 0.22
+        "corr_30d": 0.58,
+        "corr_90d": 0.24
       },
       {
         "pair": "10Y 美債殖利率 ↔ Nasdaq",
-        "corr_30d": 0.47,
-        "corr_90d": 0.15
+        "corr_30d": 0.5,
+        "corr_90d": 0.18
       }
     ],
     "cross_ratios": [
@@ -3044,18 +3044,36 @@
   },
   "calibration": {
     "weights": {
-      "ccc_yield": 0.2,
-      "hy_oas_mom": 0.16,
-      "ig_oas_mom": 0.12,
-      "sofr_iorb": 0.16,
-      "fed_reserves": 0.14,
-      "move_index": 0.12,
-      "us10y_mom": 0.1
+      "ccc_yield": 0.198,
+      "hy_oas_mom": 0.1683,
+      "ig_oas_mom": 0.1188,
+      "sofr_iorb": 0.1584,
+      "fed_reserves": 0.1386,
+      "move_index": 0.1188,
+      "us10y_mom": 0.099
     },
-    "hit_rate_pct": null,
-    "verified_count": 0,
-    "total_count": 1,
+    "hit_rate_pct": 0.0,
+    "verified_count": 1,
+    "total_count": 2,
     "records": [
+      {
+        "date": "2026-11-27",
+        "stress_score": 56.6,
+        "regime": "挑客戶（信用分層、只針對弱借款人收費）",
+        "regime_key": "selective_credit",
+        "signal_scores": {
+          "ccc_yield": 100.0,
+          "hy_oas_mom": 68.3,
+          "ig_oas_mom": 42.3,
+          "sofr_iorb": 50.0,
+          "fed_reserves": 44.4,
+          "move_index": 36.9,
+          "us10y_mom": 19.5
+        },
+        "verified": false,
+        "hit": null,
+        "miss_reason": null
+      },
       {
         "date": "2026-11-25",
         "stress_score": 51.7,
@@ -3070,23 +3088,32 @@
           "move_index": 36.9,
           "us10y_mom": 8.5
         },
-        "verified": false,
-        "hit": null,
-        "miss_reason": null
+        "verified": true,
+        "hit": false,
+        "miss_reason": "預期中性區間預期市場震盪可控，但隔日 SPY +1.62%、HY OAS +0.0bps；上調高敏度利差訊號權重。",
+        "actual_spy_d1": 1.62,
+        "actual_hy_oas_chg_bps": 0.0
       }
     ],
-    "evolution_log": []
+    "evolution_log": [
+      {
+        "date": "2026-11-27",
+        "evaluated_date": "2026-11-25",
+        "event": "權重自動校準",
+        "reason": "預期中性區間預期市場震盪可控，但隔日 SPY +1.62%、HY OAS +0.0bps；上調高敏度利差訊號權重。",
+        "weights": {
+          "ccc_yield": 0.198,
+          "hy_oas_mom": 0.1683,
+          "ig_oas_mom": 0.1188,
+          "sofr_iorb": 0.1584,
+          "fed_reserves": 0.1386,
+          "move_index": 0.1188,
+          "us10y_mom": 0.099
+        }
+      }
+    ]
   },
   "news": [
-    {
-      "title": "Strengthening the resilience and liquidity of the US Treasury market - Brookings",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0FteDN6REwzTU1UeHdTY3RXOHNJSE5kME5LSTJkTWpGZUV3X2FOV2VHdUxEMlJDZS0tM1F5Y042SURjdkRfalJHSE5IbVBWQm1ELXJxaXlSYkZJUU1QeUhUM0Ezc2RiZ1dQeHB1R0hEN3BPcjd2dW9JT1RDdDhnZGhBbnppZTFBVGthc3Atb1RaWDBYRE01NFFnLUpFS1h1eFpzaDl1MA?oc=5",
-      "published_at": "Wed, 25 Nov 2026 15:14:24 GMT",
-      "source": "Brookings",
-      "sentiment": "中性",
-      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
-      "auto_classified": true
-    },
     {
       "title": "Tracker: The Federal Reserve’s Balance Sheet Assets - The American Action Forum",
       "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNR2NrRDdoQ1MwS0paZFliV01BelV0MS1tQkNMSEdJYmYweWctanpzZU5hMllmVUtjQWR2cXBPSVhFeFluSFlMbi1ZVTg1ZS1TYzRMam81MFlRbWxockRRN2RpeEk2OGhpYWVXUVpsX3lvcUx4QUFERERGQVdkeVRndHJNeExJTU9DLS1GRW9GTW0?oc=5",
@@ -3101,15 +3128,6 @@
       "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOdGVaNFNxcU8yRTFKdmFwZ2lnQWJ5aFFlM25YS2ZLRnlVaVo4VzJtMUFPRW1RdUxmOGhxU2REekJ6Z1c4VkMtM04tVVA0NUduVGJvVlBWRDNTaG94dkdCdF90UFBMQjc3bThITkhveVJtVE51ZnRfb1BOQTVRU0UxNGNsTG5NUXZha3ZUOHY3bWpWNklDY3pKMw?oc=5",
       "published_at": "Tue, 24 Nov 2026 17:08:15 GMT",
       "source": "StoneX",
-      "sentiment": "中性",
-      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
-      "auto_classified": true
-    },
-    {
-      "title": "30 Day Federal Funds Futures - CME Group",
-      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE0xc0wydHpWbWxwYU02RVo0YjVzN1NNallsRGdmV05fN2VXUkh1VHJZUXZYQnIzYUdaMDdyOGRpYUlnOTZtSWoxT1dXZkRSVnN3LUxZZmgyNW1tam96ZG9qZHZDTmxjbFM0eVZUNjhUTURtTDZSUVdncm5tLTRuZw?oc=5",
-      "published_at": "Mon, 23 Nov 2026 07:15:49 GMT",
-      "source": "CME Group",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true
@@ -3133,10 +3151,10 @@
       "auto_classified": true
     },
     {
-      "title": "OCC Halves Stablecoin Liquidity Floor to 5% [2026] - shattered.io",
-      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQdS1xWFRDR0ctNXhLb2JjOWhXVjRZX2xQZjJXM3ZFbHhiZWVQTDJZSjFjQm5aVHV0NVVyY09Ma1N4Q0YzQVpRUy1zbmRxMUlSdDVXWDFBZE4xbzNFSHgtMlFScHlQOUs1bEk2TElRVnEwSllQUC1fakVWdTZDSGN1aGdFdlJOaDZXT1BXQjNIUTBHdw?oc=5",
-      "published_at": "Sun, 22 Nov 2026 15:54:25 GMT",
-      "source": "shattered.io",
+      "title": "The Era of Expensive Money: How Rising Capital Costs Are Reshaping Corporate Treasury - India Narrative",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQTlI2akNNZmQxQkZtZmpnOFZzYVFyMWZLbFRNaFpxTHNxTTZoWGZRY1JucnppWHdtamJ5WWVGZl90ZkpIOEE4TTNiR3RGX1NuOEtGUWJ4cGNsRDczaWFYUkNUbm1hd180OTB1VkR5WGQ0VTUxcDByUHpEeEZBWlZMYW1ZQ0tTaTlYMUNUdm4xbVB3RTAwNUgxaEdaLXJTbHFoWFZQT2xDeUNYMjJRbjdVTXpkRmJqTmtZdVFQcUc5OXV1QQ?oc=5",
+      "published_at": "Sun, 22 Nov 2026 00:30:00 GMT",
+      "source": "India Narrative",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true
@@ -3146,6 +3164,24 @@
       "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNTl9sS01HdnZ0ak5SOHJOWC1fZkdXX0VZLWFjVmt3TlBmc1BOX3lrWkpHTjRaRmJybzliak95aTBxVEtWNTlHRTZvSVRNelZJUk00R3Q1eGtNamM0SGo4cGdZdEdGY19pWjNLTVBkcWduRHlJUi1xbTdLcVB1U2JVSDhQNA?oc=5",
       "published_at": "Wed, 25 Nov 2026 15:30:56 GMT",
       "source": "The Dark Side Of The Boom",
+      "sentiment": "中性",
+      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
+      "auto_classified": true
+    },
+    {
+      "title": "What Is the NFCI? Why Bitcoin Can Rally Even When Interest Rates for BINANCE:BTCUSDT by forexcitypro_leemeenal - TradingView",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQVldGTXpadzEzMFEySUdpcXJjTmJLY1J6M1MxSWF3MFJxVW1CbmNUV1YxYXVVY19kUWdEOVFST1Z1dmVOd01USTZqX0luZk1ocHJMcm9SSEYyRktycGFWR1ktbFJZN1drR1BqM1YwUkhHcS1JbUw4STd6b3gzMnhGVzlMc2xuWHNjR1A4STA3YTYyRjhyMEFRZ1RsQ2RJUTJzdldaU2o5YWUzd2dyX2JBQnZjVG54UQ?oc=5",
+      "published_at": "Tue, 24 Nov 2026 12:49:25 GMT",
+      "source": "TradingView",
+      "sentiment": "利多",
+      "reason": "自動初判：標題出現殖利率回落或買盤支撐訊號（rally），有利債市估值。",
+      "auto_classified": true
+    },
+    {
+      "title": "TCW MetWest Ultra Short Bond Fund Q3 2026 Commentary (MWUIX) - Seeking Alpha",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkVVOS1kbXpYaXZkZEpMNjhVbnQ5WlRzUUQ0aEoxSmZqLVcyYUVva1dqWnIxb3daaTdMVmNKNG1XY1RuUlVlS1B4OGxlWDdmUmNpcEx6WHNyT1RmaXpMSnJJTTc5ZkFJRWc5QWtrOEM1TmhOUzV2UzdCSk5ON0RkT2d4SFVWckF5dTE4QWIzaVFfaWZERzZmcU9mclhvT2R5NVFEMDhZd293d2RFNnlyaGVB?oc=5",
+      "published_at": "Fri, 27 Nov 2026 06:45:00 GMT",
+      "source": "Seeking Alpha",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true

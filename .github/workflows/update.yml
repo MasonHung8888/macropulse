@@ -19,6 +19,7 @@ jobs:
     timeout-minutes: 45
     env:
       PYTHONUNBUFFERED: '1'
+      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6

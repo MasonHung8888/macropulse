@@ -190,49 +190,87 @@ def fetch_cbc_m1b_m2(months: int = 24):
     }
 
 
+def _fetch_fred_csv_batch(batch: list[str], observations: dict[str, list]) -> None:
+    """從 FRED fredgraph.csv 抓取指定序列清單並寫入 observations。"""
+    joined = urllib.parse.quote(",".join(batch), safe=",")
+    url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={joined}"
+    try:
+        from curl_cffi import requests as curl_requests
+        response = curl_requests.get(url, timeout=60, impersonate="chrome")
+        response.raise_for_status()
+    except Exception:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"})
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            raw_c = resp.read()
+            class SimpleResponse:
+                content = raw_c
+                text = raw_c.decode("utf-8", errors="ignore")
+                def raise_for_status(self): pass
+            response = SimpleResponse()
+    if response.content.startswith(b"PK"):
+        with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+            csv_texts = [archive.read(name).decode("utf-8") for name in archive.namelist() if name.endswith(".csv")]
+    else:
+        csv_texts = [response.text]
+    for csv_text in csv_texts:
+        for row in csv.DictReader(csv_text.splitlines()):
+            date = row.get("observation_date")
+            if not date:
+                continue
+            for series_id in batch:
+                raw_value = row.get(series_id)
+                if raw_value in (None, "", "."):
+                    continue
+                try:
+                    observations[series_id].append((date, float(raw_value)))
+                except (TypeError, ValueError):
+                    continue
+
+
 def fetch_fred_observations(series_ids: list[str]) -> dict[str, list]:
-    """一次讀取多個 FRED 官方序列，自動分批（每批最多 5 條）避免 FRED 多序列截斷遺漏。"""
+    """一次讀取多個 FRED 官方序列：支援選配 FRED_API_KEY 官方 JSON、每批 5 條 CSV、及缺漏單條自動重試。"""
     observations = {series_id: [] for series_id in series_ids}
-    chunk_size = 5
-    for start in range(0, len(series_ids), chunk_size):
-        chunk = series_ids[start:start + chunk_size]
-        try:
-            joined = urllib.parse.quote(",".join(chunk), safe=",")
-            url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={joined}"
-            # FRED 對部分 Python TLS/HTTP 連線會長時間無回應；優先嘗試 curl_cffi，若無則回退 urllib/requests
+    api_key = os.environ.get("FRED_API_KEY", "").strip()
+    remaining: list[str] = []
+
+    if api_key:
+        for sid in series_ids:
             try:
-                from curl_cffi import requests as curl_requests
-                response = curl_requests.get(url, timeout=60, impersonate="chrome")
-                response.raise_for_status()
-            except Exception:
-                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"})
-                with urllib.request.urlopen(req, timeout=60) as resp:
-                    raw_c = resp.read()
-                    class SimpleResponse:
-                        content = raw_c
-                        text = raw_c.decode("utf-8", errors="ignore")
-                        def raise_for_status(self): pass
-                    response = SimpleResponse()
-            if response.content.startswith(b"PK"):
-                with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
-                    csv_texts = [archive.read(name).decode("utf-8") for name in archive.namelist() if name.endswith(".csv")]
-            else:
-                csv_texts = [response.text]
-            for csv_text in csv_texts:
-                for row in csv.DictReader(csv_text.splitlines()):
-                    date = row.get("observation_date")
-                    if not date:
-                        continue
-                    for series_id in chunk:
-                        raw_value = row.get(series_id)
-                        if raw_value in (None, "", "."):
-                            continue
+                api_url = f"https://api.stlouisfed.org/fred/series/observations?series_id={urllib.parse.quote(sid)}&api_key={urllib.parse.quote(api_key)}&file_type=json"
+                req = urllib.request.Request(api_url, headers={"User-Agent": "Mozilla/5.0"})
+                with urllib.request.urlopen(req, timeout=20) as resp:
+                    payload = json.loads(resp.read().decode("utf-8"))
+                pts = []
+                for item in payload.get("observations", []):
+                    val_s = item.get("value")
+                    if val_s not in (None, "", "."):
                         try:
-                            observations[series_id].append((date, float(raw_value)))
-                        except (TypeError, ValueError):
+                            pts.append((item["date"], float(val_s)))
+                        except (TypeError, ValueError, KeyError):
                             continue
+                if pts:
+                    observations[sid] = pts
+                else:
+                    remaining.append(sid)
+            except Exception:
+                remaining.append(sid)
+    else:
+        remaining = list(series_ids)
+
+    chunk_size = 5
+    for start in range(0, len(remaining), chunk_size):
+        chunk = remaining[start:start + chunk_size]
+        try:
+            _fetch_fred_csv_batch(chunk, observations)
         except Exception as exc:
-            print(f"  FRED 官方序列讀取未果 ({','.join(chunk)}): {exc}")
+            print(f"  FRED 官方序列批次讀取未果 ({','.join(chunk)}): {exc}")
+        # 防截斷單條重試：若批次中有任一序列筆數為 0，逐條單獨請求
+        for sid in chunk:
+            if not observations[sid]:
+                try:
+                    _fetch_fred_csv_batch([sid], observations)
+                except Exception as exc:
+                    print(f"  FRED 單條重試未果 ({sid}): {exc}")
     return observations
 
 

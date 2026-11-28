@@ -12,6 +12,7 @@ MacroPulse「美國債市戰情室」每日資料引擎
   - Google News RSS: 美國債市新聞（自動初判利多／利空／中性）
 """
 
+import csv
 import json
 import os
 import re
@@ -146,7 +147,119 @@ def fetch_equity_and_vol() -> dict:
                 continue
     except Exception as exc:
         print(f"  yfinance 股債波動抓取略過: {exc}")
+    if "vix" not in out:
+        vix_fb = fetch_cboe_vix_fallback()
+        if vix_fb:
+            out["vix"] = vix_fb
     return out
+
+
+def fetch_cboe_vix_fallback() -> dict | None:
+    """備援來源：CBOE 官方每日 VIX 歷史 CSV。"""
+    url = "https://cdn.cboe.com/api/global/us_indices/daily_prices/VIX_History.csv"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            lines = resp.read().decode("utf-8", errors="ignore").splitlines()
+        rows = []
+        for row in csv.DictReader(lines):
+            d_raw, c_raw = row.get("DATE"), row.get("CLOSE")
+            if not d_raw or not c_raw:
+                continue
+            try:
+                dt = datetime.strptime(d_raw.strip(), "%m/%d/%Y").strftime("%Y-%m-%d")
+                rows.append((dt, float(c_raw)))
+            except ValueError:
+                continue
+        if len(rows) < 2:
+            return None
+        recent = rows[-90:]
+        latest, prev = recent[-1][1], recent[-2][1]
+        prev_30 = recent[-31][1] if len(recent) >= 31 else recent[0][1]
+        return {
+            "label": "VIX 股市波動",
+            "symbol": "^VIX",
+            "latest": round(latest, 2),
+            "d1_pct": round((latest - prev) / prev * 100, 2),
+            "chg_30d_pct": round((latest - prev_30) / prev_30 * 100, 2),
+            "as_of": recent[-1][0],
+            "labels": [d for d, _ in recent],
+            "data": [round(v, 2) for _, v in recent],
+            "source": "CBOE Official CSV (Fallback)",
+        }
+    except Exception as exc:
+        print(f"  CBOE VIX 備援抓取略過: {exc}")
+        return None
+
+
+def fetch_ustreasury_yield_curve_fallback(obs: dict[str, list]) -> None:
+    """官方備援：美國財政部官網每日殖利率曲線 CSV（補齊 FRED 缺漏或更新至最新交易日）。"""
+    col_map = {"3 Mo": "DGS3MO", "2 Yr": "DGS2", "5 Yr": "DGS5", "10 Yr": "DGS10", "30 Yr": "DGS30"}
+    yr = datetime.now(timezone.utc).year
+    url = f"https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/{yr}/all?type=daily_treasury_yield_curve&field_tdr_date_value={yr}&page&_format=csv"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            text = resp.read().decode("utf-8", errors="ignore")
+        parsed: dict[str, list] = {sid: [] for sid in col_map.values()}
+        for row in csv.DictReader(text.splitlines()):
+            d_raw = row.get("Date")
+            if not d_raw:
+                continue
+            try:
+                iso_d = datetime.strptime(d_raw.strip(), "%m/%d/%Y").strftime("%Y-%m-%d")
+            except ValueError:
+                continue
+            for col, sid in col_map.items():
+                val = row.get(col)
+                if val not in (None, "", "N/A"):
+                    try:
+                        parsed[sid].append((iso_d, float(val)))
+                    except ValueError:
+                        continue
+        for sid, pts in parsed.items():
+            if not pts:
+                continue
+            pts.sort(key=lambda x: x[0])
+            existing = dict(obs.get(sid, []))
+            for d, v in pts:
+                existing.setdefault(d, v)
+            obs[sid] = sorted(existing.items(), key=lambda x: x[0])
+        # 若 T10Y2Y 缺漏或落後，用 DGS10 - DGS2 補齊
+        d10_map = dict(obs.get("DGS10", []))
+        d2_map = dict(obs.get("DGS2", []))
+        t_map = dict(obs.get("T10Y2Y", []))
+        for d in sorted(set(d10_map) & set(d2_map)):
+            t_map.setdefault(d, round(d10_map[d] - d2_map[d], 2))
+        obs["T10Y2Y"] = sorted(t_map.items(), key=lambda x: x[0])
+    except Exception as exc:
+        print(f"  美國財政部殖利率備援略過: {exc}")
+
+
+def fetch_nyfed_sofr_rrp_fallback(obs: dict[str, list]) -> None:
+    """官方備援：紐約聯準銀行 (NY Fed) Markets API 補齊 SOFR 與 ON RRP。"""
+    try:
+        if not obs.get("SOFR"):
+            req = urllib.request.Request("https://markets.newyorkfed.org/api/rates/secured/sofr/last/30.json", headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            pts = [(r["effectiveDate"], float(r["percentRate"])) for r in data.get("refRates", []) if r.get("effectiveDate") and r.get("percentRate") is not None]
+            if pts:
+                obs["SOFR"] = sorted(pts, key=lambda x: x[0])
+    except Exception as exc:
+        print(f"  NY Fed SOFR 備援略過: {exc}")
+    try:
+        if not obs.get("RRPONTSYD"):
+            start_d = f"{datetime.now(timezone.utc).year - 1}-01-01"
+            req = urllib.request.Request(f"https://markets.newyorkfed.org/api/rp/reverserepo/propositions/search.json?startDate={start_d}", headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode("utf-8"))
+            ops = (data.get("repo") or {}).get("operations") or []
+            pts = [(o["operationDate"], round(float(o["totalAmtAccepted"]) / 1e9, 3)) for o in ops if o.get("operationDate") and o.get("totalAmtAccepted") is not None]
+            if pts:
+                obs["RRPONTSYD"] = sorted(pts, key=lambda x: x[0])
+    except Exception as exc:
+        print(f"  NY Fed ON RRP 備援略過: {exc}")
 
 
 def fetch_bond_news(limit: int = 8) -> list[dict]:
@@ -298,6 +411,8 @@ def main():
         "WRESBAL", "SOFR", "IORB", "RRPONTSYD", "WALCL",
     ]
     obs = fetch_fred_observations(fred_ids)
+    fetch_ustreasury_yield_curve_fallback(obs)
+    fetch_nyfed_sofr_rrp_fallback(obs)
     eq_vol = fetch_equity_and_vol()
 
     def latest_and_30d(sid: str):
@@ -658,6 +773,32 @@ def main():
         "calibration": calibration,
         "news": news,
     }
+
+    # Anti-Truncation Gate: 若來源端發生截斷或部分欄位缺失，保留上一份已驗證資料，絕不覆蓋成殘缺快照
+    if os.path.exists(OUTPUT_FILE):
+        try:
+            with open(OUTPUT_FILE, encoding="utf-8") as prev_f:
+                prev_payload = json.load(prev_f)
+        except Exception:
+            prev_payload = {}
+    else:
+        prev_payload = {}
+
+    if len(payload["yield_curve"].get("points", [])) < 5 and len(prev_payload.get("yield_curve", {}).get("points", [])) == 5:
+        print("  ⚠️ Anti-Truncation Gate: yield_curve 疑似遭截斷，保留上一份已驗證曲線")
+        payload["yield_curve"] = prev_payload["yield_curve"]
+    if len(payload["credit_spreads"].get("items", [])) < 3 and len(prev_payload.get("credit_spreads", {}).get("items", [])) == 3:
+        print("  ⚠️ Anti-Truncation Gate: credit_spreads 疑似遭截斷，保留上一份已驗證利差")
+        payload["credit_spreads"] = prev_payload["credit_spreads"]
+    prev_liq = prev_payload.get("liquidity", {})
+    for lk in ("reserves_trillions", "reserves_chg_30d_pct", "reserves_date", "sofr", "iorb", "sofr_iorb_bps", "sofr_date", "on_rrp_billions", "on_rrp_date", "fed_assets_trillions", "fed_assets_date"):
+        if payload["liquidity"].get(lk) is None and prev_liq.get(lk) is not None:
+            payload["liquidity"][lk] = prev_liq[lk]
+    for tk in ("sp500", "nasdaq", "sox", "vix", "move"):
+        if not payload["transmission"].get(tk) and prev_payload.get("transmission", {}).get(tk):
+            payload["transmission"][tk] = prev_payload["transmission"][tk]
+    if not payload["news"] and prev_payload.get("news"):
+        payload["news"] = prev_payload["news"]
 
     tmp = OUTPUT_FILE + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
