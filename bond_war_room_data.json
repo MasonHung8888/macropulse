@@ -1,8 +1,8 @@
 {
-  "updated_at": "2026-11-28T13:14:22Z",
+  "updated_at": "2026-11-28T13:22:01Z",
   "as_of": "2026-11-27",
   "summary": {
-    "stress_score": 56.6,
+    "stress_score": 56.7,
     "regime": "挑客戶（信用分層、只針對弱借款人收費）",
     "regime_key": "selective_credit",
     "conclusion": "壓力分數 57/100：銀行準備金與 SOFR-IORB 仍屬平穩，但高收益／CCC 級高風險借款人融資成本偏高，屬於信用分層而非系統性危機。",
@@ -13,7 +13,7 @@
         "value": 18.72,
         "unit": "%",
         "score": 100.0,
-        "weight": 0.2,
+        "weight": 0.198,
         "status": "警戒",
         "note": "CCC 級有效殖利率 18.72%，高於 15% 顯示弱信用借款人融資成本明顯承壓。"
       },
@@ -23,7 +23,7 @@
         "value": 63,
         "unit": " bps",
         "score": 68.3,
-        "weight": 0.16,
+        "weight": 0.1683,
         "status": "警戒",
         "note": "近 30 日 HY OAS 變動 +63 bps，信用利差正在明顯走寬。"
       },
@@ -33,7 +33,7 @@
         "value": 13,
         "unit": " bps",
         "score": 42.3,
-        "weight": 0.12,
+        "weight": 0.1188,
         "status": "注意",
         "note": "近 30 日 IG OAS 變動 +13 bps，投資級信用極為穩健（僅弱信用承壓）。"
       },
@@ -43,7 +43,7 @@
         "value": 5.0,
         "unit": " bps",
         "score": 50.0,
-        "weight": 0.16,
+        "weight": 0.1584,
         "status": "注意",
         "note": "回購利率與準備金利率差 +5.0 bps，銀行體系短端流動性充裕。"
       },
@@ -53,7 +53,7 @@
         "value": 2.964,
         "unit": " 兆$",
         "score": 44.4,
-        "weight": 0.14,
+        "weight": 0.1386,
         "status": "注意",
         "note": "銀行準備金 $2.96 兆美元（30日 -0.1%），準備金水位安全。"
       },
@@ -63,7 +63,7 @@
         "value": 95.3,
         "unit": "",
         "score": 36.9,
-        "weight": 0.12,
+        "weight": 0.1188,
         "status": "注意",
         "note": "MOVE 指數報 95.3，公債市場波動維持溫和。"
       },
@@ -73,7 +73,7 @@
         "value": -5,
         "unit": " bps",
         "score": 19.5,
-        "weight": 0.1,
+        "weight": 0.099,
         "status": "平穩",
         "note": "10Y 美債近 30 日變動 -5 bps，長端殖利率走勢平穩。"
       }
@@ -1241,6 +1241,52 @@
       "source_url": "https://www.sec.gov/Archives/edgar/data/1730168/000114036124033072/ny20032136x6_ex4-2.htm"
     },
     {
+      "issuer": "Dell",
+      "maturity": "2031-02-15",
+      "coupon": 4.5,
+      "currency": "USD",
+      "identifier": "24703DBS9",
+      "market_price": 95.44,
+      "market_yield": 5.73,
+      "spread_bps": 99,
+      "quote_date": "2026-11-27",
+      "quote_source": "Markets Insider (BMN)",
+      "quote_url": "https://markets.businessinsider.com/bonds/dell_intern_llc-bond-2031-us24703dbs99",
+      "quote_status": "公開報價",
+      "history": [
+        {
+          "date": "2026-11-27",
+          "ytm": 5.73,
+          "spread_bps": 99,
+          "price": 95.44
+        }
+      ],
+      "source_url": "https://markets.businessinsider.com/bonds/dell_intern_llc-bond-2031-us24703dbs99"
+    },
+    {
+      "issuer": "Micron",
+      "maturity": "2033-09-15",
+      "coupon": 5.875,
+      "currency": "USD",
+      "identifier": "595112CB7",
+      "market_price": 100.19,
+      "market_yield": 5.66,
+      "spread_bps": 82,
+      "quote_date": "2026-11-27",
+      "quote_source": "Markets Insider (BMN)",
+      "quote_url": "https://markets.businessinsider.com/bonds/micron_technology_incdl-notes_202323-33-bond-2033-us595112cb74",
+      "quote_status": "公開報價",
+      "history": [
+        {
+          "date": "2026-11-27",
+          "ytm": 5.66,
+          "spread_bps": 82,
+          "price": 100.19
+        }
+      ],
+      "source_url": "https://markets.businessinsider.com/bonds/micron_technology_incdl-notes_202323-33-bond-2033-us595112cb74"
+    },
+    {
       "issuer": "AMD",
       "maturity": "2032-06-01",
       "coupon": 4.393,
@@ -1356,6 +1402,29 @@
       "source_url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526342390/d171253dex46.htm"
     },
     {
+      "issuer": "台積電 (TSMC)",
+      "maturity": "2031-10-25",
+      "coupon": 2.5,
+      "currency": "USD",
+      "identifier": "872898AC5",
+      "market_price": 87.8,
+      "market_yield": 5.28,
+      "spread_bps": 54,
+      "quote_date": "2026-11-27",
+      "quote_source": "Markets Insider (STU)",
+      "quote_url": "https://markets.businessinsider.com/bonds/tsmc_arizona_corp-bond-2031-us872898ac52",
+      "quote_status": "公開報價",
+      "history": [
+        {
+          "date": "2026-11-27",
+          "ytm": 5.28,
+          "spread_bps": 54,
+          "price": 87.8
+        }
+      ],
+      "source_url": "https://markets.businessinsider.com/bonds/tsmc_arizona_corp-bond-2031-us872898ac52"
+    },
+    {
       "issuer": "Microsoft",
       "maturity": "2031-11-03",
       "coupon": 5.2,
@@ -1395,55 +1464,7 @@
       "source_url": "https://markets.businessinsider.com/bonds/super_micro_computer_incdl-conv_notes_202528_144a-Bond-2028-us86800uac80"
     },
     {
-      "issuer": "台積電 (TSMC)",
-      "maturity": "2032-04-22",
-      "coupon": 4.25,
-      "currency": "USD",
-      "identifier": "USG91139AL26",
-      "market_price": null,
-      "market_yield": null,
-      "spread_bps": null,
-      "quote_date": null,
-      "quote_source": null,
-      "quote_url": null,
-      "quote_status": "無公開報價",
-      "history": [],
-      "source_url": "https://markets.businessinsider.com/bonds/tsmc_globaldl-notes_202222-32_regs-Bond-2032-usg91139al26"
-    },
-    {
       "issuer": "Tesla",
-      "maturity": null,
-      "coupon": null,
-      "currency": "USD",
-      "identifier": null,
-      "market_price": null,
-      "market_yield": null,
-      "spread_bps": null,
-      "quote_date": null,
-      "quote_source": null,
-      "quote_url": null,
-      "quote_status": "無公開報價",
-      "history": [],
-      "source_url": null
-    },
-    {
-      "issuer": "Micron",
-      "maturity": null,
-      "coupon": null,
-      "currency": "USD",
-      "identifier": null,
-      "market_price": null,
-      "market_yield": null,
-      "spread_bps": null,
-      "quote_date": null,
-      "quote_source": null,
-      "quote_url": null,
-      "quote_status": "無公開報價",
-      "history": [],
-      "source_url": null
-    },
-    {
-      "issuer": "Dell",
       "maturity": null,
       "coupon": null,
       "currency": "USD",
@@ -3115,6 +3136,15 @@
   },
   "news": [
     {
+      "title": "Strengthening the resilience and liquidity of the US Treasury market - Brookings",
+      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0FteDN6REwzTU1UeHdTY3RXOHNJSE5kME5LSTJkTWpGZUV3X2FOV2VHdUxEMlJDZS0tM1F5Y042SURjdkRfalJHSE5IbVBWQm1ELXJxaXlSYkZJUU1QeUhUM0Ezc2RiZ1dQeHB1R0hEN3BPcjd2dW9JT1RDdDhnZGhBbnppZTFBVGthc3Atb1RaWDBYRE01NFFnLUpFS1h1eFpzaDl1MA?oc=5",
+      "published_at": "Wed, 25 Nov 2026 15:14:24 GMT",
+      "source": "Brookings",
+      "sentiment": "中性",
+      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
+      "auto_classified": true
+    },
+    {
       "title": "Tracker: The Federal Reserve’s Balance Sheet Assets - The American Action Forum",
       "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNR2NrRDdoQ1MwS0paZFliV01BelV0MS1tQkNMSEdJYmYweWctanpzZU5hMllmVUtjQWR2cXBPSVhFeFluSFlMbi1ZVTg1ZS1TYzRMam81MFlRbWxockRRN2RpeEk2OGhpYWVXUVpsX3lvcUx4QUFERERGQVdkeVRndHJNeExJTU9DLS1GRW9GTW0?oc=5",
       "published_at": "Mon, 23 Nov 2026 08:00:00 GMT",
@@ -3128,6 +3158,15 @@
       "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOdGVaNFNxcU8yRTFKdmFwZ2lnQWJ5aFFlM25YS2ZLRnlVaVo4VzJtMUFPRW1RdUxmOGhxU2REekJ6Z1c4VkMtM04tVVA0NUduVGJvVlBWRDNTaG94dkdCdF90UFBMQjc3bThITkhveVJtVE51ZnRfb1BOQTVRU0UxNGNsTG5NUXZha3ZUOHY3bWpWNklDY3pKMw?oc=5",
       "published_at": "Tue, 24 Nov 2026 17:08:15 GMT",
       "source": "StoneX",
+      "sentiment": "中性",
+      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
+      "auto_classified": true
+    },
+    {
+      "title": "30 Day Federal Funds Futures - CME Group",
+      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE0xc0wydHpWbWxwYU02RVo0YjVzN1NNallsRGdmV05fN2VXUkh1VHJZUXZYQnIzYUdaMDdyOGRpYUlnOTZtSWoxT1dXZkRSVnN3LUxZZmgyNW1tam96ZG9qZHZDTmxjbFM0eVZUNjhUTURtTDZSUVdncm5tLTRuZw?oc=5",
+      "published_at": "Mon, 23 Nov 2026 07:15:49 GMT",
+      "source": "CME Group",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true
@@ -3151,10 +3190,10 @@
       "auto_classified": true
     },
     {
-      "title": "The Era of Expensive Money: How Rising Capital Costs Are Reshaping Corporate Treasury - India Narrative",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQTlI2akNNZmQxQkZtZmpnOFZzYVFyMWZLbFRNaFpxTHNxTTZoWGZRY1JucnppWHdtamJ5WWVGZl90ZkpIOEE4TTNiR3RGX1NuOEtGUWJ4cGNsRDczaWFYUkNUbm1hd180OTB1VkR5WGQ0VTUxcDByUHpEeEZBWlZMYW1ZQ0tTaTlYMUNUdm4xbVB3RTAwNUgxaEdaLXJTbHFoWFZQT2xDeUNYMjJRbjdVTXpkRmJqTmtZdVFQcUc5OXV1QQ?oc=5",
-      "published_at": "Sun, 22 Nov 2026 00:30:00 GMT",
-      "source": "India Narrative",
+      "title": "OCC Halves Stablecoin Liquidity Floor to 5% [2026] - shattered.io",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQdS1xWFRDR0ctNXhLb2JjOWhXVjRZX2xQZjJXM3ZFbHhiZWVQTDJZSjFjQm5aVHV0NVVyY09Ma1N4Q0YzQVpRUy1zbmRxMUlSdDVXWDFBZE4xbzNFSHgtMlFScHlQOUs1bEk2TElRVnEwSllQUC1fakVWdTZDSGN1aGdFdlJOaDZXT1BXQjNIUTBHdw?oc=5",
+      "published_at": "Sun, 22 Nov 2026 15:54:25 GMT",
+      "source": "shattered.io",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true
@@ -3164,24 +3203,6 @@
       "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNTl9sS01HdnZ0ak5SOHJOWC1fZkdXX0VZLWFjVmt3TlBmc1BOX3lrWkpHTjRaRmJybzliak95aTBxVEtWNTlHRTZvSVRNelZJUk00R3Q1eGtNamM0SGo4cGdZdEdGY19pWjNLTVBkcWduRHlJUi1xbTdLcVB1U2JVSDhQNA?oc=5",
       "published_at": "Wed, 25 Nov 2026 15:30:56 GMT",
       "source": "The Dark Side Of The Boom",
-      "sentiment": "中性",
-      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
-      "auto_classified": true
-    },
-    {
-      "title": "What Is the NFCI? Why Bitcoin Can Rally Even When Interest Rates for BINANCE:BTCUSDT by forexcitypro_leemeenal - TradingView",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQVldGTXpadzEzMFEySUdpcXJjTmJLY1J6M1MxSWF3MFJxVW1CbmNUV1YxYXVVY19kUWdEOVFST1Z1dmVOd01USTZqX0luZk1ocHJMcm9SSEYyRktycGFWR1ktbFJZN1drR1BqM1YwUkhHcS1JbUw4STd6b3gzMnhGVzlMc2xuWHNjR1A4STA3YTYyRjhyMEFRZ1RsQ2RJUTJzdldaU2o5YWUzd2dyX2JBQnZjVG54UQ?oc=5",
-      "published_at": "Tue, 24 Nov 2026 12:49:25 GMT",
-      "source": "TradingView",
-      "sentiment": "利多",
-      "reason": "自動初判：標題出現殖利率回落或買盤支撐訊號（rally），有利債市估值。",
-      "auto_classified": true
-    },
-    {
-      "title": "TCW MetWest Ultra Short Bond Fund Q3 2026 Commentary (MWUIX) - Seeking Alpha",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkVVOS1kbXpYaXZkZEpMNjhVbnQ5WlRzUUQ0aEoxSmZqLVcyYUVva1dqWnIxb3daaTdMVmNKNG1XY1RuUlVlS1B4OGxlWDdmUmNpcEx6WHNyT1RmaXpMSnJJTTc5ZkFJRWc5QWtrOEM1TmhOUzV2UzdCSk5ON0RkT2d4SFVWckF5dTE4QWIzaVFfaWZERzZmcU9mclhvT2R5NVFEMDhZd293d2RFNnlyaGVB?oc=5",
-      "published_at": "Fri, 27 Nov 2026 06:45:00 GMT",
-      "source": "Seeking Alpha",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true

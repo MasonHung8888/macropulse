@@ -153,6 +153,30 @@
         "spread_bps": 76,
         "price": 95.23
       }
+    ],
+    "台積電 (TSMC)": [
+      {
+        "date": "2026-11-27",
+        "ytm": 5.28,
+        "spread_bps": 54,
+        "price": 87.8
+      }
+    ],
+    "Micron": [
+      {
+        "date": "2026-11-27",
+        "ytm": 5.66,
+        "spread_bps": 82,
+        "price": 100.19
+      }
+    ],
+    "Dell": [
+      {
+        "date": "2026-11-27",
+        "ytm": 5.73,
+        "spread_bps": 99,
+        "price": 95.44
+      }
     ]
   }
 }
