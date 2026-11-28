@@ -526,6 +526,47 @@ def main():
     spy_d1 = eq_vol.get("spy", {}).get("d1_pct")
     calibration = calibrate_and_archive(archive, today_rec, spy_d1, hy_oas_1d_bps)
 
+    # 6b. Bond -> Equity Transmission Correlations (30D & 90D daily change Pearson correlation)
+    def _series_map(seq_labels, seq_vals):
+        return {d: v for d, v in zip(seq_labels or [], seq_vals or []) if v is not None}
+
+    def _corr_changes(map_a: dict, map_b: dict, window: int):
+        common = sorted(set(map_a.keys()) & set(map_b.keys()))
+        if len(common) < 10:
+            return None
+        common = common[-(window + 1):]
+        da = [map_a[common[i]] - map_a[common[i - 1]] for i in range(1, len(common))]
+        db = [map_b[common[i]] - map_b[common[i - 1]] for i in range(1, len(common))]
+        n = len(da)
+        if n < 8:
+            return None
+        ma, mb = sum(da) / n, sum(db) / n
+        num = sum((x - ma) * (y - mb) for x, y in zip(da, db))
+        den_a = sum((x - ma) ** 2 for x in da) ** 0.5
+        den_b = sum((y - mb) ** 2 for y in db) ** 0.5
+        if den_a == 0 or den_b == 0:
+            return None
+        return round(num / (den_a * den_b), 2)
+
+    dgs10_map = {d: v for d, v in obs.get("DGS10", [])[-120:]}
+    move_map = _series_map(eq_vol.get("move", {}).get("labels"), eq_vol.get("move", {}).get("data"))
+    spx_map = _series_map(eq_vol.get("sp500", {}).get("labels"), eq_vol.get("sp500", {}).get("data"))
+    vix_map = _series_map(eq_vol.get("vix", {}).get("labels"), eq_vol.get("vix", {}).get("data"))
+    sox_map = _series_map(eq_vol.get("sox", {}).get("labels"), eq_vol.get("sox", {}).get("data"))
+    ndx_map = _series_map(eq_vol.get("nasdaq", {}).get("labels"), eq_vol.get("nasdaq", {}).get("data"))
+
+    correlations = []
+    for pair_label, ma, mb in [
+        ("MOVE 債市波動 ↔ S&P 500", move_map, spx_map),
+        ("MOVE 債市波動 ↔ VIX 股市波動", move_map, vix_map),
+        ("10Y 美債殖利率 ↔ 費城半導體", dgs10_map, sox_map),
+        ("10Y 美債殖利率 ↔ Nasdaq", dgs10_map, ndx_map),
+    ]:
+        c30 = _corr_changes(ma, mb, 30)
+        c90 = _corr_changes(ma, mb, 90)
+        if c30 is not None or c90 is not None:
+            correlations.append({"pair": pair_label, "corr_30d": c30, "corr_90d": c90})
+
     # 7. Bond News
     news = fetch_bond_news(limit=8)
 
@@ -549,6 +590,7 @@ def main():
             "sox": eq_vol.get("sox"),
             "vix": eq_vol.get("vix"),
             "move": eq_vol.get("move"),
+            "correlations": correlations,
         },
         "calibration": calibration,
         "news": news,

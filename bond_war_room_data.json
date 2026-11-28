@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-28T08:58:23Z",
+  "updated_at": "2026-11-28T10:38:07Z",
   "as_of": "2026-11-25",
   "summary": {
     "stress_score": 51.7,
@@ -2316,7 +2316,29 @@
         95.3
       ],
       "source": "Yahoo Finance"
-    }
+    },
+    "correlations": [
+      {
+        "pair": "MOVE 債市波動 ↔ S&P 500",
+        "corr_30d": -0.6,
+        "corr_90d": -0.43
+      },
+      {
+        "pair": "MOVE 債市波動 ↔ VIX 股市波動",
+        "corr_30d": 0.58,
+        "corr_90d": 0.41
+      },
+      {
+        "pair": "10Y 美債殖利率 ↔ 費城半導體",
+        "corr_30d": 0.55,
+        "corr_90d": 0.22
+      },
+      {
+        "pair": "10Y 美債殖利率 ↔ Nasdaq",
+        "corr_30d": 0.47,
+        "corr_90d": 0.15
+      }
+    ]
   },
   "calibration": {
     "weights": {
