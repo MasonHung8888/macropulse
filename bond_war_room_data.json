@@ -1,11 +1,11 @@
 {
-  "updated_at": "2026-11-28T10:46:24Z",
+  "updated_at": "2026-11-28T11:23:52Z",
   "as_of": "2026-11-25",
   "summary": {
-    "stress_score": 51.7,
+    "stress_score": 55.5,
     "regime": "挑客戶（信用分層、只針對弱借款人收費）",
     "regime_key": "selective_credit",
-    "conclusion": "壓力分數 52/100：銀行準備金與 SOFR-IORB 仍屬平穩，但高收益／CCC 級高風險借款人融資成本偏高，屬於信用分層而非系統性危機。",
+    "conclusion": "壓力分數 56/100：銀行準備金與 SOFR-IORB 仍屬平穩，但高收益／CCC 級高風險借款人融資成本偏高，屬於信用分層而非系統性危機。",
     "signals": [
       {
         "key": "ccc_yield",
@@ -40,22 +40,22 @@
       {
         "key": "sofr_iorb",
         "label": "SOFR − IORB 資金利差",
-        "value": null,
+        "value": 5.0,
         "unit": " bps",
-        "score": 30.0,
+        "score": 50.0,
         "weight": 0.16,
-        "status": "平穩",
-        "note": "暫無資料"
+        "status": "注意",
+        "note": "回購利率與準備金利率差 +5.0 bps，銀行體系短端流動性充裕。"
       },
       {
         "key": "fed_reserves",
         "label": "聯準會準備金餘額",
-        "value": null,
+        "value": 2.964,
         "unit": " 兆$",
-        "score": 40.0,
+        "score": 44.4,
         "weight": 0.14,
         "status": "注意",
-        "note": "暫無資料"
+        "note": "銀行準備金 $2.96 兆美元（30日 -0.1%），準備金水位安全。"
       },
       {
         "key": "move_index",
@@ -1111,17 +1111,17 @@
     "source": "ICE Data Indices via FRED"
   },
   "liquidity": {
-    "reserves_trillions": null,
-    "reserves_chg_30d_pct": null,
-    "reserves_date": null,
-    "sofr": null,
-    "iorb": null,
-    "sofr_iorb_bps": null,
-    "sofr_date": null,
-    "on_rrp_billions": null,
-    "on_rrp_date": null,
-    "fed_assets_trillions": null,
-    "fed_assets_date": null,
+    "reserves_trillions": 2.964,
+    "reserves_chg_30d_pct": -0.11,
+    "reserves_date": "2026-11-25",
+    "sofr": 3.95,
+    "iorb": 3.9,
+    "sofr_iorb_bps": 5.0,
+    "sofr_date": "2026-11-25",
+    "on_rrp_billions": 0.35,
+    "on_rrp_date": "2026-11-27",
+    "fed_assets_trillions": 6.732,
+    "fed_assets_date": "2026-11-25",
     "source": "FRED (WRESBAL, SOFR, IORB, RRPONTSYD, WALCL)"
   },
   "ai_bonds": [

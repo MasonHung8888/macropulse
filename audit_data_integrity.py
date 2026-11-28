@@ -184,6 +184,29 @@ if (isinstance(tw_taiex_close, (int, float)) and tw_taiex_close > 0 and
     if diff_pct > 0.5:
         errors.append(f"cross-bundle TAIEX mismatch on {macro_taiex_asof}: {taiex['price']} vs {tw_taiex_close}")
 
+# Bond War Room data integrity checks
+bw = load("bond_war_room_data.json")
+bw_yc_pts = bw.get("yield_curve", {}).get("points", [])
+if {p.get("tenor") for p in bw_yc_pts} != {"3M", "2Y", "5Y", "10Y", "30Y"}:
+    errors.append("bond_war_room_data.json lacks full 3M/2Y/5Y/10Y/30Y yield curve points")
+bw_cs_items = bw.get("credit_spreads", {}).get("items", [])
+if {i.get("key") for i in bw_cs_items} != {"ig", "hy", "ccc"}:
+    errors.append("bond_war_room_data.json lacks IG/HY/CCC credit spread items")
+bw_liq = bw.get("liquidity", {})
+for req_liq in ("reserves_trillions", "sofr", "iorb", "sofr_iorb_bps", "on_rrp_billions", "fed_assets_trillions"):
+    if not isinstance(bw_liq.get(req_liq), (int, float)):
+        errors.append(f"bond_war_room_data.json liquidity.{req_liq} is missing or non-numeric")
+bw_tr = bw.get("transmission", {})
+for req_tr in ("sp500", "nasdaq", "sox", "vix", "move"):
+    if not isinstance((bw_tr.get(req_tr) or {}).get("latest"), (int, float)):
+        errors.append(f"bond_war_room_data.json transmission.{req_tr} lacks live latest value")
+bw_bonds = bw.get("ai_bonds", [])
+if len(bw_bonds) != 17:
+    errors.append(f"bond_war_room_data.json ai_bonds must have 17 rows, got {len(bw_bonds)}")
+for b in bw_bonds:
+    if b.get("market_yield") is not None and (not b.get("quote_date") or not b.get("quote_url")):
+        errors.append(f"bond_war_room_data.json ai_bond {b.get('issuer')} lacks quote_date/quote_url")
+
 if errors:
     print("DATA INTEGRITY AUDIT FAILED")
     for error in errors:

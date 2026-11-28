@@ -76,10 +76,12 @@ jobs:
           MACRO_RESULT: ${{ steps.macro.outcome }}
           TAIWAN_RESULT: ${{ steps.taiwan.outcome }}
           EARNINGS_RESULT: ${{ steps.earnings.outcome }}
+          BONDWAR_RESULT: ${{ steps.bondwar.outcome }}
           AUDIT_RESULT: ${{ steps.audit.outcome }}
         run: |
-          echo "macro=$MACRO_RESULT taiwan=$TAIWAN_RESULT earnings=$EARNINGS_RESULT audit=$AUDIT_RESULT"
+          echo "macro=$MACRO_RESULT taiwan=$TAIWAN_RESULT earnings=$EARNINGS_RESULT bondwar=$BONDWAR_RESULT audit=$AUDIT_RESULT"
           test "$MACRO_RESULT" = success
           test "$TAIWAN_RESULT" = success
           test "$EARNINGS_RESULT" = success
+          test "$BONDWAR_RESULT" = success
           test "$AUDIT_RESULT" = success

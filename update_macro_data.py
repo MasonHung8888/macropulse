@@ -191,45 +191,48 @@ def fetch_cbc_m1b_m2(months: int = 24):
 
 
 def fetch_fred_observations(series_ids: list[str]) -> dict[str, list]:
-    """一次讀取多個 FRED 官方序列，降低連線次數與逾時風險。"""
+    """一次讀取多個 FRED 官方序列，自動分批（每批最多 5 條）避免 FRED 多序列截斷遺漏。"""
     observations = {series_id: [] for series_id in series_ids}
-    try:
-        joined = urllib.parse.quote(",".join(series_ids), safe=",")
-        url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={joined}"
-        # FRED 對部分 Python TLS/HTTP 連線會長時間無回應；優先嘗試 curl_cffi，若無則回退 urllib/requests
+    chunk_size = 5
+    for start in range(0, len(series_ids), chunk_size):
+        chunk = series_ids[start:start + chunk_size]
         try:
-            from curl_cffi import requests as curl_requests
-            response = curl_requests.get(url, timeout=60, impersonate="chrome")
-            response.raise_for_status()
-        except Exception:
-            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"})
-            with urllib.request.urlopen(req, timeout=60) as resp:
-                raw_c = resp.read()
-                class SimpleResponse:
-                    content = raw_c
-                    text = raw_c.decode("utf-8", errors="ignore")
-                    def raise_for_status(self): pass
-                response = SimpleResponse()
-        if response.content.startswith(b"PK"):
-            with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
-                csv_texts = [archive.read(name).decode("utf-8") for name in archive.namelist() if name.endswith(".csv")]
-        else:
-            csv_texts = [response.text]
-        for csv_text in csv_texts:
-            for row in csv.DictReader(csv_text.splitlines()):
-                date = row.get("observation_date")
-                if not date:
-                    continue
-                for series_id in series_ids:
-                    raw_value = row.get(series_id)
-                    if raw_value in (None, "", "."):
+            joined = urllib.parse.quote(",".join(chunk), safe=",")
+            url = f"https://fred.stlouisfed.org/graph/fredgraph.csv?id={joined}"
+            # FRED 對部分 Python TLS/HTTP 連線會長時間無回應；優先嘗試 curl_cffi，若無則回退 urllib/requests
+            try:
+                from curl_cffi import requests as curl_requests
+                response = curl_requests.get(url, timeout=60, impersonate="chrome")
+                response.raise_for_status()
+            except Exception:
+                req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"})
+                with urllib.request.urlopen(req, timeout=60) as resp:
+                    raw_c = resp.read()
+                    class SimpleResponse:
+                        content = raw_c
+                        text = raw_c.decode("utf-8", errors="ignore")
+                        def raise_for_status(self): pass
+                    response = SimpleResponse()
+            if response.content.startswith(b"PK"):
+                with zipfile.ZipFile(io.BytesIO(response.content)) as archive:
+                    csv_texts = [archive.read(name).decode("utf-8") for name in archive.namelist() if name.endswith(".csv")]
+            else:
+                csv_texts = [response.text]
+            for csv_text in csv_texts:
+                for row in csv.DictReader(csv_text.splitlines()):
+                    date = row.get("observation_date")
+                    if not date:
                         continue
-                    try:
-                        observations[series_id].append((date, float(raw_value)))
-                    except (TypeError, ValueError):
-                        continue
-    except Exception as exc:
-        print(f"  FRED 官方序列讀取未果 (啟動快照保護): {exc}")
+                    for series_id in chunk:
+                        raw_value = row.get(series_id)
+                        if raw_value in (None, "", "."):
+                            continue
+                        try:
+                            observations[series_id].append((date, float(raw_value)))
+                        except (TypeError, ValueError):
+                            continue
+        except Exception as exc:
+            print(f"  FRED 官方序列讀取未果 ({','.join(chunk)}): {exc}")
     return observations
 
 
@@ -2576,6 +2579,11 @@ def main(output_file: str = None):
 
     # 8. 國發會景氣對策信號 (燈號與分數)
     ndc_data = fetch_ndc_lightscore()
+    if not (ndc_data and ndc_data.get("latest") and ndc_data.get("history")):
+        prev_ndc = existing_payload.get("ndc_indicators", {})
+        if prev_ndc.get("latest") and prev_ndc.get("history") and prev_ndc.get("source_url"):
+            ndc_data = prev_ndc
+            print("  -> 國發會來源暫時無法連線；保留上一份已驗證官方觀測")
 
     if ndc_data and ndc_data.get("latest") and ndc_data.get("history"):
         payload["ndc_indicators"] = ndc_data
