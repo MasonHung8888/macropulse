@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-28T04:50:35Z",
+  "updated_at": "2026-11-28T08:58:23Z",
   "as_of": "2026-11-25",
   "summary": {
     "stress_score": 51.7,
@@ -2355,10 +2355,10 @@
   },
   "news": [
     {
-      "title": "Strengthening the resilience and liquidity of the US Treasury market - Brookings",
-      "link": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0FteDN6REwzTU1UeHdTY3RXOHNJSE5kME5LSTJkTWpGZUV3X2FOV2VHdUxEMlJDZS0tM1F5Y042SURjdkRfalJHSE5IbVBWQm1ELXJxaXlSYkZJUU1QeUhUM0Ezc2RiZ1dQeHB1R0hEN3BPcjd2dW9JT1RDdDhnZGhBbnppZTFBVGthc3Atb1RaWDBYRE01NFFnLUpFS1h1eFpzaDl1MA?oc=5",
-      "published_at": "Wed, 25 Nov 2026 15:14:24 GMT",
-      "source": "Brookings",
+      "title": "Tracker: The Federal Reserve’s Balance Sheet Assets - The American Action Forum",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNR2NrRDdoQ1MwS0paZFliV01BelV0MS1tQkNMSEdJYmYweWctanpzZU5hMllmVUtjQWR2cXBPSVhFeFluSFlMbi1ZVTg1ZS1TYzRMam81MFlRbWxockRRN2RpeEk2OGhpYWVXUVpsX3lvcUx4QUFERERGQVdkeVRndHJNeExJTU9DLS1GRW9GTW0?oc=5",
+      "published_at": "Mon, 23 Nov 2026 08:00:00 GMT",
+      "source": "The American Action Forum",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true
@@ -2373,28 +2373,10 @@
       "auto_classified": true
     },
     {
-      "title": "Tracker: The Federal Reserve’s Balance Sheet Assets - The American Action Forum",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNR2NrRDdoQ1MwS0paZFliV01BelV0MS1tQkNMSEdJYmYweWctanpzZU5hMllmVUtjQWR2cXBPSVhFeFluSFlMbi1ZVTg1ZS1TYzRMam81MFlRbWxockRRN2RpeEk2OGhpYWVXUVpsX3lvcUx4QUFERERGQVdkeVRndHJNeExJTU9DLS1GRW9GTW0?oc=5",
-      "published_at": "Mon, 23 Nov 2026 08:00:00 GMT",
-      "source": "The American Action Forum",
-      "sentiment": "中性",
-      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
-      "auto_classified": true
-    },
-    {
-      "title": "The 10-Year Treasury Yield Just Did Something It Hasn’t Done Since 2007, and History Has a Blunt Message for Stock Investors - The Motley Fool",
-      "link": "https://news.google.com/rss/articles/CBMi-AFBVV95cUxPdU9UV1BKSzRaOHJZM3U2YzROMnRHZ1V2ZWc0Rl9WRUItZXk0TjBFQTJQZmJkaG5EdzFCNjRlN0s4ekxaMTNncC0yRE50RnUwS21PN2NLRzNwcjg5Sjg2UkVldUUyWGFWY0lwXzR1aHdrVk9pUW5fUEcxdnR1S1BKZG1pQnBrSFBELWdjVmRIYXhzdGVNc3ZJZUJmWTA4NGVzTV9FVEVzeDZodm0wakpNTFdwT2NHZTE1TzRQazZOSnpBb2o2ZV9tano5U1kzTWV0ZUVybTQyaHhBS3lfOG9OZGM1YVVOVFY1TGdZbE5BVG9JVVQ4ZFVUMw?oc=5",
-      "published_at": "Tue, 24 Nov 2026 17:23:01 GMT",
-      "source": "The Motley Fool",
-      "sentiment": "中性",
-      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
-      "auto_classified": true
-    },
-    {
-      "title": "Rate Hike Odds at 99.8%: The Real Reason US Tightening Is Crushing Global Stocks - BigGo Finance",
-      "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFAyWEhheGxTMzRmYVFLR282cG5OWUpUSXgwQmpfcWVTc3J5bDhCdjJzSzZMOUQ2Y21OTXBxaVJQaHU4UlZadFJfa09YdDFPUEc2Y2FoTVZTakJEMFgxenlfUWFLN0JubVpCS245c01KUFR0NldCakE?oc=5",
-      "published_at": "Thu, 26 Nov 2026 13:05:00 GMT",
-      "source": "BigGo Finance",
+      "title": "The 10-Year Treasury Yield Just Did Something It Hasn’t Done Since 2007, and History Has a Blunt Message for Stock Investors - Yahoo Finance",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPNnRNVUFYU09rSHMtZ2FWajM5eU1ZYnVIa2s5QjZ1bTUxdVU4aE1sWS1HNmdKQS1wLVFjdmtfMUlUV1Z6SXBLNUZIWXZ3SHpLRjRucXFhXzQtQ3lfSXdmVTdVT1NtcGtTN25NbTZfd2VuTk9sMFFGYnhOYXlueGIxTEZldTcteGozbFhtN2JVcEY1R191a1E?oc=5",
+      "published_at": "Tue, 24 Nov 2026 17:43:01 GMT",
+      "source": "Yahoo Finance",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true
@@ -2409,19 +2391,37 @@
       "auto_classified": true
     },
     {
-      "title": "30 Day Federal Funds Futures - CME Group",
-      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE0xc0wydHpWbWxwYU02RVo0YjVzN1NNallsRGdmV05fN2VXUkh1VHJZUXZYQnIzYUdaMDdyOGRpYUlnOTZtSWoxT1dXZkRSVnN3LUxZZmgyNW1tam96ZG9qZHZDTmxjbFM0eVZUNjhUTURtTDZSUVdncm5tLTRuZw?oc=5",
-      "published_at": "Mon, 23 Nov 2026 07:15:49 GMT",
-      "source": "CME Group",
+      "title": "The Era of Expensive Money: How Rising Capital Costs Are Reshaping Corporate Treasury - India Narrative",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxQTlI2akNNZmQxQkZtZmpnOFZzYVFyMWZLbFRNaFpxTHNxTTZoWGZRY1JucnppWHdtamJ5WWVGZl90ZkpIOEE4TTNiR3RGX1NuOEtGUWJ4cGNsRDczaWFYUkNUbm1hd180OTB1VkR5WGQ0VTUxcDByUHpEeEZBWlZMYW1ZQ0tTaTlYMUNUdm4xbVB3RTAwNUgxaEdaLXJTbHFoWFZQT2xDeUNYMjJRbjdVTXpkRmJqTmtZdVFQcUc5OXV1QQ?oc=5",
+      "published_at": "Sun, 22 Nov 2026 00:30:00 GMT",
+      "source": "India Narrative",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true
     },
     {
-      "title": "OCC Halves Stablecoin Liquidity Floor to 5% [2026] - shattered.io",
-      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQdS1xWFRDR0ctNXhLb2JjOWhXVjRZX2xQZjJXM3ZFbHhiZWVQTDJZSjFjQm5aVHV0NVVyY09Ma1N4Q0YzQVpRUy1zbmRxMUlSdDVXWDFBZE4xbzNFSHgtMlFScHlQOUs1bEk2TElRVnEwSllQUC1fakVWdTZDSGN1aGdFdlJOaDZXT1BXQjNIUTBHdw?oc=5",
-      "published_at": "Sun, 22 Nov 2026 15:54:25 GMT",
-      "source": "shattered.io",
+      "title": "J.P. Morgan's 2027 Outlook: A Year of Moderation — The AI Boom Meets the Reality of Higher Rates - The Dark Side Of The Boom",
+      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNTl9sS01HdnZ0ak5SOHJOWC1fZkdXX0VZLWFjVmt3TlBmc1BOX3lrWkpHTjRaRmJybzliak95aTBxVEtWNTlHRTZvSVRNelZJUk00R3Q1eGtNamM0SGo4cGdZdEdGY19pWjNLTVBkcWduRHlJUi1xbTdLcVB1U2JVSDhQNA?oc=5",
+      "published_at": "Wed, 25 Nov 2026 15:30:56 GMT",
+      "source": "The Dark Side Of The Boom",
+      "sentiment": "中性",
+      "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
+      "auto_classified": true
+    },
+    {
+      "title": "What Is the NFCI? Why Bitcoin Can Rally Even When Interest Rates for BINANCE:BTCUSDT by forexcitypro_leemeenal - TradingView",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQVldGTXpadzEzMFEySUdpcXJjTmJLY1J6M1MxSWF3MFJxVW1CbmNUV1YxYXVVY19kUWdEOVFST1Z1dmVOd01USTZqX0luZk1ocHJMcm9SSEYyRktycGFWR1ktbFJZN1drR1BqM1YwUkhHcS1JbUw4STd6b3gzMnhGVzlMc2xuWHNjR1A4STA3YTYyRjhyMEFRZ1RsQ2RJUTJzdldaU2o5YWUzd2dyX2JBQnZjVG54UQ?oc=5",
+      "published_at": "Tue, 24 Nov 2026 12:49:25 GMT",
+      "source": "TradingView",
+      "sentiment": "利多",
+      "reason": "自動初判：標題出現殖利率回落或買盤支撐訊號（rally），有利債市估值。",
+      "auto_classified": true
+    },
+    {
+      "title": "TCW MetWest Ultra Short Bond Fund Q3 2026 Commentary (MWUIX) - Seeking Alpha",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNMkVVOS1kbXpYaXZkZEpMNjhVbnQ5WlRzUUQ0aEoxSmZqLVcyYUVva1dqWnIxb3daaTdMVmNKNG1XY1RuUlVlS1B4OGxlWDdmUmNpcEx6WHNyT1RmaXpMSnJJTTc5ZkFJRWc5QWtrOEM1TmhOUzV2UzdCSk5ON0RkT2d4SFVWckF5dTE4QWIzaVFfaWZERzZmcU9mclhvT2R5NVFEMDhZd293d2RFNnlyaGVB?oc=5",
+      "published_at": "Fri, 27 Nov 2026 06:45:00 GMT",
+      "source": "Seeking Alpha",
       "sentiment": "中性",
       "reason": "自動初判：屬市場評論或雙向消息，暫無單邊壓力訊號。",
       "auto_classified": true
