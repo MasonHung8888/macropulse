@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-27T21:56:29Z",
+  "updated_at": "2026-11-28T04:02:43Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -474,8 +474,8 @@
       "cap": 7768130888.0,
       "price": 165.5,
       "d1": -0.6,
-      "w1": 1.85,
-      "ytd": 30.23,
+      "w1": null,
+      "ytd": null,
       "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
@@ -515,7 +515,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "NVDA",
       "name": "Nvidia Corp",
-      "cap": 27229729163.95,
+      "cap": 27954963224.41,
       "price": 150.49,
       "d1": 0.8,
       "w1": 3.09,
@@ -528,7 +528,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "AAPL",
       "name": "Apple Inc",
-      "cap": 7744274158.37,
+      "cap": 8133085699.83,
       "price": 358.54,
       "d1": 0.83,
       "w1": 2.67,
@@ -541,7 +541,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "MSFT",
       "name": "Microsoft Corp",
-      "cap": 6123125105.03,
+      "cap": 6155400866.23,
       "price": 492.85,
       "d1": 0.6,
       "w1": -1.09,
@@ -554,7 +554,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "AVGO",
       "name": "Broadcom Inc",
-      "cap": 5324088545.32,
+      "cap": 5338515217.41,
       "price": 312.34,
       "d1": 3.82,
       "w1": -9.9,
@@ -567,7 +567,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "MU",
       "name": "Micron Tech",
-      "cap": 17174613674.61,
+      "cap": 17406125383.43,
       "price": 646.95,
       "d1": 7.6,
       "w1": -6.3,
@@ -580,7 +580,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "AMD",
       "name": "Advanced Micro Devices",
-      "cap": 9404468855.81,
+      "cap": 9479638758.8,
       "price": 424.54,
       "d1": 4.56,
       "w1": -13.22,
@@ -593,7 +593,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "INTC",
       "name": "Intel Corp",
-      "cap": 4374246672.68,
+      "cap": 4395353456.84,
       "price": 57.4,
       "d1": 5.38,
       "w1": 3.02,
@@ -606,7 +606,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "QCOM",
       "name": "Qualcomm Inc",
-      "cap": 1748360654.76,
+      "cap": 1751055620.73,
       "price": 179.27,
       "d1": 6.29,
       "w1": 10.65,
@@ -619,7 +619,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "CRM",
       "name": "Salesforce Inc",
-      "cap": 497238542.29,
+      "cap": 498557629.89,
       "price": 198.21,
       "d1": 0.51,
       "w1": 8.13,
@@ -632,7 +632,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "ORCL",
       "name": "Oracle Corp",
-      "cap": 1564437561.99,
+      "cap": 1661436275.4,
       "price": 107.13,
       "d1": 3.13,
       "w1": -3.11,
@@ -645,7 +645,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "PLTR",
       "name": "Palantir Tech",
-      "cap": 2580414548.05,
+      "cap": 2591933237.43,
       "price": 172.17,
       "d1": 5.24,
       "w1": 12.03,
@@ -658,7 +658,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "PANW",
       "name": "Palo Alto Networks",
-      "cap": 1949942307.88,
+      "cap": 1954977556.05,
       "price": 366.76,
       "d1": 2.98,
       "w1": 1.39,
@@ -671,7 +671,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "CRWD",
       "name": "CrowdStrike",
-      "cap": 1937070371.18,
+      "cap": 1944635012.68,
       "price": 217.2,
       "d1": 3.77,
       "w1": -10.79,
@@ -684,7 +684,7 @@
       "sector": "TECHNOLOGY",
       "ticker": "AMAT",
       "name": "Applied Materials",
-      "cap": 1534291348.23,
+      "cap": 1599250682.43,
       "price": 322.04,
       "d1": 3.49,
       "w1": -4.98,
@@ -697,7 +697,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "GOOGL",
       "name": "Alphabet Inc",
-      "cap": 6137065765.28,
+      "cap": 6220419886.69,
       "price": 274.96,
       "d1": 0.68,
       "w1": 0.84,
@@ -710,7 +710,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "META",
       "name": "Meta Platforms",
-      "cap": 6973315614.33,
+      "cap": 7008816004.85,
       "price": 628.96,
       "d1": 3.13,
       "w1": 5.49,
@@ -723,7 +723,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "NFLX",
       "name": "Netflix Inc",
-      "cap": 1315104352.67,
+      "cap": 1321005057.62,
       "price": 60.93,
       "d1": 2.56,
       "w1": 4.23,
@@ -736,7 +736,7 @@
       "sector": "COMMUNICATION SERVICES",
       "ticker": "DIS",
       "name": "Walt Disney Co",
-      "cap": 875259769.71,
+      "cap": 881582325.2,
       "price": 127.24,
       "d1": 1.31,
       "w1": 5.81,
@@ -749,7 +749,7 @@
       "sector": "FINANCIAL",
       "ticker": "BRK-B",
       "name": "Berkshire Hathaway",
-      "cap": 1400928733.11,
+      "cap": 1442914621.41,
       "price": 580.79,
       "d1": 0.25,
       "w1": 1.53,
@@ -762,7 +762,7 @@
       "sector": "FINANCIAL",
       "ticker": "JPM",
       "name": "JPMorgan Chase",
-      "cap": 1135110065.65,
+      "cap": 1143342961.75,
       "price": 322.96,
       "d1": 1.96,
       "w1": 0.86,
@@ -775,7 +775,7 @@
       "sector": "FINANCIAL",
       "ticker": "V",
       "name": "Visa Inc",
-      "cap": 1582429871.85,
+      "cap": 1584861610.99,
       "price": 429.56,
       "d1": 1.22,
       "w1": 6.79,
@@ -788,7 +788,7 @@
       "sector": "FINANCIAL",
       "ticker": "MA",
       "name": "Mastercard Inc",
-      "cap": 1107917972.66,
+      "cap": 1112756100.66,
       "price": 666.96,
       "d1": 1.06,
       "w1": 6.46,
@@ -801,7 +801,7 @@
       "sector": "FINANCIAL",
       "ticker": "BAC",
       "name": "Bank of America",
-      "cap": 800601187.46,
+      "cap": 955466499.06,
       "price": 49.07,
       "d1": 1.09,
       "w1": 1.03,
@@ -814,7 +814,7 @@
       "sector": "FINANCIAL",
       "ticker": "GS",
       "name": "Goldman Sachs",
-      "cap": 992027354.91,
+      "cap": 995115448.02,
       "price": 812.87,
       "d1": 1.48,
       "w1": -4.09,
@@ -827,7 +827,7 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "AMZN",
       "name": "Amazon.com Inc",
-      "cap": 6899095615.6,
+      "cap": 6928098838.88,
       "price": 254.12,
       "d1": 3.96,
       "w1": -1.26,
@@ -840,7 +840,7 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "TSLA",
       "name": "Tesla Inc",
-      "cap": 10281182000.0,
+      "cap": 10653840000.0,
       "price": 400.0,
       "d1": 5.22,
       "w1": 6.83,
@@ -853,7 +853,7 @@
       "sector": "CONSUMER CYCLICAL",
       "ticker": "HD",
       "name": "Home Depot",
-      "cap": 855413133.73,
+      "cap": 1156924370.5,
       "price": 362.15,
       "d1": 0.25,
       "w1": 7.57,
@@ -866,7 +866,7 @@
       "sector": "HEALTHCARE",
       "ticker": "LLY",
       "name": "Eli Lilly & Co",
-      "cap": 2146506939.33,
+      "cap": 2452538140.6,
       "price": 1392.38,
       "d1": 0.01,
       "w1": 3.05,
@@ -879,7 +879,7 @@
       "sector": "HEALTHCARE",
       "ticker": "JNJ",
       "name": "Johnson & Johnson",
-      "cap": 842258620.24,
+      "cap": 901193241.94,
       "price": 275.51,
       "d1": 0.57,
       "w1": 3.65,
@@ -892,7 +892,7 @@
       "sector": "HEALTHCARE",
       "ticker": "UNH",
       "name": "UnitedHealth Group",
-      "cap": 1050872991.22,
+      "cap": 1073241292.18,
       "price": 351.41,
       "d1": 1.51,
       "w1": 6.33,
@@ -905,7 +905,7 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "WMT",
       "name": "Walmart Inc",
-      "cap": 1380709386.32,
+      "cap": 1448414514.12,
       "price": 133.13,
       "d1": 0.9,
       "w1": 5.63,
@@ -918,7 +918,7 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "COST",
       "name": "Costco Wholesale",
-      "cap": 1496126286.53,
+      "cap": 1500706350.1,
       "price": 1097.81,
       "d1": 1.01,
       "w1": 3.18,
@@ -931,7 +931,7 @@
       "sector": "CONSUMER DEFENSIVE",
       "ticker": "KO",
       "name": "Coca-Cola Co",
-      "cap": 896227672.44,
+      "cap": 907290754.21,
       "price": 97.4,
       "d1": -0.19,
       "w1": 1.36,
@@ -944,7 +944,7 @@
       "sector": "INDUSTRIALS",
       "ticker": "GE",
       "name": "GE Aerospace",
-      "cap": 494770734.55,
+      "cap": 514351935.88,
       "price": 323.94,
       "d1": 2.2,
       "w1": 1.59,
@@ -957,7 +957,7 @@
       "sector": "INDUSTRIALS",
       "ticker": "CAT",
       "name": "Caterpillar Inc",
-      "cap": 1128391834.94,
+      "cap": 1132243124.32,
       "price": 561.74,
       "d1": 3.32,
       "w1": 4.54,
@@ -970,7 +970,7 @@
       "sector": "ENERGY",
       "ticker": "XOM",
       "name": "Exxon Mobil",
-      "cap": 1337275963.79,
+      "cap": 1356628429.97,
       "price": 160.18,
       "d1": 1.33,
       "w1": 0.79,
@@ -983,7 +983,7 @@
       "sector": "ENERGY",
       "ticker": "CVX",
       "name": "Chevron Corp",
-      "cap": 907693249.31,
+      "cap": 977227495.96,
       "price": 212.45,
       "d1": 0.71,
       "w1": 2.88,
@@ -1005,7 +1005,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "nasdaq": {
@@ -1016,7 +1016,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "taiex": {
@@ -1027,13 +1027,13 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "nikkei": {
-      "price": 57499.16,
-      "d1": 0.86,
-      "as_of": "2026-11-26",
+      "price": 58711.11,
+      "d1": 2.11,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
@@ -1045,7 +1045,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "wti": {
@@ -1056,7 +1056,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "copper": {
@@ -1074,7 +1074,7 @@
       "realtime": false,
       "validation": {
         "status": "valid",
-        "age_days": 0
+        "age_days": 1
       }
     },
     "vix9d": {
@@ -1113,23 +1113,23 @@
       "realtime": false
     },
     "vxn": {
-      "price": 38.53,
-      "d1": 5.79,
-      "as_of": "2026-11-25",
+      "price": 33.34,
+      "d1": -13.47,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "ovx": {
-      "price": 48.04,
-      "d1": -2.73,
-      "as_of": "2026-11-25",
+      "price": 45.86,
+      "d1": -4.54,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
     "gvz": {
-      "price": 35.84,
-      "d1": 6.54,
-      "as_of": "2026-11-25",
+      "price": 31.78,
+      "d1": -11.33,
+      "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
     },
@@ -1162,8 +1162,8 @@
       "realtime": false
     },
     "usdtwd": {
-      "price": 32.98,
-      "d1": -0.64,
+      "price": 32.92,
+      "d1": -0.82,
       "as_of": "2026-11-27",
       "source": "Yahoo Finance daily close (may be delayed)",
       "realtime": false
@@ -1176,8 +1176,8 @@
     "erp": -0.62,
     "fed_net_liquidity": 5.83,
     "sahm_rule": 0.0,
-    "spread_10y2y": 0.24,
-    "spread_10y3m": 0.51,
+    "spread_10y2y": 0.25,
+    "spread_10y3m": 0.59,
     "fed_funds_rate": 3.88,
     "fed_target_upper": 4.0,
     "fed_target_lower": 3.75,
@@ -1191,7 +1191,7 @@
     "us_total_market_cap": 71.74,
     "us_nominal_gdp": 33.06,
     "tips_10y_real": 2.73,
-    "breakeven_10y": 2.12,
+    "breakeven_10y": 2.15,
     "nominal_10y": 4.85,
     "real_rate_rating": "限制性緊縮 (估值重力)",
     "global_cb_total": 20.66,
@@ -1906,7 +1906,6 @@
       "name": "美債 10Y－2Y 利差 [FRED]",
       "unit": "%",
       "labels": [
-        "2026-10-22",
         "2026-10-23",
         "2026-10-26",
         "2026-10-27",
@@ -1929,10 +1928,10 @@
         "2026-11-20",
         "2026-11-23",
         "2026-11-24",
-        "2026-11-25"
+        "2026-11-25",
+        "2026-11-27"
       ],
       "data": [
-        0.31,
         0.31,
         0.32,
         0.29,
@@ -1955,11 +1954,12 @@
         0.29,
         0.29,
         0.28,
-        0.24
+        0.24,
+        0.25
       ],
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/T10Y2Y",
-      "as_of": "2026-11-25"
+      "as_of": "2026-11-27"
     },
     "wb_us_gdp_growth": {
       "name": "美國 實質 GDP 成長率 [World Bank]",
@@ -3302,7 +3302,7 @@
         2.31,
         2.36,
         2.34,
-        2.12
+        2.15
       ]
     },
     "globalCbAssets": {
@@ -3492,11 +3492,11 @@
     "EUR": 0.91266,
     "GBP": 0.76211,
     "JPY": 159.54,
-    "TWD": 32.95
+    "TWD": 32.98
   },
   "crypto": {
-    "btc_price": 59765,
-    "stablecoin_market_cap_b": 243.1
+    "btc_price": 60006,
+    "stablecoin_market_cap_b": 243.0
   },
   "macro_indicators": {
     "us_cpi_yoy": {
@@ -3512,7 +3512,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 57,
+        "age_days": 58,
         "freshness_limit_days": 150,
         "expected_range": [
           -10,
@@ -3533,7 +3533,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 57,
+        "age_days": 58,
         "freshness_limit_days": 150,
         "expected_range": [
           -10,
@@ -3554,7 +3554,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 57,
+        "age_days": 58,
         "freshness_limit_days": 150,
         "expected_range": [
           0,
@@ -3575,7 +3575,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 57,
+        "age_days": 58,
         "freshness_limit_days": 150,
         "expected_range": [
           -2,
@@ -3596,7 +3596,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 57,
+        "age_days": 58,
         "freshness_limit_days": 150,
         "expected_range": [
           -50,
@@ -3617,7 +3617,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 57,
+        "age_days": 58,
         "freshness_limit_days": 150,
         "expected_range": [
           -30,
@@ -3638,7 +3638,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 57,
+        "age_days": 58,
         "freshness_limit_days": 150,
         "expected_range": [
           -5000,
@@ -3659,7 +3659,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 2,
+        "age_days": 3,
         "freshness_limit_days": 14,
         "expected_range": [
           -5,
@@ -3680,7 +3680,7 @@
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 2,
+        "age_days": 3,
         "freshness_limit_days": 14,
         "expected_range": [
           -5,
@@ -3690,18 +3690,18 @@
     },
     "us_10y2y": {
       "label": "美債 10Y－2Y 利差",
-      "value": 0.24,
+      "value": 0.25,
       "unit": "%",
-      "period": "2026-11-25",
+      "period": "2026-11-27",
       "frequency": "daily",
-      "previous": 0.28,
+      "previous": 0.24,
       "source": "Federal Reserve Bank of St. Louis (FRED)",
       "source_url": "https://fred.stlouisfed.org/series/T10Y2Y",
       "series_id": "T10Y2Y",
       "evidence": "official_observation",
       "validation": {
         "status": "valid",
-        "age_days": 2,
+        "age_days": 1,
         "freshness_limit_days": 14,
         "expected_range": [
           -10,
@@ -3727,7 +3727,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               -30,
@@ -3748,7 +3748,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 1061,
+            "age_days": 1062,
             "freshness_limit_days": 1200,
             "expected_range": [
               -20,
@@ -3769,7 +3769,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               0,
@@ -3795,7 +3795,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               -30,
@@ -3816,7 +3816,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               -20,
@@ -3837,7 +3837,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               0,
@@ -3863,7 +3863,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               -30,
@@ -3884,7 +3884,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               -20,
@@ -3905,7 +3905,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               0,
@@ -3931,7 +3931,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               -30,
@@ -3952,7 +3952,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               -20,
@@ -3973,7 +3973,7 @@
           "evidence": "official_international_observation",
           "validation": {
             "status": "valid",
-            "age_days": 695,
+            "age_days": 696,
             "freshness_limit_days": 1200,
             "expected_range": [
               0,
@@ -4165,7 +4165,7 @@
   },
   "corporate_bonds": {
     "as_of": "2026-11-26",
-    "updated_at": "2026-11-27T21:57:16Z",
+    "updated_at": "2026-11-28T04:02:57Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4646,13 +4646,13 @@
         "currency": "USD",
         "identifier": "68389XDK8",
         "isin": "US68389XDK81",
-        "market_price": 83.76,
+        "market_price": 83.87,
         "market_yield": 8.26,
         "spread_bps": 352,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/oracle_corpdl-notes_202525-32-Bond-2032-us68389xdk81",
-        "quote_status": "價格 83.76 · BMN · 2026-11-27",
+        "quote_status": "價格 83.87 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4664,7 +4664,7 @@
             "date": "2026-11-27",
             "ytm": 8.26,
             "spread_bps": 352,
-            "price": 83.76
+            "price": 83.87
           }
         ],
         "terms_status": "verified",
@@ -4678,13 +4678,13 @@
         "currency": "USD",
         "identifier": "84615QAA1",
         "isin": "USU8531HAA87",
-        "market_price": 92.11,
+        "market_price": 92.2,
         "market_yield": 7.33,
         "spread_bps": 268,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/space_exploration_techs_corpdl-notes_202626-31_regs-Bond-2031-usu8531haa87",
-        "quote_status": "價格 92.11 · BMN · 2026-11-27",
+        "quote_status": "價格 92.20 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4696,7 +4696,7 @@
             "date": "2026-11-27",
             "ytm": 7.33,
             "spread_bps": 268,
-            "price": 92.11
+            "price": 92.2
           }
         ],
         "terms_status": "verified",
@@ -4710,13 +4710,13 @@
         "currency": "USD",
         "identifier": "11135FBY6",
         "isin": "US11135FBY60",
-        "market_price": 96.84,
+        "market_price": 96.9,
         "market_yield": 5.88,
         "spread_bps": 123,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/broadcom_incdl-notes_202424-31-Bond-2031-us11135fby60",
-        "quote_status": "價格 96.84 · BMN · 2026-11-27",
+        "quote_status": "價格 96.90 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4728,7 +4728,7 @@
             "date": "2026-11-27",
             "ytm": 5.88,
             "spread_bps": 123,
-            "price": 96.84
+            "price": 96.9
           }
         ],
         "terms_status": "verified",
@@ -4774,13 +4774,13 @@
         "currency": "USD",
         "identifier": "30303MAF9",
         "isin": "US30303MAF95",
-        "market_price": 96.24,
+        "market_price": 96.25,
         "market_yield": 5.51,
         "spread_bps": 86,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/meta_platforms_incdl-notes_202626-31-Bond-2031-us30303maf95",
-        "quote_status": "價格 96.24 · BMN · 2026-11-27",
+        "quote_status": "價格 96.25 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4792,7 +4792,7 @@
             "date": "2026-11-27",
             "ytm": 5.51,
             "spread_bps": 86,
-            "price": 96.24
+            "price": 96.25
           }
         ],
         "terms_status": "verified",
@@ -4806,13 +4806,13 @@
         "currency": "USD",
         "identifier": "02079KCQ8",
         "isin": "US02079KCQ85",
-        "market_price": 98.16,
+        "market_price": 98.15,
         "market_yield": 5.28,
         "spread_bps": 63,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/alphabet_incdl-notes_202626-31-Bond-2031-us02079kcq85",
-        "quote_status": "價格 98.16 · BMN · 2026-11-27",
+        "quote_status": "價格 98.15 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4824,7 +4824,7 @@
             "date": "2026-11-27",
             "ytm": 5.28,
             "spread_bps": 63,
-            "price": 98.16
+            "price": 98.15
           }
         ],
         "terms_status": "verified",
@@ -4838,13 +4838,13 @@
         "currency": "USD",
         "identifier": "594918DB7",
         "isin": "US594918DB72",
-        "market_price": 100.36,
+        "market_price": 100.38,
         "market_yield": 5.05,
         "spread_bps": 40,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/microsoft_corpdl-notes_202626-31-Bond-2031-us594918db72",
-        "quote_status": "價格 100.36 · BMN · 2026-11-27",
+        "quote_status": "價格 100.38 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4856,7 +4856,7 @@
             "date": "2026-11-27",
             "ytm": 5.05,
             "spread_bps": 40,
-            "price": 100.36
+            "price": 100.38
           }
         ],
         "terms_status": "verified",
@@ -4870,13 +4870,13 @@
         "currency": "USD",
         "identifier": "023135EC6",
         "isin": "US023135EC69",
-        "market_price": 97.54,
+        "market_price": 97.65,
         "market_yield": 5.34,
         "spread_bps": 69,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
-        "quote_status": "價格 97.54 · BMN · 2026-11-27",
+        "quote_status": "價格 97.65 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4888,7 +4888,7 @@
             "date": "2026-11-27",
             "ytm": 5.34,
             "spread_bps": 69,
-            "price": 97.54
+            "price": 97.65
           }
         ],
         "terms_status": "verified",
@@ -4961,7 +4961,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-27T21:58:02Z",
+    "validated_at": "2026-11-28T04:03:25Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -5577,16 +5577,16 @@
       "sahm_badge_class": "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
       "sahm_level": "safe",
       "unemployment_rate": 4.1,
-      "spread_10y2y": 0.24,
-      "spread_10y2y_date": "2026-11-25",
-      "spread_10y3m": 0.51,
+      "spread_10y2y": 0.25,
+      "spread_10y2y_date": "2026-11-27",
+      "spread_10y3m": 0.59,
       "us_10y": 4.85,
       "us_2y": 4.61,
       "curve_status": "倒掛解除·走向陡峭化 (Steepening)",
       "curve_badge_class": "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
       "curve_type": "steepening",
-      "curve_desc": "10Y-2Y 利差已修復至正值 (+0.24%)，10Y-3M 利差亦擴大至 +0.51%。殖利率曲線由倒掛進入陡峭化正常階段。",
-      "desc": "薩姆規則最新值為 0.00%（門檻 0.50% 未觸發），官方失業率維持在 4.1%；美債 10Y-2Y 利差處於「倒掛解除·走向陡峭化 (Steepening)」階段 (+0.24%)。依歷史量化經驗，倒掛解除至陡峭化過程常伴隨景氣週期轉換，需持續追蹤 10Y-3M 與信用利差。"
+      "curve_desc": "10Y-2Y 利差已修復至正值 (+0.25%)，10Y-3M 利差亦擴大至 +0.59%。殖利率曲線由倒掛進入陡峭化正常階段。",
+      "desc": "薩姆規則最新值為 0.00%（門檻 0.50% 未觸發），官方失業率維持在 4.1%；美債 10Y-2Y 利差處於「倒掛解除·走向陡峭化 (Steepening)」階段 (+0.25%)。依歷史量化經驗，倒掛解除至陡峭化過程常伴隨景氣週期轉換，需持續追蹤 10Y-3M 與信用利差。"
     },
     "history": [
       {
@@ -6268,14 +6268,14 @@
     "latest": {
       "real_yield": 2.73,
       "nominal_yield": 4.85,
-      "breakeven_inflation": 2.12,
-      "as_of": "2026-11-25",
+      "breakeven_inflation": 2.15,
+      "as_of": "2026-11-27",
       "rating": "限制性緊縮 (估值重力)",
       "rating_key": "restrictive",
       "color": "#ef4444",
       "prev_1m_real": 2.6,
       "prev_1y_real": 1.79,
-      "desc": "美國 10 年期 TIPS 實質利率最新讀數為 2.73%，處於「限制性緊縮 (估值重力)」區間；10 年期名目公債殖利率為 4.85%，市場隱含 10 年期平衡通膨率 (Breakeven Inflation) 為 2.12%。費雪方程式拆解顯示名目利率主要受高達 2.73% 的實質融資成本驅動，通膨預期緊貼 Fed 2% 長期目標，無風險實質報酬高達 2% 以上，對高本益比成長股形成嚴重折現壓力，資金傾向配置優質債券。"
+      "desc": "美國 10 年期 TIPS 實質利率最新讀數為 2.73%，處於「限制性緊縮 (估值重力)」區間；10 年期名目公債殖利率為 4.85%，市場隱含 10 年期平衡通膨率 (Breakeven Inflation) 為 2.15%。費雪方程式拆解顯示名目利率主要受高達 2.73% 的實質融資成本驅動，通膨預期緊貼 Fed 2% 長期目標，無風險實質報酬高達 2% 以上，對高本益比成長股形成嚴重折現壓力，資金傾向配置優質債券。"
     },
     "history_24m": {
       "labels": [
@@ -6380,12 +6380,11 @@
         2.31,
         2.36,
         2.34,
-        2.12
+        2.15
       ]
     },
     "history_30d": {
       "labels": [
-        "10/14",
         "10/15",
         "10/16",
         "10/19",
@@ -6414,10 +6413,10 @@
         "11/20",
         "11/23",
         "11/24",
-        "11/25"
+        "11/25",
+        "11/27"
       ],
       "real_yields": [
-        2.84,
         2.78,
         2.74,
         2.8,
@@ -6446,10 +6445,10 @@
         2.77,
         2.79,
         2.79,
+        2.73,
         2.73
       ],
       "nominal_yields": [
-        5.19,
         5.1,
         5.09,
         5.15,
@@ -6478,10 +6477,10 @@
         4.92,
         4.92,
         4.91,
+        4.85,
         4.85
       ],
       "breakeven_rates": [
-        2.35,
         2.32,
         2.35,
         2.35,
@@ -6510,7 +6509,8 @@
         2.15,
         2.13,
         2.12,
-        2.12
+        2.12,
+        2.15
       ]
     },
     "zones": [
@@ -6858,10 +6858,10 @@
         0.8,
         0.81,
         -0.03,
-        -0.0,
-        -0.35,
+        0.0,
+        -0.34,
         0.25,
-        -0.19
+        -0.2
       ],
       [
         0.8,
@@ -6869,7 +6869,7 @@
         0.94,
         -0.08,
         -0.18,
-        -0.52,
+        -0.51,
         0.18,
         -0.16
       ],
@@ -6894,7 +6894,7 @@
         0.4
       ],
       [
-        -0.0,
+        0.0,
         -0.18,
         -0.08,
         0.33,
@@ -6904,14 +6904,14 @@
         0.14
       ],
       [
-        -0.35,
-        -0.52,
+        -0.34,
+        -0.51,
         -0.55,
         -0.0,
         0.36,
         1.0,
-        -0.2,
-        0.19
+        -0.19,
+        0.2
       ],
       [
         0.25,
@@ -6919,17 +6919,17 @@
         0.11,
         -0.35,
         -0.56,
-        -0.2,
+        -0.19,
         1.0,
         -0.18
       ],
       [
-        -0.19,
+        -0.2,
         -0.16,
         -0.15,
         0.4,
         0.14,
-        0.19,
+        0.2,
         -0.18,
         1.0
       ]
@@ -7023,9 +7023,9 @@
         0.84,
         -0.16,
         -0.49,
-        -0.77,
+        -0.76,
         0.5,
-        -0.3
+        -0.31
       ],
       [
         0.86,
@@ -7033,7 +7033,7 @@
         0.95,
         -0.09,
         -0.63,
-        -0.71,
+        -0.7,
         0.36,
         -0.27
       ],
@@ -7053,7 +7053,7 @@
         0.12,
         1.0,
         0.08,
-        0.16,
+        0.17,
         -0.27,
         0.38
       ],
@@ -7063,19 +7063,19 @@
         -0.46,
         0.08,
         1.0,
-        0.48,
+        0.47,
         -0.68,
         -0.1
       ],
       [
-        -0.77,
-        -0.71,
+        -0.76,
+        -0.7,
         -0.72,
-        0.16,
-        0.48,
+        0.17,
+        0.47,
         1.0,
         -0.68,
-        0.41
+        0.42
       ],
       [
         0.5,
@@ -7088,12 +7088,12 @@
         -0.05
       ],
       [
-        -0.3,
+        -0.31,
         -0.27,
         -0.23,
         0.38,
         -0.1,
-        0.41,
+        0.42,
         -0.05,
         1.0
       ]
@@ -7105,7 +7105,7 @@
         0.91,
         0.71,
         0.49,
-        0.33,
+        0.34,
         -0.44,
         0.39
       ],
@@ -7115,7 +7115,7 @@
         0.96,
         0.72,
         0.43,
-        0.29,
+        0.3,
         -0.51,
         0.26
       ],
@@ -7145,16 +7145,16 @@
         0.29,
         0.75,
         1.0,
-        0.87,
+        0.86,
         -0.86,
         0.34
       ],
       [
-        0.33,
-        0.29,
+        0.34,
+        0.3,
         0.1,
         0.66,
-        0.87,
+        0.86,
         1.0,
         -0.8,
         0.48
@@ -7205,7 +7205,7 @@
         46128.47,
         47940.13,
         45211.83,
-        39151.81
+        39308.08
       ],
       "sp500": [
         5881.63,
@@ -7335,7 +7335,7 @@
         31.63,
         31.85,
         32.57,
-        32.98
+        32.92
       ],
       "gold": [
         2641.0,
