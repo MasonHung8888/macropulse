@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "updated_at": "2026-11-28T04:02:43Z",
+  "updated_at": "2026-11-28T04:49:33Z",
   "timezone": "UTC",
   "tw_m1b_m2": {
     "labels": [
@@ -474,8 +474,8 @@
       "cap": 7768130888.0,
       "price": 165.5,
       "d1": -0.6,
-      "w1": null,
-      "ytd": null,
+      "w1": 1.85,
+      "ytd": 30.23,
       "as_of": "2026-11-27",
       "size_basis": "TWSE daily traded value (TWD)",
       "source": "TWSE daily close; Yahoo Finance historical returns",
@@ -1186,9 +1186,9 @@
     "fedwatch_terminal_rate": 4.57,
     "fear_and_greed": 44.0,
     "fear_and_greed_rating": "恐慌",
-    "buffett_ratio": 217.0,
+    "buffett_ratio": 220.5,
     "buffett_rating": "顯著高估 (泡沫警戒)",
-    "us_total_market_cap": 71.74,
+    "us_total_market_cap": 72.9,
     "us_nominal_gdp": 33.06,
     "tips_10y_real": 2.73,
     "breakeven_10y": 2.15,
@@ -3190,7 +3190,7 @@
         232.3,
         230.0,
         228.4,
-        217.0
+        220.5
       ]
     },
     "tipsRealYield": {
@@ -3495,7 +3495,7 @@
     "TWD": 32.98
   },
   "crypto": {
-    "btc_price": 60006,
+    "btc_price": 59968,
     "stablecoin_market_cap_b": 243.0
   },
   "macro_indicators": {
@@ -4165,7 +4165,7 @@
   },
   "corporate_bonds": {
     "as_of": "2026-11-26",
-    "updated_at": "2026-11-28T04:02:57Z",
+    "updated_at": "2026-11-28T04:49:46Z",
     "frequency": "daily_business_day",
     "source": "ICE Data Indices, LLC via FRED",
     "source_url": "https://fred.stlouisfed.org/categories/32348",
@@ -4646,13 +4646,13 @@
         "currency": "USD",
         "identifier": "68389XDK8",
         "isin": "US68389XDK81",
-        "market_price": 83.87,
+        "market_price": 83.76,
         "market_yield": 8.26,
         "spread_bps": 352,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/oracle_corpdl-notes_202525-32-Bond-2032-us68389xdk81",
-        "quote_status": "價格 83.87 · BMN · 2026-11-27",
+        "quote_status": "價格 83.76 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4664,7 +4664,7 @@
             "date": "2026-11-27",
             "ytm": 8.26,
             "spread_bps": 352,
-            "price": 83.87
+            "price": 83.76
           }
         ],
         "terms_status": "verified",
@@ -4678,13 +4678,13 @@
         "currency": "USD",
         "identifier": "84615QAA1",
         "isin": "USU8531HAA87",
-        "market_price": 92.2,
+        "market_price": 92.11,
         "market_yield": 7.33,
         "spread_bps": 268,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/space_exploration_techs_corpdl-notes_202626-31_regs-Bond-2031-usu8531haa87",
-        "quote_status": "價格 92.20 · BMN · 2026-11-27",
+        "quote_status": "價格 92.11 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4696,7 +4696,7 @@
             "date": "2026-11-27",
             "ytm": 7.33,
             "spread_bps": 268,
-            "price": 92.2
+            "price": 92.11
           }
         ],
         "terms_status": "verified",
@@ -4710,13 +4710,13 @@
         "currency": "USD",
         "identifier": "11135FBY6",
         "isin": "US11135FBY60",
-        "market_price": 96.9,
+        "market_price": 96.84,
         "market_yield": 5.88,
         "spread_bps": 123,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/broadcom_incdl-notes_202424-31-Bond-2031-us11135fby60",
-        "quote_status": "價格 96.90 · BMN · 2026-11-27",
+        "quote_status": "價格 96.84 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4728,7 +4728,7 @@
             "date": "2026-11-27",
             "ytm": 5.88,
             "spread_bps": 123,
-            "price": 96.9
+            "price": 96.84
           }
         ],
         "terms_status": "verified",
@@ -4774,13 +4774,13 @@
         "currency": "USD",
         "identifier": "30303MAF9",
         "isin": "US30303MAF95",
-        "market_price": 96.25,
+        "market_price": 96.24,
         "market_yield": 5.51,
         "spread_bps": 86,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/meta_platforms_incdl-notes_202626-31-Bond-2031-us30303maf95",
-        "quote_status": "價格 96.25 · BMN · 2026-11-27",
+        "quote_status": "價格 96.24 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4792,7 +4792,7 @@
             "date": "2026-11-27",
             "ytm": 5.51,
             "spread_bps": 86,
-            "price": 96.25
+            "price": 96.24
           }
         ],
         "terms_status": "verified",
@@ -4806,13 +4806,13 @@
         "currency": "USD",
         "identifier": "02079KCQ8",
         "isin": "US02079KCQ85",
-        "market_price": 98.15,
+        "market_price": 98.16,
         "market_yield": 5.28,
         "spread_bps": 63,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/alphabet_incdl-notes_202626-31-Bond-2031-us02079kcq85",
-        "quote_status": "價格 98.15 · BMN · 2026-11-27",
+        "quote_status": "價格 98.16 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4824,7 +4824,7 @@
             "date": "2026-11-27",
             "ytm": 5.28,
             "spread_bps": 63,
-            "price": 98.15
+            "price": 98.16
           }
         ],
         "terms_status": "verified",
@@ -4838,13 +4838,13 @@
         "currency": "USD",
         "identifier": "594918DB7",
         "isin": "US594918DB72",
-        "market_price": 100.38,
+        "market_price": 100.36,
         "market_yield": 5.05,
         "spread_bps": 40,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/microsoft_corpdl-notes_202626-31-Bond-2031-us594918db72",
-        "quote_status": "價格 100.38 · BMN · 2026-11-27",
+        "quote_status": "價格 100.36 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4856,7 +4856,7 @@
             "date": "2026-11-27",
             "ytm": 5.05,
             "spread_bps": 40,
-            "price": 100.38
+            "price": 100.36
           }
         ],
         "terms_status": "verified",
@@ -4870,13 +4870,13 @@
         "currency": "USD",
         "identifier": "023135EC6",
         "isin": "US023135EC69",
-        "market_price": 97.65,
+        "market_price": 97.54,
         "market_yield": 5.34,
         "spread_bps": 69,
         "quote_date": "2026-11-27",
         "quote_source": "Markets Insider (BMN)",
         "quote_url": "https://markets.businessinsider.com/bonds/amazoncom_incdl-notes_202626-31-Bond-2031-us023135ec69",
-        "quote_status": "價格 97.65 · BMN · 2026-11-27",
+        "quote_status": "價格 97.54 · BMN · 2026-11-27",
         "history": [
           {
             "date": "2026-11-26",
@@ -4888,7 +4888,7 @@
             "date": "2026-11-27",
             "ytm": 5.34,
             "spread_bps": 69,
-            "price": 97.65
+            "price": 97.54
           }
         ],
         "terms_status": "verified",
@@ -4961,7 +4961,7 @@
   },
   "data_quality": {
     "status": "valid",
-    "validated_at": "2026-11-28T04:03:25Z",
+    "validated_at": "2026-11-28T04:50:12Z",
     "errors": [],
     "warnings": [
       "市場價格為來源最新日線，不是券商即時報價",
@@ -6106,16 +6106,16 @@
   },
   "buffett_indicator": {
     "latest": {
-      "ratio": 217.0,
+      "ratio": 220.5,
       "rating": "顯著高估 (泡沫警戒)",
       "rating_key": "extreme_bubble",
       "color": "#ef4444",
       "as_of": "2026-11",
-      "market_cap_trillions": 71.74,
+      "market_cap_trillions": 72.9,
       "gdp_trillions": 33.06,
       "previous_1m": 228.4,
       "previous_1y": 217.2,
-      "desc": "巴菲特指標（美股市值 / GDP 比率）最新讀數為 217.0%，處於「顯著高估 (泡沫警戒)」區間。目前美股 Wilshire 5000 總市值約 $71.74 兆美元，對比美國名目 GDP $33.06 兆美元。歷史上該指標高於 140% 即進入顯著高估，當前比率 相較一年前 (217.2%) 收斂了 0.2 個百分點，顯示受大型科技巨頭估值拉升影響，整體美股相對於實體經濟規模仍處於極端擴張期。",
+      "desc": "巴菲特指標（美股市值 / GDP 比率）最新讀數為 220.5%，處於「顯著高估 (泡沫警戒)」區間。目前美股 Wilshire 5000 總市值約 $72.90 兆美元，對比美國名目 GDP $33.06 兆美元。歷史上該指標高於 140% 即進入顯著高估，當前比率 相較一年前 (217.2%) 擴張了 +3.3 個百分點，顯示受大型科技巨頭估值拉升影響，整體美股相對於實體經濟規模仍處於極端擴張期。",
       "historical_avg": 125.0
     },
     "history_24m": {
@@ -6169,7 +6169,7 @@
         232.3,
         230.0,
         228.4,
-        217.0
+        220.5
       ],
       "mcaps": [
         58.97,
@@ -6195,7 +6195,7 @@
         76.8,
         76.04,
         75.52,
-        71.74
+        72.9
       ],
       "gdps": [
         29.93,
